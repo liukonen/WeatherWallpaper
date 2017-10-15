@@ -217,7 +217,7 @@ namespace WeatherDesktop
 
         private void UpdateSunRiseSetService(double WeatherLatitude, double WeatherLongitude)
         {
-            double lat = WeatherLatitude; double lng = WeatherLatitude;
+            double lat = WeatherLatitude; double lng = WeatherLongitude;
             if (lat == 0 && lng == 0 && !string.IsNullOrWhiteSpace(Interfaces.Shared.ReadSetting("Latitude")))
             {
                 lat = int.Parse(Interfaces.Shared.ReadSetting("Latitude"));

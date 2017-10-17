@@ -211,7 +211,7 @@ namespace WeatherDesktop
                 string dayimageCache = Interfaces.Shared.ReadSetting(cDay + ElementName);
                 string nightimagecache = Interfaces.Shared.ReadSetting(cNight + ElementName);
                 if (!string.IsNullOrEmpty(dayimageCache)) { g_ImageDictionary.Add(daykey, dayimageCache); }
-                if (!string.IsNullOrEmpty(nightimagecache)) { g_ImageDictionary.Add(nightKey, dayimageCache); }
+                if (!string.IsNullOrEmpty(nightimagecache)) { g_ImageDictionary.Add(nightKey, nightimagecache); }
             }
         }
 

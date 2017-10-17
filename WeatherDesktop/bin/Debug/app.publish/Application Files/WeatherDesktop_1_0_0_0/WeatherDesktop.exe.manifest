@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="WeatherDesktop.exe" version="1.0.0.0" publicKeyToken="085f0f85eb56c1c2" language="neutral" processorArchitecture="x86" type="win32" />
+  <description asmv2:iconFile="Martz90-Hex-Weather-2.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="WeatherDesktop" version="1.0.6497.25900" language="neutral" processorArchitecture="x86" />
+    <commandLine file="WeatherDesktop.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.exe" size="234408">
+      <assemblyIdentity name="WeatherDesktop" version="1.0.6497.25900" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>o2cMlvcevJsKmU31JtrQsTJKJV4=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Martz90-Hex-Weather-2.ico" size="174404">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>rTQf5dyv3Dlvm4ZcUHSwHJHSgSE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="WeatherDesktop.exe.config" size="171">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>daeobqda5WQdGjnfd5dJOIRxXDc=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=LUKE-LAPTOP\mfanz" issuerKeyHash="187576ee6906086ed1643cce6c14eb30d26e4df0" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>EVgQ0wPruPmt19GxXHi+jhnoadg=</DigestValue></Reference></SignedInfo><SignatureValue>VOxkSfH3CcXekPFumUBqh6LLP9Dmzav6J2KtyxWRxGd0LfzbGBCkeEbf2jmAZfprfSSkMLP2vQhewYYCbTawUKjunyhxrqTOoeexPeAvk4uabYMkR5Namzv4YzcpPgg65MRwE102wNkKkoG1Qet3x2Lnbp6arLZ/nwPgZT90RMk=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>uw8MIhsqi23AP6WRXhYymzNgPrbWorbF2H4rx90YNAMj25dVyyuSvtVqQhFlJLWCvJH4STd+Qgk2igWw6lMe/+XAr6/1AWOM7N6P/riTRULOstKwmQ9O6AGlSKsvvxyWWliDN1iZsK3+uhDlBiQWlHjd4QKqRwk4KWQn+Um5yx8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="d869e8198ebe785cb1d1d7adf9b8eb03d3105811" Description="" Url=""><as:assemblyIdentity name="WeatherDesktop.exe" version="1.0.0.0" publicKeyToken="085f0f85eb56c1c2" language="neutral" processorArchitecture="x86" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=LUKE-LAPTOP\mfanz</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>J+1yReftf6J17HDj2YvqqicX4io=</DigestValue></Reference></SignedInfo><SignatureValue>pKEAPBQPhvGQk+aEMA4Hsauh76LTGjo0VwXC5SaFhusNHMa2cplIwGYPfFfu/bJbcadZlQ5JYgfx4/JVxQg3Vmb9gwKoOK7TLNX7GDzUZkX9vFcQijwAo/el7XZ83qYb753sJL7apllZKCmB1B/KTTQRufe2QKYt1e/9fU0juXA=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>uw8MIhsqi23AP6WRXhYymzNgPrbWorbF2H4rx90YNAMj25dVyyuSvtVqQhFlJLWCvJH4STd+Qgk2igWw6lMe/+XAr6/1AWOM7N6P/riTRULOstKwmQ9O6AGlSKsvvxyWWliDN1iZsK3+uhDlBiQWlHjd4QKqRwk4KWQn+Um5yx8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB3TCCAUagAwIBAgIQQXh9RBQcs4ZH6Z/nQMSn7zANBgkqhkiG9w0BAQUFADAtMSswKQYDVQQDHiIATABVAEsARQAtAEwAQQBQAFQATwBQAFwAbQBmAGEAbgB6MB4XDTE3MTAxNTE5MjMxOVoXDTE4MTAxNjAxMjMxOVowLTErMCkGA1UEAx4iAEwAVQBLAEUALQBMAEEAUABUAE8AUABcAG0AZgBhAG4AejCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAuw8MIhsqi23AP6WRXhYymzNgPrbWorbF2H4rx90YNAMj25dVyyuSvtVqQhFlJLWCvJH4STd+Qgk2igWw6lMe/+XAr6/1AWOM7N6P/riTRULOstKwmQ9O6AGlSKsvvxyWWliDN1iZsK3+uhDlBiQWlHjd4QKqRwk4KWQn+Um5yx8CAwEAATANBgkqhkiG9w0BAQUFAAOBgQCNyJCOMdv5ldUDfeBjEMXr/bz9dETh+pnEVN/6//P1tyMzGnJHWa+cflMnFJgahkIplv0pL6gsX7Bnq5TwOhCYnW/mEPpsrtCMe7qZ7/mE8M7FAjNAHVV1I0aGZO+jhMsP1DFmdgsuJ071+OMLzRQQLW2zzOrMu71iid0CzP+M4Q==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

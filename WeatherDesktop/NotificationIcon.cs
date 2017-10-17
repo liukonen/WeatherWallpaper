@@ -149,7 +149,9 @@ namespace WeatherDesktop
             var weather = g_Weather.Invoke();
             var sunriseSet = g_SunRiseSet.Invoke();
             string currentTime;
-            if (sunriseSet.SunSet > DateTime.Now && DateTime.Now > sunriseSet.SunRise) { currentTime = cDay; } else { currentTime = cNight; }
+
+            if(Interfaces.Shared.BetweenTimespans(DateTime.Now.TimeOfDay, sunriseSet.SunRise.TimeOfDay, sunriseSet.SunSet.TimeOfDay)){ currentTime = cDay; } else { currentTime = cNight; }
+
             string weatherType = Enum.GetName(typeof(Interfaces.Shared.WeatherTypes), weather.WType);
             notifyIcon.Text = weatherType + " " + weather.Temp.ToString();
             string currentWeatherType = currentTime + weatherType;

@@ -56,5 +56,10 @@ namespace WeatherDesktop.Interfaces
                 return string.Empty;
             }
         }
+
+        public static bool BetweenTimespans(TimeSpan test, TimeSpan LowerValue, TimeSpan Highervalue)
+        {
+            return (LowerValue < test && test > Highervalue);
+        }
     }
 }

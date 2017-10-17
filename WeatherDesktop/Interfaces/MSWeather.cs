@@ -10,7 +10,7 @@ namespace WeatherDesktop.Interfaces
     /// <summary>
     /// Description of MSWeather.
     /// </summary>
-    public class MSWeather
+    public class MSWeather 
     {
         #region Constants
         const string url = "http://weather.service.msn.com/data.aspx?weasearchstr={0}&culture=en-US&weadegreetype=F&src=outlook";
@@ -37,7 +37,7 @@ namespace WeatherDesktop.Interfaces
         #endregion
 
         #region invoke
-        public WeatherResponse Invoke()
+        public WeatherResponse  Invoke()
         {
             if (!HasBeenCalled || DateTime.Now > _lastCall.AddMinutes(_cacheTimeout))
             {

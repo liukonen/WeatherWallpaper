@@ -62,4 +62,13 @@ namespace WeatherDesktop.Interfaces
             return (LowerValue < test && test > Highervalue);
         }
     }
+
+
+public abstract class SharedExternalinterface
+    {
+
+        public abstract SharedResponse Invoke();
+
+
+    }
 }

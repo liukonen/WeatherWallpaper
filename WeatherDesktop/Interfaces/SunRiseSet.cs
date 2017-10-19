@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WeatherDesktop.Interfaces
 {
-    public class SunRiseSet
+    public class SunRiseSet: SharedExternalinterface
     {
         #region Constants
         const string _path = "https://api.sunrise-sunset.org/json?lat={0}&lng={1}&date=today&formatted=0";
@@ -44,7 +44,7 @@ namespace WeatherDesktop.Interfaces
         #endregion
 
         #region invoke
-        public SunRiseSetResponse Invoke()
+        public override SharedResponse Invoke()
         {
             if (_firstCall) { _firstCall = false; _cache = LiveCall(_lat, _long); HasUpdatedToday = true; }
 

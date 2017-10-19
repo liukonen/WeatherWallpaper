@@ -2,7 +2,7 @@
 
 namespace WeatherDesktop.Interfaces
 {
-    public class SunRiseSetResponse 
+    public class SunRiseSetResponse :SharedResponse
     {
         public DateTime SunRise;
         public DateTime SunSet;

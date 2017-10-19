@@ -136,7 +136,7 @@ namespace WeatherDesktop
 
         private void MenuExitClick(object sender, EventArgs e){Application.Exit();}
 
-        private void IconDoubleClick(object sender, EventArgs e){MessageBox.Show(g_Weather.Invoke().ForcastDescription);}
+        private void IconDoubleClick(object sender, EventArgs e){MessageBox.Show(((Interfaces.WeatherResponse)((Interfaces.MSWeather)g_Weather).Invoke()).ForcastDescription);}
 
         private void OnTimedEvent(object sender, EventArgs e){UpdateScreen(false);}
 
@@ -146,11 +146,12 @@ namespace WeatherDesktop
 
         private void UpdateScreen(Boolean overrideImage)
         {
-            var weather = g_Weather.Invoke();
+            var weather = (Interfaces.WeatherResponse)g_Weather.Invoke();
             var sunriseSet = g_SunRiseSet.Invoke();
             string currentTime;
 
-            if(Interfaces.Shared.BetweenTimespans(DateTime.Now.TimeOfDay, sunriseSet.SunRise.TimeOfDay, sunriseSet.SunSet.TimeOfDay)){ currentTime = cDay; } else { currentTime = cNight; }
+            if(Interfaces.Shared.BetweenTimespans(DateTime.Now.TimeOfDay, ((Interfaces.SunRiseSetResponse)sunriseSet).SunRise.TimeOfDay, ((Interfaces.SunRiseSetResponse)sunriseSet).SunSet.TimeOfDay)){ currentTime = cDay; } else { currentTime = cNight; }
+
 
             string weatherType = Enum.GetName(typeof(Interfaces.Shared.WeatherTypes), weather.WType);
             notifyIcon.Text = weatherType + " " + weather.Temp.ToString();

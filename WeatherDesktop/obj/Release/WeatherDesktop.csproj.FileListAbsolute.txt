@@ -4,3 +4,4 @@ C:\Users\mfanz\Source\Repos\WeatherWallpaper2\WeatherDesktop\obj\Release\Weather
 C:\Users\mfanz\Source\Repos\WeatherWallpaper2\WeatherDesktop\obj\Release\WeatherDesktop.csproj.GenerateResource.Cache
 C:\Users\mfanz\Source\Repos\WeatherWallpaper2\WeatherDesktop\obj\Release\WeatherDesktop.csproj.CoreCompileInputs.cache
 C:\Users\mfanz\Source\Repos\WeatherWallpaper2\WeatherDesktop\obj\Release\WeatherDesktop.exe
+C:\Users\mfanz\Source\Repos\WeatherWallpaper2\WeatherDesktop\obj\Release\WeatherDesktop.csprojResolveAssemblyReference.cache

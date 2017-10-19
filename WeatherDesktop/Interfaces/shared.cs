@@ -57,6 +57,21 @@ namespace WeatherDesktop.Interfaces
             }
         }
 
+        public static string CompileDebug(string objectName, System.Collections.Generic.Dictionary<string, string> ItemsTodisplay)
+        {
+            System.Text.StringBuilder SB = new System.Text.StringBuilder();
+            SB.Append(Environment.NewLine);
+            SB.Append(objectName);
+            SB.Append('-', objectName.Length);
+            foreach (var item in ItemsTodisplay)
+            {
+                SB.Append(item.Key).Append(": ").Append(item.Value).Append(Environment.NewLine);
+            }
+            SB.Append(Environment.NewLine);
+            return SB.ToString();
+
+        }
+
         public static bool BetweenTimespans(TimeSpan test, TimeSpan LowerValue, TimeSpan Highervalue)
         {
             return (LowerValue < test && test > Highervalue);
@@ -68,7 +83,7 @@ public abstract class SharedExternalinterface
     {
 
         public abstract SharedResponse Invoke();
-
+        public abstract string Debug();
 
     }
 }

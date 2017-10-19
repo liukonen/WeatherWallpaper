@@ -86,8 +86,9 @@ namespace WeatherDesktop
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            bool isFirstInstance = false;
             // Please use a unique name for the mutex to prevent conflicts with other programs
-            using (Mutex mtx = new Mutex(true, "WeatherDesktop", out bool isFirstInstance))
+            using (Mutex mtx = new Mutex(true, "WeatherDesktop", out isFirstInstance))
             {
                 if (isFirstInstance)
                 {

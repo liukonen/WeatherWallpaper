@@ -26,6 +26,7 @@ namespace WeatherDesktop.Interfaces
         private int _skycode;
         public double Latitude { get { return _latLong.Key; } }
         public double Longitude { get { return _latLong.Value; } }
+        private string _Status = "functional";
         #endregion
 
         #region New
@@ -41,10 +42,15 @@ namespace WeatherDesktop.Interfaces
         {
             if (!HasBeenCalled || DateTime.Now > _lastCall.AddMinutes(_cacheTimeout))
             {
-                 HasBeenCalled = true;
-                _lastCall = DateTime.Now;
-                _cacheValue = LiveCall(_zipcode, out _latLong, out int serviceTimeout, out _skycode);
-                if (serviceTimeout > _cacheTimeout) { _cacheTimeout = serviceTimeout; }
+                try
+                {
+                    int serviceTimeout;
+                    _cacheValue = LiveCall(_zipcode, out _latLong, out serviceTimeout, out _skycode);
+                    HasBeenCalled = true;
+                    _lastCall = DateTime.Now;
+                    if (serviceTimeout > _cacheTimeout) { _cacheTimeout = serviceTimeout; }
+                }
+                catch (Exception ex) { _Status = ex.Message; return _cacheValue; }
 
             }
             return _cacheValue;
@@ -61,6 +67,8 @@ namespace WeatherDesktop.Interfaces
             serviceTimeout = 0;
             System.Text.StringBuilder forcast = new System.Text.StringBuilder();
             skycode = 0;
+
+
             XmlReader reader = XmlReader.Create(new System.IO.StringReader(Shared.CompressedCallSite(string.Format(url, zipcode.ToString()))));
             while (reader.Read())
             {
@@ -196,15 +204,15 @@ namespace WeatherDesktop.Interfaces
         #endregion
 
         #region Debug values
-        public string Debug()
+        public override string Debug()
         {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append("--------").Append(Environment.NewLine).Append("Ms Weather").Append(Environment.NewLine).Append("---------").Append(Environment.NewLine);
-            sb.Append("skyKey = ").Append(_skycode);
-            sb.Append("LastUpdate = ").Append(_lastCall).Append(Environment.NewLine);
-            sb.Append("cache timeout = ").Append(_cacheTimeout).Append(Environment.NewLine);
-            sb.Append("LatLong ").Append(Latitude).Append(",").Append(Longitude).Append(Environment.NewLine).Append(Environment.NewLine).Append(Environment.NewLine);
-            return sb.ToString();
+            Dictionary<string, string> DebugValues = new Dictionary<string, string>();
+            DebugValues.Add("Skykey", _skycode.ToString());
+            DebugValues.Add("Last Updated", _lastCall.ToString());
+            DebugValues.Add("Cache timeout", _cacheTimeout.ToString());
+            DebugValues.Add("Latitude", _latLong.Key.ToString());
+            DebugValues.Add("Longitude", _latLong.Value.ToString());
+            return Shared.CompileDebug("MS Weather Service", DebugValues);
         }
         #endregion
     }

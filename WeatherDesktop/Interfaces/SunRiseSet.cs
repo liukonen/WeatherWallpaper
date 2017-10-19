@@ -111,14 +111,18 @@ namespace WeatherDesktop.Interfaces
         #endregion
 
         #region Debug values
-        public string Debug()
+        public override string Debug()
         {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append("--------").Append(Environment.NewLine).Append("SunRiseSet").Append("--------").Append(Environment.NewLine);
-            sb.Append("hour to update = ").Append(_HourToUpdate).Append(Environment.NewLine);
-            sb.Append("LastUpdate = ").Append(_LastUpdate.ToString()).Append(Environment.NewLine);
-            sb.Append("LatLong ").Append(_lat).Append(",").Append(_long).Append(Environment.NewLine).Append(Environment.NewLine).Append(Environment.NewLine);
-            return sb.ToString();
+            Dictionary<string, string> DebugValues = new Dictionary<string, string>();
+            DebugValues.Add("Houre to update", _HourToUpdate.ToString());
+            DebugValues.Add("Last update", _LastUpdate.ToString());
+            DebugValues.Add("Latitude", _lat.ToString());
+            DebugValues.Add("Longitude", _long.ToString());
+            DebugValues.Add("SunRise", _cache.SunRise.ToString());
+            DebugValues.Add("SunSet", _cache.SunSet.ToString());
+            DebugValues.Add("SolarNoon", _cache.SolarNoon.ToString());
+            DebugValues.Add("Status", _cache.Status);
+            return Shared.CompileDebug("SunRiseSet Service", DebugValues);
         }
         #endregion
     }

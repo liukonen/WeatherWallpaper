@@ -61,8 +61,8 @@ namespace WeatherDesktop.Interfaces
         {
             System.Text.StringBuilder SB = new System.Text.StringBuilder();
             SB.Append(Environment.NewLine);
-            SB.Append(objectName);
-            SB.Append('-', objectName.Length);
+            SB.Append(objectName).Append(Environment.NewLine);
+            SB.Append('-', objectName.Length).Append(Environment.NewLine);
             foreach (var item in ItemsTodisplay)
             {
                 SB.Append(item.Key).Append(": ").Append(item.Value).Append(Environment.NewLine);
@@ -74,7 +74,7 @@ namespace WeatherDesktop.Interfaces
 
         public static bool BetweenTimespans(TimeSpan test, TimeSpan LowerValue, TimeSpan Highervalue)
         {
-            return (LowerValue < test && test > Highervalue);
+            return (LowerValue < test && test < Highervalue);
         }
     }
 

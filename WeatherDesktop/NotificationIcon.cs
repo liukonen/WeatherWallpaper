@@ -132,7 +132,10 @@ namespace WeatherDesktop
 
         private void MenuAboutClick(object sender, EventArgs e)
         {
-            MessageBox.Show("weather desktop, by Luke Liukonen, 2017" + Environment.NewLine + g_Weather.Debug() + g_SunRiseSet.Debug());
+            Dictionary<string, string> debugValues = new Dictionary<string, string>();
+            debugValues.Add("Weather Notifcation Type", g_CurrentWeatherType);
+            
+            MessageBox.Show("weather desktop, by Luke Liukonen, 2017" + Environment.NewLine + Interfaces.Shared.CompileDebug("Main Values", debugValues)  + g_Weather.Debug() + g_SunRiseSet.Debug());
         }
 
         private void MenuExitClick(object sender, EventArgs e){Application.Exit();}

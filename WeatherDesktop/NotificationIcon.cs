@@ -40,7 +40,7 @@ namespace WeatherDesktop
             notificationMenu = new ContextMenu(InitializeMenu());
             notifyIcon.DoubleClick += IconDoubleClick;
             ComponentResourceManager resources = new ComponentResourceManager(typeof(NotificationIcon));
-            notifyIcon.Icon = (Icon)resources.GetObject("$this.Icon");
+            notifyIcon.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             notifyIcon.ContextMenu = notificationMenu;
         }
 

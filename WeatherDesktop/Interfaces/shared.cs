@@ -43,6 +43,28 @@ namespace WeatherDesktop.Interfaces
             }
         }
 
+        public static string ReadSettingEncrypted(string key)
+        {
+            byte[] entropy = new byte[0]; byte[] decryptedData = new byte[0];
+
+            try
+            {
+                entropy = System.Text.Encoding.Unicode.GetBytes(key);// entropy only adds additional complexity. could use null
+                string EncryptedString = ReadSetting(key);
+                decryptedData = System.Security.Cryptography.ProtectedData.Unprotect(Convert.FromBase64String(EncryptedString), entropy, System.Security.Cryptography.DataProtectionScope.LocalMachine);
+                return System.Text.Encoding.Unicode.GetString(decryptedData);
+            }
+            catch { return string.Empty; }
+            finally
+            {
+                Array.Clear(entropy, 0, entropy.Length);
+                Array.Clear(decryptedData, 0, decryptedData.Length);
+                entropy = new byte[0];
+                decryptedData = new byte[0];
+            }
+           
+        }
+
         public static string ReadSetting(string key)
         {
             try
@@ -56,6 +78,20 @@ namespace WeatherDesktop.Interfaces
                 return string.Empty;
             }
         }
+
+        public static void AddupdateAppSettingsEncrypted(string key, string value)
+        {
+            try
+            {
+                byte[] entropy = System.Text.Encoding.Unicode.GetBytes(key);// entropy only adds additional complexity. could use null
+                var Encrypted = System.Security.Cryptography.ProtectedData.Protect(System.Text.Encoding.Unicode.GetBytes(value), entropy, System.Security.Cryptography.DataProtectionScope.LocalMachine);
+                AddUpdateAppSettings(key, Convert.ToBase64String(Encrypted));
+            }
+            catch (Exception x)
+            { MessageBox.Show(x.Message, "error writing to Config file"); }
+        }
+
+
 
         public static string CompileDebug(string objectName, System.Collections.Generic.Dictionary<string, string> ItemsTodisplay)
         {

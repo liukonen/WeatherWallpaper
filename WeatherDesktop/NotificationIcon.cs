@@ -185,13 +185,13 @@ namespace WeatherDesktop
         {
             const string cZip = "zipcode";
             int zip = 0;
-            string zipcode = Interfaces.Shared.ReadSetting(cZip);
+            string zipcode = Interfaces.Shared.ReadSettingEncrypted(cZip);
             if (string.IsNullOrWhiteSpace(zipcode))
             {
                 try
                 {
                     zip = int.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please enter your zipcode", "Zip Code"));
-                    Interfaces.Shared.AddUpdateAppSettings(cZip, zip.ToString());
+                    Interfaces.Shared.AddupdateAppSettingsEncrypted(cZip, zip.ToString());
                     zipcode = zip.ToString();
                 }
                 catch (Exception x) { MessageBox.Show("an error occured. please restart..." + x.ToString()); Application.Exit(); }

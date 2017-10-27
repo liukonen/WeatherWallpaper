@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace WeatherDesktop.Interfaces
 {
@@ -20,8 +21,29 @@ namespace WeatherDesktop.Interfaces
         Boolean _firstCall = true;
         #endregion
 
-        #region New
-        public SunRiseSet()
+        public override MenuItem[] SettingsItems()
+        {
+            List<MenuItem> returnValue = new List<MenuItem>();
+            returnValue.Add(new MenuItem("Hour To Update", ChangehourToUpdate));
+            return returnValue.ToArray();
+        }
+
+        private void ChangehourToUpdate(object sender, EventArgs e)
+        {
+            int current;
+            try { current = int.Parse(Interfaces.Shared.ReadSetting("HourUpdate")); }
+            catch { current = 6; }
+            
+            try
+            {
+                string attempt;
+                attempt = Microsoft.VisualBasic.Interaction.InputBox("Enter the hour you want to update the call to get sun rise, set info", "Hour update", current.ToString());
+                Interfaces.Shared.AddUpdateAppSettings("Hourupdate", int.Parse(attempt).ToString());
+            }
+            catch { MessageBox.Show("Could not update, please try again"); }
+        }
+            #region New
+            public SunRiseSet()
         {
             KeyValuePair<double, double> latlong = GetLocationProperty();
             _lat = latlong.Key;

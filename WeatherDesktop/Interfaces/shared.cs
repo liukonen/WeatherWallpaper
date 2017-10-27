@@ -120,6 +120,8 @@ public abstract class SharedExternalinterface
 
         public abstract SharedResponse Invoke();
         public abstract string Debug();
+        public abstract MenuItem[] SettingsItems();
+
 
     }
 }

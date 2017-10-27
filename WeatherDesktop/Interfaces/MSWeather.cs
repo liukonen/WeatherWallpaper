@@ -4,6 +4,7 @@ API I found online for Outlook weather (msn).
 using System;
 using System.Xml;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace WeatherDesktop.Interfaces
 {
@@ -15,6 +16,15 @@ namespace WeatherDesktop.Interfaces
         #region Constants
         const string url = "http://weather.service.msn.com/data.aspx?weasearchstr={0}&culture=en-US&weadegreetype=F&src=outlook";
         #endregion
+
+
+        public override MenuItem[] SettingsItems()
+        {
+            List<MenuItem> returnValue = new List<MenuItem>();
+            returnValue.Add(new MenuItem("Update Zipcode", ChangeZipClick));
+            //returnValue.Add(new MenuItem("Hour To Update", ChangehourToUpdate));
+            return returnValue.ToArray();
+        }
 
         #region Globals
         private int _zipcode;
@@ -33,6 +43,23 @@ namespace WeatherDesktop.Interfaces
         public MSWeather(int zipcode)
         {
             _zipcode = zipcode;
+            Invoke();
+        }
+
+        public MSWeather()
+        {
+            int zip = 0;
+            string zipcode = Interfaces.Shared.ReadSettingEncrypted(cZip);
+            if (string.IsNullOrWhiteSpace(zipcode))
+            {
+                try
+                {
+                    zip = ChangeZip(string.Empty);
+                }
+                catch (Exception x) { MessageBox.Show("an error occured. please restart..." + x.ToString()); Application.Exit(); }
+            }
+            else { zip = int.Parse(zipcode); }
+            _zipcode = zip;
             Invoke();
         }
         #endregion
@@ -215,8 +242,31 @@ namespace WeatherDesktop.Interfaces
             return Shared.CompileDebug("MS Weather Service", DebugValues);
         }
         #endregion
+
+        const string cZip = "zipcode";
+
+        private void ChangeZipClick(object sender, EventArgs e)
+        {
+            int NewZip;
+            try
+            {
+                string CurrentZip = Interfaces.Shared.ReadSettingEncrypted(cZip);
+                NewZip = ChangeZip(CurrentZip);
+               
+            }
+            catch { MessageBox.Show("Unable to update Zip code", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+        }
+
+        private int ChangeZip(string CurrentZip)
+        {
+            int NewZip;
+            NewZip = int.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please enter your zipcode", "Zip Code", CurrentZip));
+            Interfaces.Shared.AddupdateAppSettingsEncrypted(cZip, NewZip.ToString());
+            return NewZip;
+        }
+
     }
- }
+}
 /*
  Trusting the values from Donavon Yelton on https://stackoverflow.com/questions/12142094/msn-weather-api-list-of-conditions
   

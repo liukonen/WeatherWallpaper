@@ -16,3 +16,12 @@ C:\Users\mfanz\Source\Repos\WeatherWallpaper2\WeatherDesktop\obj\Debug\WeatherDe
 C:\Users\mfanz\Source\Repos\WeatherWallpaper2\WeatherDesktop\bin\Debug\WeatherDesktop.exe.config
 C:\Users\mfanz\Source\Repos\WeatherWallpaper2\WeatherDesktop\bin\Debug\WeatherDesktop.exe
 C:\Users\mfanz\Source\Repos\WeatherWallpaper2\WeatherDesktop\bin\Debug\WeatherDesktop.pdb
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.config
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.pdb
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.csprojResolveAssemblyReference.cache
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.NotificationIcon.resources
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.csproj.GenerateResource.Cache
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.csproj.CoreCompileInputs.cache
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.exe
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.pdb

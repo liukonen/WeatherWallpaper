@@ -48,5 +48,7 @@ namespace WeatherDesktop.Interfaces
             }
             SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
         }
+
+
     }
 }

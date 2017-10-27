@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs/WeatherDesktop/v15/Server/sqlite3/storage.ide-wal
+/.vs/WeatherDesktop/v15/Server/sqlite3/storage.ide-shm
+/.vs/WeatherDesktop/v15/Server/sqlite3/storage.ide
+/.vs/WeatherDesktop/v15/Server/sqlite3/db.lock
+/.vs/WeatherDesktop/v15/sqlite3/db.lock

@@ -21,6 +21,8 @@ namespace WeatherDesktop
        #region constants
         const string cDay = "day-";
         const string cNight = "night-";
+        const string cZip = "zipcode";
+
         #endregion
 
         #region global Objects
@@ -49,11 +51,21 @@ namespace WeatherDesktop
 
 
             MenuItem[] menu = new MenuItem[] {
-                new MenuItem("Images", GetWeatherMenuItems()),
+                new MenuItem("Settings", GetSettings()),
                 new MenuItem("About", MenuAboutClick),
                 new MenuItem("Exit", MenuExitClick)
             };
+            
             return menu;
+        }
+
+        private MenuItem[] GetSettings()
+        {
+            List<MenuItem> Items = new List<MenuItem>();
+            Items.Add(new MenuItem("images", GetWeatherMenuItems()));
+            Items.Add(new MenuItem("SunRiseSet settings", g_SunRiseSet.SettingsItems()));
+            Items.Add(new MenuItem("Weather Settings", g_Weather.SettingsItems()));
+            return Items.ToArray();
         }
 
         private MenuItem[] GetWeatherMenuItems()
@@ -65,16 +77,19 @@ namespace WeatherDesktop
                 string DayName = cDay + ElementName;
                 string NightName = cNight + ElementName;
 
-                if (g_ImageDictionary.ContainsKey(DayName)) { DayName = "*" + DayName; }
-                if (g_ImageDictionary.ContainsKey(NightName)) { NightName = "*" + NightName; }
-                items.Add(new MenuItem(DayName, MenuItemClick));
-                items.Add(new MenuItem(NightName, MenuItemClick));
+                MenuItem dayItem = new MenuItem(DayName, MenuItemClick);
+                MenuItem Nightitem = new MenuItem(NightName, MenuItemClick);
+
+                dayItem.Checked = (g_ImageDictionary.ContainsKey(DayName)); 
+                Nightitem.Checked = (g_ImageDictionary.ContainsKey(NightName));
+                items.Add(dayItem);
+                items.Add(Nightitem);
 
             }
             return items.ToArray();
 
         }
-
+                
         #endregion
 
         #region Main - Program entry point
@@ -111,7 +126,7 @@ namespace WeatherDesktop
         private void MenuItemClick(object sender, EventArgs e)
         {
 
-            string Name = ((MenuItem)sender).Text.Replace("*", string.Empty);
+            string Name = ((MenuItem)sender).Text;//.Replace("*", string.Empty);
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
                 Filter = "jpeg (*.jpg)|*.jpg|Portable Network Graphics (*.png)|*.png",
@@ -129,6 +144,9 @@ namespace WeatherDesktop
                 notifyIcon.ContextMenu = notificationMenu;
             }
         }
+
+
+
 
         private void MenuAboutClick(object sender, EventArgs e)
         {
@@ -173,7 +191,7 @@ namespace WeatherDesktop
 
         private void DeclareGlobals()
         {      
-            g_Weather = new Interfaces.MSWeather(Getzip());
+            g_Weather = new Interfaces.MSWeather();
             UpdateSunRiseSetService(g_Weather.Latitude, g_Weather.Longitude);
             UpdateImageCache();
             CreateTimer();
@@ -181,24 +199,7 @@ namespace WeatherDesktop
 
         #region Support functions to reduce complexity
 
-        private int Getzip()
-        {
-            const string cZip = "zipcode";
-            int zip = 0;
-            string zipcode = Interfaces.Shared.ReadSettingEncrypted(cZip);
-            if (string.IsNullOrWhiteSpace(zipcode))
-            {
-                try
-                {
-                    zip = int.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please enter your zipcode", "Zip Code"));
-                    Interfaces.Shared.AddupdateAppSettingsEncrypted(cZip, zip.ToString());
-                    zipcode = zip.ToString();
-                }
-                catch (Exception x) { MessageBox.Show("an error occured. please restart..." + x.ToString()); Application.Exit(); }
-            }
-            else { zip = int.Parse(zipcode); }
-            return zip;
-        }
+
 
         private void CreateTimer()
         {

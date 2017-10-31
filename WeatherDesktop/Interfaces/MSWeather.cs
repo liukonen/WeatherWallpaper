@@ -15,16 +15,8 @@ namespace WeatherDesktop.Interfaces
     {
         #region Constants
         const string url = "http://weather.service.msn.com/data.aspx?weasearchstr={0}&culture=en-US&weadegreetype=F&src=outlook";
+        const string cZip = "zipcode";
         #endregion
-
-
-        public override MenuItem[] SettingsItems()
-        {
-            List<MenuItem> returnValue = new List<MenuItem>();
-            returnValue.Add(new MenuItem("Update Zipcode", ChangeZipClick));
-            //returnValue.Add(new MenuItem("Hour To Update", ChangehourToUpdate));
-            return returnValue.ToArray();
-        }
 
         #region Globals
         private int _zipcode;
@@ -39,12 +31,34 @@ namespace WeatherDesktop.Interfaces
         private string _Status = "functional";
         #endregion
 
-        #region New
-        public MSWeather(int zipcode)
+        #region Settings
+
+        public override MenuItem[] SettingsItems()
         {
-            _zipcode = zipcode;
-            Invoke();
+            List<MenuItem> returnValue = new List<MenuItem>();
+            returnValue.Add(new MenuItem("Update Zipcode", ChangeZipClick));
+            //returnValue.Add(new MenuItem("Hour To Update", ChangehourToUpdate));
+            return returnValue.ToArray();
         }
+
+        #endregion
+
+        #region Events
+
+        private void ChangeZipClick(object sender, EventArgs e)
+        {
+            int NewZip;
+            try
+            {
+                string CurrentZip = Interfaces.Shared.ReadSettingEncrypted(cZip);
+                NewZip = ChangeZip(CurrentZip);
+            }
+            catch { MessageBox.Show("Unable to update Zip code", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+        }
+
+        #endregion
+
+        #region New
 
         public MSWeather()
         {
@@ -52,16 +66,14 @@ namespace WeatherDesktop.Interfaces
             string zipcode = Interfaces.Shared.ReadSettingEncrypted(cZip);
             if (string.IsNullOrWhiteSpace(zipcode))
             {
-                try
-                {
-                    zip = ChangeZip(string.Empty);
-                }
+                try{zip = ChangeZip(string.Empty);}
                 catch (Exception x) { MessageBox.Show("an error occured. please restart..." + x.ToString()); Application.Exit(); }
             }
             else { zip = int.Parse(zipcode); }
             _zipcode = zip;
             Invoke();
         }
+ 
         #endregion
 
         #region invoke
@@ -85,6 +97,7 @@ namespace WeatherDesktop.Interfaces
         #endregion
 
         #region Live API call
+
         public static WeatherResponse LiveCall(int zipcode, out KeyValuePair<double, double> latLong, out int serviceTimeout, out int skycode)
         {
             const string forcastFormat = "{3}, {2}. [{1}-{0}] Precipitation {4}%.";
@@ -94,7 +107,6 @@ namespace WeatherDesktop.Interfaces
             serviceTimeout = 0;
             System.Text.StringBuilder forcast = new System.Text.StringBuilder();
             skycode = 0;
-
 
             XmlReader reader = XmlReader.Create(new System.IO.StringReader(Shared.CompressedCallSite(string.Format(url, zipcode.ToString()))));
             while (reader.Read())
@@ -127,9 +139,7 @@ namespace WeatherDesktop.Interfaces
                             serviceTimeout = int.Parse(reader.GetAttribute("timewindow"));
                             break;
                     }
-
-
-            }
+             }
             latLong = new KeyValuePair<double, double>(lat, lng);
             response.ForcastDescription = forcast.ToString();
             return response;
@@ -228,6 +238,15 @@ namespace WeatherDesktop.Interfaces
                     return Shared.WeatherTypes.Clear;
             }
         }
+
+        private int ChangeZip(string CurrentZip)
+        {
+            int NewZip;
+            NewZip = int.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please enter your zipcode", "Zip Code", CurrentZip));
+            Interfaces.Shared.AddupdateAppSettingsEncrypted(cZip, NewZip.ToString());
+            return NewZip;
+        }
+
         #endregion
 
         #region Debug values
@@ -242,29 +261,6 @@ namespace WeatherDesktop.Interfaces
             return Shared.CompileDebug("MS Weather Service", DebugValues);
         }
         #endregion
-
-        const string cZip = "zipcode";
-
-        private void ChangeZipClick(object sender, EventArgs e)
-        {
-            int NewZip;
-            try
-            {
-                string CurrentZip = Interfaces.Shared.ReadSettingEncrypted(cZip);
-                NewZip = ChangeZip(CurrentZip);
-               
-            }
-            catch { MessageBox.Show("Unable to update Zip code", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-        }
-
-        private int ChangeZip(string CurrentZip)
-        {
-            int NewZip;
-            NewZip = int.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please enter your zipcode", "Zip Code", CurrentZip));
-            Interfaces.Shared.AddupdateAppSettingsEncrypted(cZip, NewZip.ToString());
-            return NewZip;
-        }
-
     }
 }
 /*

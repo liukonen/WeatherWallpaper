@@ -3,6 +3,8 @@ using System.IO;
 using System.Net;
 using System.Configuration;
 using System.Windows.Forms;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace WeatherDesktop.Interfaces
 {
@@ -13,6 +15,7 @@ namespace WeatherDesktop.Interfaces
     {
         public enum WeatherTypes { ThunderStorm, Rain, Snow, Dust, Fog, Haze, Smoke, Windy, Frigid, Cloudy, PartlyCloudy, Clear, Hot };
 
+        #region Web Request
         public static string CompressedCallSite(string Url)
         {
             HttpWebRequest request = (System.Net.HttpWebRequest)HttpWebRequest.Create(Url);
@@ -24,6 +27,10 @@ namespace WeatherDesktop.Interfaces
                 return Reader.ReadToEnd();
             }
         }
+
+        #endregion
+
+        #region App Config (No Encryption)
 
         //taken from MSDN https://msdn.microsoft.com/en-us/library/system.configuration.configurationmanager.aspx
         public static void AddUpdateAppSettings(string key, string value)
@@ -43,6 +50,34 @@ namespace WeatherDesktop.Interfaces
             }
         }
 
+        public static string ReadSetting(string key)
+        {
+            try
+            {
+                return ConfigurationManager.AppSettings[key];
+            }
+            catch (ConfigurationErrorsException)
+            {
+                MessageBox.Show("Error reading app settings"); return string.Empty;
+            }
+        }
+
+        #endregion
+
+        #region App Config (Encrypted)
+
+        public static void AddupdateAppSettingsEncrypted(string key, string value)
+        {
+            try
+            {
+                byte[] entropy = System.Text.Encoding.Unicode.GetBytes(key);// entropy only adds additional complexity. could use null
+                var Encrypted = ProtectedData.Protect(System.Text.Encoding.Unicode.GetBytes(value), entropy, DataProtectionScope.LocalMachine);
+                AddUpdateAppSettings(key, Convert.ToBase64String(Encrypted));
+            }
+            catch (Exception x)
+            { MessageBox.Show(x.Message, "error writing to Config file"); }
+        }
+
         public static string ReadSettingEncrypted(string key)
         {
             byte[] entropy = new byte[0]; byte[] decryptedData = new byte[0];
@@ -51,7 +86,7 @@ namespace WeatherDesktop.Interfaces
             {
                 entropy = System.Text.Encoding.Unicode.GetBytes(key);// entropy only adds additional complexity. could use null
                 string EncryptedString = ReadSetting(key);
-                decryptedData = System.Security.Cryptography.ProtectedData.Unprotect(Convert.FromBase64String(EncryptedString), entropy, System.Security.Cryptography.DataProtectionScope.LocalMachine);
+                decryptedData = ProtectedData.Unprotect(Convert.FromBase64String(EncryptedString), entropy, DataProtectionScope.LocalMachine);
                 return System.Text.Encoding.Unicode.GetString(decryptedData);
             }
             catch { return string.Empty; }
@@ -65,37 +100,14 @@ namespace WeatherDesktop.Interfaces
            
         }
 
-        public static string ReadSetting(string key)
-        {
-            try
-            {
-                var appSettings = ConfigurationManager.AppSettings;
-                return appSettings[key];
-            }
-            catch (ConfigurationErrorsException)
-            {
-                MessageBox.Show("Error reading app settings");
-                return string.Empty;
-            }
-        }
+        #endregion
 
-        public static void AddupdateAppSettingsEncrypted(string key, string value)
-        {
-            try
-            {
-                byte[] entropy = System.Text.Encoding.Unicode.GetBytes(key);// entropy only adds additional complexity. could use null
-                var Encrypted = System.Security.Cryptography.ProtectedData.Protect(System.Text.Encoding.Unicode.GetBytes(value), entropy, System.Security.Cryptography.DataProtectionScope.LocalMachine);
-                AddUpdateAppSettings(key, Convert.ToBase64String(Encrypted));
-            }
-            catch (Exception x)
-            { MessageBox.Show(x.Message, "error writing to Config file"); }
-        }
-
-
+        #region Helpers
+        public static bool BetweenTimespans(TimeSpan test, TimeSpan LowerValue, TimeSpan Highervalue){ return (LowerValue < test && test < Highervalue);}
 
         public static string CompileDebug(string objectName, System.Collections.Generic.Dictionary<string, string> ItemsTodisplay)
         {
-            System.Text.StringBuilder SB = new System.Text.StringBuilder();
+            StringBuilder SB = new StringBuilder();
             SB.Append(Environment.NewLine);
             SB.Append(objectName).Append(Environment.NewLine);
             SB.Append('-', objectName.Length).Append(Environment.NewLine);
@@ -105,13 +117,8 @@ namespace WeatherDesktop.Interfaces
             }
             SB.Append(Environment.NewLine);
             return SB.ToString();
-
         }
-
-        public static bool BetweenTimespans(TimeSpan test, TimeSpan LowerValue, TimeSpan Highervalue)
-        {
-            return (LowerValue < test && test < Highervalue);
-        }
+        #endregion
     }
 
 
@@ -121,7 +128,5 @@ public abstract class SharedExternalinterface
         public abstract SharedResponse Invoke();
         public abstract string Debug();
         public abstract MenuItem[] SettingsItems();
-
-
     }
 }

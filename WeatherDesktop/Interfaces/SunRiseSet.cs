@@ -21,48 +21,39 @@ namespace WeatherDesktop.Interfaces
         Boolean _firstCall = true;
         #endregion
 
+        #region Settings
         public override MenuItem[] SettingsItems()
         {
             List<MenuItem> returnValue = new List<MenuItem>();
             returnValue.Add(new MenuItem("Hour To Update", ChangehourToUpdate));
+            returnValue.Add(new MenuItem("Update Location", ChangeLatLong));
             return returnValue.ToArray();
         }
+        #endregion
 
-        private void ChangehourToUpdate(object sender, EventArgs e)
-        {
-            int current;
-            try { current = int.Parse(Interfaces.Shared.ReadSetting("HourUpdate")); }
-            catch { current = 6; }
-            
-            try
-            {
-                string attempt;
-                attempt = Microsoft.VisualBasic.Interaction.InputBox("Enter the hour you want to update the call to get sun rise, set info", "Hour update", current.ToString());
-                Interfaces.Shared.AddUpdateAppSettings("Hourupdate", int.Parse(attempt).ToString());
-            }
-            catch { MessageBox.Show("Could not update, please try again"); }
-        }
-            #region New
-            public SunRiseSet()
+        #region Events
+        private void ChangehourToUpdate(object sender, EventArgs e){ UpdateHour(); }
+        private void ChangeLatLong(object sender, EventArgs e){UpdateLatLong();}
+        #endregion
+                
+        #region New
+
+        public SunRiseSet()
         {
             KeyValuePair<double, double> latlong = GetLocationProperty();
             _lat = latlong.Key;
             _long = latlong.Value;
-            _HourToUpdate = 6;
+
+            string HTU = Shared.ReadSetting("HourUpdate");
+            if (string.IsNullOrWhiteSpace(HTU))
+            {
+                ChangehourToUpdate(new object(), new EventArgs());
+                HTU = Shared.ReadSetting("HourUpdate");
+            }
+            _HourToUpdate = int.Parse(HTU);
             _LastUpdate = DateTime.Now;
         }
 
-        public SunRiseSet(double Latitude, double Longitude) : this(Latitude, Longitude, 6)
-        {
-        }
-
-        public SunRiseSet(double Latitude, double Longitude, int HourToUpdate)
-        {
-            _lat = Latitude;
-            _long = Longitude;
-            _HourToUpdate = HourToUpdate;
-            _LastUpdate = DateTime.Now;
-        }
         #endregion
 
         #region invoke
@@ -119,16 +110,76 @@ namespace WeatherDesktop.Interfaces
             return returnValue;
         }
 
+
+        static void UpdateLatLong()
+        {
+            switch (MessageBox.Show("get weather from MSWeather (yes), from System (no) or manual entry", "where to get weather", MessageBoxButtons.YesNoCancel))
+            {
+
+                case DialogResult.Yes:
+                    MSWeather weather = new MSWeather();
+                    Interfaces.Shared.AddupdateAppSettingsEncrypted("LatLong", string.Concat(weather.Latitude, ",", weather.Longitude));
+                    break;
+
+                case DialogResult.No:
+                    System.Device.Location.GeoCoordinateWatcher watcher = new System.Device.Location.GeoCoordinateWatcher();
+                    // Do not suppress prompt, and wait 1000 milliseconds to start.
+                    watcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
+                    System.Device.Location.GeoCoordinate coord = watcher.Position.Location;
+                    if (coord.IsUnknown != true)
+                    {
+                        Interfaces.Shared.AddupdateAppSettingsEncrypted("LatLong", string.Concat(coord.Latitude, ",", coord.Longitude));
+                    }
+                    else { MessageBox.Show("Could not update weather."); }
+                    break;
+                default:
+                    try
+                    {
+                        double lat = double.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please Enter your Latitude", "Latitude"));
+                        double lon = double.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please Enter your Longitude", "Longitude"));
+                        Interfaces.Shared.AddupdateAppSettingsEncrypted("LatLong", string.Concat(lat, ",", lon));
+
+                    }
+                    catch (Exception x)
+                    {
+                        MessageBox.Show(x.Message, "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    break;
+            }
+        }
+
+        static void UpdateHour()
+        {
+
+            int current;
+            try { current = int.Parse(Interfaces.Shared.ReadSetting("HourUpdate")); }
+            catch { current = 6; }
+
+            try
+            {
+                string attempt;
+                attempt = Microsoft.VisualBasic.Interaction.InputBox("Enter the hour you want to update the call to get sun rise, set info", "Hour update", current.ToString());
+                Interfaces.Shared.AddUpdateAppSettings("Hourupdate", int.Parse(attempt).ToString());
+            }
+            catch { MessageBox.Show("Could not update, please try again"); }
+        }
+    
         //Try geting the lat Long from the machine, refactored from MSDN.
         static KeyValuePair<double, double> GetLocationProperty()
         {
-            System.Device.Location.GeoCoordinateWatcher watcher = new System.Device.Location.GeoCoordinateWatcher();
-            // Do not suppress prompt, and wait 1000 milliseconds to start.
-            watcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
-            System.Device.Location.GeoCoordinate coord = watcher.Position.Location;
-            if (coord.IsUnknown != true) { return new KeyValuePair<double, double>(coord.Latitude, coord.Longitude); }
-            System.Windows.Forms.MessageBox.Show("Could not get Lat Long from machine.");
-            return new KeyValuePair<double, double>(0, 0);
+            string LatLong = Interfaces.Shared.ReadSettingEncrypted("LatLong");
+            if (string.IsNullOrWhiteSpace(LatLong))
+            {
+                UpdateLatLong();
+                LatLong = Interfaces.Shared.ReadSettingEncrypted("LatLong");
+                if (string.IsNullOrWhiteSpace(LatLong))
+                {
+                    MessageBox.Show("Can not get Lat Long, please restart", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                }                
+            }
+            string[] LatLongParse = LatLong.Split(',');
+            return new KeyValuePair<double, double>(double.Parse(LatLongParse[0]), double.Parse(LatLongParse[1]));
         }
         #endregion
 

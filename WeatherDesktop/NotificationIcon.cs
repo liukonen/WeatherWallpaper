@@ -21,8 +21,7 @@ namespace WeatherDesktop
        #region constants
         const string cDay = "day-";
         const string cNight = "night-";
-        const string cZip = "zipcode";
-
+      
         #endregion
 
         #region global Objects
@@ -192,7 +191,7 @@ namespace WeatherDesktop
         private void DeclareGlobals()
         {      
             g_Weather = new Interfaces.MSWeather();
-            UpdateSunRiseSetService(g_Weather.Latitude, g_Weather.Longitude);
+            g_SunRiseSet = new Interfaces.SunRiseSet();
             UpdateImageCache();
             CreateTimer();
         }
@@ -223,22 +222,7 @@ namespace WeatherDesktop
             }
         }
 
-        private void UpdateSunRiseSetService(double WeatherLatitude, double WeatherLongitude)
-        {
-            double lat = WeatherLatitude; double lng = WeatherLongitude;
-            if (lat == 0 && lng == 0 && !string.IsNullOrWhiteSpace(Interfaces.Shared.ReadSetting("Latitude")))
-            {
-                lat = int.Parse(Interfaces.Shared.ReadSetting("Latitude"));
-                lng = int.Parse(Interfaces.Shared.ReadSetting("Longitude"));
-            }
-            if (!string.IsNullOrWhiteSpace(Interfaces.Shared.ReadSetting("HourUpdate")) && lat != 0)
-            {
-                g_SunRiseSet = new Interfaces.SunRiseSet(lat, lng, int.Parse(Interfaces.Shared.ReadSetting("HourUpdate")));
-            }
-            else if (lat != 0) { g_SunRiseSet = new Interfaces.SunRiseSet(lat, lng); }
-            else { g_SunRiseSet = new Interfaces.SunRiseSet(); }
 
-        }
         #endregion
 
         #endregion

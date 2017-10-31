@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace WeatherDesktop.Interfaces
+namespace WeatherDesktop.Interface
 {
-    public class SunRiseSet: SharedExternalinterface
+    public class SunRiseSet: ISharedInterface
     {
         #region Constants
         const string _path = "https://api.sunrise-sunset.org/json?lat={0}&lng={1}&date=today&formatted=0";
@@ -22,7 +22,7 @@ namespace WeatherDesktop.Interfaces
         #endregion
 
         #region Settings
-        public override MenuItem[] SettingsItems()
+        public  MenuItem[] SettingsItems()
         {
             List<MenuItem> returnValue = new List<MenuItem>();
             returnValue.Add(new MenuItem("Hour To Update", ChangehourToUpdate));
@@ -57,7 +57,7 @@ namespace WeatherDesktop.Interfaces
         #endregion
 
         #region invoke
-        public override SharedResponse Invoke()
+        public  ISharedResponse Invoke()
         {
             if (_firstCall) { _firstCall = false; _cache = LiveCall(_lat, _long); HasUpdatedToday = true; }
 
@@ -118,7 +118,7 @@ namespace WeatherDesktop.Interfaces
 
                 case DialogResult.Yes:
                     MSWeather weather = new MSWeather();
-                    Interfaces.Shared.AddupdateAppSettingsEncrypted("LatLong", string.Concat(weather.Latitude, ",", weather.Longitude));
+                    WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted("LatLong", string.Concat(weather.Latitude, ",", weather.Longitude));
                     break;
 
                 case DialogResult.No:
@@ -128,7 +128,7 @@ namespace WeatherDesktop.Interfaces
                     System.Device.Location.GeoCoordinate coord = watcher.Position.Location;
                     if (coord.IsUnknown != true)
                     {
-                        Interfaces.Shared.AddupdateAppSettingsEncrypted("LatLong", string.Concat(coord.Latitude, ",", coord.Longitude));
+                        WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted("LatLong", string.Concat(coord.Latitude, ",", coord.Longitude));
                     }
                     else { MessageBox.Show("Could not update weather."); }
                     break;
@@ -137,7 +137,7 @@ namespace WeatherDesktop.Interfaces
                     {
                         double lat = double.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please Enter your Latitude", "Latitude"));
                         double lon = double.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please Enter your Longitude", "Longitude"));
-                        Interfaces.Shared.AddupdateAppSettingsEncrypted("LatLong", string.Concat(lat, ",", lon));
+                        WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted("LatLong", string.Concat(lat, ",", lon));
 
                     }
                     catch (Exception x)
@@ -152,14 +152,14 @@ namespace WeatherDesktop.Interfaces
         {
 
             int current;
-            try { current = int.Parse(Interfaces.Shared.ReadSetting("HourUpdate")); }
+            try { current = int.Parse(WeatherDesktop.Interface.Shared.ReadSetting("HourUpdate")); }
             catch { current = 6; }
 
             try
             {
                 string attempt;
                 attempt = Microsoft.VisualBasic.Interaction.InputBox("Enter the hour you want to update the call to get sun rise, set info", "Hour update", current.ToString());
-                Interfaces.Shared.AddUpdateAppSettings("Hourupdate", int.Parse(attempt).ToString());
+                WeatherDesktop.Interface.Shared.AddUpdateAppSettings("Hourupdate", int.Parse(attempt).ToString());
             }
             catch { MessageBox.Show("Could not update, please try again"); }
         }
@@ -167,11 +167,11 @@ namespace WeatherDesktop.Interfaces
         //Try geting the lat Long from the machine, refactored from MSDN.
         static KeyValuePair<double, double> GetLocationProperty()
         {
-            string LatLong = Interfaces.Shared.ReadSettingEncrypted("LatLong");
+            string LatLong = WeatherDesktop.Interface.Shared.ReadSettingEncrypted("LatLong");
             if (string.IsNullOrWhiteSpace(LatLong))
             {
                 UpdateLatLong();
-                LatLong = Interfaces.Shared.ReadSettingEncrypted("LatLong");
+                LatLong = WeatherDesktop.Interface.Shared.ReadSettingEncrypted("LatLong");
                 if (string.IsNullOrWhiteSpace(LatLong))
                 {
                     MessageBox.Show("Can not get Lat Long, please restart", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -184,7 +184,7 @@ namespace WeatherDesktop.Interfaces
         #endregion
 
         #region Debug values
-        public override string Debug()
+        public  string Debug()
         {
             Dictionary<string, string> DebugValues = new Dictionary<string, string>();
             DebugValues.Add("Houre to update", _HourToUpdate.ToString());

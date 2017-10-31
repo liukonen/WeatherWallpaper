@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace WeatherDesktop.Interfaces
+namespace WeatherDesktop.Interface
 {
-    public class SunRiseSetResponse :SharedResponse
+    public class SunRiseSetResponse :ISharedResponse
     {
         public DateTime SunRise;
         public DateTime SunSet;

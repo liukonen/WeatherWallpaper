@@ -80,12 +80,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\MSWeather.cs" />
+    <Compile Include="Interfaces\Interfaces.cs" />
+    <Compile Include="Interfaces\weatherObjects\MSWeather.cs" />
     <Compile Include="Interfaces\response\SunRisesetResponse.cs" />
     <Compile Include="Interfaces\response\WeatherResponse.cs" />
     <Compile Include="Interfaces\shared.cs" />
-    <Compile Include="Interfaces\SunRiseSet.cs" />
-    <Compile Include="Interfaces\WallpaperChanger.cs" />
+    <Compile Include="Interfaces\SunRiseSetObjects\SunRiseSet.cs" />
+    <Compile Include="Shared\WallpaperChanger.cs" />
     <Compile Include="NotificationIcon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

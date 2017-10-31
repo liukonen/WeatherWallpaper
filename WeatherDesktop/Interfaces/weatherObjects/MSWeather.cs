@@ -6,16 +6,18 @@ using System.Xml;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace WeatherDesktop.Interfaces
+namespace WeatherDesktop.Interface
 {
     /// <summary>
     /// Description of MSWeather.
     /// </summary>
-    public class MSWeather: SharedExternalinterface
+    public class MSWeather : ISharedResponse
     {
         #region Constants
         const string url = "http://weather.service.msn.com/data.aspx?weasearchstr={0}&culture=en-US&weadegreetype=F&src=outlook";
         const string cZip = "zipcode";
+        const string forcastFormat = "{3}, {2}. [{1}-{0}] Precipitation {4}%.";
+
         #endregion
 
         #region Globals
@@ -33,7 +35,7 @@ namespace WeatherDesktop.Interfaces
 
         #region Settings
 
-        public override MenuItem[] SettingsItems()
+        public  MenuItem[] SettingsItems()
         {
             List<MenuItem> returnValue = new List<MenuItem>();
             returnValue.Add(new MenuItem("Update Zipcode", ChangeZipClick));
@@ -50,7 +52,7 @@ namespace WeatherDesktop.Interfaces
             int NewZip;
             try
             {
-                string CurrentZip = Interfaces.Shared.ReadSettingEncrypted(cZip);
+                string CurrentZip = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(cZip);
                 NewZip = ChangeZip(CurrentZip);
             }
             catch { MessageBox.Show("Unable to update Zip code", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
@@ -63,7 +65,7 @@ namespace WeatherDesktop.Interfaces
         public MSWeather()
         {
             int zip = 0;
-            string zipcode = Interfaces.Shared.ReadSettingEncrypted(cZip);
+            string zipcode = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(cZip);
             if (string.IsNullOrWhiteSpace(zipcode))
             {
                 try{zip = ChangeZip(string.Empty);}
@@ -76,8 +78,9 @@ namespace WeatherDesktop.Interfaces
  
         #endregion
 
+
         #region invoke
-        public override SharedResponse  Invoke()
+        public  ISharedResponse Invoke()
         {
             if (!HasBeenCalled || DateTime.Now > _lastCall.AddMinutes(_cacheTimeout))
             {
@@ -100,7 +103,6 @@ namespace WeatherDesktop.Interfaces
 
         public static WeatherResponse LiveCall(int zipcode, out KeyValuePair<double, double> latLong, out int serviceTimeout, out int skycode)
         {
-            const string forcastFormat = "{3}, {2}. [{1}-{0}] Precipitation {4}%.";
             double lat = 0;
             double lng = 0;
             WeatherResponse response = new WeatherResponse();
@@ -243,14 +245,14 @@ namespace WeatherDesktop.Interfaces
         {
             int NewZip;
             NewZip = int.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please enter your zipcode", "Zip Code", CurrentZip));
-            Interfaces.Shared.AddupdateAppSettingsEncrypted(cZip, NewZip.ToString());
+            WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(cZip, NewZip.ToString());
             return NewZip;
         }
 
         #endregion
 
         #region Debug values
-        public override string Debug()
+        public  string Debug()
         {
             Dictionary<string, string> DebugValues = new Dictionary<string, string>();
             DebugValues.Add("Skykey", _skycode.ToString());
@@ -260,6 +262,7 @@ namespace WeatherDesktop.Interfaces
             DebugValues.Add("Longitude", _latLong.Value.ToString());
             return Shared.CompileDebug("MS Weather Service", DebugValues);
         }
+
         #endregion
     }
 }

@@ -6,7 +6,7 @@ modified
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
-namespace WeatherDesktop.Interfaces
+namespace WeatherDesktop.Shared
 {
     public sealed class Wallpaper
     {
@@ -19,7 +19,7 @@ namespace WeatherDesktop.Interfaces
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
 
-        public enum Style : int{ Tiled =0, Centered =1, Stretched =2}
+        public enum Style : int { Tiled = 0, Centered = 1, Stretched = 2 }
 
         public static void Set(string path, Style style)
         {
@@ -33,3 +33,4 @@ namespace WeatherDesktop.Interfaces
         }
     }
 }
+

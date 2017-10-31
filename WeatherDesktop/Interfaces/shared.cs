@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace WeatherDesktop.Interfaces
+namespace WeatherDesktop.Interface
 {
     /// <summary>
     /// Description of shared.
@@ -122,11 +122,5 @@ namespace WeatherDesktop.Interfaces
     }
 
 
-public abstract class SharedExternalinterface
-    {
-
-        public abstract SharedResponse Invoke();
-        public abstract string Debug();
-        public abstract MenuItem[] SettingsItems();
-    }
+    
 }

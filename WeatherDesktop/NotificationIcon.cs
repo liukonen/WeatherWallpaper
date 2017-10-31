@@ -27,8 +27,8 @@ namespace WeatherDesktop
         #region global Objects
         private NotifyIcon notifyIcon;
         private ContextMenu notificationMenu;
-        private Interfaces.MSWeather g_Weather;
-        private Interfaces.SunRiseSet g_SunRiseSet;
+        private Interface.MSWeather g_Weather;
+        private Interface.SunRiseSet g_SunRiseSet;
         private Dictionary<string, string> g_ImageDictionary = new Dictionary<string, string>();
         private string g_CurrentWeatherType;
         #endregion
@@ -70,9 +70,9 @@ namespace WeatherDesktop
         private MenuItem[] GetWeatherMenuItems()
         {
             System.Collections.Generic.List<MenuItem> items = new System.Collections.Generic.List<MenuItem>();
-            foreach (var element in System.Enum.GetValues(typeof(Interfaces.Shared.WeatherTypes)))
+            foreach (var element in System.Enum.GetValues(typeof(Interface.Shared.WeatherTypes)))
             {
-                string ElementName = Enum.GetName(typeof(Interfaces.Shared.WeatherTypes), element);
+                string ElementName = Enum.GetName(typeof(Interface.Shared.WeatherTypes), element);
                 string DayName = cDay + ElementName;
                 string NightName = cNight + ElementName;
 
@@ -97,27 +97,39 @@ namespace WeatherDesktop
         [STAThread]
         public static void Main(string[] args)
         {
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             bool isFirstInstance = false;
             // Please use a unique name for the mutex to prevent conflicts with other programs
+
             using (Mutex mtx = new Mutex(true, "WeatherDesktop", out isFirstInstance))
             {
                 if (isFirstInstance)
                 {
-                    NotificationIcon notificationIcon = new NotificationIcon();
-                    notificationIcon.notifyIcon.Visible = true;
-                    Application.Run();
-                    notificationIcon.notifyIcon.Dispose();
+                    try
+                    {
+                        NotificationIcon notificationIcon = new NotificationIcon();
+                        notificationIcon.notifyIcon.Visible = true;
+                        GC.Collect();
+                        Application.Run();
+                        notificationIcon.notifyIcon.Dispose();
+                    }
+                    catch
+                    { }
+                    mtx.ReleaseMutex();
                 }
                 else
                 {
-                    // The application is already running
-                    // TODO: Display message box or change focus to existing application instance
+                    GC.Collect();
+                    MessageBox.Show("App appears to be running. if not, you may have to restart your machine to get it to work.");
                 }
             }
-        }
+
+        
+
+    }
         #endregion
 
         #region Event Handlers
@@ -135,7 +147,7 @@ namespace WeatherDesktop
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                Interfaces.Shared.AddUpdateAppSettings(Name, openFileDialog1.FileName);
+                Interface.Shared.AddUpdateAppSettings(Name, openFileDialog1.FileName);
                 if (g_ImageDictionary.ContainsKey(Name)) { g_ImageDictionary[Name] = openFileDialog1.FileName; }
                 else { g_ImageDictionary.Add(Name, openFileDialog1.FileName); }
                 UpdateScreen(true);
@@ -152,12 +164,12 @@ namespace WeatherDesktop
             Dictionary<string, string> debugValues = new Dictionary<string, string>();
             debugValues.Add("Weather Notifcation Type", g_CurrentWeatherType);
             
-            MessageBox.Show("weather desktop, by Luke Liukonen, 2017" + Environment.NewLine + Interfaces.Shared.CompileDebug("Main Values", debugValues)  + g_Weather.Debug() + g_SunRiseSet.Debug());
+            MessageBox.Show("weather desktop, by Luke Liukonen, 2017" + Environment.NewLine + Interface.Shared.CompileDebug("Main Values", debugValues)  + g_Weather.Debug() + g_SunRiseSet.Debug());
         }
 
         private void MenuExitClick(object sender, EventArgs e){Application.Exit();}
 
-        private void IconDoubleClick(object sender, EventArgs e){MessageBox.Show(((Interfaces.WeatherResponse)((Interfaces.MSWeather)g_Weather).Invoke()).ForcastDescription);}
+        private void IconDoubleClick(object sender, EventArgs e){MessageBox.Show(((Interface.WeatherResponse)((Interface.MSWeather)g_Weather).Invoke()).ForcastDescription);}
 
         private void OnTimedEvent(object sender, EventArgs e){UpdateScreen(false);}
 
@@ -167,14 +179,14 @@ namespace WeatherDesktop
 
         private void UpdateScreen(Boolean overrideImage)
         {
-            var weather = (Interfaces.WeatherResponse)g_Weather.Invoke();
+            var weather = (Interface.WeatherResponse)g_Weather.Invoke();
             var sunriseSet = g_SunRiseSet.Invoke();
             string currentTime;
 
-            if(Interfaces.Shared.BetweenTimespans(DateTime.Now.TimeOfDay, ((Interfaces.SunRiseSetResponse)sunriseSet).SunRise.TimeOfDay, ((Interfaces.SunRiseSetResponse)sunriseSet).SunSet.TimeOfDay)){ currentTime = cDay; } else { currentTime = cNight; }
+            if(Interface.Shared.BetweenTimespans(DateTime.Now.TimeOfDay, ((Interface.SunRiseSetResponse)sunriseSet).SunRise.TimeOfDay, ((Interface.SunRiseSetResponse)sunriseSet).SunSet.TimeOfDay)){ currentTime = cDay; } else { currentTime = cNight; }
 
 
-            string weatherType = Enum.GetName(typeof(Interfaces.Shared.WeatherTypes), weather.WType);
+            string weatherType = Enum.GetName(typeof(Interface.Shared.WeatherTypes), weather.WType);
             notifyIcon.Text = weatherType + " " + weather.Temp.ToString();
             string currentWeatherType = currentTime + weatherType;
             if (string.IsNullOrWhiteSpace(g_CurrentWeatherType) || currentWeatherType != g_CurrentWeatherType || overrideImage)
@@ -182,7 +194,7 @@ namespace WeatherDesktop
                 g_CurrentWeatherType = currentWeatherType;
                 if (g_ImageDictionary.ContainsKey(currentWeatherType))
                 {
-                    try { Interfaces.Wallpaper.Set(g_ImageDictionary[currentWeatherType], Interfaces.Wallpaper.Style.Stretched); }
+                    try { Shared.Wallpaper.Set(g_ImageDictionary[currentWeatherType], Shared.Wallpaper.Style.Stretched); }
                     catch (Exception x) { MessageBox.Show(x.ToString()); }
                 }
             }
@@ -190,8 +202,8 @@ namespace WeatherDesktop
 
         private void DeclareGlobals()
         {      
-            g_Weather = new Interfaces.MSWeather();
-            g_SunRiseSet = new Interfaces.SunRiseSet();
+            g_Weather = new Interface.MSWeather();
+            g_SunRiseSet = new Interface.SunRiseSet();
             UpdateImageCache();
             CreateTimer();
         }
@@ -210,13 +222,13 @@ namespace WeatherDesktop
 
         private void UpdateImageCache()
         {
-            foreach (var element in System.Enum.GetValues(typeof(Interfaces.Shared.WeatherTypes)))
+            foreach (var element in System.Enum.GetValues(typeof(Interface.Shared.WeatherTypes)))
             {
-                string ElementName = Enum.GetName(typeof(Interfaces.Shared.WeatherTypes), element);
+                string ElementName = Enum.GetName(typeof(Interface.Shared.WeatherTypes), element);
                 string daykey = cDay + ElementName;
                 string nightKey = cNight + ElementName;
-                string dayimageCache = Interfaces.Shared.ReadSetting(cDay + ElementName);
-                string nightimagecache = Interfaces.Shared.ReadSetting(cNight + ElementName);
+                string dayimageCache = Interface.Shared.ReadSetting(cDay + ElementName);
+                string nightimagecache = Interface.Shared.ReadSetting(cNight + ElementName);
                 if (!string.IsNullOrEmpty(dayimageCache)) { g_ImageDictionary.Add(daykey, dayimageCache); }
                 if (!string.IsNullOrEmpty(nightimagecache)) { g_ImageDictionary.Add(nightKey, nightimagecache); }
             }

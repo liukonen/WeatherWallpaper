@@ -10,4 +10,9 @@ namespace WeatherDesktop.Interface
         string Debug();
         MenuItem[] SettingsItems();
     }
+
+    public interface ISharedWeatherinterface :ISharedInterface
+    {
+        string ForcastDescription();
+    }
 }

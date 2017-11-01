@@ -18,19 +18,31 @@ namespace WeatherDesktop
     public sealed class NotificationIcon
     {
 
-       #region constants
+        #region constants
         const string cDay = "day-";
         const string cNight = "night-";
-      
+        const string cWeather = "gWeatherapp";
+        const string cSRS = "gsunRiseSet";
+
+
+
+
+
+        Type[] WeatherTypes = new Type[] { typeof(Interface.MSWeather) };
+        Type[] SunRiseSetTypes = new Type[] { typeof(Interface.SunRiseSet) };
         #endregion
 
         #region global Objects
         private NotifyIcon notifyIcon;
         private ContextMenu notificationMenu;
-        private Interface.MSWeather g_Weather;
-        private Interface.SunRiseSet g_SunRiseSet;
+        private Interface.ISharedInterface g_Weather;
+        private Interface.ISharedInterface g_SunRiseSet;
         private Dictionary<string, string> g_ImageDictionary = new Dictionary<string, string>();
         private string g_CurrentWeatherType;
+
+        List<Byte> HoursBlackLsited = new List<byte>();
+        System.Collections.BitArray BlackListHours = new System.Collections.BitArray(24);
+        System.Collections.BitArray BlackListDays = new System.Collections.BitArray(7);
         #endregion
 
         #region Initialize icon and menu
@@ -54,19 +66,41 @@ namespace WeatherDesktop
                 new MenuItem("About", MenuAboutClick),
                 new MenuItem("Exit", MenuExitClick)
             };
-            
+
             return menu;
         }
 
         private MenuItem[] GetSettings()
         {
             List<MenuItem> Items = new List<MenuItem>();
+            Items.Add(new MenuItem("Global", GlobalMenuSettings()));
             Items.Add(new MenuItem("images", GetWeatherMenuItems()));
             Items.Add(new MenuItem("SunRiseSet settings", g_SunRiseSet.SettingsItems()));
             Items.Add(new MenuItem("Weather Settings", g_Weather.SettingsItems()));
             return Items.ToArray();
         }
 
+        private MenuItem[] GlobalMenuSettings()
+        {
+            List<MenuItem> Items = new List<MenuItem>();
+            List<MenuItem> BlackLists = new List<MenuItem>();
+            BlackLists.Add(new MenuItem("BlackList Hours", BlackListHours_Event));
+            BlackLists.Add(new MenuItem("BlackList Days", BlackListDays_event));
+            Items.Add(new MenuItem("BlackListing", BlackLists.ToArray()));
+
+            List<MenuItem> WeatherItems = new List<MenuItem>();
+            List<MenuItem> SunRiseSetItems = new List<MenuItem>();
+            string SelectedItem = Interface.Shared.ReadSetting(cWeather);
+            string SelectedSRS = Interface.Shared.ReadSetting(cSRS);
+
+            foreach (var item in WeatherTypes) { WeatherItems.Add(new MenuItem(item.FullName, UpdateGlobalObjecttype)); }
+            foreach (var item in SunRiseSetTypes) { SunRiseSetItems.Add(new MenuItem(item.FullName, UpdateGlobalObjecttype)); }
+            Items.Add(new MenuItem("Weather", WeatherItems.ToArray()));
+            Items.Add(new MenuItem("SunRiseSet", SunRiseSetItems.ToArray()));
+
+            return Items.ToArray();
+
+        }
         private MenuItem[] GetWeatherMenuItems()
         {
             System.Collections.Generic.List<MenuItem> items = new System.Collections.Generic.List<MenuItem>();
@@ -79,7 +113,7 @@ namespace WeatherDesktop
                 MenuItem dayItem = new MenuItem(DayName, MenuItemClick);
                 MenuItem Nightitem = new MenuItem(NightName, MenuItemClick);
 
-                dayItem.Checked = (g_ImageDictionary.ContainsKey(DayName)); 
+                dayItem.Checked = (g_ImageDictionary.ContainsKey(DayName));
                 Nightitem.Checked = (g_ImageDictionary.ContainsKey(NightName));
                 items.Add(dayItem);
                 items.Add(Nightitem);
@@ -88,7 +122,7 @@ namespace WeatherDesktop
             return items.ToArray();
 
         }
-                
+
         #endregion
 
         #region Main - Program entry point
@@ -97,7 +131,7 @@ namespace WeatherDesktop
         [STAThread]
         public static void Main(string[] args)
         {
-            
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -127,9 +161,9 @@ namespace WeatherDesktop
                 }
             }
 
-        
 
-    }
+
+        }
         #endregion
 
         #region Event Handlers
@@ -156,22 +190,19 @@ namespace WeatherDesktop
             }
         }
 
-
-
-
         private void MenuAboutClick(object sender, EventArgs e)
         {
             Dictionary<string, string> debugValues = new Dictionary<string, string>();
             debugValues.Add("Weather Notifcation Type", g_CurrentWeatherType);
-            
-            MessageBox.Show("weather desktop, by Luke Liukonen, 2017" + Environment.NewLine + Interface.Shared.CompileDebug("Main Values", debugValues)  + g_Weather.Debug() + g_SunRiseSet.Debug());
+
+            MessageBox.Show("weather desktop, by Luke Liukonen, 2017" + Environment.NewLine + Interface.Shared.CompileDebug("Main Values", debugValues) + g_Weather.Debug() + g_SunRiseSet.Debug());
         }
 
-        private void MenuExitClick(object sender, EventArgs e){Application.Exit();}
+        private void MenuExitClick(object sender, EventArgs e) { Application.Exit(); }
 
-        private void IconDoubleClick(object sender, EventArgs e){MessageBox.Show(((Interface.WeatherResponse)((Interface.MSWeather)g_Weather).Invoke()).ForcastDescription);}
+        private void IconDoubleClick(object sender, EventArgs e) { MessageBox.Show(((Interface.WeatherResponse)(g_Weather).Invoke()).ForcastDescription); }
 
-        private void OnTimedEvent(object sender, EventArgs e){UpdateScreen(false);}
+        private void OnTimedEvent(object sender, EventArgs e) { UpdateScreen(false); }
 
         #endregion
 
@@ -179,38 +210,111 @@ namespace WeatherDesktop
 
         private void UpdateScreen(Boolean overrideImage)
         {
-            var weather = (Interface.WeatherResponse)g_Weather.Invoke();
-            var sunriseSet = g_SunRiseSet.Invoke();
-            string currentTime;
-
-            if(Interface.Shared.BetweenTimespans(DateTime.Now.TimeOfDay, ((Interface.SunRiseSetResponse)sunriseSet).SunRise.TimeOfDay, ((Interface.SunRiseSetResponse)sunriseSet).SunSet.TimeOfDay)){ currentTime = cDay; } else { currentTime = cNight; }
-
-
-            string weatherType = Enum.GetName(typeof(Interface.Shared.WeatherTypes), weather.WType);
-            notifyIcon.Text = weatherType + " " + weather.Temp.ToString();
-            string currentWeatherType = currentTime + weatherType;
-            if (string.IsNullOrWhiteSpace(g_CurrentWeatherType) || currentWeatherType != g_CurrentWeatherType || overrideImage)
+            if (!(BlackListDays[(int)DateTime.Now.DayOfWeek] || BlackListHours[DateTime.Now.Hour]))
             {
-                g_CurrentWeatherType = currentWeatherType;
-                if (g_ImageDictionary.ContainsKey(currentWeatherType))
+                var weather = (Interface.WeatherResponse)g_Weather.Invoke();
+                var sunriseSet = g_SunRiseSet.Invoke();
+                string currentTime;
+
+                if (Interface.Shared.BetweenTimespans(DateTime.Now.TimeOfDay, ((Interface.SunRiseSetResponse)sunriseSet).SunRise.TimeOfDay, ((Interface.SunRiseSetResponse)sunriseSet).SunSet.TimeOfDay)) { currentTime = cDay; } else { currentTime = cNight; }
+
+
+                string weatherType = Enum.GetName(typeof(Interface.Shared.WeatherTypes), weather.WType);
+                notifyIcon.Text = weatherType + " " + weather.Temp.ToString();
+                string currentWeatherType = currentTime + weatherType;
+                if (string.IsNullOrWhiteSpace(g_CurrentWeatherType) || currentWeatherType != g_CurrentWeatherType || overrideImage)
                 {
-                    try { Shared.Wallpaper.Set(g_ImageDictionary[currentWeatherType], Shared.Wallpaper.Style.Stretched); }
-                    catch (Exception x) { MessageBox.Show(x.ToString()); }
+                    g_CurrentWeatherType = currentWeatherType;
+                    if (g_ImageDictionary.ContainsKey(currentWeatherType))
+                    {
+                        try { Shared.Wallpaper.Set(g_ImageDictionary[currentWeatherType], Shared.Wallpaper.Style.Stretched); }
+                        catch (Exception x) { MessageBox.Show(x.ToString()); }
+                    }
                 }
             }
         }
 
         private void DeclareGlobals()
-        {      
-            g_Weather = new Interface.MSWeather();
-            g_SunRiseSet = new Interface.SunRiseSet();
+        {
+            try {
+                Type T = Type.GetType(Interface.Shared.ReadSetting(cWeather));
+                g_Weather = (Interface.ISharedInterface)Activator.CreateInstance(T);
+                Type S = Type.GetType(Interface.Shared.ReadSetting(cSRS));
+                g_SunRiseSet = (Interface.ISharedInterface)Activator.CreateInstance(S);
+
+            }
+
+            catch {
+                g_Weather = new Interface.MSWeather();
+                g_SunRiseSet = new Interface.SunRiseSet();
+                Interface.Shared.AddUpdateAppSettings(cWeather, g_Weather.GetType().FullName);
+                Interface.Shared.AddUpdateAppSettings(cSRS, g_SunRiseSet.GetType().FullName);
+            }
+
             UpdateImageCache();
+            UpdateBlackLists();
             CreateTimer();
         }
 
         #region Support functions to reduce complexity
 
+         private void UpdateBlackLists()
+        {
+            int intBlackListdays = 0;
+            int intblackListHours = 0;
+            int.TryParse(Interface.Shared.ReadSetting("BlackListHours"), out intblackListHours);
+            int.TryParse(Interface.Shared.ReadSetting("BlackListDays"), out intBlackListdays);
+            BlackListHours = Interface.Shared.ConverTIntToBitArray(intblackListHours);
+            BlackListDays = Interface.Shared.ConverTIntToBitArray(intBlackListdays);
 
+        }
+
+        private void BlackListHours_Event(object sender, EventArgs e)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            List<int> values = new List<int>();
+            for (int i = 0; i < 24; i++)
+            {
+                if (BlackListHours[i]) { values.Add(i); }
+            }
+
+
+            string ValuesCSV = Microsoft.VisualBasic.Interaction.InputBox("Enter days in comma seperated values, Military time", "Enter Blacklisted Hours", string.Join(",", values.ToArray()));
+            values = new List<int>();
+            foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
+            for (int i = 0; i < 24; i++) { BlackListHours[i] = values.Contains(i); }
+            Interface.Shared.AddUpdateAppSettings("BlackListHours", Interface.Shared.ConvertBitarrayToInt(BlackListHours).ToString());
+        }
+
+        private void BlackListDays_event(object sender, EventArgs e)
+        {
+            string ValuesCSV = Microsoft.VisualBasic.Interaction.InputBox("Enter days in comma seperated values, with Sunday = 0 and Saturday = 6, example '0,1,2' = Sunday Monday Tuesday", "Enter Blacklisted Days");
+            List<int> values = new List<int>();
+            foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
+            for (int i = 0; i < 7; i++) { BlackListDays[i] = values.Contains(i); }
+            Interface.Shared.AddUpdateAppSettings("BlackListDays", Interface.Shared.ConvertBitarrayToInt(BlackListDays).ToString());
+        }
+
+        private void UpdateGlobalObjecttype(object sender, EventArgs e)
+        {
+            MenuItem Current = (MenuItem)sender;
+            string Name = Current.Text;
+            if (((MenuItem)Current.Parent).Text == "Weather")
+            {
+                Interface.Shared.AddUpdateAppSettings(cWeather, Name);
+                Type S = Type.GetType(Name);
+                g_Weather = (Interface.ISharedInterface)Activator.CreateInstance(S);
+
+            }
+            else if (Current.Parent.Name == "SunRiseSet")
+            {
+                Interface.Shared.AddUpdateAppSettings(cSRS, Name);
+                Type S = Type.GetType(Name);
+                g_SunRiseSet = (Interface.ISharedInterface)Activator.CreateInstance(S);
+            }
+            notificationMenu = new ContextMenu(InitializeMenu());
+            notifyIcon.ContextMenu = notificationMenu;
+        }
 
         private void CreateTimer()
         {

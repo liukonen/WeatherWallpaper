@@ -11,7 +11,7 @@ namespace WeatherDesktop.Interface
     /// <summary>
     /// Description of MSWeather.
     /// </summary>
-    public class MSWeather : ISharedResponse
+    public class MSWeather :  ISharedInterface
     {
         #region Constants
         const string url = "http://weather.service.msn.com/data.aspx?weasearchstr={0}&culture=en-US&weadegreetype=F&src=outlook";

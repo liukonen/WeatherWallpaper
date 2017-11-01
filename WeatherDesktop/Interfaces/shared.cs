@@ -118,9 +118,39 @@ namespace WeatherDesktop.Interface
             SB.Append(Environment.NewLine);
             return SB.ToString();
         }
+
+        /// <summary>
+        /// Bitarray should be under 32 bits
+        /// </summary>
+        /// <param name="Array"></param>
+        /// <returns></returns>
+        public static int ConvertBitarrayToInt(System.Collections.BitArray Array)
+        {
+            int[] array = new int[1];
+            Array.CopyTo(array, 0);
+            return array[0];
+        }
+
+        public static System.Collections.BitArray ConverTIntToBitArray(int item)
+        {
+            return new System.Collections.BitArray(new int[] {item});
+        }
+        /*
+         private int getIntFromBitArray(BitArray bitArray)
+{
+
+    if (bitArray.Length > 32)
+        throw new ArgumentException("Argument length shall be at most 32 bits.");
+
+    int[] array = new int[1];
+    bitArray.CopyTo(array, 0);
+    return array[0];
+
+}
+         */
         #endregion
     }
 
 
-    
+
 }

@@ -23,13 +23,6 @@ namespace WeatherDesktop
         const string cNight = "night-";
         const string cWeather = "gWeatherapp";
         const string cSRS = "gsunRiseSet";
-
-
-
-
-
-        Type[] WeatherTypes = new Type[] { typeof(Interface.MSWeather) };
-        Type[] SunRiseSetTypes = new Type[] { typeof(Interface.SunRiseSet) };
         #endregion
 
         #region global Objects
@@ -43,6 +36,9 @@ namespace WeatherDesktop
         List<Byte> HoursBlackLsited = new List<byte>();
         System.Collections.BitArray BlackListHours = new System.Collections.BitArray(24);
         System.Collections.BitArray BlackListDays = new System.Collections.BitArray(7);
+
+        Type[] WeatherTypes = new Type[] { typeof(Interface.MSWeather) };
+        Type[] SunRiseSetTypes = new Type[] { typeof(Interface.SunRiseSet) };
         #endregion
 
         #region Initialize icon and menu
@@ -75,8 +71,8 @@ namespace WeatherDesktop
             List<MenuItem> Items = new List<MenuItem>();
             Items.Add(new MenuItem("Global", GlobalMenuSettings()));
             Items.Add(new MenuItem("images", GetWeatherMenuItems()));
-            Items.Add(new MenuItem("SunRiseSet settings", g_SunRiseSet.SettingsItems()));
-            Items.Add(new MenuItem("Weather Settings", g_Weather.SettingsItems()));
+            Items.Add(new MenuItem(g_SunRiseSet.GetType().Name, g_SunRiseSet.SettingsItems()));
+            Items.Add(new MenuItem(g_Weather.GetType().Name, g_Weather.SettingsItems()));
             return Items.ToArray();
         }
 
@@ -93,8 +89,18 @@ namespace WeatherDesktop
             string SelectedItem = Interface.Shared.ReadSetting(cWeather);
             string SelectedSRS = Interface.Shared.ReadSetting(cSRS);
 
-            foreach (var item in WeatherTypes) { WeatherItems.Add(new MenuItem(item.FullName, UpdateGlobalObjecttype)); }
-            foreach (var item in SunRiseSetTypes) { SunRiseSetItems.Add(new MenuItem(item.FullName, UpdateGlobalObjecttype)); }
+            foreach (var item in WeatherTypes)
+            {
+                MenuItem ItemToAdd = new MenuItem(item.FullName, UpdateGlobalObjecttype);
+                if (item.FullName == SelectedItem) { ItemToAdd.Checked = true; }
+                WeatherItems.Add(ItemToAdd);
+            }
+            foreach (var item in SunRiseSetTypes)
+            {
+                MenuItem ItemToAdd = new MenuItem(item.FullName, UpdateGlobalObjecttype);
+                if (item.FullName == SelectedSRS) { ItemToAdd.Checked = true; }
+                SunRiseSetItems.Add(ItemToAdd);
+            }
             Items.Add(new MenuItem("Weather", WeatherItems.ToArray()));
             Items.Add(new MenuItem("SunRiseSet", SunRiseSetItems.ToArray()));
 
@@ -204,6 +210,53 @@ namespace WeatherDesktop
 
         private void OnTimedEvent(object sender, EventArgs e) { UpdateScreen(false); }
 
+        private void BlackListHours_Event(object sender, EventArgs e)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            List<int> values = new List<int>();
+            for (int i = 0; i < 24; i++)
+            {
+                if (BlackListHours[i]) { values.Add(i); }
+            }
+
+
+            string ValuesCSV = Microsoft.VisualBasic.Interaction.InputBox("Enter days in comma seperated values, Military time", "Enter Blacklisted Hours", string.Join(",", values.ToArray()));
+            values = new List<int>();
+            foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
+            for (int i = 0; i < 24; i++) { BlackListHours[i] = values.Contains(i); }
+            Interface.Shared.AddUpdateAppSettings("BlackListHours", Interface.Shared.ConvertBitarrayToInt(BlackListHours).ToString());
+        }
+
+        private void BlackListDays_event(object sender, EventArgs e)
+        {
+            string ValuesCSV = Microsoft.VisualBasic.Interaction.InputBox("Enter days in comma seperated values, with Sunday = 0 and Saturday = 6, example '0,1,2' = Sunday Monday Tuesday", "Enter Blacklisted Days");
+            List<int> values = new List<int>();
+            foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
+            for (int i = 0; i < 7; i++) { BlackListDays[i] = values.Contains(i); }
+            Interface.Shared.AddUpdateAppSettings("BlackListDays", Interface.Shared.ConvertBitarrayToInt(BlackListDays).ToString());
+        }
+
+        private void UpdateGlobalObjecttype(object sender, EventArgs e)
+        {
+            MenuItem Current = (MenuItem)sender;
+            string Name = Current.Text;
+            if (((MenuItem)Current.Parent).Text == "Weather")
+            {
+                Interface.Shared.AddUpdateAppSettings(cWeather, Name);
+                Type S = Type.GetType(Name);
+                g_Weather = (Interface.ISharedWeatherinterface)Activator.CreateInstance(S);
+
+            }
+            else if (Current.Parent.Name == "SunRiseSet")
+            {
+                Interface.Shared.AddUpdateAppSettings(cSRS, Name);
+                Type S = Type.GetType(Name);
+                g_SunRiseSet = (Interface.IsharedSunRiseSetInterface)Activator.CreateInstance(S);
+            }
+            notificationMenu = new ContextMenu(InitializeMenu());
+            notifyIcon.ContextMenu = notificationMenu;
+        }
+
         #endregion
 
         #region Private Functions
@@ -269,53 +322,6 @@ namespace WeatherDesktop
 
         }
 
-        private void BlackListHours_Event(object sender, EventArgs e)
-        {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            List<int> values = new List<int>();
-            for (int i = 0; i < 24; i++)
-            {
-                if (BlackListHours[i]) { values.Add(i); }
-            }
-
-
-            string ValuesCSV = Microsoft.VisualBasic.Interaction.InputBox("Enter days in comma seperated values, Military time", "Enter Blacklisted Hours", string.Join(",", values.ToArray()));
-            values = new List<int>();
-            foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
-            for (int i = 0; i < 24; i++) { BlackListHours[i] = values.Contains(i); }
-            Interface.Shared.AddUpdateAppSettings("BlackListHours", Interface.Shared.ConvertBitarrayToInt(BlackListHours).ToString());
-        }
-
-        private void BlackListDays_event(object sender, EventArgs e)
-        {
-            string ValuesCSV = Microsoft.VisualBasic.Interaction.InputBox("Enter days in comma seperated values, with Sunday = 0 and Saturday = 6, example '0,1,2' = Sunday Monday Tuesday", "Enter Blacklisted Days");
-            List<int> values = new List<int>();
-            foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
-            for (int i = 0; i < 7; i++) { BlackListDays[i] = values.Contains(i); }
-            Interface.Shared.AddUpdateAppSettings("BlackListDays", Interface.Shared.ConvertBitarrayToInt(BlackListDays).ToString());
-        }
-
-        private void UpdateGlobalObjecttype(object sender, EventArgs e)
-        {
-            MenuItem Current = (MenuItem)sender;
-            string Name = Current.Text;
-            if (((MenuItem)Current.Parent).Text == "Weather")
-            {
-                Interface.Shared.AddUpdateAppSettings(cWeather, Name);
-                Type S = Type.GetType(Name);
-                g_Weather = (Interface.ISharedWeatherinterface)Activator.CreateInstance(S);
-
-            }
-            else if (Current.Parent.Name == "SunRiseSet")
-            {
-                Interface.Shared.AddUpdateAppSettings(cSRS, Name);
-                Type S = Type.GetType(Name);
-                g_SunRiseSet = (Interface.IsharedSunRiseSetInterface)Activator.CreateInstance(S);
-            }
-            notificationMenu = new ContextMenu(InitializeMenu());
-            notifyIcon.ContextMenu = notificationMenu;
-        }
-
         private void CreateTimer()
         {
             System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
@@ -337,8 +343,7 @@ namespace WeatherDesktop
                 if (!string.IsNullOrEmpty(nightimagecache)) { g_ImageDictionary.Add(nightKey, nightimagecache); }
             }
         }
-
-
+        
         #endregion
 
         #endregion

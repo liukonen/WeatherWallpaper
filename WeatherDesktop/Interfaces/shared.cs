@@ -135,19 +135,7 @@ namespace WeatherDesktop.Interface
         {
             return new System.Collections.BitArray(new int[] {item});
         }
-        /*
-         private int getIntFromBitArray(BitArray bitArray)
-{
 
-    if (bitArray.Length > 32)
-        throw new ArgumentException("Argument length shall be at most 32 bits.");
-
-    int[] array = new int[1];
-    bitArray.CopyTo(array, 0);
-    return array[0];
-
-}
-         */
         #endregion
     }
 

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Runtime.Serialization;
+using System.Web.Script.Serialization;
 
 namespace WeatherDesktop.Interface
 {
-    public class SunRiseSet: IsharedSunRiseSetInterface
+    public class SunRiseSet : IsharedSunRiseSetInterface
     {
         #region Constants
         const string _path = "https://api.sunrise-sunset.org/json?lat={0}&lng={1}&date=today&formatted=0";
@@ -22,7 +24,7 @@ namespace WeatherDesktop.Interface
         #endregion
 
         #region Settings
-        public  MenuItem[] SettingsItems()
+        public MenuItem[] SettingsItems()
         {
             List<MenuItem> returnValue = new List<MenuItem>();
             returnValue.Add(new MenuItem("Hour To Update", ChangehourToUpdate));
@@ -32,10 +34,10 @@ namespace WeatherDesktop.Interface
         #endregion
 
         #region Events
-        private void ChangehourToUpdate(object sender, EventArgs e){ UpdateHour(); }
-        private void ChangeLatLong(object sender, EventArgs e){UpdateLatLong();}
+        private void ChangehourToUpdate(object sender, EventArgs e) { UpdateHour(); }
+        private void ChangeLatLong(object sender, EventArgs e) { UpdateLatLong(); }
         #endregion
-                
+
         #region New
 
         public SunRiseSet()
@@ -58,7 +60,7 @@ namespace WeatherDesktop.Interface
         #endregion
 
         #region invoke
-        public  ISharedResponse Invoke()
+        public ISharedResponse Invoke()
         {
             if (_firstCall) { _firstCall = false; _cache = LiveCall(_lat, _long); HasUpdatedToday = true; }
 
@@ -79,11 +81,16 @@ namespace WeatherDesktop.Interface
             {
                 string url = string.Format(_path, Latitude.ToString(), Longitude.ToString());
                 string value = Shared.CompressedCallSite(url);
-                Dictionary<string, string> values = PoormansJson(value);
-                response.Status = values["status"];
-                response.SolarNoon = DateTime.Parse(values["solar_noon"]).ToLocalTime();
-                response.SunRise = DateTime.Parse(values["sunrise"]).ToLocalTime();
-                response.SunSet = DateTime.Parse(values["sunset"]).ToLocalTime();
+                JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
+                SunRiseSetObject SunRiseSetResponse = jsSerialization.Deserialize<SunRiseSetObject>(value);
+
+                response.Status = SunRiseSetResponse.status;
+                if (response.Status.ToLower() == "ok")
+                {
+                    response.SolarNoon = DateTime.Parse(SunRiseSetResponse.results.solar_noon).ToLocalTime();
+                    response.SunRise = DateTime.Parse(SunRiseSetResponse.results.sunrise).ToLocalTime();
+                    response.SunSet = DateTime.Parse(SunRiseSetResponse.results.sunset).ToLocalTime();
+                }
             }
             catch (Exception x) { response.Status = x.ToString(); }
             return response;
@@ -91,26 +98,6 @@ namespace WeatherDesktop.Interface
         #endregion
 
         #region Helpers
-        private static Dictionary<string, string> PoormansJson(string json)
-        {
-            const string colon = ":";
-            Dictionary<string, string> returnValue = new Dictionary<string, string>();
-            string parseValue = System.Text.RegularExpressions.Regex.Unescape(json);
-            List<string> Parsed1 = new List<string>(parseValue.Substring(parseValue.IndexOf("results") + 10).Split(','));
-            foreach (string element in Parsed1)
-            {
-                if (element.Contains(colon))
-                {
-                    int firstIndex = element.IndexOf(colon, StringComparison.Ordinal);
-                    string key = element.Substring(0, firstIndex).Replace(dqoute.ToString(), string.Empty);
-                    string dictValue = element.Substring(firstIndex + 1).Replace(dqoute.ToString(), string.Empty);
-                    if (dictValue.EndsWith("}", StringComparison.Ordinal)) { dictValue = dictValue.Substring(0, dictValue.Length - 1); }
-                    returnValue.Add(key, dictValue);
-                }
-            }
-            return returnValue;
-        }
-
 
         static void UpdateLatLong()
         {
@@ -164,7 +151,7 @@ namespace WeatherDesktop.Interface
             }
             catch { MessageBox.Show("Could not update, please try again"); }
         }
-    
+
         //Try geting the lat Long from the machine, refactored from MSDN.
         static KeyValuePair<double, double> GetLocationProperty()
         {
@@ -177,7 +164,7 @@ namespace WeatherDesktop.Interface
                 {
                     MessageBox.Show("Can not get Lat Long, please restart", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Application.Exit();
-                }                
+                }
             }
             string[] LatLongParse = LatLong.Split(',');
             return new KeyValuePair<double, double>(double.Parse(LatLongParse[0]), double.Parse(LatLongParse[1]));
@@ -185,7 +172,7 @@ namespace WeatherDesktop.Interface
         #endregion
 
         #region Debug values
-        public  string Debug()
+        public string Debug()
         {
             Dictionary<string, string> DebugValues = new Dictionary<string, string>();
             DebugValues.Add("Houre to update", _HourToUpdate.ToString());
@@ -199,29 +186,73 @@ namespace WeatherDesktop.Interface
             return Shared.CompileDebug("SunRiseSet Service", DebugValues);
         }
         #endregion
-    }
-}
 
-/*output sample
-     {
-      "results":
-      {
-        "sunrise":"2015-05-21T05:05:35+00:00",
-        "sunset":"2015-05-21T19:22:59+00:00",
-        "solar_noon":"2015-05-21T12:14:17+00:00",
-        "day_length":51444,
-        "civil_twilight_begin":"2015-05-21T04:36:17+00:00",
-        "civil_twilight_end":"2015-05-21T19:52:17+00:00",
-        "nautical_twilight_begin":"2015-05-21T04:00:13+00:00",
-        "nautical_twilight_end":"2015-05-21T20:28:21+00:00",
-        "astronomical_twilight_begin":"2015-05-21T03:20:49+00:00",
-        "astronomical_twilight_end":"2015-05-21T21:07:45+00:00"
-      },
-       "status":"OK"
+        #region Auto Generated Code for JSON Deserilization
+
+        //------------------------------------------------------------------------------
+        // <auto-generated>
+        //     This code was generated by a tool.
+        //     Runtime Version:4.0.30319.42000
+        //     http://jsontodatacontract.azurewebsites.net/
+        //     Changes to this file may cause incorrect behavior and will be lost if
+        //     the code is regenerated.
+        // </auto-generated>
+        //------------------------------------------------------------------------------
+
+
+
+        // Type created for JSON at <<root>>
+        [DataContractAttribute()]
+        partial class SunRiseSetObject
+        {
+
+            [DataMemberAttribute()]
+            public Results results;
+
+            [DataMemberAttribute()]
+            public string status;
+        }
+
+        // Type created for JSON at <<root>> --> results
+        [DataContractAttribute(Name = "results")]
+        partial class Results
+        {
+
+            [DataMemberAttribute()]
+            public string sunrise;
+
+            [DataMemberAttribute()]
+            public string sunset;
+
+            [DataMemberAttribute()]
+            public string solar_noon;
+
+            [DataMemberAttribute()]
+            public string day_length;
+
+            [DataMemberAttribute()]
+            public string civil_twilight_begin;
+
+            [DataMemberAttribute()]
+            public string civil_twilight_end;
+
+            [DataMemberAttribute()]
+            public string nautical_twilight_begin;
+
+            [DataMemberAttribute()]
+            public string nautical_twilight_end;
+
+            [DataMemberAttribute()]
+            public string astronomical_twilight_begin;
+
+            [DataMemberAttribute()]
+            public string astronomical_twilight_end;
+        }
+        #endregion
+
+
     }
-    
-Notes on poormansJson    
-Yes, I could have used NewtonSoft JSON to parse the object, and / or created serializable conditions to generate objects from the JSON, but for something
-this small, its a lot easier (and less CPU cycles) to just generate a dictionary based off a string parse.
- 
- */
+
+
+
+}

@@ -37,8 +37,8 @@ namespace WeatherDesktop
         System.Collections.BitArray BlackListHours = new System.Collections.BitArray(24);
         System.Collections.BitArray BlackListDays = new System.Collections.BitArray(7);
 
-        Type[] WeatherTypes = new Type[] { typeof(Interface.MSWeather) };
-        Type[] SunRiseSetTypes = new Type[] { typeof(Interface.SunRiseSet) };
+        Type[] WeatherTypes = new Type[] { typeof(Interface.MSWeather), typeof(Interface.Mock_Weather) };
+        Type[] SunRiseSetTypes = new Type[] { typeof(Interface.SunRiseSet), typeof(Interface.Mock_SunRiseSet) };
         #endregion
 
         #region Initialize icon and menu
@@ -156,8 +156,8 @@ namespace WeatherDesktop
                         Application.Run();
                         notificationIcon.notifyIcon.Dispose();
                     }
-                    catch
-                    { }
+                    catch(Exception x)
+                    { MessageBox.Show("Error: " + x.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
                     mtx.ReleaseMutex();
                 }
                 else
@@ -247,7 +247,7 @@ namespace WeatherDesktop
                 g_Weather = (Interface.ISharedWeatherinterface)Activator.CreateInstance(S);
 
             }
-            else if (Current.Parent.Name == "SunRiseSet")
+            else if (((MenuItem)Current.Parent).Text == "SunRiseSet")
             {
                 Interface.Shared.AddUpdateAppSettings(cSRS, Name);
                 Type S = Type.GetType(Name);
@@ -298,8 +298,8 @@ namespace WeatherDesktop
             }
 
             catch {
-                g_Weather = new Interface.MSWeather();
-                g_SunRiseSet = new Interface.SunRiseSet();
+                g_Weather = new Interface.Mock_Weather();
+                g_SunRiseSet = new Interface.Mock_SunRiseSet();
                 Interface.Shared.AddUpdateAppSettings(cWeather, g_Weather.GetType().FullName);
                 Interface.Shared.AddUpdateAppSettings(cSRS, g_SunRiseSet.GetType().FullName);
             }

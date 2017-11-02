@@ -81,6 +81,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\Interfaces.cs" />
+    <Compile Include="Interfaces\SunRiseSetObjects\Mock_SunRiseSet.cs" />
+    <Compile Include="Interfaces\weatherObjects\Mock_Weather.cs" />
     <Compile Include="Interfaces\weatherObjects\MSWeather.cs" />
     <Compile Include="Interfaces\response\SunRisesetResponse.cs" />
     <Compile Include="Interfaces\response\WeatherResponse.cs" />

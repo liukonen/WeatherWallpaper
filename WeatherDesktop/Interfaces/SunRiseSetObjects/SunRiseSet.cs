@@ -52,6 +52,7 @@ namespace WeatherDesktop.Interface
             }
             _HourToUpdate = int.Parse(HTU);
             _LastUpdate = DateTime.Now;
+            Invoke();
         }
 
         #endregion

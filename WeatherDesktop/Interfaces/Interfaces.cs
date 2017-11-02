@@ -11,8 +11,6 @@ namespace WeatherDesktop.Interface
         MenuItem[] SettingsItems();
     }
 
-    public interface ISharedWeatherinterface :ISharedInterface
-    {
-        string ForcastDescription();
-    }
+    public interface ISharedWeatherinterface : ISharedInterface { }
+    public interface IsharedSunRiseSetInterface : ISharedInterface { }
 }

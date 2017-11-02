@@ -35,8 +35,8 @@ namespace WeatherDesktop
         #region global Objects
         private NotifyIcon notifyIcon;
         private ContextMenu notificationMenu;
-        private Interface.ISharedInterface g_Weather;
-        private Interface.ISharedInterface g_SunRiseSet;
+        private Interface.ISharedWeatherinterface g_Weather;
+        private Interface.IsharedSunRiseSetInterface g_SunRiseSet;
         private Dictionary<string, string> g_ImageDictionary = new Dictionary<string, string>();
         private string g_CurrentWeatherType;
 
@@ -238,9 +238,9 @@ namespace WeatherDesktop
         {
             try {
                 Type T = Type.GetType(Interface.Shared.ReadSetting(cWeather));
-                g_Weather = (Interface.ISharedInterface)Activator.CreateInstance(T);
+                g_Weather = (Interface.ISharedWeatherinterface)Activator.CreateInstance(T);
                 Type S = Type.GetType(Interface.Shared.ReadSetting(cSRS));
-                g_SunRiseSet = (Interface.ISharedInterface)Activator.CreateInstance(S);
+                g_SunRiseSet = (Interface.IsharedSunRiseSetInterface)Activator.CreateInstance(S);
 
             }
 
@@ -303,14 +303,14 @@ namespace WeatherDesktop
             {
                 Interface.Shared.AddUpdateAppSettings(cWeather, Name);
                 Type S = Type.GetType(Name);
-                g_Weather = (Interface.ISharedInterface)Activator.CreateInstance(S);
+                g_Weather = (Interface.ISharedWeatherinterface)Activator.CreateInstance(S);
 
             }
             else if (Current.Parent.Name == "SunRiseSet")
             {
                 Interface.Shared.AddUpdateAppSettings(cSRS, Name);
                 Type S = Type.GetType(Name);
-                g_SunRiseSet = (Interface.ISharedInterface)Activator.CreateInstance(S);
+                g_SunRiseSet = (Interface.IsharedSunRiseSetInterface)Activator.CreateInstance(S);
             }
             notificationMenu = new ContextMenu(InitializeMenu());
             notifyIcon.ContextMenu = notificationMenu;

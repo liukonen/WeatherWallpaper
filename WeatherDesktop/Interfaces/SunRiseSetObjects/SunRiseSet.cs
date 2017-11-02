@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace WeatherDesktop.Interface
 {
-    public class SunRiseSet: ISharedInterface
+    public class SunRiseSet: IsharedSunRiseSetInterface
     {
         #region Constants
         const string _path = "https://api.sunrise-sunset.org/json?lat={0}&lng={1}&date=today&formatted=0";

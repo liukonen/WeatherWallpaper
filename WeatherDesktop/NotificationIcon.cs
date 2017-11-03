@@ -37,7 +37,7 @@ namespace WeatherDesktop
         System.Collections.BitArray BlackListHours = new System.Collections.BitArray(24);
         System.Collections.BitArray BlackListDays = new System.Collections.BitArray(7);
 
-        Type[] WeatherTypes = new Type[] { typeof(Interface.MSWeather), typeof(Interface.Mock_Weather) };
+        Type[] WeatherTypes = new Type[] { typeof(Interface.MSWeather), typeof(Interface.Mock_Weather), typeof(Interface.OpenWeatherMap) };
         Type[] SunRiseSetTypes = new Type[] { typeof(Interface.SunRiseSet), typeof(Interface.Mock_SunRiseSet) };
         #endregion
 

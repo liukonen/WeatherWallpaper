@@ -5,7 +5,7 @@ using System;
 using System.Xml;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Drawing;
+using WeatherDesktop.Shared;
 
 namespace WeatherDesktop.Interface
 {
@@ -16,9 +16,7 @@ namespace WeatherDesktop.Interface
     {
         #region Constants
         const string url = "http://weather.service.msn.com/data.aspx?weasearchstr={0}&culture=en-US&weadegreetype=F&src=outlook";
-        const string cZip = "zipcode";
         const string forcastFormat = "{3}, {2}. [{1}-{0}] Precipitation {4}%.";
-
         #endregion
 
         #region Globals
@@ -29,8 +27,6 @@ namespace WeatherDesktop.Interface
         private KeyValuePair<double, double> _latLong;
         private Boolean HasBeenCalled = false;
         private int _skycode;
-        //public double Latitude { get {  } }
-        //public double Longitude { get { return _latLong.Value; } }
         private string _Status = "functional";
         #endregion
 
@@ -53,7 +49,7 @@ namespace WeatherDesktop.Interface
             string NewZip;
             try
             {
-                string CurrentZip = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(cZip);
+                string CurrentZip = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(SystemLevelConstants.ZipCode);
                 NewZip = ChangeZip(CurrentZip);
             }
             catch { MessageBox.Show("Unable to update Zip code", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
@@ -66,7 +62,7 @@ namespace WeatherDesktop.Interface
         public MSWeather()
         {
             int zip = 0;
-            string zipcode = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(cZip);
+            string zipcode = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(SystemLevelConstants.ZipCode);
             if (string.IsNullOrWhiteSpace(zipcode) || !int.TryParse(zipcode, out zip))
             {
                 try {
@@ -257,7 +253,7 @@ namespace WeatherDesktop.Interface
             string zip = Microsoft.VisualBasic.Interaction.InputBox("Please enter your zipcode", "Zip Code", CurrentZip);
             int NewZip;
             NewZip = int.Parse(zip); // if its not a int, throw an error
-            WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(cZip, zip);
+            WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(SystemLevelConstants.ZipCode, zip);
             return zip;
         }
 

@@ -8,7 +8,7 @@ namespace WeatherDesktop.Shared
     static class SystemLevelConstants
     {
         public const string csvEncryptedLatLongName = "LatLong";
-
+        public const string ZipCode = "zipcode";
 
     }
 }

@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Text;
 
+
 namespace WeatherDesktop.Interface
 {
     /// <summary>
@@ -14,6 +15,8 @@ namespace WeatherDesktop.Interface
     public static class Shared
     {
         public enum WeatherTypes { ThunderStorm, Rain, Snow, Dust, Fog, Haze, Smoke, Windy, Frigid, Cloudy, PartlyCloudy, Clear, Hot };
+
+  
 
         #region Web Request
         public static string CompressedCallSite(string Url)

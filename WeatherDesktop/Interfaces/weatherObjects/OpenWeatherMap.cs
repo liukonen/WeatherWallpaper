@@ -4,26 +4,25 @@ using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using System.Runtime.Serialization;
 using System.Web.Script.Serialization;
+using WeatherDesktop.Shared;
 
 namespace WeatherDesktop.Interface
 {
-    class OpenWeatherMap : ISharedWeatherinterface
+    class OpenWeatherMap : ISharedWeatherinterface, ILatLongInterface
     {
-        const String apiCall = "http://api.openweathermap.org/data/2.5/weather?zip={0}&appid={1}";//&units=imperial //&units=metric
+        const String apiCall = "http://api.openweathermap.org/data/2.5/weather?zip={0}&appid={1}&units=imperial";//&units=imperial //&units=metric
         const string ClassName = "OpenWeatherMap";
+
+        #region Globals
         string _apiKey;
         string _zip = string.Empty;
-        const string cZip = "zipcode";
+        Coord _LatLong;
         int _updateInt = 0;
         private WeatherResponse _cacheValue = new WeatherResponse();
         private Boolean HasBeenCalled = false;
         private DateTime _lastCall;
         private string _Status;
-
-        public string Debug()
-        {
-            throw new NotImplementedException();
-        }
+#endregion
 
         public OpenWeatherMap()
         {
@@ -31,33 +30,6 @@ namespace WeatherDesktop.Interface
             if (string.IsNullOrWhiteSpace(ZipCode)) { Enterzip(); }
             Invoke();
         }
-
-        public ISharedResponse Invoke()
-        {
-
-            if (!HasBeenCalled || DateTime.Now > _lastCall.AddMinutes(UpdateInterval))
-            {
-                try
-                {
-                     _cacheValue = LiveCall();
-                    HasBeenCalled = true;
-                    _lastCall = DateTime.Now;
-                }
-                catch (Exception ex) { _Status = ex.Message; return _cacheValue; }
-
-            }
-            return _cacheValue;
-        }
-
-        public MenuItem[] SettingsItems()
-        {
-            List<MenuItem> Settings = new List<MenuItem>();
-            Settings.Add(new MenuItem("API key", ChangeAPI));
-            Settings.Add(new MenuItem("zip Code", ChangeZipClick));
-            Settings.Add(new MenuItem("Update Interval", Enterinterval));
-            return Settings.ToArray();
-        }
-
 
         #region Events
         private void ChangeZipClick(object sender, EventArgs e)
@@ -80,6 +52,33 @@ namespace WeatherDesktop.Interface
         }
         #endregion
 
+        #region Weather values
+
+        public ISharedResponse Invoke()
+        {
+
+            if (!HasBeenCalled || DateTime.Now > _lastCall.AddMinutes(UpdateInterval))
+            {
+                try
+                {
+                    _cacheValue = LiveCall();
+                    HasBeenCalled = true;
+                    _lastCall = DateTime.Now;
+                }
+                catch (Exception ex) { _Status = ex.Message; return _cacheValue; }
+
+            }
+            return _cacheValue;
+        }
+
+        public MenuItem[] SettingsItems()
+        {
+            List<MenuItem> Settings = new List<MenuItem>();
+            Settings.Add(new MenuItem("API key", ChangeAPI));
+            Settings.Add(new MenuItem("zip Code", ChangeZipClick));
+            Settings.Add(new MenuItem("Update Interval", Enterinterval));
+            return Settings.ToArray();
+        }
 
         private WeatherResponse LiveCall()
         {
@@ -95,12 +94,20 @@ namespace WeatherDesktop.Interface
                 response.Temp = (int)weatherObject.main.temp;
                 response.ForcastDescription = GenerateForcast(weatherObject.main, weatherObject.weather[0]);
                 response.WType = GetWeatherType(weatherObject.weather[0].id);
+                _LatLong = weatherObject.coord;
             }
             catch (Exception x) { response.ForcastDescription = x.Message; }
 
             return response;
         }
 
+        public string Debug()
+        {
+            return _Status;
+        }
+        #endregion
+
+        #region Helpers
         private Shared.WeatherTypes GetWeatherType(int ParseItem)
         {
             double value = ParseItem / 100;
@@ -117,7 +124,7 @@ namespace WeatherDesktop.Interface
                     return Shared.WeatherTypes.Rain;
                 case 6:
                     return Shared.WeatherTypes.Snow;
-             }
+            }
 
 
             switch (ParseItem)
@@ -157,7 +164,7 @@ namespace WeatherDesktop.Interface
                 case 957:
                 case 958:
                     return Shared.WeatherTypes.Windy;
-                
+
             }
             return Shared.WeatherTypes.ThunderStorm;// In the act of Some of the Extremes I did not cover... Thumderstorm it is
             //list of items directly not covered: 771 squalls, 781 tornado, 900 tornado, 901 tropical storm, 902 hurricane, 906 hail, 959 severe gale, 962 hurrican
@@ -179,10 +186,11 @@ namespace WeatherDesktop.Interface
         private void EnterAPIKey()
         {
             APIKey = Interaction.InputBox("Please enter the API key provided by openweathermap.org", "Enter API");
-            
+
         }
 
-         string APIKey
+        #region Properties
+        string APIKey
         {
             get
             {
@@ -196,11 +204,11 @@ namespace WeatherDesktop.Interface
             }
         }
 
-         string ZipCode
+        string ZipCode
         {
             get
             {
-                if (string.IsNullOrEmpty(_zip)) { _zip = Shared.ReadSettingEncrypted(cZip); }
+                if (string.IsNullOrEmpty(_zip)) { _zip = Shared.ReadSettingEncrypted(SystemLevelConstants.ZipCode); }
                 return _zip;
             }
 
@@ -210,15 +218,17 @@ namespace WeatherDesktop.Interface
                 if (int.TryParse(value, out dumbyvalidator))
                 {
                     _zip = value;
-                    Shared.AddupdateAppSettingsEncrypted(cZip, _zip);
+                    Shared.AddupdateAppSettingsEncrypted(SystemLevelConstants.ZipCode, _zip);
                 }
                 else { MessageBox.Show("invalid Zip code"); }
 
             }
         }
 
-        int UpdateInterval {
-            get {
+        int UpdateInterval
+        {
+            get
+            {
 
                 if (_updateInt == 0) { int.TryParse(Shared.ReadSetting(ClassName + ".UpdateInt"), out _updateInt); }
                 if (_updateInt < 10) { _updateInt = 10; }
@@ -235,7 +245,19 @@ namespace WeatherDesktop.Interface
                 else { MessageBox.Show("Please enter a number between 10 and 120"); }
             }
         }
+#endregion
 
+        #endregion
+
+        #region LatLong Values
+        public double Latitude() { if (_LatLong != null) { return _LatLong.lat; } return 0; }
+
+        public double Longitude() { if (_LatLong != null) { return _LatLong.lon; } return 0; }
+
+        public bool worked() { return (_LatLong != null); }
+        #endregion
+
+        #region Auto Generated Code
         //------------------------------------------------------------------------------
         // <auto-generated>
         //     This code was generated by a tool.
@@ -382,7 +404,7 @@ namespace WeatherDesktop.Interface
             [System.Runtime.Serialization.DataMemberAttribute()]
             public int all;
         }
-
+        #endregion
     }
 }
 

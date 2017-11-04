@@ -76,7 +76,6 @@ namespace WeatherDesktop.Interface
 
         #endregion
 
-
         #region invoke
         public ISharedResponse Invoke()
         {

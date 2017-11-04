@@ -37,8 +37,6 @@ namespace WeatherDesktop
         System.Collections.BitArray BlackListHours = new System.Collections.BitArray(24);
         System.Collections.BitArray BlackListDays = new System.Collections.BitArray(7);
 
-        Type[] WeatherTypes = new Type[] { typeof(Interface.MSWeather), typeof(Interface.Mock_Weather), typeof(Interface.OpenWeatherMap) };
-        Type[] SunRiseSetTypes = new Type[] { typeof(Interface.SunRiseSet), typeof(Interface.Mock_SunRiseSet) };
         #endregion
 
         #region Initialize icon and menu
@@ -89,13 +87,13 @@ namespace WeatherDesktop
             string SelectedItem = Interface.Shared.ReadSetting(cWeather);
             string SelectedSRS = Interface.Shared.ReadSetting(cSRS);
 
-            foreach (var item in WeatherTypes)
+            foreach (var item in Shared.KnownTypes.WeatherTypes)
             {
                 MenuItem ItemToAdd = new MenuItem(item.FullName, UpdateGlobalObjecttype);
                 if (item.FullName == SelectedItem) { ItemToAdd.Checked = true; }
                 WeatherItems.Add(ItemToAdd);
             }
-            foreach (var item in SunRiseSetTypes)
+            foreach (var item in Shared.KnownTypes.SunRiseSetTypes)
             {
                 MenuItem ItemToAdd = new MenuItem(item.FullName, UpdateGlobalObjecttype);
                 if (item.FullName == SelectedSRS) { ItemToAdd.Checked = true; }

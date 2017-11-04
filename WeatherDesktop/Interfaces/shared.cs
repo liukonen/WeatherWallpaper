@@ -139,6 +139,10 @@ namespace WeatherDesktop.Interface
         #endregion
     }
 
+    public static class KnownTypes
+    {
+
+    }
 
 
 }

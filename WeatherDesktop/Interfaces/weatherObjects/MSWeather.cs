@@ -5,13 +5,14 @@ using System;
 using System.Xml;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace WeatherDesktop.Interface
 {
     /// <summary>
     /// Description of MSWeather.
     /// </summary>
-    public class MSWeather :  ISharedWeatherinterface
+    public class MSWeather : ISharedWeatherinterface, ILatLongInterface
     {
         #region Constants
         const string url = "http://weather.service.msn.com/data.aspx?weasearchstr={0}&culture=en-US&weadegreetype=F&src=outlook";
@@ -21,21 +22,21 @@ namespace WeatherDesktop.Interface
         #endregion
 
         #region Globals
-        private int _zipcode;
+        private string _zipcode;
         private int _cacheTimeout = 15;
         private DateTime _lastCall;
         private WeatherResponse _cacheValue;
         private KeyValuePair<double, double> _latLong;
         private Boolean HasBeenCalled = false;
         private int _skycode;
-        public double Latitude { get { return _latLong.Key; } }
-        public double Longitude { get { return _latLong.Value; } }
+        //public double Latitude { get {  } }
+        //public double Longitude { get { return _latLong.Value; } }
         private string _Status = "functional";
         #endregion
 
         #region Settings
 
-        public  MenuItem[] SettingsItems()
+        public MenuItem[] SettingsItems()
         {
             List<MenuItem> returnValue = new List<MenuItem>();
             returnValue.Add(new MenuItem("Update Zipcode", ChangeZipClick));
@@ -49,7 +50,7 @@ namespace WeatherDesktop.Interface
 
         private void ChangeZipClick(object sender, EventArgs e)
         {
-            int NewZip;
+            string NewZip;
             try
             {
                 string CurrentZip = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(cZip);
@@ -66,21 +67,22 @@ namespace WeatherDesktop.Interface
         {
             int zip = 0;
             string zipcode = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(cZip);
-            if (string.IsNullOrWhiteSpace(zipcode))
+            if (string.IsNullOrWhiteSpace(zipcode) || !int.TryParse(zipcode, out zip))
             {
-                try{zip = ChangeZip(string.Empty);}
+                try {
+                    zipcode = ChangeZip(string.Empty);
+                    zip = int.Parse(zipcode); }
                 catch (Exception x) { MessageBox.Show("an error occured. please restart..." + x.ToString()); Application.Exit(); }
             }
-            else { zip = int.Parse(zipcode); }
-            _zipcode = zip;
+            _zipcode = zipcode;
             Invoke();
         }
- 
+
         #endregion
 
 
         #region invoke
-        public  ISharedResponse Invoke()
+        public ISharedResponse Invoke()
         {
             if (!HasBeenCalled || DateTime.Now > _lastCall.AddMinutes(_cacheTimeout))
             {
@@ -92,7 +94,16 @@ namespace WeatherDesktop.Interface
                     _lastCall = DateTime.Now;
                     if (serviceTimeout > _cacheTimeout) { _cacheTimeout = serviceTimeout; }
                 }
-                catch (Exception ex) { _Status = ex.Message; return _cacheValue; }
+                catch (Exception ex) { _Status = ex.Message;
+
+                    if (_cacheValue != null) { return _cacheValue; } else
+                    {
+                        WeatherResponse DumbyResponse = new WeatherResponse();
+                        DumbyResponse.ForcastDescription = ex.Message;
+                        DumbyResponse.Temp = 0;
+                        DumbyResponse.WType = Shared.WeatherTypes.Clear;
+                        return DumbyResponse;
+                    } }
 
             }
             return _cacheValue;
@@ -101,7 +112,7 @@ namespace WeatherDesktop.Interface
 
         #region Live API call
 
-        public static WeatherResponse LiveCall(int zipcode, out KeyValuePair<double, double> latLong, out int serviceTimeout, out int skycode)
+        public static WeatherResponse LiveCall(string  zipcode, out KeyValuePair<double, double> latLong, out int serviceTimeout, out int skycode)
         {
             double lat = 0;
             double lng = 0;
@@ -141,7 +152,7 @@ namespace WeatherDesktop.Interface
                             serviceTimeout = int.Parse(reader.GetAttribute("timewindow"));
                             break;
                     }
-             }
+            }
             latLong = new KeyValuePair<double, double>(lat, lng);
             response.ForcastDescription = forcast.ToString();
             return response;
@@ -241,18 +252,19 @@ namespace WeatherDesktop.Interface
             }
         }
 
-        private int ChangeZip(string CurrentZip)
+        private string ChangeZip(string CurrentZip)
         {
+            string zip = Microsoft.VisualBasic.Interaction.InputBox("Please enter your zipcode", "Zip Code", CurrentZip);
             int NewZip;
-            NewZip = int.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please enter your zipcode", "Zip Code", CurrentZip));
-            WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(cZip, NewZip.ToString());
-            return NewZip;
+            NewZip = int.Parse(zip); // if its not a int, throw an error
+            WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(cZip, zip);
+            return zip;
         }
 
         #endregion
 
         #region Debug values
-        public  string Debug()
+        public string Debug()
         {
             Dictionary<string, string> DebugValues = new Dictionary<string, string>();
             DebugValues.Add("Skykey", _skycode.ToString());
@@ -261,6 +273,16 @@ namespace WeatherDesktop.Interface
             DebugValues.Add("Latitude", _latLong.Key.ToString());
             DebugValues.Add("Longitude", _latLong.Value.ToString());
             return Shared.CompileDebug("MS Weather Service", DebugValues);
+        }
+
+        public double Latitude() { return _latLong.Key; }
+
+        public double Longitude() { return _latLong.Value; }
+
+
+        public bool worked()
+        {
+            return (_latLong.Key != 0 && _latLong.Value != 0);
         }
 
         #endregion

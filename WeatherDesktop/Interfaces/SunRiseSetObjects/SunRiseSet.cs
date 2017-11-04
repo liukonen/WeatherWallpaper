@@ -28,14 +28,42 @@ namespace WeatherDesktop.Interface
         {
             List<MenuItem> returnValue = new List<MenuItem>();
             returnValue.Add(new MenuItem("Hour To Update", ChangehourToUpdate));
-            returnValue.Add(new MenuItem("Update Location", ChangeLatLong));
+
+
+            MenuItem i = new MenuItem("Refresh GeoCords from...");
+            foreach (Type item in WeatherDesktop.Shared.KnownTypes.LatLongTypes)
+            {
+                i.MenuItems.Add( new MenuItem(item.FullName, TryupdateMenuItem));
+            }
+
+
+            returnValue.Add(i);
             return returnValue.ToArray();
+        }
+
+
+        public void TryupdateMenuItem(object sender, EventArgs e)
+        {
+            MenuItem Current = (MenuItem)sender;
+            string Name = Current.Text;
+            Type S = Type.GetType(Name);
+            ILatLongInterface Item = (ILatLongInterface)Activator.CreateInstance(S);
+            if (Item.worked())
+            {
+                WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(WeatherDesktop.Shared.SystemLevelConstants.csvEncryptedLatLongName, string.Concat(Item.Latitude(), ",", Item.Longitude()));
+                _lat = Item.Latitude();
+                _long = Item.Longitude();
+                MessageBox.Show("Update complete");
+
+            }
+            else { MessageBox.Show("Update did not work"); }
+            
+            
         }
         #endregion
 
         #region Events
         private void ChangehourToUpdate(object sender, EventArgs e) { UpdateHour(); }
-        private void ChangeLatLong(object sender, EventArgs e) { UpdateLatLong(); }
         #endregion
 
         #region New
@@ -56,6 +84,9 @@ namespace WeatherDesktop.Interface
             _LastUpdate = DateTime.Now;
             Invoke();
         }
+
+
+        
 
         #endregion
 
@@ -99,42 +130,25 @@ namespace WeatherDesktop.Interface
 
         #region Helpers
 
-        static void UpdateLatLong()
+        static void intialgetLatLong()
         {
-            switch (MessageBox.Show("get weather from MSWeather (yes), from System (no) or manual entry", "where to get weather", MessageBoxButtons.YesNoCancel))
+            SystemLatLong sysLatLong = new SystemLatLong();
+            if (sysLatLong.worked())
             {
+                WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(WeatherDesktop.Shared.SystemLevelConstants.csvEncryptedLatLongName, string.Concat(sysLatLong.Latitude(), ",", sysLatLong.Longitude()));
+            }
+            else
+            {
+                if (MessageBox.Show("Lat and Long not yet available, Manual enter (yes), or pick a supplier in sunriseset settings (no)", "Lat Long not set", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    double lat = double.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please Enter your Latitude", "Latitude"));
+                    double lon = double.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please Enter your Longitude", "Longitude"));
+                    WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(WeatherDesktop.Shared.SystemLevelConstants.csvEncryptedLatLongName, string.Concat(lat, ",", lon));
+                }
 
-                case DialogResult.Yes:
-                    MSWeather weather = new MSWeather();
-                    WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted("LatLong", string.Concat(weather.Latitude, ",", weather.Longitude));
-                    break;
-
-                case DialogResult.No:
-                    System.Device.Location.GeoCoordinateWatcher watcher = new System.Device.Location.GeoCoordinateWatcher();
-                    // Do not suppress prompt, and wait 1000 milliseconds to start.
-                    watcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
-                    System.Device.Location.GeoCoordinate coord = watcher.Position.Location;
-                    if (coord.IsUnknown != true)
-                    {
-                        WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted("LatLong", string.Concat(coord.Latitude, ",", coord.Longitude));
-                    }
-                    else { MessageBox.Show("Could not update weather."); }
-                    break;
-                default:
-                    try
-                    {
-                        double lat = double.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please Enter your Latitude", "Latitude"));
-                        double lon = double.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please Enter your Longitude", "Longitude"));
-                        WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted("LatLong", string.Concat(lat, ",", lon));
-
-                    }
-                    catch (Exception x)
-                    {
-                        MessageBox.Show(x.Message, "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    break;
             }
         }
+
 
         static void UpdateHour()
         {
@@ -158,12 +172,11 @@ namespace WeatherDesktop.Interface
             string LatLong = WeatherDesktop.Interface.Shared.ReadSettingEncrypted("LatLong");
             if (string.IsNullOrWhiteSpace(LatLong))
             {
-                UpdateLatLong();
+                intialgetLatLong();
                 LatLong = WeatherDesktop.Interface.Shared.ReadSettingEncrypted("LatLong");
                 if (string.IsNullOrWhiteSpace(LatLong))
                 {
-                    MessageBox.Show("Can not get Lat Long, please restart", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
+                    LatLong ="0,0";
                 }
             }
             string[] LatLongParse = LatLong.Split(',');

@@ -7,7 +7,6 @@ C:\Users\mfanz\Source\Repos\WeatherWallpaper2\WeatherDesktop\obj\Release\Weather
 C:\Users\mfanz\Source\Repos\WeatherWallpaper2\WeatherDesktop\obj\Release\WeatherDesktop.csprojResolveAssemblyReference.cache
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Release\WeatherDesktop.exe.config
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Release\WeatherDesktop.exe
-C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.csprojResolveAssemblyReference.cache
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.NotificationIcon.resources
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.csproj.GenerateResource.Cache
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.csproj.CoreCompileInputs.cache

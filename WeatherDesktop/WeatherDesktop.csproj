@@ -83,6 +83,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\Interfaces.cs" />
+    <Compile Include="Interfaces\LatLongExclusiveProviders\SystemLatLong.cs" />
+    <Compile Include="Interfaces\response\LatLongResponse.cs" />
     <Compile Include="Interfaces\SunRiseSetObjects\Mock_SunRiseSet.cs" />
     <Compile Include="Interfaces\weatherObjects\Mock_Weather.cs" />
     <Compile Include="Interfaces\weatherObjects\MSWeather.cs" />
@@ -91,6 +93,8 @@
     <Compile Include="Interfaces\shared.cs" />
     <Compile Include="Interfaces\SunRiseSetObjects\SunRiseSet.cs" />
     <Compile Include="Interfaces\weatherObjects\OpenWeatherMap.cs" />
+    <Compile Include="Shared\KnownTypes.cs" />
+    <Compile Include="Shared\SystemLevelConstants.cs" />
     <Compile Include="Shared\WallpaperChanger.cs" />
     <Compile Include="NotificationIcon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

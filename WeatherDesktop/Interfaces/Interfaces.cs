@@ -11,6 +11,13 @@ namespace WeatherDesktop.Interface
         MenuItem[] SettingsItems();
     }
 
+    public interface ILatLongInterface
+    {
+        double Latitude();
+        double Longitude();
+        bool worked();
+
+    }
     public interface ISharedWeatherinterface : ISharedInterface { }
     public interface IsharedSunRiseSetInterface : ISharedInterface { }
 }

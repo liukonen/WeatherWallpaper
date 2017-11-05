@@ -35,7 +35,7 @@ namespace WeatherDesktop.Interface
         public MenuItem[] SettingsItems()
         {
             List<MenuItem> returnValue = new List<MenuItem>();
-            returnValue.Add(new MenuItem("Update Zipcode", ChangeZipClick));
+            returnValue.Add(Shared.ZipMenuItem);
             //returnValue.Add(new MenuItem("Hour To Update", ChangehourToUpdate));
             return returnValue.ToArray();
         }
@@ -44,16 +44,7 @@ namespace WeatherDesktop.Interface
 
         #region Events
 
-        private void ChangeZipClick(object sender, EventArgs e)
-        {
-            string NewZip;
-            try
-            {
-                string CurrentZip = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(SystemLevelConstants.ZipCode);
-                NewZip = ChangeZip(CurrentZip);
-            }
-            catch { MessageBox.Show("Unable to update Zip code", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-        }
+
 
         #endregion
 
@@ -64,13 +55,8 @@ namespace WeatherDesktop.Interface
             int zip = 0;
             string zipcode = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(SystemLevelConstants.ZipCode);
             if (string.IsNullOrWhiteSpace(zipcode) || !int.TryParse(zipcode, out zip))
-            {
-                try {
-                    zipcode = ChangeZip(string.Empty);
-                    zip = int.Parse(zipcode); }
-                catch (Exception x) { MessageBox.Show("an error occured. please restart..." + x.ToString()); Application.Exit(); }
-            }
-            _zipcode = zipcode;
+            {                Shared.ChangeZipClick(new object(), new EventArgs());}
+            _zipcode = Shared.ReadSettingEncrypted(SystemLevelConstants.ZipCode);
             Invoke();
         }
 
@@ -247,14 +233,7 @@ namespace WeatherDesktop.Interface
             }
         }
 
-        private string ChangeZip(string CurrentZip)
-        {
-            string zip = Microsoft.VisualBasic.Interaction.InputBox("Please enter your zipcode", "Zip Code", CurrentZip);
-            int NewZip;
-            NewZip = int.Parse(zip); // if its not a int, throw an error
-            WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(SystemLevelConstants.ZipCode, zip);
-            return zip;
-        }
+
 
         #endregion
 

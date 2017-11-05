@@ -11,3 +11,4 @@ C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherD
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.csproj.GenerateResource.Cache
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.csproj.CoreCompileInputs.cache
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.exe
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.csprojResolveAssemblyReference.cache

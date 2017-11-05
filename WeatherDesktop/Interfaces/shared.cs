@@ -140,12 +140,30 @@ namespace WeatherDesktop.Interface
         }
 
         #endregion
-    }
 
-    public static class KnownTypes
-    {
+        public static MenuItem ZipMenuItem
+        {
+            get { return new MenuItem("Change Zip Code", ChangeZipClick); }
+        }
+
+        public static void ChangeZipClick(object sender, EventArgs e)
+        {
+            string NewZip;
+            try
+            {
+                int DumbyInt = 0;
+                string CurrentZip = ReadSettingEncrypted(WeatherDesktop.Shared.SystemLevelConstants.ZipCode);
+                NewZip = Microsoft.VisualBasic.Interaction.InputBox("Please enter your zipcode", "Zip Code", CurrentZip);
+                if (!int.TryParse(NewZip, out DumbyInt)) { MessageBox.Show("Could not save zip"); }
+                else {                    AddupdateAppSettingsEncrypted(WeatherDesktop.Shared.SystemLevelConstants.ZipCode, NewZip);}
+            }
+            catch { MessageBox.Show("Unable to update Zip code", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+        }
+         
+
 
     }
+    
 
 
 }

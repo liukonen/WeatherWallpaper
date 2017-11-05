@@ -72,7 +72,7 @@ namespace WeatherDesktop.Interface
         {
             List<MenuItem> Settings = new List<MenuItem>();
             Settings.Add(new MenuItem("API key", ChangeAPI));
-            Settings.Add(new MenuItem("zip Code", ChangeZipClick));
+            Settings.Add(Shared.ZipMenuItem);
             Settings.Add(new MenuItem("Update Interval", Enterinterval));
             return Settings.ToArray();
 

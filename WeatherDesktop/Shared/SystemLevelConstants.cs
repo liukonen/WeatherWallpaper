@@ -9,6 +9,7 @@ namespace WeatherDesktop.Shared
     {
         public const string csvEncryptedLatLongName = "LatLong";
         public const string ZipCode = "zipcode";
+        public const string AppName = "WeatherDesktop";
 
     }
 }

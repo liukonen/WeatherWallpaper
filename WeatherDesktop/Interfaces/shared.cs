@@ -21,34 +21,24 @@ namespace WeatherDesktop.Interface
         #region Web Request
         public static string CompressedCallSite(string Url)
         {
+            return CompressedCallSite(Url, string.Empty);
+
+        }
+        public static string CompressedCallSite(string Url, string UserAgent)
+        {
             HttpWebRequest request = (System.Net.HttpWebRequest)HttpWebRequest.Create(Url);
+            if (!string.IsNullOrWhiteSpace(UserAgent)) { request.UserAgent = UserAgent; }
             request.Headers.Add("Accept-Encoding", "gzip,deflate");
             request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+            request.AllowAutoRedirect = true;
+
             using (System.Net.WebResponse response = request.GetResponse())
             {
                 StreamReader Reader = new System.IO.StreamReader(response.GetResponseStream());
                 return Reader.ReadToEnd();
             }
-        }
-        
-        public static string CompressedCallSiteSpoofBrowser(string url)
-        {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
-            //   request.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1) ; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; .NET CLR 1.1.4322; .NET CLR 3.5.20404)");
-        //    request.Headers["User-Agent"] = "WeatherWallpaper/v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com)";
-            request.UserAgent = "WeatherWallpaper/v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com)";
-            request.Headers.Add("Accept-Encoding", "gzip,deflate");
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            request.AllowAutoRedirect = true;
-            using (WebResponse response = request.GetResponse())
-            {
-                StreamReader reader = new StreamReader(response.GetResponseStream());
-                return reader.ReadToEnd();
-            }
-
 
         }
-
 
         #endregion
 

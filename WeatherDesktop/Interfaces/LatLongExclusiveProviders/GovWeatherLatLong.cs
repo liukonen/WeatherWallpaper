@@ -11,8 +11,8 @@ namespace WeatherDesktop.Interface
     class GovWeatherLatLong: ILatLongInterface
     {
         const string curl = "https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?listZipCodeList={0}";
+        const string User = "WeatherWallpaper/v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com)";
         private bool _worked;
-        private string debug;
         private string Cache;
         public double Latitude()
         {
@@ -32,7 +32,7 @@ namespace WeatherDesktop.Interface
                     Zip = Shared.ReadSettingEncrypted(SystemLevelConstants.ZipCode);
                 }
                 string url = string.Format(curl, Zip);
-                string results = Shared.CompressedCallSiteSpoofBrowser(url);
+                string results = Shared.CompressedCallSite(url, User);
                 XmlReader reader = XmlReader.Create(new System.IO.StringReader(results));
                 while (reader.Read())
                 {

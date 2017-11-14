@@ -16,21 +16,33 @@ namespace WeatherDesktop.Interface
         #region Globals
         string _apiKey;
         string _zip = string.Empty;
-        //Coord _LatLong;
         int _updateInt = 0;
-        //private WeatherResponse _cacheValue = new WeatherResponse();
         private OpenWeatherMapObject _Cache;
         private Boolean HasBeenCalled = false;
         private DateTime _lastCall;
         private string _Status;
         #endregion
 
-       // public Coord LatLong{ get { return _LatLong; } }
         public OpenWeatherMapObject Response
         { get { return _Cache; } }
 
         public string Status
         { get { return _Status; } }
+
+        private string GetValue
+        {
+            get
+            {
+                string CacheName = SystemLevelConstants.AppName + "_" + ClassName;
+                System.Runtime.Caching.MemoryCache cache = System.Runtime.Caching.MemoryCache.Default;
+                if (cache.Contains(CacheName)) return (string)cache[CacheName];
+                string url = string.Format(apiCall, ZipCode, APIKey);
+                string value = Shared.CompressedCallSite(url);
+                cache.Add(CacheName, value, DateTime.Now.AddHours(1));
+                return value;
+
+            }
+        }
 
         public virtual ISharedResponse Invoke() //this will be overridden
         {
@@ -52,16 +64,15 @@ namespace WeatherDesktop.Interface
         {
             try
             {
-                string url = string.Format(apiCall, ZipCode, APIKey);
-                string value = Shared.CompressedCallSite(url);
+                string value = GetValue;
                 JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
                 OpenWeatherMapObject weatherObject = jsSerialization.Deserialize<OpenWeatherMapObject>(value);
                 _Cache = weatherObject;
             }
             catch (Exception x) { _Status = x.Message; }
-
-            //return new ISharedResponse();
         }
+
+  
 
         public virtual string Debug()
         {

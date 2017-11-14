@@ -11,6 +11,7 @@ namespace WeatherDesktop.Interface
         #region Constants
         const string _path = "https://api.sunrise-sunset.org/json?lat={0}&lng={1}&date=today&formatted=0";
         const char dqoute = '"';
+        const string ClassName = "SunRiseSet";
         #endregion
 
         #region Globals
@@ -50,9 +51,9 @@ namespace WeatherDesktop.Interface
             ILatLongInterface Item = (ILatLongInterface)Activator.CreateInstance(S);
             if (Item.worked())
             {
-                WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(WeatherDesktop.Shared.SystemLevelConstants.csvEncryptedLatLongName, string.Concat(Item.Latitude(), ",", Item.Longitude()));
                 _lat = Item.Latitude();
                 _long = Item.Longitude();
+                Shared.LatLong.set(_lat, _long);
                 MessageBox.Show("Update complete");
 
             }
@@ -110,8 +111,15 @@ namespace WeatherDesktop.Interface
             SunRiseSetResponse response = new SunRiseSetResponse();
             try
             {
-                string url = string.Format(_path, Latitude.ToString(), Longitude.ToString());
-                string value = Shared.CompressedCallSite(url);
+                string value;
+                if (Shared.Cache.Exists(ClassName)) { value = Shared.Cache.StringValue(ClassName); }
+                else
+                {
+                    string url = string.Format(_path, Latitude.ToString(), Longitude.ToString());
+                     value = Shared.CompressedCallSite(url);
+                    Shared.Cache.Set(ClassName, value);
+                }
+
                 JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
                 SunRiseSetObject SunRiseSetResponse = jsSerialization.Deserialize<SunRiseSetObject>(value);
 
@@ -130,12 +138,14 @@ namespace WeatherDesktop.Interface
 
         #region Helpers
 
-        static void intialgetLatLong()
+        static bool intialgetLatLong()
         {
+            bool value = false;
             SystemLatLong sysLatLong = new SystemLatLong();
             if (sysLatLong.worked())
             {
-                WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(WeatherDesktop.Shared.SystemLevelConstants.csvEncryptedLatLongName, string.Concat(sysLatLong.Latitude(), ",", sysLatLong.Longitude()));
+                Shared.LatLong.set(sysLatLong.Latitude(), sysLatLong.Longitude());
+                value = true;
             }
             else
             {
@@ -143,10 +153,12 @@ namespace WeatherDesktop.Interface
                 {
                     double lat = double.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please Enter your Latitude", "Latitude"));
                     double lon = double.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please Enter your Longitude", "Longitude"));
-                    WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(WeatherDesktop.Shared.SystemLevelConstants.csvEncryptedLatLongName, string.Concat(lat, ",", lon));
+                    Shared.LatLong.set(lat, lon);
+                    value = true;
                 }
 
             }
+            return value;
         }
 
 
@@ -169,18 +181,9 @@ namespace WeatherDesktop.Interface
         //Try geting the lat Long from the machine, refactored from MSDN.
         static KeyValuePair<double, double> GetLocationProperty()
         {
-            string LatLong = WeatherDesktop.Interface.Shared.ReadSettingEncrypted("LatLong");
-            if (string.IsNullOrWhiteSpace(LatLong))
-            {
-                intialgetLatLong();
-                LatLong = WeatherDesktop.Interface.Shared.ReadSettingEncrypted("LatLong");
-                if (string.IsNullOrWhiteSpace(LatLong))
-                {
-                    LatLong ="0,0";
-                }
-            }
-            string[] LatLongParse = LatLong.Split(',');
-            return new KeyValuePair<double, double>(double.Parse(LatLongParse[0]), double.Parse(LatLongParse[1]));
+            if (Shared.LatLong.HasRecord() || intialgetLatLong())
+            { return new KeyValuePair<double, double>(Shared.LatLong.lat, Shared.LatLong.lng); }
+            return new KeyValuePair<double, double>(0, 0);
         }
         #endregion
 

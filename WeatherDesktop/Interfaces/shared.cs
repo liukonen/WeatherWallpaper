@@ -14,9 +14,76 @@ namespace WeatherDesktop.Interface
     /// </summary>
     public static class Shared
     {
+
+        public static class Cache
+        {
+
+            private static string TransformKey(string key)
+            { return WeatherDesktop.Shared.SystemLevelConstants.AppName + "_" + key; }
+
+            public static object Value(string key)
+            {
+                string NewKey = TransformKey(key);
+                System.Runtime.Caching.MemoryCache cache = System.Runtime.Caching.MemoryCache.Default;
+                if (cache.Contains(NewKey)) return cache[NewKey];
+                return string.Empty;
+            }
+
+            public static string StringValue(string key)
+            {
+                return (string)Value(key);
+            }
+
+            public static bool Exists(string key)
+            {
+                System.Runtime.Caching.MemoryCache cache = System.Runtime.Caching.MemoryCache.Default;
+                return cache.Contains(TransformKey(key));
+            }
+
+            public static void Set(string key, object o, int timeout)
+            {
+                System.Runtime.Caching.MemoryCache cache = System.Runtime.Caching.MemoryCache.Default;
+                cache.Add(TransformKey(key), o, DateTime.Now.AddMinutes(timeout));
+            }
+            public static void Set(string key, object o)
+            {
+                Set(key, o, 15);
+            }
+
+        }
+
+        public class LatLong
+        {
+            //public bool HasValue { return false; }
+
+            public static double lat
+            {
+                get
+                {
+                    string value = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(WeatherDesktop.Shared.SystemLevelConstants.csvEncryptedLatLongName);
+                    if (value != null) return double.Parse(value.Split(',')[0].Replace(",", string.Empty));
+                    return 0;
+                }
+            }
+            public static double lng {
+                get
+                {
+                    string value = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(WeatherDesktop.Shared.SystemLevelConstants.csvEncryptedLatLongName);
+                    if (value != null) return double.Parse(value.Split(',')[1].Replace(",", string.Empty));
+                    return 0;
+                }
+            }
+
+            public static bool HasRecord() { return (!string.IsNullOrWhiteSpace(WeatherDesktop.Interface.Shared.ReadSettingEncrypted(WeatherDesktop.Shared.SystemLevelConstants.csvEncryptedLatLongName))); }
+            public static void set(double dLat, double dLng)
+            {
+                WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(WeatherDesktop.Shared.SystemLevelConstants.csvEncryptedLatLongName, string.Join(",", dLat, dLng));
+            }
+
+        }
+
         public enum WeatherTypes { ThunderStorm, Rain, Snow, Dust, Fog, Haze, Smoke, Windy, Frigid, Cloudy, PartlyCloudy, Clear, Hot };
 
-  
 
         #region Web Request
         public static string CompressedCallSite(string Url)
@@ -170,6 +237,7 @@ namespace WeatherDesktop.Interface
         }
          
 
+ 
 
     }
     

@@ -24,7 +24,7 @@ namespace WeatherDesktop.Interface
 
         #region Weather values
 
-        public override ISharedResponse Invoke() 
+        public override ISharedResponse Invoke()
         {
             base.Invoke();
             WeatherResponse wresposne = new WeatherResponse();
@@ -33,9 +33,7 @@ namespace WeatherDesktop.Interface
             wresposne.ForcastDescription = GenerateForcast(Response.main, Response.weather[0]);
             wresposne.WType = GetWeatherType(Response.weather[0].id);
             return wresposne;
-
-        }
-           
+        }         
 
         #endregion
 

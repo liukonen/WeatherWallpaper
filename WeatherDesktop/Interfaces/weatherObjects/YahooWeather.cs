@@ -72,10 +72,12 @@ namespace WeatherDesktop.Interface
 
         YahooWeatherObject LiveCall()
         {
+            if (Shared.Cache.Exists(ClassName)) return (YahooWeatherObject)Shared.Cache.Value(ClassName);
             string URL = string.Format(ur, _zip);
             string results = Shared.CompressedCallSite(URL);
             JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
             YahooWeatherObject Response = jsSerialization.Deserialize<YahooWeatherObject>(results);
+            Shared.Cache.Set(ClassName, Response, _HardWiredUpdateInterval);
             return Response;
         }
 

@@ -33,14 +33,11 @@ namespace WeatherDesktop.Interface
         {
             get
             {
-                string CacheName = SystemLevelConstants.AppName + "_" + ClassName;
-                System.Runtime.Caching.MemoryCache cache = System.Runtime.Caching.MemoryCache.Default;
-                if (cache.Contains(CacheName)) return (string)cache[CacheName];
+                if (Shared.Cache.Exists(ClassName)) return Shared.Cache.StringValue(ClassName);
                 string url = string.Format(apiCall, ZipCode, APIKey);
                 string value = Shared.CompressedCallSite(url);
-                cache.Add(CacheName, value, DateTime.Now.AddHours(1));
+                Shared.Cache.Set(ClassName, value, 60);
                 return value;
-
             }
         }
 
@@ -68,6 +65,7 @@ namespace WeatherDesktop.Interface
                 JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
                 OpenWeatherMapObject weatherObject = jsSerialization.Deserialize<OpenWeatherMapObject>(value);
                 _Cache = weatherObject;
+                if (!Shared.LatLong.HasRecord()) { Shared.LatLong.set(_Cache.coord.lat, _Cache.coord.lon); }
             }
             catch (Exception x) { _Status = x.Message; }
         }

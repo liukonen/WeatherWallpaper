@@ -17,6 +17,7 @@ namespace WeatherDesktop.Interface
         #region Constants
         const string url = "http://weather.service.msn.com/data.aspx?weasearchstr={0}&culture=en-US&weadegreetype=F&src=outlook";
         const string forcastFormat = "{3}, {2}. [{1}-{0}] Precipitation {4}%.";
+        const string ClassName = "MSWeather";
         #endregion
 
         #region Globals
@@ -41,12 +42,6 @@ namespace WeatherDesktop.Interface
 
         #endregion
 
-        #region Events
-
-
-
-        #endregion
-
         #region New
 
         public MSWeather()
@@ -68,22 +63,23 @@ namespace WeatherDesktop.Interface
             {
                 try
                 {
-                    int serviceTimeout;
-                    _cacheValue = LiveCall(_zipcode, out _latLong, out serviceTimeout, out _skycode);
+                    string response = LiveCall(_zipcode, _cacheTimeout);
+                    _cacheValue = TransformWeather(response);
+                    _latLong = TransformerLatLong(response);
                     HasBeenCalled = true;
                     _lastCall = DateTime.Now;
-                    if (serviceTimeout > _cacheTimeout) { _cacheTimeout = serviceTimeout; }
                 }
-                catch (Exception ex) { _Status = ex.Message;
-
-                    if (_cacheValue != null) { return _cacheValue; } else
+                catch (Exception ex)
+                {
+                    _Status = ex.Message;
+                    if (_cacheValue != null) { return _cacheValue; }
+                    else
                     {
                         WeatherResponse DumbyResponse = new WeatherResponse();
                         DumbyResponse.ForcastDescription = ex.Message;
-                        DumbyResponse.Temp = 0;
-                        DumbyResponse.WType = Shared.WeatherTypes.Clear;
                         return DumbyResponse;
-                    } }
+                    }
+                }
 
             }
             return _cacheValue;
@@ -92,29 +88,29 @@ namespace WeatherDesktop.Interface
 
         #region Live API call
 
-        public static WeatherResponse LiveCall(string  zipcode, out KeyValuePair<double, double> latLong, out int serviceTimeout, out int skycode)
+        public static string LiveCall(string zipcode, int CacheTimeout)
         {
-            double lat = 0;
-            double lng = 0;
-            WeatherResponse response = new WeatherResponse();
-            serviceTimeout = 0;
-            System.Text.StringBuilder forcast = new System.Text.StringBuilder();
-            skycode = 0;
+            if (Shared.Cache.Exists(ClassName)) { return Shared.Cache.StringValue(ClassName); }
+            string webresponse = Shared.CompressedCallSite(string.Format(url, zipcode.ToString()));
+            Shared.Cache.Set(ClassName, webresponse, CacheTimeout);
+            return webresponse;
+        }
 
-            XmlReader reader = XmlReader.Create(new System.IO.StringReader(Shared.CompressedCallSite(string.Format(url, zipcode.ToString()))));
+        private WeatherResponse TransformWeather(string webresponse)
+        {
+            WeatherResponse response = new WeatherResponse();
+            System.Text.StringBuilder forcast = new System.Text.StringBuilder();
+
+            XmlReader reader = XmlReader.Create(new System.IO.StringReader(webresponse));
             while (reader.Read())
             {
                 if ((reader.NodeType == XmlNodeType.Element))
                     switch (reader.Name)
                     {
-                        case "weather":
-                            lat = double.Parse(reader.GetAttribute("lat")); lng = double.Parse(reader.GetAttribute("long"));
-                            break;
-                        case "current":
+                         case "current":
                             response.Temp = int.Parse(reader.GetAttribute("temperature"));
-                            skycode = int.Parse(reader.GetAttribute("skycode"));
+                            _skycode = int.Parse(reader.GetAttribute("skycode"));
                             string skyTxt = reader.GetAttribute("skytext");
-                            //_skycode = skycode;
                             response.WType = ConvertType(skyTxt);
                             forcast.Append("Now ").Append(response.Temp).Append(" ").Append(skyTxt).Append(Environment.NewLine);
                             break;
@@ -128,15 +124,35 @@ namespace WeatherDesktop.Interface
                             if (string.IsNullOrWhiteSpace(percept)) { percept = "0"; }
                             if (forcastDay >= DateTime.Today) { forcast.Append(string.Format(forcastFormat, low, high, skyText, day, percept)).Append(Environment.NewLine); }
                             break;
-                        case "toolbar": //if the service gives you the timeout, you might as well use it, and reduce calls
-                            serviceTimeout = int.Parse(reader.GetAttribute("timewindow"));
+                        case "toolbar":
+                            int Timeout = int.Parse(reader.GetAttribute("timewindow"));
+                            if (Timeout > _cacheTimeout) _cacheTimeout = Timeout;
                             break;
                     }
             }
-            latLong = new KeyValuePair<double, double>(lat, lng);
             response.ForcastDescription = forcast.ToString();
             return response;
         }
+
+        private KeyValuePair<double, double> TransformerLatLong(string webresponse)
+        {
+            KeyValuePair<double, double> response = new KeyValuePair<double, double>();
+            double lat, lng;
+            XmlReader reader = XmlReader.Create(new System.IO.StringReader(webresponse));
+            while (reader.Read())
+            {
+                if ((reader.NodeType == XmlNodeType.Element))
+                    switch (reader.Name)
+                    {
+                        case "weather":
+                            lat = double.Parse(reader.GetAttribute("lat")); lng = double.Parse(reader.GetAttribute("long"));
+                            if (!Shared.LatLong.HasRecord()) { Shared.LatLong.set(lat, lng); }
+                            response = new KeyValuePair<double, double>(lat, lng); return response;
+                    }
+            }
+            return response;
+        }
+
         #endregion
 
         #region Helpers
@@ -231,8 +247,6 @@ namespace WeatherDesktop.Interface
                     return Shared.WeatherTypes.Clear;
             }
         }
-
-
 
         #endregion
 

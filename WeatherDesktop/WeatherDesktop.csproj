@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\Interfaces.cs" />
+    <Compile Include="Interfaces\LatLongExclusiveProviders\GovWeatherLatLong.cs" />
     <Compile Include="Interfaces\LatLongExclusiveProviders\OpenWeatherLatLong.cs" />
     <Compile Include="Interfaces\LatLongExclusiveProviders\SystemLatLong.cs" />
     <Compile Include="Interfaces\LatLongExclusiveProviders\YahooLatLong.cs" />

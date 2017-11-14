@@ -36,7 +36,6 @@ namespace WeatherDesktop.Interface
         {
             List<MenuItem> returnValue = new List<MenuItem>();
             returnValue.Add(Shared.ZipMenuItem);
-            //returnValue.Add(new MenuItem("Hour To Update", ChangehourToUpdate));
             return returnValue.ToArray();
         }
 

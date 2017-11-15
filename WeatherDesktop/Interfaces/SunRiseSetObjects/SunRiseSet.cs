@@ -9,7 +9,6 @@ namespace WeatherDesktop.Interface
     public class SunRiseSet : IsharedSunRiseSetInterface
     {
         #region Constants
-        const string _path = "https://api.sunrise-sunset.org/json?lat={0}&lng={1}&date=today&formatted=0";
         const char dqoute = '"';
         const string ClassName = "SunRiseSet";
         #endregion
@@ -115,7 +114,7 @@ namespace WeatherDesktop.Interface
                 if (Shared.Cache.Exists(ClassName)) { value = Shared.Cache.StringValue(ClassName); }
                 else
                 {
-                    string url = string.Format(_path, Latitude.ToString(), Longitude.ToString());
+                    string url = string.Format(Properties.Resources.SRS_Url, Latitude.ToString(), Longitude.ToString());
                      value = Shared.CompressedCallSite(url);
                     Shared.Cache.Set(ClassName, value);
                 }

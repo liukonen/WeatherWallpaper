@@ -24,3 +24,9 @@ C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDes
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.csproj.CoreCompileInputs.cache
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.exe
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.pdb
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.manifest
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.application
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.TrustInfo.xml
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.exe.manifest
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.application
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.Properties.Resources.resources

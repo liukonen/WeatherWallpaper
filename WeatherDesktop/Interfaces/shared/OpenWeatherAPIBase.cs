@@ -11,7 +11,7 @@ namespace WeatherDesktop.Interface
 {
     internal class OpenWeatherAPIBase :ISharedInterface
     {
-        const String apiCall = "http://api.openweathermap.org/data/2.5/weather?zip={0}&appid={1}&units=imperial";//&units=imperial //&units=metric
+      //&units=imperial //&units=metric
         const string ClassName = "OpenWeatherMap";
         #region Globals
         string _apiKey;
@@ -34,7 +34,7 @@ namespace WeatherDesktop.Interface
             get
             {
                 if (Shared.Cache.Exists(ClassName)) return Shared.Cache.StringValue(ClassName);
-                string url = string.Format(apiCall, ZipCode, APIKey);
+                string url = string.Format(Properties.Resources.OpenWeather_Url, ZipCode, APIKey);
                 string value = Shared.CompressedCallSite(url);
                 Shared.Cache.Set(ClassName, value, 60);
                 return value;
@@ -109,20 +109,13 @@ namespace WeatherDesktop.Interface
         {
             get
             {
-                if (string.IsNullOrEmpty(_zip)) { _zip = Shared.ReadSettingEncrypted(SystemLevelConstants.ZipCode); }
+                if (string.IsNullOrEmpty(_zip)) { _zip = Shared.tryGetZip(); }
                 return _zip;
             }
 
             set
             {
-                int dumbyvalidator;
-                if (int.TryParse(value, out dumbyvalidator))
-                {
-                    _zip = value;
-                    Shared.AddupdateAppSettingsEncrypted(SystemLevelConstants.ZipCode, _zip);
-                }
-                else { MessageBox.Show("invalid Zip code"); }
-
+                _zip = value;
             }
         }
 
@@ -148,11 +141,6 @@ namespace WeatherDesktop.Interface
         }
 
 
-        public void Enterzip()
-        {
-            ZipCode = Interaction.InputBox("Enter New Zip Code", "Zip code", ZipCode.ToString());
-        }
-
         public void EnterAPIKey()
         {
             APIKey = Interaction.InputBox("Please enter the API key provided by openweathermap.org", "Enter API");
@@ -163,7 +151,7 @@ namespace WeatherDesktop.Interface
         #region Events
         private void ChangeZipClick(object sender, EventArgs e)
         {
-            Enterzip();
+            Shared.GetZip();
         }
 
         private void ChangeAPI(object sender, EventArgs e)

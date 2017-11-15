@@ -14,6 +14,7 @@ namespace WeatherDesktop.Interface
            if (_LatLong.Key == 0 && _LatLong.Value == 0)
             {
                 _LatLong = GetLocationProperty(out _DidItWork);
+                
             }
         }
 

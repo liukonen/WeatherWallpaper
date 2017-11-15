@@ -19,7 +19,7 @@ namespace WeatherDesktop.Interface
         {
 
             private static string TransformKey(string key)
-            { return WeatherDesktop.Shared.SystemLevelConstants.AppName + "_" + key; }
+            { return System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + "_" + key; }
 
             public static object Value(string key)
             {
@@ -55,12 +55,12 @@ namespace WeatherDesktop.Interface
         public class LatLong
         {
             //public bool HasValue { return false; }
-
+            const string csvEncryptedLatLongName = "LatLong";
             public static double lat
             {
                 get
                 {
-                    string value = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(WeatherDesktop.Shared.SystemLevelConstants.csvEncryptedLatLongName);
+                    string value = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(csvEncryptedLatLongName);
                     if (value != null) return double.Parse(value.Split(',')[0].Replace(",", string.Empty));
                     return 0;
                 }
@@ -68,16 +68,16 @@ namespace WeatherDesktop.Interface
             public static double lng {
                 get
                 {
-                    string value = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(WeatherDesktop.Shared.SystemLevelConstants.csvEncryptedLatLongName);
+                    string value = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(csvEncryptedLatLongName);
                     if (value != null) return double.Parse(value.Split(',')[1].Replace(",", string.Empty));
                     return 0;
                 }
             }
 
-            public static bool HasRecord() { return (!string.IsNullOrWhiteSpace(WeatherDesktop.Interface.Shared.ReadSettingEncrypted(WeatherDesktop.Shared.SystemLevelConstants.csvEncryptedLatLongName))); }
+            public static bool HasRecord() { return (!string.IsNullOrWhiteSpace(WeatherDesktop.Interface.Shared.ReadSettingEncrypted(csvEncryptedLatLongName))); }
             public static void set(double dLat, double dLng)
             {
-                WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(WeatherDesktop.Shared.SystemLevelConstants.csvEncryptedLatLongName, string.Join(",", dLat, dLng));
+                WeatherDesktop.Interface.Shared.AddupdateAppSettingsEncrypted(csvEncryptedLatLongName, string.Join(",", dLat, dLng));
             }
 
         }
@@ -176,13 +176,13 @@ namespace WeatherDesktop.Interface
                 entropy = new byte[0];
                 decryptedData = new byte[0];
             }
-           
+
         }
 
         #endregion
 
         #region Helpers
-        public static bool BetweenTimespans(TimeSpan test, TimeSpan LowerValue, TimeSpan Highervalue){ return (LowerValue < test && test < Highervalue);}
+        public static bool BetweenTimespans(TimeSpan test, TimeSpan LowerValue, TimeSpan Highervalue) { return (LowerValue < test && test < Highervalue); }
 
         public static string CompileDebug(string objectName, System.Collections.Generic.Dictionary<string, string> ItemsTodisplay)
         {
@@ -212,7 +212,7 @@ namespace WeatherDesktop.Interface
 
         public static System.Collections.BitArray ConverTIntToBitArray(int item)
         {
-            return new System.Collections.BitArray(new int[] {item});
+            return new System.Collections.BitArray(new int[] { item });
         }
 
         #endregion
@@ -224,19 +224,51 @@ namespace WeatherDesktop.Interface
 
         public static void ChangeZipClick(object sender, EventArgs e)
         {
-            string NewZip;
-            try
-            {
-                int DumbyInt = 0;
-                string CurrentZip = ReadSettingEncrypted(WeatherDesktop.Shared.SystemLevelConstants.ZipCode);
-                NewZip = Microsoft.VisualBasic.Interaction.InputBox("Please enter your zipcode", "Zip Code", CurrentZip);
-                if (!int.TryParse(NewZip, out DumbyInt)) { MessageBox.Show("Could not save zip"); }
-                else {                    AddupdateAppSettingsEncrypted(WeatherDesktop.Shared.SystemLevelConstants.ZipCode, NewZip);}
-            }
-            catch { MessageBox.Show("Unable to update Zip code", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            GetZip();
         }
-         
 
+        /// <summary>
+        /// Opens a dialog box, saves zip and returns value. if cancel, closes app gracefully... will retry if not a number
+        /// </summary>
+        /// <returns></returns>
+        public static string GetZip()
+        {
+            string zip = string.Empty;
+             object locker = new object();
+            lock (locker)
+            { 
+                int zipparse;
+                while (!int.TryParse(zip, out zipparse))
+                {
+                    zip = Microsoft.VisualBasic.Interaction.InputBox("Please enter your zip code.", "Zip Code", Rawzip);
+                    if (string.IsNullOrWhiteSpace(zip))
+                    {
+                        if (MessageBox.Show("Application needs your zip code. try again, or close", "error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Cancel)
+                        {
+                            Application.Exit();
+                        }
+                    }
+                }
+            }
+            Rawzip = zip;
+            return zip;
+        }
+
+        public static string tryGetZip()
+        {
+            if (string.IsNullOrWhiteSpace(Rawzip)) return GetZip();
+            return Rawzip;
+        }
+
+        public static string Rawzip
+        {
+            get {
+                return ReadSettingEncrypted("zipcode");
+            }
+            set {
+                AddupdateAppSettingsEncrypted("zipcode", value);
+            }
+        }
  
 
     }

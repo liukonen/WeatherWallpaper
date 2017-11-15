@@ -14,8 +14,7 @@ namespace WeatherDesktop.Interface
     {
         const string ClassName = "YahooWeater";
         const int _HardWiredUpdateInterval = 30;
-        const string ur = "https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%2C%20item.description%20from%20weather.forecast(1)%20where%20woeid%20in%20(select%20content%20from%20pm.location.zip.region(1)%20where%20zip%3D%22{0}%22%20and%20region%3D%22us%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
-
+      
         private int  _UpdateInterval = 0;
         //private YahooWeatherObject _cache;
         private WeatherResponse _cache;
@@ -73,7 +72,7 @@ namespace WeatherDesktop.Interface
         YahooWeatherObject LiveCall()
         {
             if (Shared.Cache.Exists(ClassName)) return (YahooWeatherObject)Shared.Cache.Value(ClassName);
-            string URL = string.Format(ur, _zip);
+            string URL = string.Format(WeatherDesktop.Properties.Resources.Yahoo_Weather_Url, _zip);
             string results = Shared.CompressedCallSite(URL);
             JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
             YahooWeatherObject Response = jsSerialization.Deserialize<YahooWeatherObject>(results);
@@ -98,7 +97,7 @@ namespace WeatherDesktop.Interface
        public YahooWeather()
         {
             if (UpdateInterval > 0 && _UpdateInterval == 0) { EnterInterval(); }
-            if (string.IsNullOrWhiteSpace(ZipCode)) { Enterzip(); }
+            if (string.IsNullOrWhiteSpace(_zip)) { Shared.tryGetZip(); }
             Invoke();
         }
 
@@ -169,31 +168,7 @@ namespace WeatherDesktop.Interface
 
         }
 
-        public string ZipCode
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_zip)) { _zip = Shared.ReadSettingEncrypted(SystemLevelConstants.ZipCode); }
-                return _zip;
-            }
-
-            set
-            {
-                int dumbyvalidator;
-                if (int.TryParse(value, out dumbyvalidator))
-                {
-                    _zip = value;
-                    Shared.AddupdateAppSettingsEncrypted(SystemLevelConstants.ZipCode, _zip);
-                }
-                else { MessageBox.Show("invalid Zip code"); }
-
-            }
-        }
-        public void Enterzip()
-        {
-            ZipCode = Interaction.InputBox("Enter New Zip Code", "Zip code", ZipCode.ToString());
-        }
-
+  
         public void EnterInterval()
         {
             UpdateInterval = int.Parse(Interaction.InputBox("Please enter a update time value in minutes, between 10 and 120", "Yahoo Update Interval", _HardWiredUpdateInterval.ToString()));

@@ -1,3 +1,4 @@
+using System.Resources;
 #region Using directives
 using System;
 using System.Reflection;
@@ -8,7 +9,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle ("WeatherDesktop")]
-[assembly: AssemblyDescription ("")]
+[assembly: AssemblyDescription("Changes wallpaper based on weather conditions outside (US based)")]
 [assembly: AssemblyConfiguration ("")]
 [assembly: AssemblyCompany ("")]
 [assembly: AssemblyProduct ("WeatherDesktop")]
@@ -24,4 +25,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can use the default the Revision and 
 // Build Numbers by using the '*' as shown below:
-[assembly: AssemblyVersion ("1.0.*")]
+[assembly: AssemblyVersion("2017.11.*")]
+[assembly: NeutralResourcesLanguage("en-US")]
+

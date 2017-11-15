@@ -12,8 +12,7 @@ namespace WeatherDesktop.Interface
 {
     class YahooSRS : IsharedSunRiseSetInterface
     {
-        const string YahooURL = "https://query.yahooapis.com/v1/public/yql?q=select%20astronomy%20from%20weather.forecast%20where%20woeid%20in%20(select%20content%20from%20pm.location.zip.region%20where%20zip%3D%22{0}%22%20and%20region%3D%22us%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
-        string _zip;
+         string _zip;
         DateTime _LastUpdate;
         int _HourToUpdate =6;
         Boolean HasUpdatedToday = false;
@@ -23,7 +22,7 @@ namespace WeatherDesktop.Interface
 
         public YahooSRS()
         {
-            if (string.IsNullOrWhiteSpace(ZipCode)) { Enterzip(); }
+            if (string.IsNullOrWhiteSpace(_zip)) { _zip = Shared.GetZip(); }
             _LastUpdate = DateTime.Now;
             Invoke();
         }
@@ -57,47 +56,17 @@ namespace WeatherDesktop.Interface
 
         private SunRiseSetResponse LiveCall()
         {
-            string URL = string.Format(YahooURL, ZipCode);
+            string URL = string.Format(Properties.Resources.Yahoo_SRS_Url, _zip);
             string results = Shared.CompressedCallSite(URL);
             JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
             YahooSRSObject Response = jsSerialization.Deserialize<YahooSRSObject>(results);
             SunRiseSetResponse sResponse = new SunRiseSetResponse();
-            //TimeSpan sr = TimeSpan.Parse( Response.query.results.channel.astronomy.sunrise);
-            //TimeSpan ss = TimeSpan.Parse(Response.query.results.channel.astronomy.sunrise);
-            /// sResponse.SunRise = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, sr.Hours, sr.Minutes, sr.Seconds);
-            //sResponse.SunSet = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, ss.Hours, ss.Minutes, ss.Seconds);
-            sResponse.SunRise = DateTime.ParseExact(Response.query.results.channel.astronomy.sunrise, "h:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+             sResponse.SunRise = DateTime.ParseExact(Response.query.results.channel.astronomy.sunrise, "h:mm tt", System.Globalization.CultureInfo.InvariantCulture);
             sResponse.SunSet = DateTime.ParseExact(Response.query.results.channel.astronomy.sunset, "h:mm tt", System.Globalization.CultureInfo.InvariantCulture);
 
             sResponse.Status = "ok";
             return sResponse;
         }
-
-        public string ZipCode
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_zip)) { _zip = Shared.ReadSettingEncrypted(SystemLevelConstants.ZipCode); }
-                return _zip;
-            }
-
-            set
-            {
-                int dumbyvalidator;
-                if (int.TryParse(value, out dumbyvalidator))
-                {
-                    _zip = value;
-                    Shared.AddupdateAppSettingsEncrypted(SystemLevelConstants.ZipCode, _zip);
-                }
-                else { MessageBox.Show("invalid Zip code"); }
-
-            }
-        }
-        public void Enterzip()
-        {
-            ZipCode = Interaction.InputBox("Enter New Zip Code", "Zip code", ZipCode.ToString());
-        }
-
     }
 
 

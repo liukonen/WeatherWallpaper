@@ -3,14 +3,13 @@ using System.Runtime.Serialization;
 using System.Web.Script.Serialization;
 using WeatherDesktop.Shared;
 using System.Windows.Forms;
+using WeatherDesktop.Properties;
 
 namespace WeatherDesktop.Interface
 {
     class YahooLatLong : ILatLongInterface 
     {
-        const string LatLongConvert = "https://query.yahooapis.com/v1/public/yql?q=select%20centroid%20from%20geo.places(1)%20where%20woeid%20in%20(select%20WOEID%20from%20pm.location.zip.region(1)%20where%20zip%3D%22{0}%22%20and%20region%3D%22us%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
-
-        Double _lat;
+         Double _lat;
         Double _Long;
         Boolean _worked = false;
 
@@ -18,11 +17,12 @@ namespace WeatherDesktop.Interface
         {
             try
             {
-                string Zip = Shared.ReadSettingEncrypted(SystemLevelConstants.ZipCode);
-                if (string.IsNullOrEmpty(Zip)) { MessageBox.Show("Zip not found"); }
+                string Zip = Shared.Rawzip;
+                if (string.IsNullOrEmpty(Zip)) { MessageBox.Show(Resources.warning_Zip_Not_Found); }
                 else
                 {
-                    string url = string.Format(LatLongConvert, Zip);
+
+                    string url = string.Format(Resources.Yahoo_LatLong_Url, Zip);
                     string results = Shared.CompressedCallSite(url);
                     JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
                     YahooLatLongObject Response = jsSerialization.Deserialize<YahooLatLongObject>(results);
@@ -31,7 +31,7 @@ namespace WeatherDesktop.Interface
                     _worked = true;
                 }
             }
-            catch (Exception x) { MessageBox.Show("error getting Lat Long: " + x.Message); _worked = false; }
+            catch (Exception x) { MessageBox.Show(Resources.warning_cant_find_latlong + x.Message); _worked = false; }
 
         }
 

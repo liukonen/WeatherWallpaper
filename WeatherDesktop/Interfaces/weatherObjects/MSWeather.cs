@@ -15,7 +15,6 @@ namespace WeatherDesktop.Interface
     public class MSWeather : ISharedWeatherinterface, ILatLongInterface
     {
         #region Constants
-        const string url = "http://weather.service.msn.com/data.aspx?weasearchstr={0}&culture=en-US&weadegreetype=F&src=outlook";
         const string forcastFormat = "{3}, {2}. [{1}-{0}] Precipitation {4}%.";
         const string ClassName = "MSWeather";
         #endregion
@@ -47,10 +46,10 @@ namespace WeatherDesktop.Interface
         public MSWeather()
         {
             int zip = 0;
-            string zipcode = WeatherDesktop.Interface.Shared.ReadSettingEncrypted(SystemLevelConstants.ZipCode);
+            string zipcode = Shared.Rawzip;
             if (string.IsNullOrWhiteSpace(zipcode) || !int.TryParse(zipcode, out zip))
             {                Shared.ChangeZipClick(new object(), new EventArgs());}
-            _zipcode = Shared.ReadSettingEncrypted(SystemLevelConstants.ZipCode);
+            _zipcode = Shared.Rawzip;
             Invoke();
         }
 
@@ -91,7 +90,7 @@ namespace WeatherDesktop.Interface
         public static string LiveCall(string zipcode, int CacheTimeout)
         {
             if (Shared.Cache.Exists(ClassName)) { return Shared.Cache.StringValue(ClassName); }
-            string webresponse = Shared.CompressedCallSite(string.Format(url, zipcode.ToString()));
+            string webresponse = Shared.CompressedCallSite(string.Format(WeatherDesktop.Properties.Resources.MSWeather_Weather_Url, zipcode.ToString()));
             Shared.Cache.Set(ClassName, webresponse, CacheTimeout);
             return webresponse;
         }

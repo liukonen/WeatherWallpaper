@@ -16,7 +16,7 @@ namespace WeatherDesktop.Interface
         public OpenWeatherMap()
         {
             if (string.IsNullOrWhiteSpace(APIKey)) { EnterAPIKey(); }
-            if (string.IsNullOrWhiteSpace(ZipCode)) { Enterzip(); }
+            if (string.IsNullOrWhiteSpace(ZipCode)) { Shared.tryGetZip(); }
             Invoke();
         }
 

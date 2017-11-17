@@ -5,6 +5,7 @@ modified
  */
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
+using WeatherDesktop.Properties;
 
 namespace WeatherDesktop.Shared
 {
@@ -30,6 +31,38 @@ namespace WeatherDesktop.Shared
             key.SetValue(@"WallpaperStyle", sStyle);
             key.SetValue(@"TileWallpaper", Tile);
             SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
+        }
+
+        public static System.Drawing.Icon GetWeatherIcon(WeatherDesktop.Interface.Shared.WeatherTypes WeatherType, bool IsDaytime)
+        {
+            switch (WeatherType)
+            {
+                case Interface.Shared.WeatherTypes.Clear:
+                if (IsDaytime) {return Resources.Clear_day; }
+                else { return Resources.Clear_night; }
+                case Interface.Shared.WeatherTypes.Cloudy:
+                    return Resources.cloudy;
+                case Interface.Shared.WeatherTypes.Fog:
+                    return Resources.fog;
+                case Interface.Shared.WeatherTypes.Frigid:
+                    return Resources.Frigid;
+                case Interface.Shared.WeatherTypes.Hot:
+                    return Resources.hot;
+                case Interface.Shared.WeatherTypes.PartlyCloudy:
+                    if (IsDaytime) { return Resources.PartlyCloudy_day; }
+                    else { return Resources.PartlyCloudy_night; }
+                case Interface.Shared.WeatherTypes.Rain:
+                    return Resources.raindrop;
+                case Interface.Shared.WeatherTypes.Snow:
+                    return Resources.snowflake;
+                case Interface.Shared.WeatherTypes.ThunderStorm:
+                    return Resources.Thunderstorm;
+                case Interface.Shared.WeatherTypes.Windy:
+                    return Resources.wind;
+                default:
+                    return Resources.windsock;
+            }
+
         }
     }
 }

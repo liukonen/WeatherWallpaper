@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Martz90-Hex-Weather-2.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="WeatherDesktop" version="2017.11.6527.40363" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="WeatherDesktop" version="2017.11.6529.34987" language="neutral" processorArchitecture="msil" />
     <commandLine file="WeatherDesktop.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -51,14 +51,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.exe" size="258048">
-      <assemblyIdentity name="WeatherDesktop" version="2017.11.6527.40363" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.exe" size="380928">
+      <assemblyIdentity name="WeatherDesktop" version="2017.11.6529.34987" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Sc66TcXIZgt+p7Ap/cTTBrAQHL4=</dsig:DigestValue>
+        <dsig:DigestValue>8JAiPD9brQ0INM1iCVRysPrdBho=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

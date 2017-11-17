@@ -139,25 +139,32 @@ namespace WeatherDesktop.Interface
 
         static bool intialgetLatLong()
         {
-            bool value = false;
-            SystemLatLong sysLatLong = new SystemLatLong();
-            if (sysLatLong.worked())
+           bool worked = false;
+
+            if (!string.IsNullOrWhiteSpace(Shared.tryGetZip()))
             {
-                Shared.LatLong.set(sysLatLong.Latitude(), sysLatLong.Longitude());
-                value = true;
+                foreach (Type item in WeatherDesktop.Shared.KnownTypes.LatLongTypes)
+                {
+                    try {
+                        var g_Weather = (Interface.ILatLongInterface)Activator.CreateInstance(item);
+                        if (g_Weather.worked()) { worked = true; Shared.LatLong.set(g_Weather.Latitude(), g_Weather.Longitude()); }
+                    }
+                    catch { }
+                    if (worked) { break; }
+                }
             }
-            else
-            {
+            if (!worked) { 
                 if (MessageBox.Show("Lat and Long not yet available, Manual enter (yes), or pick a supplier in sunriseset settings (no)", "Lat Long not set", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     double lat = double.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please Enter your Latitude", "Latitude"));
                     double lon = double.Parse(Microsoft.VisualBasic.Interaction.InputBox("Please Enter your Longitude", "Longitude"));
                     Shared.LatLong.set(lat, lon);
-                    value = true;
+                    worked = true;
                 }
-
             }
-            return value;
+
+        
+            return worked;
         }
 
 

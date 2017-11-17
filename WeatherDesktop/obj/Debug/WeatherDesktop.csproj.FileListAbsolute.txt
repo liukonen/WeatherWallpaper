@@ -30,3 +30,4 @@ C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDes
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.exe.manifest
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.application
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.Properties.Resources.resources
+C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.csprojResolveAssemblyReference.cache

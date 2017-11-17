@@ -276,9 +276,12 @@ namespace WeatherDesktop
                 if (string.IsNullOrWhiteSpace(g_CurrentWeatherType) || currentWeatherType != g_CurrentWeatherType || overrideImage)
                 {
                     g_CurrentWeatherType = currentWeatherType;
+                    notifyIcon.Icon = Shared.Wallpaper.GetWeatherIcon(weather.WType, (currentTime == cDay));
                     if (g_ImageDictionary.ContainsKey(currentWeatherType))
                     {
-                        try { Shared.Wallpaper.Set(g_ImageDictionary[currentWeatherType], Shared.Wallpaper.Style.Stretched); }
+                        try { Shared.Wallpaper.Set(g_ImageDictionary[currentWeatherType], Shared.Wallpaper.Style.Stretched);
+
+                        }
                         catch (Exception x) { MessageBox.Show(x.ToString()); }
                     }
                 }

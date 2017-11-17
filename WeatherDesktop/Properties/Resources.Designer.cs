@@ -61,6 +61,36 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Clear_day {
+            get {
+                object obj = ResourceManager.GetObject("Clear_day", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Clear_night {
+            get {
+                object obj = ResourceManager.GetObject("Clear_night", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon cloudy {
+            get {
+                object obj = ResourceManager.GetObject("cloudy", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to WeatherDesktop.
         /// </summary>
         internal static string const_AppName {
@@ -75,6 +105,26 @@ namespace WeatherDesktop.Properties {
         internal static string const_csvEncryptedLatLongName {
             get {
                 return ResourceManager.GetString("const_csvEncryptedLatLongName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon fog {
+            get {
+                object obj = ResourceManager.GetObject("fog", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Frigid {
+            get {
+                object obj = ResourceManager.GetObject("Frigid", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -97,6 +147,16 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon hot {
+            get {
+                object obj = ResourceManager.GetObject("hot", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://weather.service.msn.com/data.aspx?weasearchstr={0}&amp;culture=en-US&amp;weadegreetype=F&amp;src=outlook.
         /// </summary>
         internal static string MSWeather_Weather_Url {
@@ -115,11 +175,61 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon PartlyCloudy_day {
+            get {
+                object obj = ResourceManager.GetObject("PartlyCloudy_day", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon PartlyCloudy_night {
+            get {
+                object obj = ResourceManager.GetObject("PartlyCloudy_night", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon raindrop {
+            get {
+                object obj = ResourceManager.GetObject("raindrop", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon snowflake {
+            get {
+                object obj = ResourceManager.GetObject("snowflake", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://api.sunrise-sunset.org/json?lat={0}&amp;lng={1}&amp;date=today&amp;formatted=0.
         /// </summary>
         internal static string SRS_Url {
             get {
                 return ResourceManager.GetString("SRS_Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Thunderstorm {
+            get {
+                object obj = ResourceManager.GetObject("Thunderstorm", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -138,6 +248,26 @@ namespace WeatherDesktop.Properties {
         internal static string warning_Zip_Not_Found {
             get {
                 return ResourceManager.GetString("warning_Zip_Not_Found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon wind {
+            get {
+                object obj = ResourceManager.GetObject("wind", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon windsock {
+            get {
+                object obj = ResourceManager.GetObject("windsock", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         

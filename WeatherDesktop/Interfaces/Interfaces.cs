@@ -20,4 +20,5 @@ namespace WeatherDesktop.Interface
     }
     public interface ISharedWeatherinterface : ISharedInterface { }
     public interface IsharedSunRiseSetInterface : ISharedInterface { }
+
 }

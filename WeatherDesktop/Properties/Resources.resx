@@ -181,6 +181,9 @@
   <data name="raindrop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\raindrop.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Sentry_ErrorHandler_Url" xml:space="preserve">
+    <value>https://254bf0f25fa342cc8556a2ad3c3c6935:a32848ffc96549f48540cf94586d0690@sentry.io/246570</value>
+  </data>
   <data name="snowflake" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\snowflake.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

@@ -155,7 +155,9 @@ namespace WeatherDesktop
                         notificationIcon.notifyIcon.Dispose();
                     }
                     catch(Exception x)
-                    { MessageBox.Show("Error: " + x.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                    { MessageBox.Show("Error: " + x.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        WeatherDesktop.Shared.ErrorHandler.Send(x);
+                    }
                     mtx.ReleaseMutex();
                 }
                 else

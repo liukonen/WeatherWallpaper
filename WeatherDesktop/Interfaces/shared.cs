@@ -154,7 +154,7 @@ namespace WeatherDesktop.Interface
                 AddUpdateAppSettings(key, Convert.ToBase64String(Encrypted));
             }
             catch (Exception x)
-            { MessageBox.Show(x.Message, "error writing to Config file"); }
+            { MessageBox.Show(x.Message, "error writing to Config file"); WeatherDesktop.Shared.ErrorHandler.Send(x); }
         }
 
         public static string ReadSettingEncrypted(string key)

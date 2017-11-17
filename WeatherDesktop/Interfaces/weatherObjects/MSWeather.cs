@@ -70,6 +70,7 @@ namespace WeatherDesktop.Interface
                 }
                 catch (Exception ex)
                 {
+                    WeatherDesktop.Shared.ErrorHandler.Send(ex);
                     _Status = ex.Message;
                     if (_cacheValue != null) { return _cacheValue; }
                     else

@@ -51,7 +51,7 @@ namespace WeatherDesktop.Interface
                     HasBeenCalled = true;
                     _lastCall = DateTime.Now;
                 }
-                catch (Exception ex) { _Status = ex.Message; }
+                catch (Exception ex) { _Status = ex.Message; WeatherDesktop.Shared.ErrorHandler.Send(ex); }
 
             }
             return new WeatherResponse(); //empty dumb value
@@ -67,7 +67,7 @@ namespace WeatherDesktop.Interface
                 _Cache = weatherObject;
                 if (!Shared.LatLong.HasRecord()) { Shared.LatLong.set(_Cache.coord.lat, _Cache.coord.lon); }
             }
-            catch (Exception x) { _Status = x.Message; }
+            catch (Exception x) { _Status = x.Message; WeatherDesktop.Shared.ErrorHandler.Send(x); }
         }
 
   

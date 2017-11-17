@@ -205,6 +205,15 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://254bf0f25fa342cc8556a2ad3c3c6935:a32848ffc96549f48540cf94586d0690@sentry.io/246570.
+        /// </summary>
+        internal static string Sentry_ErrorHandler_Url {
+            get {
+                return ResourceManager.GetString("Sentry_ErrorHandler_Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon snowflake {

@@ -130,7 +130,7 @@ namespace WeatherDesktop.Interface
                     response.SunSet = DateTime.Parse(SunRiseSetResponse.results.sunset).ToLocalTime();
                 }
             }
-            catch (Exception x) { response.Status = x.ToString(); }
+            catch (Exception x) { response.Status = x.ToString(); WeatherDesktop.Shared.ErrorHandler.Send(x); }
             return response;
         }
         #endregion

@@ -52,31 +52,43 @@ namespace WeatherDesktop.Interface
             if (!HasBeenCalled || DateTime.Now > _lastCall.AddMinutes(UpdateInterval))
             {
                 _cache = new WeatherResponse();
+                YahooWeatherObject result = new YahooWeatherObject();
                 try
                 {
-                    HasBeenCalled = true;
-                    YahooWeatherObject result = LiveCall();
+                    result = LiveCall();
                     HasBeenCalled = true;
                     _lastCall = DateTime.Now;
-
-
                     _cache.Temp = int.Parse(result.query.results.channel.item.condition.temp);
                     _cache.ForcastDescription = RemoveMarkup(result.query.results.channel.item.description);
                     _cache.WType = GetWeatherType(int.Parse(result.query.results.channel.item.condition.code));
                 }
-                catch (Exception ex) { _status = ex.Message; }
+                catch (Exception ex) { _status = ex.Message;  WeatherDesktop.Shared.ErrorHandler.Send(ex); }
             }
             return _cache;
         }
 
         YahooWeatherObject LiveCall()
         {
-            if (Shared.Cache.Exists(ClassName)) return (YahooWeatherObject)Shared.Cache.Value(ClassName);
-            string URL = string.Format(WeatherDesktop.Properties.Resources.Yahoo_Weather_Url, _zip);
-            string results = Shared.CompressedCallSite(URL);
-            JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
-            YahooWeatherObject Response = jsSerialization.Deserialize<YahooWeatherObject>(results);
-            Shared.Cache.Set(ClassName, Response, _HardWiredUpdateInterval);
+            string results = string.Empty;
+            string URL = string.Empty;
+            YahooWeatherObject Response = new YahooWeatherObject();
+            try
+            {
+                if (Shared.Cache.Exists(ClassName)) return (YahooWeatherObject)Shared.Cache.Value(ClassName);
+                 URL= string.Format(WeatherDesktop.Properties.Resources.Yahoo_Weather_Url, _zip);
+                 results = Shared.CompressedCallSite(URL);
+                JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
+                Response = jsSerialization.Deserialize<YahooWeatherObject>(results);
+                Shared.Cache.Set(ClassName, Response, _HardWiredUpdateInterval);
+          
+            }
+            catch (Exception x)
+            {
+                Exception eResults = new Exception(results, x);
+                Exception Mask = new Exception("Error calling yahoo..." + URL, eResults);
+                WeatherDesktop.Shared.ErrorHandler.Send(x);
+
+            }
             return Response;
         }
 

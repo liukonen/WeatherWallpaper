@@ -147,6 +147,15 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?zipCodeList={0}&amp;maxt=maxt&amp;mint=mint&amp;wx=wx&amp;icons=icons.
+        /// </summary>
+        internal static string Gov_Weather_Url {
+            get {
+                return ResourceManager.GetString("Gov_Weather_Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon hot {

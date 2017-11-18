@@ -16,7 +16,7 @@ namespace WeatherDesktop.Interface
     {
         #region Constants
         const string forcastFormat = "{3}, {2}. [{1}-{0}] Precipitation {4}%.";
-        const string ClassName = "MSWeather";
+        //const string ClassName = "MSWeather";
         #endregion
 
         #region Globals
@@ -88,11 +88,11 @@ namespace WeatherDesktop.Interface
 
         #region Live API call
 
-        public static string LiveCall(string zipcode, int CacheTimeout)
+        public  string LiveCall(string zipcode, int CacheTimeout)
         {
-            if (Shared.Cache.Exists(ClassName)) { return Shared.Cache.StringValue(ClassName); }
+            if (Shared.Cache.Exists(this.GetType().Name)) { return Shared.Cache.StringValue(this.GetType().Name); }
             string webresponse = Shared.CompressedCallSite(string.Format(WeatherDesktop.Properties.Resources.MSWeather_Weather_Url, zipcode.ToString()));
-            Shared.Cache.Set(ClassName, webresponse, CacheTimeout);
+            Shared.Cache.Set(this.GetType().Name, webresponse, CacheTimeout);
             return webresponse;
         }
 

@@ -196,4 +196,7 @@
   <data name="windsock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\windsock.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Gov_Weather_Url" xml:space="preserve">
+    <value>https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?zipCodeList={0}&amp;maxt=maxt&amp;mint=mint&amp;wx=wx&amp;icons=icons</value>
+  </data>
 </root>

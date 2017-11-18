@@ -134,6 +134,7 @@
     <Compile Include="Interfaces\SunRiseSetObjects\Mock_SunRiseSet.cs" />
     <Compile Include="Interfaces\SunRiseSetObjects\OpenWeatherAPISRS.cs" />
     <Compile Include="Interfaces\SunRiseSetObjects\YahooSRS.cs" />
+    <Compile Include="Interfaces\weatherObjects\GovWeather.cs" />
     <Compile Include="Interfaces\weatherObjects\Mock_Weather.cs" />
     <Compile Include="Interfaces\weatherObjects\MSWeather.cs" />
     <Compile Include="Interfaces\response\SunRisesetResponse.cs" />

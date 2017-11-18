@@ -12,11 +12,9 @@ namespace WeatherDesktop.Interface
 {
     class YahooWeather : ISharedWeatherinterface
     {
-        const string ClassName = "YahooWeater";
         const int _HardWiredUpdateInterval = 30;
       
         private int  _UpdateInterval = 0;
-        //private YahooWeatherObject _cache;
         private WeatherResponse _cache;
         private string _status;
         private DateTime _lastCall;
@@ -35,7 +33,7 @@ namespace WeatherDesktop.Interface
         {
             get
             {
-                if (_UpdateInterval == 0 && !int.TryParse(Shared.ReadSetting(ClassName + ".UpdateInterval"), out _UpdateInterval))
+                if (_UpdateInterval == 0 && !int.TryParse(Shared.ReadSetting(this.GetType().Name + ".UpdateInterval"), out _UpdateInterval))
                 {
                     return _HardWiredUpdateInterval;
                 }
@@ -43,7 +41,7 @@ namespace WeatherDesktop.Interface
             }
             set
             {
-                Shared.AddUpdateAppSettings(ClassName + ".UpdateInterval", value.ToString());
+                Shared.AddUpdateAppSettings(this.GetType().Name + ".UpdateInterval", value.ToString());
             }
         }
 
@@ -74,12 +72,12 @@ namespace WeatherDesktop.Interface
             YahooWeatherObject Response = new YahooWeatherObject();
             try
             {
-                if (Shared.Cache.Exists(ClassName)) return (YahooWeatherObject)Shared.Cache.Value(ClassName);
+                if (Shared.Cache.Exists(this.GetType().Name)) return (YahooWeatherObject)Shared.Cache.Value(this.GetType().Name);
                  URL= string.Format(WeatherDesktop.Properties.Resources.Yahoo_Weather_Url, _zip);
                  results = Shared.CompressedCallSite(URL);
                 JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
                 Response = jsSerialization.Deserialize<YahooWeatherObject>(results);
-                Shared.Cache.Set(ClassName, Response, _HardWiredUpdateInterval);
+                Shared.Cache.Set(this.GetType().Name, Response, _HardWiredUpdateInterval);
           
             }
             catch (Exception x)

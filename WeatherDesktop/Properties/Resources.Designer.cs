@@ -290,6 +290,15 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://api.wunderground.com/api/{1}/conditions/astronomy/q/{0}.xml.
+        /// </summary>
+        internal static string wunderground_Url {
+            get {
+                return ResourceManager.GetString("wunderground_Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://query.yahooapis.com/v1/public/yql?q=select%20centroid%20from%20geo.places(1)%20where%20woeid%20in%20(select%20WOEID%20from%20pm.location.zip.region(1)%20where%20zip%3D%22{0}%22%20and%20region%3D%22us%22)&amp;format=json&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&amp;callback=.
         /// </summary>
         internal static string Yahoo_LatLong_Url {

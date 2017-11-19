@@ -75,11 +75,7 @@ namespace WeatherDesktop.Interface
             _long = latlong.Value;
 
             string HTU = Shared.ReadSetting("HourUpdate");
-            if (string.IsNullOrWhiteSpace(HTU))
-            {
-                ChangehourToUpdate(new object(), new EventArgs());
-                HTU = Shared.ReadSetting("HourUpdate");
-            }
+            if (string.IsNullOrWhiteSpace(HTU)) { HTU = "6"; }
             _HourToUpdate = int.Parse(HTU);
             _LastUpdate = DateTime.Now;
             Invoke();

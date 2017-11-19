@@ -292,15 +292,32 @@ namespace WeatherDesktop
 
         private void DeclareGlobals()
         {
-            try {
-                Type T = Type.GetType(Interface.Shared.ReadSetting(cWeather));
-                g_Weather = (Interface.ISharedWeatherinterface)Activator.CreateInstance(T);
-                Type S = Type.GetType(Interface.Shared.ReadSetting(cSRS));
-                g_SunRiseSet = (Interface.IsharedSunRiseSetInterface)Activator.CreateInstance(S);
-
+            try
+            {
+                string weatherType = Interface.Shared.ReadSetting(cWeather);
+                if (!string.IsNullOrWhiteSpace(weatherType))
+                { g_Weather = (Interface.ISharedWeatherinterface)Activator.CreateInstance(Type.GetType(weatherType)); }
+                else
+                {
+                    foreach (var item in Shared.KnownTypes.WeatherTypes)
+                    {
+                        try { g_Weather = (Interface.ISharedWeatherinterface)Activator.CreateInstance(item); break; }
+                        catch { };
+                    }
+                }
+                string srs = Interface.Shared.ReadSetting(cSRS);
+                if (!string.IsNullOrWhiteSpace(srs)) { g_SunRiseSet = (Interface.IsharedSunRiseSetInterface)Activator.CreateInstance(Type.GetType(srs)); }
+                else
+                {
+                    foreach (var item in Shared.KnownTypes.SunRiseSetTypes)
+                    {
+                        try { g_SunRiseSet = (Interface.IsharedSunRiseSetInterface)Activator.CreateInstance(item); break; }
+                        catch { };
+                    }
+                }
             }
-
-            catch {
+            catch
+            {
                 g_Weather = new Interface.Mock_Weather();
                 g_SunRiseSet = new Interface.Mock_SunRiseSet();
                 Interface.Shared.AddUpdateAppSettings(cWeather, g_Weather.GetType().FullName);

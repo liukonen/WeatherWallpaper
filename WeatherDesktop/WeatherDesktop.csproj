@@ -22,6 +22,7 @@
     <RunCodeAnalysis>False</RunCodeAnalysis>
     <SourceAnalysisOverrideSettingsFile>C:\Users\mfanz\AppData\Roaming\ICSharpCode\SharpDevelop5\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -34,7 +35,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -68,9 +68,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <Optimize>true</Optimize>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <Optimize>false</Optimize>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -82,7 +82,7 @@
     <TargetZone>Internet</TargetZone>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
@@ -128,11 +128,14 @@
     <Compile Include="Interfaces\LatLongExclusiveProviders\GovWeatherLatLong.cs" />
     <Compile Include="Interfaces\LatLongExclusiveProviders\OpenWeatherLatLong.cs" />
     <Compile Include="Interfaces\LatLongExclusiveProviders\SystemLatLong.cs" />
+    <Compile Include="Interfaces\LatLongExclusiveProviders\wundergroundLatLong.cs" />
     <Compile Include="Interfaces\LatLongExclusiveProviders\YahooLatLong.cs" />
     <Compile Include="Interfaces\response\LatLongResponse.cs" />
     <Compile Include="Interfaces\shared\OpenWeatherAPIBase.cs" />
+    <Compile Include="Interfaces\shared\wundergroundAPIBase.cs" />
     <Compile Include="Interfaces\SunRiseSetObjects\Mock_SunRiseSet.cs" />
     <Compile Include="Interfaces\SunRiseSetObjects\OpenWeatherAPISRS.cs" />
+    <Compile Include="Interfaces\SunRiseSetObjects\wundergroundSRS.cs" />
     <Compile Include="Interfaces\SunRiseSetObjects\YahooSRS.cs" />
     <Compile Include="Interfaces\weatherObjects\GovWeather.cs" />
     <Compile Include="Interfaces\weatherObjects\Mock_Weather.cs" />
@@ -142,6 +145,7 @@
     <Compile Include="Interfaces\shared.cs" />
     <Compile Include="Interfaces\SunRiseSetObjects\SunRiseSet.cs" />
     <Compile Include="Interfaces\weatherObjects\OpenWeatherMap.cs" />
+    <Compile Include="Interfaces\weatherObjects\wundergroundWeather.cs" />
     <Compile Include="Interfaces\weatherObjects\YahooWeather.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -107,7 +107,7 @@ namespace WeatherDesktop.Interface
        public YahooWeather()
         {
             if (UpdateInterval > 0 && _UpdateInterval == 0) { EnterInterval(); }
-            if (string.IsNullOrWhiteSpace(_zip)) { Shared.tryGetZip(); }
+            if (string.IsNullOrWhiteSpace(_zip)) { _zip = Shared.tryGetZip(); }
             Invoke();
         }
 

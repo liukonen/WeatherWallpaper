@@ -49,3 +49,8 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesk
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.csproj.CoreCompileInputs.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.exe
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.manifest
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.application
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.TrustInfo.xml
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.exe.manifest
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.application

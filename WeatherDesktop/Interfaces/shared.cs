@@ -129,6 +129,16 @@ namespace WeatherDesktop.Interface
             }
         }
 
+        public static void RemoveAppSetting(string key)
+        {
+            var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var settings = configFile.AppSettings.Settings;
+            if (settings[key] != null) { settings.Remove(key);
+
+            configFile.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+            }
+        }
         public static string ReadSetting(string key)
         {
             try

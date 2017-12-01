@@ -30,6 +30,7 @@ namespace WeatherDesktop
         private ContextMenu notificationMenu;
         private Interface.ISharedWeatherinterface g_Weather;
         private Interface.IsharedSunRiseSetInterface g_SunRiseSet;
+        private Shared.themeHandler Themes = new Shared.themeHandler();
         private Dictionary<string, string> g_ImageDictionary = new Dictionary<string, string>();
         private string g_CurrentWeatherType;
 
@@ -71,6 +72,7 @@ namespace WeatherDesktop
             Items.Add(new MenuItem("images", GetWeatherMenuItems()));
             Items.Add(new MenuItem(g_SunRiseSet.GetType().Name, g_SunRiseSet.SettingsItems()));
             Items.Add(new MenuItem(g_Weather.GetType().Name, g_Weather.SettingsItems()));
+            Items.Add(new MenuItem("Themes", Themes.SettingsItems()));
             return Items.ToArray();
         }
 
@@ -287,6 +289,11 @@ namespace WeatherDesktop
                         catch (Exception x) { MessageBox.Show(x.ToString()); }
                     }
                 }
+            }
+            if (Themes.RefreshMenu)
+            {
+                notificationMenu = new ContextMenu(InitializeMenu());
+                notifyIcon.ContextMenu = notificationMenu;
             }
         }
 

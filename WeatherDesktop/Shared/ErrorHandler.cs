@@ -8,7 +8,7 @@ using System.Diagnostics.Eventing;
 
 namespace WeatherDesktop.Shared
 {
-    static class ErrorHandler
+   static class ErrorHandler
     {
 
         public static void Send(Exception x)

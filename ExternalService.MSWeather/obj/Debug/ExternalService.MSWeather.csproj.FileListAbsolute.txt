@@ -1,0 +1,8 @@
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\ExternalService.MSWeather.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\ExternalService.MSWeather.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.MSWeather\obj\Debug\ExternalService.Properties.Resources.resources
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.MSWeather\obj\Debug\ExternalService.MSWeather.csproj.GenerateResource.Cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.MSWeather\obj\Debug\ExternalService.MSWeather.csproj.CoreCompileInputs.cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.MSWeather\obj\Debug\ExternalService.MSWeather.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.MSWeather\obj\Debug\ExternalService.MSWeather.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.MSWeather\obj\Debug\ExternalService.MSWeather.csprojResolveAssemblyReference.cache

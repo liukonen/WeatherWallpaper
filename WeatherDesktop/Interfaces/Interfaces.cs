@@ -9,6 +9,11 @@ namespace WeatherDesktop.Interface
         ISharedResponse Invoke();
         string Debug();
         MenuItem[] SettingsItems();
+        //bool status();
+       System.Exception ThrownException();
+
+        //anything that would normally go in the constructor
+        void Load();
     }
 
     public interface ILatLongInterface
@@ -20,5 +25,10 @@ namespace WeatherDesktop.Interface
     }
     public interface ISharedWeatherinterface : ISharedInterface { }
     public interface IsharedSunRiseSetInterface : ISharedInterface { }
+
+    public interface IClassName
+    {
+        string ClassName { get; }
+    }
 
 }

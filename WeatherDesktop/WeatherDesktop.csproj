@@ -23,7 +23,7 @@
     <SourceAnalysisOverrideSettingsFile>C:\Users\mfanz\AppData\Roaming\ICSharpCode\SharpDevelop5\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>d:\Users\Luke\Desktop\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -42,6 +42,7 @@
     <ApplicationVersion>2017.11.30.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
@@ -80,7 +81,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>WeatherDeskSig.snk</AssemblyOriginatorKeyFile>
@@ -97,6 +98,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>4C8D9647CA3DFAD270B07141432996624595781D</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>WeatherDesktop_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -111,14 +118,11 @@
       <HintPath>..\packages\SharpRaven.2.2.0\lib\net40\SharpRaven.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Device" />
@@ -126,39 +130,18 @@
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\Interfaces.cs" />
-    <Compile Include="Interfaces\LatLongExclusiveProviders\GovWeatherLatLong.cs" />
-    <Compile Include="Interfaces\LatLongExclusiveProviders\OpenWeatherLatLong.cs" />
-    <Compile Include="Interfaces\LatLongExclusiveProviders\SystemLatLong.cs" />
-    <Compile Include="Interfaces\LatLongExclusiveProviders\wundergroundLatLong.cs" />
-    <Compile Include="Interfaces\LatLongExclusiveProviders\YahooLatLong.cs" />
-    <Compile Include="Interfaces\response\LatLongResponse.cs" />
-    <Compile Include="Interfaces\shared\OpenWeatherAPIBase.cs" />
-    <Compile Include="Interfaces\shared\wundergroundAPIBase.cs" />
-    <Compile Include="Interfaces\SunRiseSetObjects\Mock_SunRiseSet.cs" />
-    <Compile Include="Interfaces\SunRiseSetObjects\OpenWeatherAPISRS.cs" />
-    <Compile Include="Interfaces\SunRiseSetObjects\wundergroundSRS.cs" />
-    <Compile Include="Interfaces\SunRiseSetObjects\YahooSRS.cs" />
-    <Compile Include="Interfaces\weatherObjects\GovWeather.cs" />
-    <Compile Include="Interfaces\weatherObjects\Mock_Weather.cs" />
-    <Compile Include="Interfaces\weatherObjects\MSWeather.cs" />
+    <Compile Include="InternalService\Mock_SunRiseSet.cs" />
+    <Compile Include="InternalService\Mock_Weather.cs" />
     <Compile Include="Interfaces\response\SunRisesetResponse.cs" />
     <Compile Include="Interfaces\response\WeatherResponse.cs" />
     <Compile Include="Interfaces\shared.cs" />
-    <Compile Include="Interfaces\SunRiseSetObjects\SunRiseSet.cs" />
-    <Compile Include="Interfaces\weatherObjects\OpenWeatherMap.cs" />
-    <Compile Include="Interfaces\weatherObjects\wundergroundWeather.cs" />
-    <Compile Include="Interfaces\weatherObjects\YahooWeather.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -171,6 +154,7 @@
     </Compile>
     <Compile Include="Shared\ErrorHandler.cs" />
     <Compile Include="Shared\KnownTypes.cs" />
+    <Compile Include="Shared\SharedObjects.cs" />
     <Compile Include="Shared\themeHandler.cs" />
     <Compile Include="Shared\WallpaperChanger.cs" />
     <Compile Include="NotificationIcon.cs" />
@@ -194,6 +178,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="WeatherDeskSig.snk" />
+    <None Include="WeatherDesktop_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Martz90-Hex-Weather-2.ico" />
@@ -281,6 +266,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\SunRiseSetObjects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

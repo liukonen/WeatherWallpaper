@@ -10,7 +10,8 @@ using System.Threading;
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections.Generic;
-
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 
 
 namespace WeatherDesktop
@@ -33,6 +34,7 @@ namespace WeatherDesktop
         private Shared.themeHandler Themes = new Shared.themeHandler();
         private Dictionary<string, string> g_ImageDictionary = new Dictionary<string, string>();
         private string g_CurrentWeatherType;
+        private CompositionContainer _container;
 
         List<Byte> HoursBlackLsited = new List<byte>();
         System.Collections.BitArray BlackListHours = new System.Collections.BitArray(24);
@@ -43,6 +45,7 @@ namespace WeatherDesktop
         #region Initialize icon and menu
         public NotificationIcon()
         {
+            LazyLoader();
             DeclareGlobals();
             notifyIcon = new NotifyIcon();
             notificationMenu = new ContextMenu(InitializeMenu());
@@ -89,16 +92,18 @@ namespace WeatherDesktop
             string SelectedItem = Interface.Shared.ReadSetting(cWeather);
             string SelectedSRS = Interface.Shared.ReadSetting(cSRS);
 
-            foreach (var item in Shared.KnownTypes.WeatherTypes)
+
+
+            foreach (var item in WeatherObjects)
             {
-                MenuItem ItemToAdd = new MenuItem(item.FullName, UpdateGlobalObjecttype);
-                if (item.FullName == SelectedItem) { ItemToAdd.Checked = true; }
+                MenuItem ItemToAdd = new MenuItem(item.Metadata.ClassName, UpdateGlobalObjecttype);
+                if (item.Metadata.ClassName == SelectedItem) { ItemToAdd.Checked = true; }
                 WeatherItems.Add(ItemToAdd);
             }
-            foreach (var item in Shared.KnownTypes.SunRiseSetTypes)
+            foreach (var item in SRSObjects)
             {
-                MenuItem ItemToAdd = new MenuItem(item.FullName, UpdateGlobalObjecttype);
-                if (item.FullName == SelectedSRS) { ItemToAdd.Checked = true; }
+                MenuItem ItemToAdd = new MenuItem(item.Metadata.ClassName, UpdateGlobalObjecttype);
+                if (item.Metadata.ClassName == SelectedSRS) { ItemToAdd.Checked = true; }
                 SunRiseSetItems.Add(ItemToAdd);
             }
             Items.Add(new MenuItem("Weather", WeatherItems.ToArray()));
@@ -130,6 +135,13 @@ namespace WeatherDesktop
         }
 
         #endregion
+
+
+        [ImportMany]
+        IEnumerable<Lazy<Interface.ISharedWeatherinterface, Interface.IClassName>> WeatherObjects;
+
+        [ImportMany]
+        IEnumerable<Lazy<Interface.IsharedSunRiseSetInterface, Interface.IClassName>> SRSObjects;
 
         #region Main - Program entry point
         /// <summary>Program entry point.</summary>
@@ -245,18 +257,36 @@ namespace WeatherDesktop
             if (((MenuItem)Current.Parent).Text == "Weather")
             {
                 Interface.Shared.AddUpdateAppSettings(cWeather, Name);
-                Type S = Type.GetType(Name);
-                g_Weather = (Interface.ISharedWeatherinterface)Activator.CreateInstance(S);
-
+                g_Weather = GetWeatherByName(Name);
+                g_Weather.Load();
             }
             else if (((MenuItem)Current.Parent).Text == "SunRiseSet")
             {
                 Interface.Shared.AddUpdateAppSettings(cSRS, Name);
-                Type S = Type.GetType(Name);
-                g_SunRiseSet = (Interface.IsharedSunRiseSetInterface)Activator.CreateInstance(S);
+                
+                g_SunRiseSet = GetSRSByName(Name);
+                g_SunRiseSet.Load();
             }
             notificationMenu = new ContextMenu(InitializeMenu());
             notifyIcon.ContextMenu = notificationMenu;
+        }
+
+        private Interface.IsharedSunRiseSetInterface GetSRSByName(string name)
+        {
+            foreach (var item in SRSObjects)
+            {
+                if (item.Metadata.ClassName == name) { return item.Value; }
+          }
+            return new InternalService.Mock_SunRiseSet();
+        }
+        private Interface.ISharedWeatherinterface GetWeatherByName(string name)
+        {
+            
+            foreach (var item in WeatherObjects)
+            {
+                if (item.Metadata.ClassName == name) { return item.Value; }
+            }
+            return new InternalService.Mock_Weather();
         }
 
         #endregion
@@ -303,32 +333,45 @@ namespace WeatherDesktop
             {
                 string weatherType = Interface.Shared.ReadSetting(cWeather);
                 if (!string.IsNullOrWhiteSpace(weatherType))
-                { g_Weather = (Interface.ISharedWeatherinterface)Activator.CreateInstance(Type.GetType(weatherType)); }
-                else
                 {
-                    foreach (var item in Shared.KnownTypes.WeatherTypes)
+                    foreach (var item in WeatherObjects)
                     {
-                        try { g_Weather = (Interface.ISharedWeatherinterface)Activator.CreateInstance(item); break; }
-                        catch { };
+                        if (item.Metadata.ClassName == weatherType){ g_Weather = item.Value; g_Weather.Load(); }
                     }
                 }
-                string srs = Interface.Shared.ReadSetting(cSRS);
-                if (!string.IsNullOrWhiteSpace(srs)) { g_SunRiseSet = (Interface.IsharedSunRiseSetInterface)Activator.CreateInstance(Type.GetType(srs)); }
-                else
+                if (g_Weather == null)
                 {
-                    foreach (var item in Shared.KnownTypes.SunRiseSetTypes)
+                        var I = WeatherObjects.GetEnumerator();
+                         while (I.MoveNext())
                     {
-                        try { g_SunRiseSet = (Interface.IsharedSunRiseSetInterface)Activator.CreateInstance(item); break; }
-                        catch { };
+                            try{g_Weather = I.Current.Value;g_Weather.Load(); break;}
+                            catch { }
+                        }
+
+                    
+
+                }
+                string srs = Interface.Shared.ReadSetting(cSRS);
+                if (!string.IsNullOrWhiteSpace(srs))
+                {
+                    foreach (var item in SRSObjects)
+                    {
+                        if (item.Metadata.ClassName == srs) { g_SunRiseSet = item.Value; g_SunRiseSet.Load(); }
                     }
+                }
+                if (g_SunRiseSet == null)
+                {
+                    var i = SRSObjects.GetEnumerator();
+                    while (i.MoveNext()) {try { g_SunRiseSet = i.Current.Value; g_SunRiseSet.Load(); break; } catch { } }
+
                 }
             }
             catch
             {
-                g_Weather = new Interface.Mock_Weather();
-                g_SunRiseSet = new Interface.Mock_SunRiseSet();
-                Interface.Shared.AddUpdateAppSettings(cWeather, g_Weather.GetType().FullName);
-                Interface.Shared.AddUpdateAppSettings(cSRS, g_SunRiseSet.GetType().FullName);
+                //g_Weather = new Interface.Mock_Weather();
+                //g_SunRiseSet = new Interface.Mock_SunRiseSet();
+                //Interface.Shared.AddUpdateAppSettings(cWeather, g_Weather.GetType().FullName);
+                //Interface.Shared.AddUpdateAppSettings(cSRS, g_SunRiseSet.GetType().FullName);
             }
 
             UpdateImageCache();
@@ -368,6 +411,29 @@ namespace WeatherDesktop
                 string nightimagecache = Interface.Shared.ReadSetting(cNight + ElementName);
                 if (!string.IsNullOrEmpty(dayimageCache)) { g_ImageDictionary.Add(daykey, dayimageCache); }
                 if (!string.IsNullOrEmpty(nightimagecache)) { g_ImageDictionary.Add(nightKey, nightimagecache); }
+            }
+        }
+
+        private void LazyLoader()
+        {
+            //An aggregate catalog that combines multiple catalogs
+            var catalog = new AggregateCatalog();
+            //Adds all the parts found in the same assembly as the Program class
+            catalog.Catalogs.Add(new AssemblyCatalog(typeof(WeatherDesktop.NotificationIcon).Assembly));
+            catalog.Catalogs.Add(new DirectoryCatalog(Environment.CurrentDirectory));
+
+
+            //Create the CompositionContainer with the parts in the catalog
+            _container = new CompositionContainer(catalog);
+
+            //Fill the imports of this object
+            try
+            {
+                this._container.ComposeParts(this);
+            }
+            catch (CompositionException compositionException)
+            {
+                Console.WriteLine(compositionException.ToString());
             }
         }
         

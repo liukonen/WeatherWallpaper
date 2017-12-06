@@ -1,0 +1,16 @@
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.OpenWeather\bin\Debug\ExternalService.OpenWeather.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.OpenWeather\bin\Debug\ExternalService.OpenWeather.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.OpenWeather\bin\Debug\WeatherDesktop.exe
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.OpenWeather\bin\Debug\SharpRaven.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.OpenWeather\bin\Debug\WeatherDesktop.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.OpenWeather\bin\Debug\WeatherDesktop.exe.config
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.OpenWeather\bin\Debug\SharpRaven.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.OpenWeather\bin\Debug\SharpRaven.xml
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\ExternalService.OpenWeather.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\ExternalService.OpenWeather.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.OpenWeather\obj\Debug\ExternalService.OpenWeather.csprojResolveAssemblyReference.cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.OpenWeather\obj\Debug\ExternalService.Properties.Resources.resources
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.OpenWeather\obj\Debug\ExternalService.OpenWeather.csproj.GenerateResource.Cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.OpenWeather\obj\Debug\ExternalService.OpenWeather.csproj.CoreCompileInputs.cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.OpenWeather\obj\Debug\ExternalService.OpenWeather.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.OpenWeather\obj\Debug\ExternalService.OpenWeather.pdb

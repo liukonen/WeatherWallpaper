@@ -129,57 +129,12 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?listZipCodeList={0}.
-        /// </summary>
-        internal static string Gov_LatLong_Url {
-            get {
-                return ResourceManager.GetString("Gov_LatLong_Url", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to WeatherWallpaper/v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com).
-        /// </summary>
-        internal static string Gov_User {
-            get {
-                return ResourceManager.GetString("Gov_User", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?zipCodeList={0}&amp;maxt=maxt&amp;mint=mint&amp;wx=wx&amp;icons=icons.
-        /// </summary>
-        internal static string Gov_Weather_Url {
-            get {
-                return ResourceManager.GetString("Gov_Weather_Url", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon hot {
             get {
                 object obj = ResourceManager.GetObject("hot", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://weather.service.msn.com/data.aspx?weasearchstr={0}&amp;culture=en-US&amp;weadegreetype=F&amp;src=outlook.
-        /// </summary>
-        internal static string MSWeather_Weather_Url {
-            get {
-                return ResourceManager.GetString("MSWeather_Weather_Url", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://api.openweathermap.org/data/2.5/weather?zip={0}&amp;appid={1}&amp;units=imperial.
-        /// </summary>
-        internal static string OpenWeather_Url {
-            get {
-                return ResourceManager.GetString("OpenWeather_Url", resourceCulture);
             }
         }
         
@@ -286,42 +241,6 @@ namespace WeatherDesktop.Properties {
             get {
                 object obj = ResourceManager.GetObject("windsock", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://api.wunderground.com/api/{1}/conditions/astronomy/q/{0}.xml.
-        /// </summary>
-        internal static string wunderground_Url {
-            get {
-                return ResourceManager.GetString("wunderground_Url", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://query.yahooapis.com/v1/public/yql?q=select%20centroid%20from%20geo.places(1)%20where%20woeid%20in%20(select%20WOEID%20from%20pm.location.zip.region(1)%20where%20zip%3D%22{0}%22%20and%20region%3D%22us%22)&amp;format=json&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&amp;callback=.
-        /// </summary>
-        internal static string Yahoo_LatLong_Url {
-            get {
-                return ResourceManager.GetString("Yahoo_LatLong_Url", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://query.yahooapis.com/v1/public/yql?q=select%20astronomy%20from%20weather.forecast%20where%20woeid%20in%20(select%20content%20from%20pm.location.zip.region%20where%20zip%3D%22{0}%22%20and%20region%3D%22us%22)&amp;format=json&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&amp;callback=.
-        /// </summary>
-        internal static string Yahoo_SRS_Url {
-            get {
-                return ResourceManager.GetString("Yahoo_SRS_Url", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%2C%20item.description%20from%20weather.forecast(1)%20where%20woeid%20in%20(select%20content%20from%20pm.location.zip.region(1)%20where%20zip%3D%22{0}%22%20and%20region%3D%22us%22)&amp;format=json&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&amp;callback=.
-        /// </summary>
-        internal static string Yahoo_Weather_Url {
-            get {
-                return ResourceManager.GetString("Yahoo_Weather_Url", resourceCulture);
             }
         }
     }

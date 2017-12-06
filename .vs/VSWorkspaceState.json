@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\WeatherDesktop",
+    "\\WeatherDesktop\\Interfaces",
+    "\\WeatherDesktop\\Shared"
   ],
+  "SelectedNode": "\\WeatherDesktop\\Interfaces\\Interfaces.cs",
   "PreviewInSolutionExplorer": false
 }

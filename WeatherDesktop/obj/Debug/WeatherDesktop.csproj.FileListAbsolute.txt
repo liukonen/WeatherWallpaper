@@ -33,6 +33,8 @@ C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\SharpRaven
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.CodeAnalysisLog.xml
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.lastcodeanalysissucceeded
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.config
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.manifest
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.application
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.pdb
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.CodeAnalysisLog.xml
@@ -42,15 +44,12 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\SharpRaven.
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\SharpRaven.pdb
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\SharpRaven.xml
-C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.csprojResolveAssemblyReference.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.NotificationIcon.resources
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.Properties.Resources.resources
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.csproj.GenerateResource.Cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.csproj.CoreCompileInputs.cache
-C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.exe
-C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.pdb
-C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.manifest
-C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.application
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.TrustInfo.xml
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.exe.manifest
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.application
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.exe
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.pdb

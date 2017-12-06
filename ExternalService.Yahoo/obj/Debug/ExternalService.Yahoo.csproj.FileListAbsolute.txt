@@ -1,0 +1,16 @@
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Yahoo\bin\Debug\WeatherDesktop.exe
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Yahoo\bin\Debug\SharpRaven.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Yahoo\bin\Debug\WeatherDesktop.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Yahoo\bin\Debug\WeatherDesktop.exe.config
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Yahoo\bin\Debug\SharpRaven.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Yahoo\bin\Debug\SharpRaven.xml
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Yahoo\bin\Debug\ExternalService.Yahoo.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Yahoo\bin\Debug\ExternalService.Yahoo.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\ExternalService.Yahoo.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\ExternalService.Yahoo.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Yahoo\obj\Debug\ExternalService.Yahoo.csprojResolveAssemblyReference.cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Yahoo\obj\Debug\ExternalService.Properties.Resources.resources
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Yahoo\obj\Debug\ExternalService.Yahoo.csproj.GenerateResource.Cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Yahoo\obj\Debug\ExternalService.Yahoo.csproj.CoreCompileInputs.cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Yahoo\obj\Debug\ExternalService.Yahoo.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Yahoo\obj\Debug\ExternalService.Yahoo.pdb

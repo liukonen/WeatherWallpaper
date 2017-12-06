@@ -123,18 +123,6 @@
   <data name="const_csvEncryptedLatLongName" xml:space="preserve">
     <value>LatLong</value>
   </data>
-  <data name="Gov_LatLong_Url" xml:space="preserve">
-    <value>https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?listZipCodeList={0}</value>
-  </data>
-  <data name="Gov_User" xml:space="preserve">
-    <value>WeatherWallpaper/v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com)</value>
-  </data>
-  <data name="MSWeather_Weather_Url" xml:space="preserve">
-    <value>http://weather.service.msn.com/data.aspx?weasearchstr={0}&amp;culture=en-US&amp;weadegreetype=F&amp;src=outlook</value>
-  </data>
-  <data name="OpenWeather_Url" xml:space="preserve">
-    <value>http://api.openweathermap.org/data/2.5/weather?zip={0}&amp;appid={1}&amp;units=imperial</value>
-  </data>
   <data name="SRS_Url" xml:space="preserve">
     <value>https://api.sunrise-sunset.org/json?lat={0}&amp;lng={1}&amp;date=today&amp;formatted=0</value>
   </data>
@@ -143,15 +131,6 @@
   </data>
   <data name="warning_Zip_Not_Found" xml:space="preserve">
     <value>Zip not found</value>
-  </data>
-  <data name="Yahoo_LatLong_Url" xml:space="preserve">
-    <value>https://query.yahooapis.com/v1/public/yql?q=select%20centroid%20from%20geo.places(1)%20where%20woeid%20in%20(select%20WOEID%20from%20pm.location.zip.region(1)%20where%20zip%3D%22{0}%22%20and%20region%3D%22us%22)&amp;format=json&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&amp;callback=</value>
-  </data>
-  <data name="Yahoo_SRS_Url" xml:space="preserve">
-    <value>https://query.yahooapis.com/v1/public/yql?q=select%20astronomy%20from%20weather.forecast%20where%20woeid%20in%20(select%20content%20from%20pm.location.zip.region%20where%20zip%3D%22{0}%22%20and%20region%3D%22us%22)&amp;format=json&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&amp;callback=</value>
-  </data>
-  <data name="Yahoo_Weather_Url" xml:space="preserve">
-    <value>https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%2C%20item.description%20from%20weather.forecast(1)%20where%20woeid%20in%20(select%20content%20from%20pm.location.zip.region(1)%20where%20zip%3D%22{0}%22%20and%20region%3D%22us%22)&amp;format=json&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&amp;callback=</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Clear_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -195,11 +174,5 @@
   </data>
   <data name="windsock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\windsock.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gov_Weather_Url" xml:space="preserve">
-    <value>https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?zipCodeList={0}&amp;maxt=maxt&amp;mint=mint&amp;wx=wx&amp;icons=icons</value>
-  </data>
-  <data name="wunderground_Url" xml:space="preserve">
-    <value>http://api.wunderground.com/api/{1}/conditions/astronomy/q/{0}.xml</value>
   </data>
 </root>

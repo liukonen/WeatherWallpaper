@@ -259,12 +259,10 @@ namespace WeatherDesktop.Shared
 
         public static bool BetweenTimespans(TimeSpan test, TimeSpan LowerValue, TimeSpan Highervalue) { return (LowerValue < test && test < Highervalue); }
 
-        public static string CompileDebug(string objectName, System.Collections.Generic.Dictionary<string, string> ItemsTodisplay)
+        public static string CompileDebug(System.Collections.Generic.Dictionary<string, string> ItemsTodisplay)
         {
             StringBuilder SB = new StringBuilder();
             SB.Append(Environment.NewLine);
-            SB.Append(objectName).Append(Environment.NewLine);
-            SB.Append('-', objectName.Length).Append(Environment.NewLine);
             foreach (var item in ItemsTodisplay)
             {
                 SB.Append(item.Key).Append(": ").Append(item.Value).Append(Environment.NewLine);

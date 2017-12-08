@@ -30,7 +30,7 @@ namespace InternalService
         {
             Dictionary<string, string> DebugValues = new Dictionary<string, string>();
             DebugValues.Add("status", _status);
-            return SharedObjects.CompileDebug("Yahoo Weather", DebugValues);
+            return SharedObjects.CompileDebug(DebugValues);
         }
 
         int UpdateInterval

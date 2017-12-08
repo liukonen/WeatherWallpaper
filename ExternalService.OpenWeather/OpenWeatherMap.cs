@@ -114,7 +114,7 @@ namespace InternalService
             debugValues.Add("min Temp", Response.main.temp_min.ToString());
             debugValues.Add("max Temp", Response.main.temp_max.ToString());
             debugValues.Add("Debug", base.Debug());
-            return SharedObjects.CompileDebug("OpenWeatherMap", debugValues);
+            return SharedObjects.CompileDebug( debugValues);
         }
 
 

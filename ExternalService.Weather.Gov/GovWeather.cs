@@ -39,7 +39,7 @@ namespace InternalService
             debugValues.Add("Last updated", LastUpdated.ToString());
             debugValues.Add("Icon url", iconUrl);
             debugValues.Add("zip", _zip);
-            return SharedObjects.CompileDebug("Weather by NOAA", debugValues);
+            return SharedObjects.CompileDebug(debugValues);
         }
 
         public ISharedResponse Invoke()

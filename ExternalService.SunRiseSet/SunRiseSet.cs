@@ -212,9 +212,8 @@ namespace ExternalService
             DebugValues.Add("Longitude", _long.ToString());
             DebugValues.Add("SunRise", _cache.SunRise.ToString());
             DebugValues.Add("SunSet", _cache.SunSet.ToString());
-            DebugValues.Add("SolarNoon", _cache.SolarNoon.ToString());
             DebugValues.Add("Status", _cache.Status);
-            return SharedObjects.CompileDebug("SunRiseSet Service", DebugValues);
+            return SharedObjects.CompileDebug(DebugValues);
         }
         #endregion
 

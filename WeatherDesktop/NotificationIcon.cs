@@ -39,6 +39,7 @@ namespace WeatherDesktop
         List<Byte> HoursBlackLsited = new List<byte>();
         System.Collections.BitArray BlackListHours = new System.Collections.BitArray(24);
         System.Collections.BitArray BlackListDays = new System.Collections.BitArray(7);
+        string PluginPaths = Environment.CurrentDirectory + System.IO.Path.DirectorySeparatorChar + "Plugins";
 
         #endregion
 
@@ -82,11 +83,13 @@ namespace WeatherDesktop
         private MenuItem[] GlobalMenuSettings()
         {
             List<MenuItem> Items = new List<MenuItem>();
+            Items.Add(new MenuItem("Plugin Folder", PluginFolder_Event));
+
             List<MenuItem> BlackLists = new List<MenuItem>();
             BlackLists.Add(new MenuItem("BlackList Hours", BlackListHours_Event));
             BlackLists.Add(new MenuItem("BlackList Days", BlackListDays_event));
             Items.Add(new MenuItem("BlackListing", BlackLists.ToArray()));
-
+            
             List<MenuItem> WeatherItems = new List<MenuItem>();
             List<MenuItem> SunRiseSetItems = new List<MenuItem>();
             string SelectedItem = SharedObjects.AppSettings.ReadSetting(cWeather);
@@ -143,6 +146,9 @@ namespace WeatherDesktop
         [ImportMany]
         IEnumerable<Lazy<Interface.IsharedSunRiseSetInterface, Interface.IClassName>> SRSObjects;
 
+        [ImportMany]
+        IEnumerable<Lazy<Interface.ILatLongInterface, Interface.IClassName>> LatLongObjects;
+
         #region Main - Program entry point
         /// <summary>Program entry point.</summary>
         /// <param name="args">Command Line Arguments</param>
@@ -188,6 +194,10 @@ namespace WeatherDesktop
 
         #region Event Handlers
 
+        private void PluginFolder_Event(object sender, EventArgs e)
+        {
+            if (System.IO.Directory.Exists(PluginPaths)) {System.Diagnostics.Process.Start(PluginPaths); }
+        }
         private void MenuItemClick(object sender, EventArgs e)
         {
 
@@ -212,10 +222,25 @@ namespace WeatherDesktop
 
         private void MenuAboutClick(object sender, EventArgs e)
         {
-            Dictionary<string, string> debugValues = new Dictionary<string, string>();
-            debugValues.Add("Weather Notifcation Type", g_CurrentWeatherType);
+            string Name = this.GetType().Assembly.GetName().Name;
 
-            MessageBox.Show("weather desktop, by Luke Liukonen, 2017" + Environment.NewLine + SharedObjects.CompileDebug("Main Values", debugValues) + g_Weather.Debug() + g_SunRiseSet.Debug());
+            System.Text.StringBuilder message = new System.Text.StringBuilder();
+            //Description
+            //
+            //Version: XXXX
+            //Copyright:XXXXX
+            //
+            //Others
+            var CustomDescriptionAttributes = this.GetType().Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyDescriptionAttribute), false);
+            if (CustomDescriptionAttributes.Length > 0) { message.Append(((System.Reflection.AssemblyDescriptionAttribute)CustomDescriptionAttributes[0]).Description).Append(Environment.NewLine); }
+            message.Append(Environment.NewLine);
+            message.Append("Version: ").Append(this.GetType().Assembly.GetName().Version.ToString()).Append(Environment.NewLine);
+            var CustomInfoCopyrightCall = this.GetType().Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyCopyrightAttribute), false);
+            if (CustomInfoCopyrightCall.Length > 0) { message.Append("Copyright: ").Append(((System.Reflection.AssemblyCopyrightAttribute)CustomInfoCopyrightCall[0]).Copyright).Append(Environment.NewLine); }
+            message.Append(Environment.NewLine);
+            message.Append(ExtractInfo(g_Weather));
+            message.Append(ExtractInfo(g_SunRiseSet));
+            MessageBox.Show(message.ToString(), Name, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void MenuExitClick(object sender, EventArgs e) { Application.Exit(); }
@@ -277,7 +302,7 @@ namespace WeatherDesktop
             {
                 if (item.Metadata.ClassName == name) { return item.Value; }
           }
-            return new InternalService.Mock_SunRiseSet();
+            return null;
         }
         private Interface.ISharedWeatherinterface GetWeatherByName(string name)
         {
@@ -286,12 +311,26 @@ namespace WeatherDesktop
             {
                 if (item.Metadata.ClassName == name) { return item.Value; }
             }
-            return new InternalService.Mock_Weather();
+            return null;
         }
 
         #endregion
 
         #region Private Functions
+
+        private string ExtractInfo(WeatherDesktop.Interface.ISharedInterface Item)
+        {
+            string Name = Item.GetType().Assembly.GetName().Name + " " + Item.ToString();
+            var CustomInfoCopyrightCall = g_Weather.GetType().Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyCopyrightAttribute), false);
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            sb.Append(Name).Append(Environment.NewLine);
+            sb.Append('_',Name.Length).Append(Environment.NewLine);
+            if (CustomInfoCopyrightCall.Length > 0) { sb.Append("Copyright: ").Append(((System.Reflection.AssemblyCopyrightAttribute)CustomInfoCopyrightCall[0]).Copyright).Append(Environment.NewLine);}
+            sb.Append("Version: ").Append(g_Weather.GetType().Assembly.GetName().Version.ToString()).Append(Environment.NewLine);
+            sb.Append("Debug Info: ").Append(Item.Debug()).Append(Environment.NewLine).Append(Environment.NewLine);
+            return sb.ToString();
+        }
 
         private void UpdateScreen(Boolean overrideImage)
         {
@@ -331,47 +370,69 @@ namespace WeatherDesktop
         {
             try
             {
+               //get weather type
                 string weatherType = SharedObjects.AppSettings.ReadSetting(cWeather);
-                if (!string.IsNullOrWhiteSpace(weatherType))
-                {
-                    foreach (var item in WeatherObjects)
-                    {
-                        if (item.Metadata.ClassName == weatherType){ g_Weather = item.Value; g_Weather.Load(); }
-                    }
-                }
+                if (!string.IsNullOrWhiteSpace(weatherType)) { GetWeatherByName(weatherType); }
                 if (g_Weather == null)
                 {
-                        var I = WeatherObjects.GetEnumerator();
-                         while (I.MoveNext())
+                    var I = WeatherObjects.GetEnumerator();
+                    while (I.MoveNext())
                     {
-                            try{g_Weather = I.Current.Value;g_Weather.Load(); break;}
-                            catch { }
+                        var current = I.Current;
+                        if (!current.Metadata.ClassName.StartsWith("Mock"))
+                        {
+                            g_Weather = current.Value;
+                            break;
                         }
 
-                    
-
-                }
-                string srs = SharedObjects.AppSettings.ReadSetting(cSRS);
-                if (!string.IsNullOrWhiteSpace(srs))
-                {
-                    foreach (var item in SRSObjects)
-                    {
-                        if (item.Metadata.ClassName == srs) { g_SunRiseSet = item.Value; g_SunRiseSet.Load(); }
                     }
                 }
+                if (g_Weather == null) { g_Weather = GetWeatherByName("Mock_Weather"); }
+                g_Weather.Load();
+
+                //try get latlong if you can
+                if (!SharedObjects.LatLong.HasRecord())
+                {
+                    var i = LatLongObjects.GetEnumerator();
+                    while (i.MoveNext())
+                    {
+                        try
+                        {
+                            var lat = i.Current.Value;
+                            if (lat.worked())
+                            {
+                                SharedObjects.LatLong.set(lat.Latitude(), lat.Longitude());
+                                break;
+                            }
+                        }
+                        catch { }
+
+                    }
+                }
+
+                //get SRS
+                string srs = SharedObjects.AppSettings.ReadSetting(cSRS);
+
+
+                if (!string.IsNullOrWhiteSpace(srs)) { g_SunRiseSet = GetSRSByName(srs); }
                 if (g_SunRiseSet == null)
                 {
                     var i = SRSObjects.GetEnumerator();
-                    while (i.MoveNext()) {try { g_SunRiseSet = i.Current.Value; g_SunRiseSet.Load(); break; } catch { } }
-
+                    while (i.MoveNext())
+                    {
+                        var current = i.Current;
+                        if (!current.Metadata.ClassName.StartsWith("Mock"))
+                        {
+                            g_SunRiseSet = current.Value; break;
+                        }
+                    }
                 }
+                if (g_SunRiseSet == null) { GetSRSByName("Mock_SunRiseSet"); }
+                g_SunRiseSet.Load();
             }
-            catch
+            catch (Exception x)
             {
-                //g_Weather = new Interface.Mock_Weather();
-                //g_SunRiseSet = new Interface.Mock_SunRiseSet();
-                //Interface.Shared.AddUpdateAppSettings(cWeather, g_Weather.GetType().FullName);
-                //Interface.Shared.AddUpdateAppSettings(cSRS, g_SunRiseSet.GetType().FullName);
+                Shared.ErrorHandler.Send(x);
             }
 
             UpdateImageCache();
@@ -420,9 +481,15 @@ namespace WeatherDesktop
             var catalog = new AggregateCatalog();
             //Adds all the parts found in the same assembly as the Program class
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(WeatherDesktop.NotificationIcon).Assembly));
-            catalog.Catalogs.Add(new DirectoryCatalog(Environment.CurrentDirectory));
 
 
+            if (System.IO.Directory.Exists(PluginPaths)) {
+                catalog.Catalogs.Add(new DirectoryCatalog(PluginPaths));
+                foreach (var item in System.IO.Directory.EnumerateDirectories(PluginPaths))
+                {
+                    catalog.Catalogs.Add(new DirectoryCatalog(item));
+                }
+            }
             //Create the CompositionContainer with the parts in the catalog
             _container = new CompositionContainer(catalog);
 
@@ -433,7 +500,8 @@ namespace WeatherDesktop
             }
             catch (CompositionException compositionException)
             {
-                Console.WriteLine(compositionException.ToString());
+                Shared.ErrorHandler.Send(compositionException);
+                // Console.WriteLine(compositionException.ToString());
             }
         }
         

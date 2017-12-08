@@ -6,3 +6,9 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Weather.Gov\obj\Debu
 C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.csproj.CoreCompileInputs.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\ExternalService.Weather.Gov.dll.config
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\ExternalService.Weather.Gov.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\ExternalService.Weather.Gov.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\Weather.Gov\ExternalService.Weather.Gov.dll.config
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\Weather.Gov\ExternalService.Weather.Gov.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\Weather.Gov\ExternalService.Weather.Gov.pdb

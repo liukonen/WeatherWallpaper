@@ -104,7 +104,7 @@ namespace InternalService
             Dictionary<string, string> DebugValues = new Dictionary<string, string>();
             DebugValues.Add("SunRise", _cache.SunRise.ToString());
             DebugValues.Add("SunSet", _cache.SunSet.ToString());
-            return SharedObjects.CompileDebug("SunRiseSet Service", DebugValues);
+            return SharedObjects.CompileDebug(DebugValues);
         }
     }
 }

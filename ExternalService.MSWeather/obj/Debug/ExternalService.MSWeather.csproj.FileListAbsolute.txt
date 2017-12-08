@@ -11,3 +11,4 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.MSWeather\obj\Debug\
 C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.MSWeather\obj\Debug\ExternalService.MSWeather.csproj.CoreCompileInputs.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.MSWeather\obj\Debug\ExternalService.MSWeather.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.MSWeather\obj\Debug\ExternalService.MSWeather.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.MSWeather\obj\Debug\ExternalService.MSWeather.csprojResolveAssemblyReference.cache

@@ -272,7 +272,7 @@ namespace ExternalService
             DebugValues.Add("Cache timeout", _cacheTimeout.ToString());
             DebugValues.Add("Latitude", _latLong.Key.ToString());
             DebugValues.Add("Longitude", _latLong.Value.ToString());
-            return SharedObjects.CompileDebug("MS Weather Service", DebugValues);
+            return SharedObjects.CompileDebug(DebugValues);
         }
 
         public double Latitude() { return _latLong.Key; }

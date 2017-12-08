@@ -73,7 +73,7 @@ namespace InternalService
             DebugValues.Add("ActiveWeatherType", Enum.GetName(typeof(WeatherDesktop.Shared.SharedObjects.WeatherTypes), SetWeatherType));
             DebugValues.Add("Temp", Temp.ToString());
             DebugValues.Add("Forcast", ForcastDescription.ToString());
-            return SharedObjects.CompileDebug(ClassName + " Service", DebugValues);
+            return SharedObjects.CompileDebug(DebugValues);
         }
 
     }

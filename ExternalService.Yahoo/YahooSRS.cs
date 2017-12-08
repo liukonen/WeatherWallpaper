@@ -34,7 +34,7 @@ namespace InternalService
         {
             Dictionary<string, string> DebugValues = new Dictionary<string, string>();
             DebugValues.Add("status", (_ThrownException == null) ? _ThrownException.Message : string.Empty);
-            return SharedObjects.CompileDebug("Yahoo Weather", DebugValues);
+            return SharedObjects.CompileDebug(DebugValues);
         }
 
         public ISharedResponse Invoke()

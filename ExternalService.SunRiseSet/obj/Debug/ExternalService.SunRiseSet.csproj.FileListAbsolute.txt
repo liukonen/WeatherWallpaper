@@ -6,3 +6,9 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.SunRiseSet\obj\Debug
 C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.SunRiseSet\obj\Debug\ExternalService.SunRiseSet.csproj.CoreCompileInputs.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.SunRiseSet\obj\Debug\ExternalService.SunRiseSet.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\ExternalService.SunRiseSet\obj\Debug\ExternalService.SunRiseSet.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\ExternalService.SunRiseSet.dll.config
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\ExternalService.SunRiseSet.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\ExternalService.SunRiseSet.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\SunRiseSet\ExternalService.SunRiseSet.dll.config
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\SunRiseSet\ExternalService.SunRiseSet.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\SunRiseSet\ExternalService.SunRiseSet.pdb

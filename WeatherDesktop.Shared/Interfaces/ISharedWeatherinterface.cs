@@ -1,0 +1,1 @@
+﻿namespace WeatherDesktop.Interface{ public interface ISharedWeatherinterface : ISharedInterface { } }

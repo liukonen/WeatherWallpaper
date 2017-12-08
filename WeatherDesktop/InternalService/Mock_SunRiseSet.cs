@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using WeatherDesktop.Interface;
 using System.ComponentModel.Composition;
+using WeatherDesktop.Shared;
 
 namespace InternalService
 {
@@ -25,14 +26,14 @@ namespace InternalService
             get
             {
                 if (_cache != null && _cache.SunRise != null) { return _cache.SunRise; }
-                string setting = Shared.ReadSetting(ClassName + ".SunRise");
+                string setting = SharedObjects.AppSettings.ReadSetting(ClassName + ".SunRise");
                 if (!string.IsNullOrWhiteSpace(setting)){return TimeSpanToDateTime(TimeSpan.Parse(setting));}
                 return new DateTime();
             }
             set
             {
                 _cache.SunRise = TimeSpanToDateTime(value.TimeOfDay);
-                Shared.AddUpdateAppSettings(ClassName + ".SunRise", value.TimeOfDay.ToString());
+                SharedObjects.AppSettings.AddUpdateAppSettings(ClassName + ".SunRise", value.TimeOfDay.ToString());
             }
         }
         DateTime SunSet
@@ -40,15 +41,15 @@ namespace InternalService
             get
             {
                 if (_cache != null && _cache.SunSet != null) { return _cache.SunSet; }
-                string setting = Shared.ReadSetting(ClassName + ".SunSet");
+                string setting = SharedObjects.AppSettings.ReadSetting(ClassName + ".SunSet");
                 if (!string.IsNullOrWhiteSpace(setting)) { return TimeSpanToDateTime(TimeSpan.Parse(setting)); }
                 return new DateTime();
             }
             set
             {
 
-                _cache.SunSet = TimeSpanToDateTime(value.TimeOfDay); 
-               Shared.AddUpdateAppSettings(ClassName + ".SunSet", value.TimeOfDay.ToString());
+                _cache.SunSet = TimeSpanToDateTime(value.TimeOfDay);
+                SharedObjects.AppSettings.AddUpdateAppSettings(ClassName + ".SunSet", value.TimeOfDay.ToString());
             }
         }
 
@@ -103,7 +104,7 @@ namespace InternalService
             Dictionary<string, string> DebugValues = new Dictionary<string, string>();
             DebugValues.Add("SunRise", _cache.SunRise.ToString());
             DebugValues.Add("SunSet", _cache.SunSet.ToString());
-            return Shared.CompileDebug("SunRiseSet Service", DebugValues);
+            return SharedObjects.CompileDebug("SunRiseSet Service", DebugValues);
         }
     }
 }

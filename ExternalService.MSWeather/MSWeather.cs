@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using WeatherDesktop.Shared;
 using System.ComponentModel.Composition;
 using WeatherDesktop.Interface;
+using WeatherDesktop.Shared;
 
 namespace ExternalService
 {
@@ -41,7 +42,7 @@ namespace ExternalService
         public MenuItem[] SettingsItems()
         {
             List<MenuItem> returnValue = new List<MenuItem>();
-            returnValue.Add(Shared.ZipMenuItem);
+            returnValue.Add(SharedObjects.ZipObjects.ZipMenuItem);
             return returnValue.ToArray();
         }
 
@@ -56,10 +57,10 @@ namespace ExternalService
         public void Load()
         {
             int zip = 0;
-            string zipcode = Shared.Rawzip;
+            string zipcode = SharedObjects.ZipObjects.Rawzip;
             if (string.IsNullOrWhiteSpace(zipcode) || !int.TryParse(zipcode, out zip))
-            { Shared.ChangeZipClick(new object(), new EventArgs()); }
-            _zipcode = Shared.Rawzip;
+            { SharedObjects.ZipObjects.ChangeZipClick(new object(), new EventArgs()); }
+            _zipcode = SharedObjects.ZipObjects.Rawzip;
             Invoke();
         }
 
@@ -102,9 +103,9 @@ namespace ExternalService
 
         public  string LiveCall(string zipcode, int CacheTimeout)
         {
-            if (Shared.Cache.Exists(this.GetType().Name)) { return Shared.Cache.StringValue(this.GetType().Name); }
-            string webresponse = Shared.CompressedCallSite(string.Format(Properties.Resources.MSWeather_Weather_Url, zipcode.ToString()));
-            Shared.Cache.Set(this.GetType().Name, webresponse, CacheTimeout);
+            if (SharedObjects.Cache.Exists(this.GetType().Name)) { return SharedObjects.Cache.StringValue(this.GetType().Name); }
+            string webresponse = SharedObjects.CompressedCallSite(string.Format(Properties.Resources.MSWeather_Weather_Url, zipcode.ToString()));
+            SharedObjects.Cache.Set(this.GetType().Name, webresponse, CacheTimeout);
             return webresponse;
         }
 
@@ -158,7 +159,7 @@ namespace ExternalService
                     {
                         case "weather":
                             lat = double.Parse(reader.GetAttribute("lat")); lng = double.Parse(reader.GetAttribute("long"));
-                            if (!Shared.LatLong.HasRecord()) { Shared.LatLong.set(lat, lng); }
+                            if (!SharedObjects.LatLong.HasRecord()) { SharedObjects.LatLong.set(lat, lng); }
                             response = new KeyValuePair<double, double>(lat, lng); return response;
                     }
             }
@@ -168,33 +169,33 @@ namespace ExternalService
         #endregion
 
         #region Helpers
-        private static Shared.WeatherTypes ConvertType(string SkyText)
+        private static SharedObjects.WeatherTypes ConvertType(string SkyText)
         {
-            if (SkyText.IndexOf("thunderstorm", StringComparison.OrdinalIgnoreCase) != -1) { return Shared.WeatherTypes.ThunderStorm; }
-            else if (SkyText.IndexOf("rain", StringComparison.OrdinalIgnoreCase) != -1) { return Shared.WeatherTypes.Rain; }
-            else if (SkyText.IndexOf("snow", StringComparison.OrdinalIgnoreCase) != -1) { return Shared.WeatherTypes.Snow; }
-            else if (SkyText.IndexOf("partly", StringComparison.OrdinalIgnoreCase) != -1) { return Shared.WeatherTypes.PartlyCloudy; }
+            if (SkyText.IndexOf("thunderstorm", StringComparison.OrdinalIgnoreCase) != -1) { return SharedObjects.WeatherTypes.ThunderStorm; }
+            else if (SkyText.IndexOf("rain", StringComparison.OrdinalIgnoreCase) != -1) { return SharedObjects.WeatherTypes.Rain; }
+            else if (SkyText.IndexOf("snow", StringComparison.OrdinalIgnoreCase) != -1) { return SharedObjects.WeatherTypes.Snow; }
+            else if (SkyText.IndexOf("partly", StringComparison.OrdinalIgnoreCase) != -1) { return SharedObjects.WeatherTypes.PartlyCloudy; }
             else
             {
                 switch (SkyText.ToLower())
                 {
-                    case "cloudy": return Shared.WeatherTypes.Cloudy;
-                    case "dust": return Shared.WeatherTypes.Dust;
-                    case "fog": return Shared.WeatherTypes.Fog;
-                    case "showers": return Shared.WeatherTypes.Rain;
-                    case "haze": return Shared.WeatherTypes.Haze;
-                    case "smoke": return Shared.WeatherTypes.Smoke;
-                    case "windy": return Shared.WeatherTypes.Windy;
-                    case "Frigid": return Shared.WeatherTypes.Frigid;
-                    case "Hot": return Shared.WeatherTypes.Hot;
-                    default: return Shared.WeatherTypes.Clear;
+                    case "cloudy": return SharedObjects.WeatherTypes.Cloudy;
+                    case "dust": return SharedObjects.WeatherTypes.Dust;
+                    case "fog": return SharedObjects.WeatherTypes.Fog;
+                    case "showers": return SharedObjects.WeatherTypes.Rain;
+                    case "haze": return SharedObjects.WeatherTypes.Haze;
+                    case "smoke": return SharedObjects.WeatherTypes.Smoke;
+                    case "windy": return SharedObjects.WeatherTypes.Windy;
+                    case "Frigid": return SharedObjects.WeatherTypes.Frigid;
+                    case "Hot": return SharedObjects.WeatherTypes.Hot;
+                    default: return SharedObjects.WeatherTypes.Clear;
                 }
             }
 
         }
 
         //found to be not that reliable
-        private static Shared.WeatherTypes ConvertType(int skycode)
+        private static SharedObjects.WeatherTypes ConvertType(int skycode)
         {
             switch (skycode)
             {
@@ -208,7 +209,7 @@ namespace ExternalService
                 case 37:
                 case 38:
                 case 47:
-                    return Shared.WeatherTypes.ThunderStorm;
+                    return SharedObjects.WeatherTypes.ThunderStorm;
                 case 5:
                 case 7:
                 case 9:
@@ -219,7 +220,7 @@ namespace ExternalService
                 case 39:
                 case 40:
                 case 45:
-                    return Shared.WeatherTypes.Rain;
+                    return SharedObjects.WeatherTypes.Rain;
                 case 6:
                 case 8:
                 case 13:
@@ -230,33 +231,33 @@ namespace ExternalService
                 case 42:
                 case 43:
                 case 46:
-                    return Shared.WeatherTypes.Snow;
+                    return SharedObjects.WeatherTypes.Snow;
                 case 19:
-                    return Shared.WeatherTypes.Dust;
+                    return SharedObjects.WeatherTypes.Dust;
                 case 20:
-                    return Shared.WeatherTypes.Fog;
+                    return SharedObjects.WeatherTypes.Fog;
                 case 21:
-                    return Shared.WeatherTypes.Haze;
+                    return SharedObjects.WeatherTypes.Haze;
                 case 22:
-                    return Shared.WeatherTypes.Smoke;
+                    return SharedObjects.WeatherTypes.Smoke;
                 case 23:
                 case 24:
-                    return Shared.WeatherTypes.Windy;
+                    return SharedObjects.WeatherTypes.Windy;
                 case 25:
-                    return Shared.WeatherTypes.Frigid;
+                    return SharedObjects.WeatherTypes.Frigid;
                 case 26:
-                    return Shared.WeatherTypes.Cloudy;
+                    return SharedObjects.WeatherTypes.Cloudy;
                 case 27:
                 case 28:
                 case 29:
                 case 30:
                 case 33:
                 case 34:
-                    return Shared.WeatherTypes.PartlyCloudy;
+                    return SharedObjects.WeatherTypes.PartlyCloudy;
                 case 36:
-                    return Shared.WeatherTypes.Hot;
+                    return SharedObjects.WeatherTypes.Hot;
                 default:
-                    return Shared.WeatherTypes.Clear;
+                    return SharedObjects.WeatherTypes.Clear;
             }
         }
 
@@ -271,7 +272,7 @@ namespace ExternalService
             DebugValues.Add("Cache timeout", _cacheTimeout.ToString());
             DebugValues.Add("Latitude", _latLong.Key.ToString());
             DebugValues.Add("Longitude", _latLong.Value.ToString());
-            return Shared.CompileDebug("MS Weather Service", DebugValues);
+            return SharedObjects.CompileDebug("MS Weather Service", DebugValues);
         }
 
         public double Latitude() { return _latLong.Key; }

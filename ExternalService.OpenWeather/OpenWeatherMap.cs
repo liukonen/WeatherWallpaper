@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using WeatherDesktop.Interface;
+using WeatherDesktop.Shared;
 
 namespace InternalService
 {
@@ -15,7 +16,7 @@ namespace InternalService
         public new void Load()
         {
             if (string.IsNullOrWhiteSpace(APIKey)) { EnterAPIKey(); }
-            if (string.IsNullOrWhiteSpace(ZipCode)) { Shared.tryGetZip(); }
+            if (string.IsNullOrWhiteSpace(ZipCode)) { SharedObjects.ZipObjects.tryGetZip(); }
             Invoke();
         }
 
@@ -36,7 +37,7 @@ namespace InternalService
         #endregion
 
         #region Helpers
-        private Shared.WeatherTypes GetWeatherType(int ParseItem)
+        private SharedObjects.WeatherTypes GetWeatherType(int ParseItem)
         {
             double value = ParseItem / 100;
 
@@ -46,55 +47,55 @@ namespace InternalService
                 case 2:
                 case 960:
                 case 961:
-                    return Shared.WeatherTypes.ThunderStorm;
+                    return SharedObjects.WeatherTypes.ThunderStorm;
                 case 3:
                 case 5:
-                    return Shared.WeatherTypes.Rain;
+                    return SharedObjects.WeatherTypes.Rain;
                 case 6:
-                    return Shared.WeatherTypes.Snow;
+                    return SharedObjects.WeatherTypes.Snow;
             }
 
 
             switch (ParseItem)
             {
                 case 701:
-                    return Shared.WeatherTypes.Rain;
+                    return SharedObjects.WeatherTypes.Rain;
                 case 711:
-                    return Shared.WeatherTypes.Smoke;
+                    return SharedObjects.WeatherTypes.Smoke;
                 case 721:
-                    return Shared.WeatherTypes.Haze;
+                    return SharedObjects.WeatherTypes.Haze;
                 case 741:
-                    return Shared.WeatherTypes.Fog;
+                    return SharedObjects.WeatherTypes.Fog;
                 case 731:
                 case 751:
                 case 761:
                 case 762:
-                    return Shared.WeatherTypes.Dust;
+                    return SharedObjects.WeatherTypes.Dust;
                 case 800:
                 case 951:
                 case 952:
                 case 953:
                 case 955:
-                    return Shared.WeatherTypes.Clear;
+                    return SharedObjects.WeatherTypes.Clear;
                 case 801:
                 case 802:
-                    return Shared.WeatherTypes.PartlyCloudy;
+                    return SharedObjects.WeatherTypes.PartlyCloudy;
                 case 803:
                 case 804:
-                    return Shared.WeatherTypes.Cloudy;
+                    return SharedObjects.WeatherTypes.Cloudy;
                 case 903:
-                    return Shared.WeatherTypes.Frigid;
+                    return SharedObjects.WeatherTypes.Frigid;
                 case 904:
-                    return Shared.WeatherTypes.Hot;
+                    return SharedObjects.WeatherTypes.Hot;
                 case 905:
                 case 954:
                 case 956:
                 case 957:
                 case 958:
-                    return Shared.WeatherTypes.Windy;
+                    return SharedObjects.WeatherTypes.Windy;
 
             }
-            return Shared.WeatherTypes.ThunderStorm;// In the act of Some of the Extremes I did not cover... Thumderstorm it is
+            return SharedObjects.WeatherTypes.ThunderStorm;// In the act of Some of the Extremes I did not cover... Thumderstorm it is
             //list of items directly not covered: 771 squalls, 781 tornado, 900 tornado, 901 tropical storm, 902 hurricane, 906 hail, 959 severe gale, 962 hurrican
         }
 
@@ -113,7 +114,7 @@ namespace InternalService
             debugValues.Add("min Temp", Response.main.temp_min.ToString());
             debugValues.Add("max Temp", Response.main.temp_max.ToString());
             debugValues.Add("Debug", base.Debug());
-            return Shared.CompileDebug("OpenWeatherMap", debugValues);
+            return SharedObjects.CompileDebug("OpenWeatherMap", debugValues);
         }
 
 

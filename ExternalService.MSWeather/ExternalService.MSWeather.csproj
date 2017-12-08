@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\WeatherDesktop\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -54,9 +54,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WeatherDesktop\WeatherDesktop.csproj">
-      <Project>{756b2286-9911-48fb-90da-7cd244dbe726}</Project>
-      <Name>WeatherDesktop</Name>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WeatherDesktop.Shared\WeatherDesktop.Shared.csproj">
+      <Project>{ad39a03f-e078-4172-a97d-3efd54e1ed81}</Project>
+      <Name>WeatherDesktop.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

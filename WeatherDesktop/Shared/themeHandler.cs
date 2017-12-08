@@ -49,16 +49,16 @@ namespace WeatherDesktop.Shared
             //copy files to theme dir
             foreach (string NightDay in cSRS)
             {
-foreach (string item in Enum.GetNames(typeof(Interface.Shared.WeatherTypes)))
+foreach (string item in Enum.GetNames(typeof(SharedObjects.WeatherTypes)))
                 {
                     string key = NightDay + item;
                     if (ThemeItems.ContainsKey(key))
                     {
-                        Interface.Shared.AddUpdateAppSettings(key, themepath + Path.DirectorySeparatorChar + ThemeItems[key]);
+                        SharedObjects.AppSettings.AddUpdateAppSettings(key, themepath + Path.DirectorySeparatorChar + ThemeItems[key]);
                     }
                     else
                     {
-                        Interface.Shared.RemoveAppSetting(key);
+                        SharedObjects.AppSettings.RemoveAppSetting(key);
                     }
 
                 }
@@ -90,10 +90,10 @@ foreach (string item in Enum.GetNames(typeof(Interface.Shared.WeatherTypes)))
                 {
 
 
-                    foreach (string item in Enum.GetNames(typeof(Interface.Shared.WeatherTypes)))
+                    foreach (string item in Enum.GetNames(typeof(SharedObjects.WeatherTypes)))
                     {
                         string key = NightDay + item;
-                        string imagelocation = Interface.Shared.ReadSetting(key);
+                        string imagelocation = SharedObjects.AppSettings.ReadSetting(key);
                         if (!string.IsNullOrWhiteSpace(imagelocation))
                         {
                             string newLocation = CurrentThemeDir + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(imagelocation);

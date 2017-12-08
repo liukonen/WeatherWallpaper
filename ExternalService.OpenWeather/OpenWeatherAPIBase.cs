@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Web.Script.Serialization;
-
+using WeatherDesktop.Shared;
 using WeatherDesktop.Interface;
 
 namespace InternalService
@@ -35,10 +35,10 @@ namespace InternalService
         {
             get
             {
-                if (Shared.Cache.Exists(ClassName)) return Shared.Cache.StringValue(ClassName);
+                if (SharedObjects.Cache.Exists(ClassName)) return SharedObjects.Cache.StringValue(ClassName);
                 string url = string.Format(Properties.Resources.OpenWeather_Url, ZipCode, APIKey);
-                string value = Shared.CompressedCallSite(url);
-                Shared.Cache.Set(ClassName, value, 60);
+                string value = SharedObjects.CompressedCallSite(url);
+                SharedObjects.Cache.Set(ClassName, value, 60);
                 return value;
             }
         }
@@ -68,7 +68,7 @@ namespace InternalService
                 JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
                 OpenWeatherMapObject weatherObject = jsSerialization.Deserialize<OpenWeatherMapObject>(value);
                 _Cache = weatherObject;
-                if (!Shared.LatLong.HasRecord()) { Shared.LatLong.set(_Cache.coord.lat, _Cache.coord.lon); }
+                if (!SharedObjects.LatLong.HasRecord()) { SharedObjects.LatLong.set(_Cache.coord.lat, _Cache.coord.lon); }
             }
             catch (Exception x) { _Status = x.Message; _ThrownException= x; }
         }
@@ -84,7 +84,7 @@ namespace InternalService
         {
             List<MenuItem> Settings = new List<MenuItem>();
             Settings.Add(new MenuItem("API key", ChangeAPI));
-            Settings.Add(Shared.ZipMenuItem);
+            Settings.Add(SharedObjects.ZipObjects.ZipMenuItem);
             Settings.Add(new MenuItem("Update Interval", Enterinterval));
             return Settings.ToArray();
 
@@ -98,13 +98,13 @@ namespace InternalService
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(_apiKey)) { _apiKey = Shared.ReadSettingEncrypted(ClassName + ".APIKey"); }
+                if (string.IsNullOrWhiteSpace(_apiKey)) { _apiKey = SharedObjects.AppSettings.ReadSettingEncrypted(ClassName + ".APIKey"); }
                 return _apiKey;
             }
             set
             {
                 _apiKey = value;
-                Shared.AddupdateAppSettingsEncrypted(ClassName + ".APIKey", _apiKey);
+                SharedObjects.AppSettings.AddupdateAppSettingsEncrypted(ClassName + ".APIKey", _apiKey);
             }
         }
 
@@ -112,7 +112,7 @@ namespace InternalService
         {
             get
             {
-                if (string.IsNullOrEmpty(_zip)) { _zip = Shared.tryGetZip(); }
+                if (string.IsNullOrEmpty(_zip)) { _zip = SharedObjects.ZipObjects.tryGetZip(); }
                 return _zip;
             }
 
@@ -127,7 +127,7 @@ namespace InternalService
             get
             {
 
-                if (_updateInt == 0) { int.TryParse(Shared.ReadSetting(ClassName + ".UpdateInt"), out _updateInt); }
+                if (_updateInt == 0) { int.TryParse(SharedObjects.AppSettings.ReadSetting(ClassName + ".UpdateInt"), out _updateInt); }
                 if (_updateInt < 10) { _updateInt = 10; }
                 return _updateInt;
             }
@@ -136,7 +136,7 @@ namespace InternalService
                 if (value > 10 && value < 120)
                 {
                     _updateInt = value;
-                    Shared.AddUpdateAppSettings(ClassName + ".UpdateInt", _updateInt.ToString());
+                    SharedObjects.AppSettings.AddUpdateAppSettings(ClassName + ".UpdateInt", _updateInt.ToString());
 
                 }
                 else { MessageBox.Show("Please enter a number between 10 and 120"); }
@@ -154,7 +154,7 @@ namespace InternalService
         #region Events
         private void ChangeZipClick(object sender, EventArgs e)
         {
-            Shared.GetZip();
+            SharedObjects.ZipObjects.GetZip();
         }
 
         private void ChangeAPI(object sender, EventArgs e)

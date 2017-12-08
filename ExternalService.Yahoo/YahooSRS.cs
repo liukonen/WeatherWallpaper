@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using WeatherDesktop.Interface;
+using WeatherDesktop.Shared;
 
 namespace InternalService
 {
@@ -24,7 +25,7 @@ namespace InternalService
 
         public void Load()
         {
-            if (string.IsNullOrWhiteSpace(_zip)) { _zip = Shared.GetZip(); }
+            if (string.IsNullOrWhiteSpace(_zip)) { _zip = SharedObjects.ZipObjects.GetZip(); }
             _LastUpdate = DateTime.Now;
             Invoke();
         }
@@ -33,7 +34,7 @@ namespace InternalService
         {
             Dictionary<string, string> DebugValues = new Dictionary<string, string>();
             DebugValues.Add("status", (_ThrownException == null) ? _ThrownException.Message : string.Empty);
-            return Shared.CompileDebug("Yahoo Weather", DebugValues);
+            return SharedObjects.CompileDebug("Yahoo Weather", DebugValues);
         }
 
         public ISharedResponse Invoke()
@@ -52,7 +53,7 @@ namespace InternalService
         public MenuItem[] SettingsItems()
         {
             List<MenuItem> Items = new List<MenuItem>();
-            Items.Add(Shared.ZipMenuItem);
+            Items.Add(SharedObjects.ZipObjects.ZipMenuItem);
             return Items.ToArray();
         }
 
@@ -62,7 +63,7 @@ namespace InternalService
             try
             {
                 string URL = string.Format(InternalService.Properties.Resources.Yahoo_SRS_Url, _zip);
-                string results = Shared.CompressedCallSite(URL);
+                string results = SharedObjects.CompressedCallSite(URL);
                 JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
                 YahooSRSObject Response = jsSerialization.Deserialize<YahooSRSObject>(results);
                 sResponse.SunRise = DateTime.ParseExact(Response.query.results.channel.astronomy.sunrise, "h:mm tt", System.Globalization.CultureInfo.InvariantCulture);

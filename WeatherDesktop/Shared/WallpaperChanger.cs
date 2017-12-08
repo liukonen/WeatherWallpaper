@@ -33,31 +33,31 @@ namespace WeatherDesktop.Shared
             SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
         }
 
-        public static System.Drawing.Icon GetWeatherIcon(WeatherDesktop.Interface.Shared.WeatherTypes WeatherType, bool IsDaytime)
+        public static System.Drawing.Icon GetWeatherIcon(WeatherDesktop.Shared.SharedObjects.WeatherTypes WeatherType, bool IsDaytime)
         {
             switch (WeatherType)
             {
-                case Interface.Shared.WeatherTypes.Clear:
+                case SharedObjects.WeatherTypes.Clear:
                 if (IsDaytime) {return Resources.Clear_day; }
                 else { return Resources.Clear_night; }
-                case Interface.Shared.WeatherTypes.Cloudy:
+                case SharedObjects.WeatherTypes.Cloudy:
                     return Resources.cloudy;
-                case Interface.Shared.WeatherTypes.Fog:
+                case SharedObjects.WeatherTypes.Fog:
                     return Resources.fog;
-                case Interface.Shared.WeatherTypes.Frigid:
+                case SharedObjects.WeatherTypes.Frigid:
                     return Resources.Frigid;
-                case Interface.Shared.WeatherTypes.Hot:
+                case SharedObjects.WeatherTypes.Hot:
                     return Resources.hot;
-                case Interface.Shared.WeatherTypes.PartlyCloudy:
+                case SharedObjects.WeatherTypes.PartlyCloudy:
                     if (IsDaytime) { return Resources.PartlyCloudy_day; }
                     else { return Resources.PartlyCloudy_night; }
-                case Interface.Shared.WeatherTypes.Rain:
+                case SharedObjects.WeatherTypes.Rain:
                     return Resources.raindrop;
-                case Interface.Shared.WeatherTypes.Snow:
+                case SharedObjects.WeatherTypes.Snow:
                     return Resources.snowflake;
-                case Interface.Shared.WeatherTypes.ThunderStorm:
+                case SharedObjects.WeatherTypes.ThunderStorm:
                     return Resources.Thunderstorm;
-                case Interface.Shared.WeatherTypes.Windy:
+                case SharedObjects.WeatherTypes.Windy:
                     return Resources.wind;
                 default:
                     return Resources.windsock;

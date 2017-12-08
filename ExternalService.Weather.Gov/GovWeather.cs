@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.ComponentModel.Composition;
 using System.Xml;
 using WeatherDesktop.Interface;
+using WeatherDesktop.Shared;
 
 namespace InternalService
 {
@@ -29,7 +30,7 @@ namespace InternalService
 
         public void Load()
         {
-            _zip = Shared.tryGetZip();
+            _zip = SharedObjects.ZipObjects.tryGetZip();
         }
 
         public string Debug()
@@ -38,17 +39,17 @@ namespace InternalService
             debugValues.Add("Last updated", LastUpdated.ToString());
             debugValues.Add("Icon url", iconUrl);
             debugValues.Add("zip", _zip);
-            return Shared.CompileDebug("Weather by NOAA", debugValues);
+            return SharedObjects.CompileDebug("Weather by NOAA", debugValues);
         }
 
         public ISharedResponse Invoke()
         {
-            if (Shared.Cache.Exists(this.GetType().Name)) { return (WeatherResponse)Shared.Cache.Value(this.GetType().Name); }
+            if (SharedObjects.Cache.Exists(this.GetType().Name)) { return (WeatherResponse)SharedObjects.Cache.Value(this.GetType().Name); }
             WeatherResponse response = new WeatherResponse();
             try {
-                httpResponse = Shared.CompressedCallSite(string.Format(Properties.Resources.Gov_Weather_Url, _zip), Properties.Resources.Gov_User);
+                httpResponse = SharedObjects.CompressedCallSite(string.Format(Properties.Resources.Gov_Weather_Url, _zip), Properties.Resources.Gov_User);
                 response = Transform(httpResponse);
-                Shared.Cache.Set(this.GetType().Name, response, UpdateInterval);
+                SharedObjects.Cache.Set(this.GetType().Name, response, UpdateInterval);
                 LastUpdated = DateTime.Now;
                 _ThrownException = null;
             }
@@ -56,7 +57,7 @@ namespace InternalService
             return response;
         }
 
-        public MenuItem[] SettingsItems(){ return new MenuItem[] { Shared.ZipMenuItem };}
+        public MenuItem[] SettingsItems(){ return new MenuItem[] { SharedObjects.ZipObjects.ZipMenuItem };}
 
 
         #region "Helpers"
@@ -81,11 +82,11 @@ namespace InternalService
                     switch (reader.Name)
                     {
                         case "point":
-                            if (!Shared.LatLong.HasRecord())
+                            if (!SharedObjects.LatLong.HasRecord())
                             {
                                 double lat, lng;
                                 if (double.TryParse(reader.GetAttribute("latitude"), out lat) && double.TryParse(reader.GetAttribute("longitude"), out lng))
-                                { Shared.LatLong.set(lat, lng); }
+                                { SharedObjects.LatLong.set(lat, lng); }
                             }
                             break;
                         case "temperature":
@@ -140,40 +141,40 @@ namespace InternalService
         /// <param name="currentType"></param>
         /// <param name="Urlbackup"></param>
         /// <returns></returns>
-        static Shared.WeatherTypes extractWeatherType(string currentType, string Urlbackup)
+        static SharedObjects.WeatherTypes extractWeatherType(string currentType, string Urlbackup)
         {
             switch (currentType)
             { case "thunderstorms":
               case  "water spouts":
-                    return Shared.WeatherTypes.ThunderStorm;
+                    return SharedObjects.WeatherTypes.ThunderStorm;
                 case "snow shower":
                 case "blowing snow":
                 case "frost":
                 case "snow":
-                    return Shared.WeatherTypes.Snow;
+                    return SharedObjects.WeatherTypes.Snow;
                 case "freezing spray":
                 case "ice crystals":
                 case "ice pellets":
                 case "freezing fog":
                 case "ice fog":
-                    return Shared.WeatherTypes.Frigid;
+                    return SharedObjects.WeatherTypes.Frigid;
                 case "freezing drizzle":
                 case "freezing rain":
                 case "drizzle":
                 case "rain":
                 case "rain shower":
                 case "hail":
-                    return Shared.WeatherTypes.Rain;
+                    return SharedObjects.WeatherTypes.Rain;
                 case "fog":
-                    return Shared.WeatherTypes.Fog;
+                    return SharedObjects.WeatherTypes.Fog;
                 case "haze":
-                    return Shared.WeatherTypes.Haze;
+                    return SharedObjects.WeatherTypes.Haze;
                 case "smoke":
                 case "volcanic ash":
-                    return Shared.WeatherTypes.Smoke;
+                    return SharedObjects.WeatherTypes.Smoke;
                 case "blowing dust":
                 case "blowing sand":
-                    return Shared.WeatherTypes.Dust;
+                    return SharedObjects.WeatherTypes.Dust;
             }
             return ExtractTypeFromIcon(Urlbackup);
         }
@@ -183,50 +184,50 @@ namespace InternalService
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        static Shared.WeatherTypes ExtractTypeFromIcon(string url)
+        static SharedObjects.WeatherTypes ExtractTypeFromIcon(string url)
         {
             string core = url.Substring(url.LastIndexOf("/")).Replace(".jpg", string.Empty);
-            if (core.StartsWith("ntsra") || core.StartsWith("tsra")) return Shared.WeatherTypes.ThunderStorm;  //night Thunderstorm
-            if (core.StartsWith("nscttsra") || core.StartsWith("scttsra")) return Shared.WeatherTypes.ThunderStorm; //night sky thunderstorm
-            if (core.StartsWith("ip")) return Shared.WeatherTypes.Snow;  //Ice Particals
-            if (core.StartsWith("nraip") || core.StartsWith("raip")) return Shared.WeatherTypes.Rain; // night rain  / Ice particals
-            if (core.StartsWith("mix")) return Shared.WeatherTypes.Snow;
-            if (core.StartsWith("nrasn")) return Shared.WeatherTypes.Rain;//snow rain
-            if (core.StartsWith("nsn") || core.StartsWith("sn")) return Shared.WeatherTypes.Snow;
-            if (core.StartsWith("fzra")) return Shared.WeatherTypes.Rain; //freezing rain
-            if (core.StartsWith("nra") || core.StartsWith("ra")) return Shared.WeatherTypes.Rain; // night rain.
-            if (core.StartsWith("hi_nshwrs") || core.StartsWith("shra") || core.StartsWith("hi_shwrs")) return Shared.WeatherTypes.Rain; //showers
-            if (core == "blizzard") return Shared.WeatherTypes.Snow;
-            if (core == "du") return Shared.WeatherTypes.Dust;
-            if (core == "fu") return Shared.WeatherTypes.Smoke; //patchy or smoke
+            if (core.StartsWith("ntsra") || core.StartsWith("tsra")) return SharedObjects.WeatherTypes.ThunderStorm;  //night Thunderstorm
+            if (core.StartsWith("nscttsra") || core.StartsWith("scttsra")) return SharedObjects.WeatherTypes.ThunderStorm; //night sky thunderstorm
+            if (core.StartsWith("ip")) return SharedObjects.WeatherTypes.Snow;  //Ice Particals
+            if (core.StartsWith("nraip") || core.StartsWith("raip")) return SharedObjects.WeatherTypes.Rain; // night rain  / Ice particals
+            if (core.StartsWith("mix")) return SharedObjects.WeatherTypes.Snow;
+            if (core.StartsWith("nrasn")) return SharedObjects.WeatherTypes.Rain;//snow rain
+            if (core.StartsWith("nsn") || core.StartsWith("sn")) return SharedObjects.WeatherTypes.Snow;
+            if (core.StartsWith("fzra")) return SharedObjects.WeatherTypes.Rain; //freezing rain
+            if (core.StartsWith("nra") || core.StartsWith("ra")) return SharedObjects.WeatherTypes.Rain; // night rain.
+            if (core.StartsWith("hi_nshwrs") || core.StartsWith("shra") || core.StartsWith("hi_shwrs")) return SharedObjects.WeatherTypes.Rain; //showers
+            if (core == "blizzard") return SharedObjects.WeatherTypes.Snow;
+            if (core == "du") return SharedObjects.WeatherTypes.Dust;
+            if (core == "fu") return SharedObjects.WeatherTypes.Smoke; //patchy or smoke
             switch (core)
             {
                 case "nfg":
                 case "fg":
-                    return Shared.WeatherTypes.Fog;
+                    return SharedObjects.WeatherTypes.Fog;
                 case "nwind":
                 case "wind":
-                    return Shared.WeatherTypes.Windy;
+                    return SharedObjects.WeatherTypes.Windy;
                 case "novc":
                 case "ovc":
                 case "nbkn":
                 case "bkn":
-                    return Shared.WeatherTypes.Cloudy;
+                    return SharedObjects.WeatherTypes.Cloudy;
                 case "nsct":
                 case "sct":
                 case "nfew":
                 case "few":
-                    return Shared.WeatherTypes.PartlyCloudy;
+                    return SharedObjects.WeatherTypes.PartlyCloudy;
                 case "nskc":
                 case "skc":
-                    return Shared.WeatherTypes.Clear;
+                    return SharedObjects.WeatherTypes.Clear;
                 case "cold":
-                    return Shared.WeatherTypes.Frigid;
+                    return SharedObjects.WeatherTypes.Frigid;
                 case "hot":
-                    return Shared.WeatherTypes.Hot;
+                    return SharedObjects.WeatherTypes.Hot;
 
             }
-            return Shared.WeatherTypes.Clear;
+            return SharedObjects.WeatherTypes.Clear;
         }
 
             #endregion

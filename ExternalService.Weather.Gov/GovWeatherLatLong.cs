@@ -27,10 +27,10 @@ namespace InternalService
         {
             try
             {
-                string Zip = Shared.Rawzip;
-                if (string.IsNullOrEmpty(Zip)) { Zip = Shared.GetZip(); }
+                string Zip = SharedObjects.ZipObjects.Rawzip;
+                if (string.IsNullOrEmpty(Zip)) { Zip = SharedObjects.ZipObjects.GetZip(); }
                 string url = string.Format(Properties.Resources.Gov_LatLong_Url, Zip);
-                string results = Shared.CompressedCallSite(url, Properties.Resources.Gov_User);
+                string results = SharedObjects.CompressedCallSite(url, Properties.Resources.Gov_User);
                 XmlReader reader = XmlReader.Create(new System.IO.StringReader(results));
                 while (reader.Read())
                 {

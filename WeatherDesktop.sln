@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27130.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherDesktop", "WeatherDesktop\WeatherDesktop.csproj", "{756B2286-9911-48FB-90DA-7CD244DBE726}"
 EndProject
@@ -18,6 +18,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalService.MSWeather", "ExternalService.MSWeather\ExternalService.MSWeather.csproj", "{6A64825B-B3E1-4187-A1BD-8EBC54167C1A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalService.SunRiseSet", "ExternalService.SunRiseSet\ExternalService.SunRiseSet.csproj", "{CA7ACFA9-603D-4F96-97D6-8D3104B00E8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Services", "External Services", "{4588D0A3-A78E-4150-8E9D-A9650DECA163}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Internal Services", "Internal Services", "{D1CE8211-0C69-4FE2-A928-611AEAC90258}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherDesktop.Shared", "WeatherDesktop.Shared\WeatherDesktop.Shared.csproj", "{AD39A03F-E078-4172-A97D-3EFD54E1ED81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,9 +63,22 @@ Global
 		{CA7ACFA9-603D-4F96-97D6-8D3104B00E8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA7ACFA9-603D-4F96-97D6-8D3104B00E8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA7ACFA9-603D-4F96-97D6-8D3104B00E8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD39A03F-E078-4172-A97D-3EFD54E1ED81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD39A03F-E078-4172-A97D-3EFD54E1ED81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD39A03F-E078-4172-A97D-3EFD54E1ED81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD39A03F-E078-4172-A97D-3EFD54E1ED81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8E3EBE5B-4021-4786-872D-3D74913E8865} = {4588D0A3-A78E-4150-8E9D-A9650DECA163}
+		{D4F1D2F4-0A9A-48EB-A19E-46554FF6FC68} = {4588D0A3-A78E-4150-8E9D-A9650DECA163}
+		{36468B31-BACD-4FD0-B15C-20E6B8F899FB} = {4588D0A3-A78E-4150-8E9D-A9650DECA163}
+		{BD79E8EC-FCB4-49E7-AD97-5995FC827BA2} = {4588D0A3-A78E-4150-8E9D-A9650DECA163}
+		{408B375E-B7E3-4182-A6B9-1BF130269F04} = {D1CE8211-0C69-4FE2-A928-611AEAC90258}
+		{6A64825B-B3E1-4187-A1BD-8EBC54167C1A} = {4588D0A3-A78E-4150-8E9D-A9650DECA163}
+		{CA7ACFA9-603D-4F96-97D6-8D3104B00E8D} = {4588D0A3-A78E-4150-8E9D-A9650DECA163}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A61898C-A354-4737-B8B8-84E489CDAC7A}

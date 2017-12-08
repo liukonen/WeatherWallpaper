@@ -6,22 +6,23 @@ using Microsoft.VisualBasic;
 using System.Windows.Forms;
 using System.ComponentModel.Composition;
 using WeatherDesktop.Interface;
+using WeatherDesktop.Shared;
 
 namespace InternalService
 {
-    [Export(typeof(WeatherDesktop.Interface.ISharedWeatherinterface))]
+    [Export(typeof(ISharedWeatherinterface))]
     [ExportMetadata("ClassName", "Mock_Weather")]
     class Mock_Weather :  ISharedWeatherinterface
     {
         const string ClassName  = "Mock_Weather";
 
-        Shared.WeatherTypes activeWeathertype;
+        WeatherDesktop.Shared.SharedObjects.WeatherTypes activeWeathertype;
         string ForcastDescription = "Mock Weather Forcast.";
         int Temp = 98;
 
         public Exception ThrownException() { return null; }
 
-        Shared.WeatherTypes SetWeatherType
+       SharedObjects.WeatherTypes SetWeatherType
         {
             get { return activeWeathertype; }
             set { activeWeathertype = value; }
@@ -33,9 +34,9 @@ namespace InternalService
             returnValue.Add(new MenuItem("Change Temp", ChangeTempEvent));
             returnValue.Add(new MenuItem("Change Forcast", ChangeForcastEvent));
             List<MenuItem> WeatherTypes = new List<MenuItem>();
-            foreach (var item in System.Enum.GetValues(typeof(Shared.WeatherTypes)))
+            foreach (var item in System.Enum.GetValues(typeof(SharedObjects.WeatherTypes)))
             {
-                WeatherTypes.Add(new MenuItem(Enum.GetName(typeof(Shared.WeatherTypes), item), ChangeWeatherType));
+                WeatherTypes.Add(new MenuItem(Enum.GetName(typeof(SharedObjects.WeatherTypes), item), ChangeWeatherType));
             }
             returnValue.Add(new MenuItem("Change Type", WeatherTypes.ToArray()));
             return returnValue.ToArray();
@@ -52,7 +53,7 @@ namespace InternalService
 
         private void ChangeTempEvent(object sender, EventArgs e)
         {
-          string sTemp =   Microsoft.VisualBasic.Interaction.InputBox("Change Temp", ClassName, Temp.ToString());
+          string sTemp =   Interaction.InputBox("Change Temp", ClassName, Temp.ToString());
             if (!int.TryParse(sTemp, out Temp)) { MessageBox.Show("Could not parse Temp"); }
         }
 
@@ -63,16 +64,16 @@ namespace InternalService
 
         private void ChangeWeatherType(object sender, EventArgs e)
         {
-            SetWeatherType = (Shared.WeatherTypes)System.Enum.Parse(typeof(Shared.WeatherTypes), ((MenuItem)sender).Text);
+            SetWeatherType = (WeatherDesktop.Shared.SharedObjects.WeatherTypes)System.Enum.Parse(typeof(WeatherDesktop.Shared.SharedObjects.WeatherTypes), ((MenuItem)sender).Text);
         }
 
         public string Debug()
         {
             Dictionary<string, string> DebugValues = new Dictionary<string, string>();
-            DebugValues.Add("ActiveWeatherType", Enum.GetName(typeof(Shared.WeatherTypes), SetWeatherType));
+            DebugValues.Add("ActiveWeatherType", Enum.GetName(typeof(WeatherDesktop.Shared.SharedObjects.WeatherTypes), SetWeatherType));
             DebugValues.Add("Temp", Temp.ToString());
             DebugValues.Add("Forcast", ForcastDescription.ToString());
-            return Shared.CompileDebug(ClassName + " Service", DebugValues);
+            return SharedObjects.CompileDebug(ClassName + " Service", DebugValues);
         }
 
     }

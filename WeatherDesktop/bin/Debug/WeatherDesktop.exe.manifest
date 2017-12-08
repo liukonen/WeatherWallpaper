@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Martz90-Hex-Weather-2.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="WeatherDesktop" version="2017.11.6549.802" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="WeatherDesktop" version="2017.11.6550.35644" language="neutral" processorArchitecture="msil" />
     <commandLine file="WeatherDesktop.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -67,14 +67,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.exe" size="369608">
-      <assemblyIdentity name="WeatherDesktop" version="2017.11.6549.802" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.exe" size="361416">
+      <assemblyIdentity name="WeatherDesktop" version="2017.11.6550.35644" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>8AgARnoDf+lykkVsPfYm58xHib5C/VppkqAevioJ+6E=</dsig:DigestValue>
+        <dsig:DigestValue>Gsq3SocTkqaGAjPH+0Sce6u6VcVKwQr9/nUdbKyZQ6g=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.Shared.dll" size="13824">
+      <assemblyIdentity name="WeatherDesktop.Shared" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>LwtKDP+MmTw8v9fKQPEVz6hWf3OTxKMsigWT4zp28y4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

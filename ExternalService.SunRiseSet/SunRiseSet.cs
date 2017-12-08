@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Web.Script.Serialization;
 using System.ComponentModel.Composition;
 using WeatherDesktop.Interface;
+using WeatherDesktop.Shared;
 
 namespace ExternalService
 {
@@ -60,7 +61,7 @@ namespace ExternalService
             {
                 _lat = Item.Latitude();
                 _long = Item.Longitude();
-                Shared.LatLong.set(_lat, _long);
+                SharedObjects.LatLong.set(_lat, _long);
                 MessageBox.Show("Update complete");
 
             }
@@ -86,7 +87,7 @@ namespace ExternalService
             _lat = latlong.Key;
             _long = latlong.Value;
 
-            string HTU = Shared.ReadSetting("HourUpdate");
+            string HTU = SharedObjects.AppSettings.ReadSetting("HourUpdate");
             if (string.IsNullOrWhiteSpace(HTU)) { HTU = "6"; }
             _HourToUpdate = int.Parse(HTU);
             _LastUpdate = DateTime.Now;
@@ -118,12 +119,12 @@ namespace ExternalService
             try
             {
                 string value;
-                if (Shared.Cache.Exists(ClassName)) { value = Shared.Cache.StringValue(ClassName); }
+                if (SharedObjects.Cache.Exists(ClassName)) { value = SharedObjects.Cache.StringValue(ClassName); }
                 else
                 {
                     string url = string.Format(Properties.Resources.SRS_Url, Latitude.ToString(), Longitude.ToString());
-                     value = Shared.CompressedCallSite(url);
-                    Shared.Cache.Set(ClassName, value);
+                     value = SharedObjects.CompressedCallSite(url);
+                    SharedObjects.Cache.Set(ClassName, value);
                 }
 
                 JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
@@ -166,7 +167,7 @@ namespace ExternalService
                 {
                     double lat = double.Parse(WeatherDesktop.Shared.SharedObjects.InputBox("Please Enter your Latitude", "Latitude"));
                     double lon = double.Parse(WeatherDesktop.Shared.SharedObjects.InputBox("Please Enter your Longitude", "Longitude"));
-                    Shared.LatLong.set(lat, lon);
+                SharedObjects.LatLong.set(lat, lon);
                     worked = true;
               //  }
             }
@@ -180,14 +181,14 @@ namespace ExternalService
         {
 
             int current;
-            try { current = int.Parse(WeatherDesktop.Interface.Shared.ReadSetting("HourUpdate")); }
+            try { current = int.Parse(SharedObjects.AppSettings.ReadSetting("HourUpdate")); }
             catch { current = 6; }
 
             try
             {
                 string attempt;
                 attempt = WeatherDesktop.Shared.SharedObjects.InputBox("Enter the hour you want to update the call to get sun rise, set info", "Hour update", current.ToString());
-                WeatherDesktop.Interface.Shared.AddUpdateAppSettings("Hourupdate", int.Parse(attempt).ToString());
+                SharedObjects.AppSettings.AddUpdateAppSettings("Hourupdate", int.Parse(attempt).ToString());
             }
             catch { MessageBox.Show("Could not update, please try again"); }
         }
@@ -195,8 +196,8 @@ namespace ExternalService
         //Try geting the lat Long from the machine, refactored from MSDN.
         static KeyValuePair<double, double> GetLocationProperty()
         {
-            if (Shared.LatLong.HasRecord() || intialgetLatLong())
-            { return new KeyValuePair<double, double>(Shared.LatLong.lat, Shared.LatLong.lng); }
+            if (SharedObjects.LatLong.HasRecord() || intialgetLatLong())
+            { return new KeyValuePair<double, double>(SharedObjects.LatLong.lat, SharedObjects.LatLong.lng); }
             return new KeyValuePair<double, double>(0, 0);
         }
         #endregion
@@ -213,7 +214,7 @@ namespace ExternalService
             DebugValues.Add("SunSet", _cache.SunSet.ToString());
             DebugValues.Add("SolarNoon", _cache.SolarNoon.ToString());
             DebugValues.Add("Status", _cache.Status);
-            return Shared.CompileDebug("SunRiseSet Service", DebugValues);
+            return SharedObjects.CompileDebug("SunRiseSet Service", DebugValues);
         }
         #endregion
 

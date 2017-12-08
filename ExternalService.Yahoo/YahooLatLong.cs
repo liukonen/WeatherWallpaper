@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using WeatherDesktop.Interface;
-
+using WeatherDesktop.Shared;
 namespace InternalService
 {
     [Export(typeof(WeatherDesktop.Interface.ILatLongInterface))]
@@ -19,9 +19,9 @@ namespace InternalService
         {
             try
             {
-                string Zip = Shared.tryGetZip();
+                string Zip = SharedObjects.ZipObjects.tryGetZip();
                 string url = string.Format(Properties.Resources.Yahoo_LatLong_Url, Zip);
-                string results = Shared.CompressedCallSite(url);
+                string results = SharedObjects.CompressedCallSite(url);
                 JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
                 YahooLatLongObject Response = jsSerialization.Deserialize<YahooLatLongObject>(results);
                 _lat = double.Parse(Response.query.results.place.centroid.latitude);

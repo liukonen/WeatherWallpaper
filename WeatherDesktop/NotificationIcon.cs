@@ -12,7 +12,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-
+using WeatherDesktop.Shared;
 
 namespace WeatherDesktop
 {
@@ -89,8 +89,8 @@ namespace WeatherDesktop
 
             List<MenuItem> WeatherItems = new List<MenuItem>();
             List<MenuItem> SunRiseSetItems = new List<MenuItem>();
-            string SelectedItem = Interface.Shared.ReadSetting(cWeather);
-            string SelectedSRS = Interface.Shared.ReadSetting(cSRS);
+            string SelectedItem = SharedObjects.AppSettings.ReadSetting(cWeather);
+            string SelectedSRS = SharedObjects.AppSettings.ReadSetting(cSRS);
 
 
 
@@ -115,9 +115,9 @@ namespace WeatherDesktop
         private MenuItem[] GetWeatherMenuItems()
         {
             System.Collections.Generic.List<MenuItem> items = new System.Collections.Generic.List<MenuItem>();
-            foreach (var element in System.Enum.GetValues(typeof(Interface.Shared.WeatherTypes)))
+            foreach (var element in System.Enum.GetValues(typeof(SharedObjects.WeatherTypes)))
             {
-                string ElementName = Enum.GetName(typeof(Interface.Shared.WeatherTypes), element);
+                string ElementName = Enum.GetName(typeof(SharedObjects.WeatherTypes), element);
                 string DayName = cDay + ElementName;
                 string NightName = cNight + ElementName;
 
@@ -201,7 +201,7 @@ namespace WeatherDesktop
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                Interface.Shared.AddUpdateAppSettings(Name, openFileDialog1.FileName);
+                SharedObjects.AppSettings.AddUpdateAppSettings(Name, openFileDialog1.FileName);
                 if (g_ImageDictionary.ContainsKey(Name)) { g_ImageDictionary[Name] = openFileDialog1.FileName; }
                 else { g_ImageDictionary.Add(Name, openFileDialog1.FileName); }
                 UpdateScreen(true);
@@ -215,7 +215,7 @@ namespace WeatherDesktop
             Dictionary<string, string> debugValues = new Dictionary<string, string>();
             debugValues.Add("Weather Notifcation Type", g_CurrentWeatherType);
 
-            MessageBox.Show("weather desktop, by Luke Liukonen, 2017" + Environment.NewLine + Interface.Shared.CompileDebug("Main Values", debugValues) + g_Weather.Debug() + g_SunRiseSet.Debug());
+            MessageBox.Show("weather desktop, by Luke Liukonen, 2017" + Environment.NewLine + SharedObjects.CompileDebug("Main Values", debugValues) + g_Weather.Debug() + g_SunRiseSet.Debug());
         }
 
         private void MenuExitClick(object sender, EventArgs e) { Application.Exit(); }
@@ -238,7 +238,7 @@ namespace WeatherDesktop
             values = new List<int>();
             foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
             for (int i = 0; i < 24; i++) { BlackListHours[i] = values.Contains(i); }
-            Interface.Shared.AddUpdateAppSettings("BlackListHours", Interface.Shared.ConvertBitarrayToInt(BlackListHours).ToString());
+            SharedObjects.AppSettings.AddUpdateAppSettings("BlackListHours", SharedObjects.ConvertBitarrayToInt(BlackListHours).ToString());
         }
 
         private void BlackListDays_event(object sender, EventArgs e)
@@ -247,7 +247,7 @@ namespace WeatherDesktop
             List<int> values = new List<int>();
             foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
             for (int i = 0; i < 7; i++) { BlackListDays[i] = values.Contains(i); }
-            Interface.Shared.AddUpdateAppSettings("BlackListDays", Interface.Shared.ConvertBitarrayToInt(BlackListDays).ToString());
+            SharedObjects.AppSettings.AddUpdateAppSettings("BlackListDays", SharedObjects.ConvertBitarrayToInt(BlackListDays).ToString());
         }
 
         private void UpdateGlobalObjecttype(object sender, EventArgs e)
@@ -256,13 +256,13 @@ namespace WeatherDesktop
             string Name = Current.Text;
             if (((MenuItem)Current.Parent).Text == "Weather")
             {
-                Interface.Shared.AddUpdateAppSettings(cWeather, Name);
+                SharedObjects.AppSettings.AddUpdateAppSettings(cWeather, Name);
                 g_Weather = GetWeatherByName(Name);
                 g_Weather.Load();
             }
             else if (((MenuItem)Current.Parent).Text == "SunRiseSet")
             {
-                Interface.Shared.AddUpdateAppSettings(cSRS, Name);
+                SharedObjects.AppSettings.AddUpdateAppSettings(cSRS, Name);
                 
                 g_SunRiseSet = GetSRSByName(Name);
                 g_SunRiseSet.Load();
@@ -301,10 +301,10 @@ namespace WeatherDesktop
                 var sunriseSet = g_SunRiseSet.Invoke();
                 string currentTime;
 
-                if (Interface.Shared.BetweenTimespans(DateTime.Now.TimeOfDay, ((Interface.SunRiseSetResponse)sunriseSet).SunRise.TimeOfDay, ((Interface.SunRiseSetResponse)sunriseSet).SunSet.TimeOfDay)) { currentTime = cDay; } else { currentTime = cNight; }
+                if (SharedObjects.BetweenTimespans(DateTime.Now.TimeOfDay, ((Interface.SunRiseSetResponse)sunriseSet).SunRise.TimeOfDay, ((Interface.SunRiseSetResponse)sunriseSet).SunSet.TimeOfDay)) { currentTime = cDay; } else { currentTime = cNight; }
 
 
-                string weatherType = Enum.GetName(typeof(Interface.Shared.WeatherTypes), weather.WType);
+                string weatherType = Enum.GetName(typeof(SharedObjects.WeatherTypes), weather.WType);
                 notifyIcon.Text = weatherType + " " + weather.Temp.ToString();
                 string currentWeatherType = currentTime + weatherType;
                 if (string.IsNullOrWhiteSpace(g_CurrentWeatherType) || currentWeatherType != g_CurrentWeatherType || overrideImage)
@@ -331,7 +331,7 @@ namespace WeatherDesktop
         {
             try
             {
-                string weatherType = Interface.Shared.ReadSetting(cWeather);
+                string weatherType = SharedObjects.AppSettings.ReadSetting(cWeather);
                 if (!string.IsNullOrWhiteSpace(weatherType))
                 {
                     foreach (var item in WeatherObjects)
@@ -351,7 +351,7 @@ namespace WeatherDesktop
                     
 
                 }
-                string srs = Interface.Shared.ReadSetting(cSRS);
+                string srs = SharedObjects.AppSettings.ReadSetting(cSRS);
                 if (!string.IsNullOrWhiteSpace(srs))
                 {
                     foreach (var item in SRSObjects)
@@ -385,10 +385,10 @@ namespace WeatherDesktop
         {
             int intBlackListdays = 0;
             int intblackListHours = 0;
-            int.TryParse(Interface.Shared.ReadSetting("BlackListHours"), out intblackListHours);
-            int.TryParse(Interface.Shared.ReadSetting("BlackListDays"), out intBlackListdays);
-            BlackListHours = Interface.Shared.ConverTIntToBitArray(intblackListHours);
-            BlackListDays = Interface.Shared.ConverTIntToBitArray(intBlackListdays);
+            int.TryParse(SharedObjects.AppSettings.ReadSetting("BlackListHours"), out intblackListHours);
+            int.TryParse(SharedObjects.AppSettings.ReadSetting("BlackListDays"), out intBlackListdays);
+            BlackListHours = SharedObjects.ConverTIntToBitArray(intblackListHours);
+            BlackListDays = SharedObjects.ConverTIntToBitArray(intBlackListdays);
 
         }
 
@@ -402,13 +402,13 @@ namespace WeatherDesktop
 
         private void UpdateImageCache()
         {
-            foreach (var element in System.Enum.GetValues(typeof(Interface.Shared.WeatherTypes)))
+            foreach (var element in System.Enum.GetValues(typeof(SharedObjects.WeatherTypes)))
             {
-                string ElementName = Enum.GetName(typeof(Interface.Shared.WeatherTypes), element);
+                string ElementName = Enum.GetName(typeof(SharedObjects.WeatherTypes), element);
                 string daykey = cDay + ElementName;
                 string nightKey = cNight + ElementName;
-                string dayimageCache = Interface.Shared.ReadSetting(cDay + ElementName);
-                string nightimagecache = Interface.Shared.ReadSetting(cNight + ElementName);
+                string dayimageCache = SharedObjects.AppSettings.ReadSetting(cDay + ElementName);
+                string nightimagecache = SharedObjects.AppSettings.ReadSetting(cNight + ElementName);
                 if (!string.IsNullOrEmpty(dayimageCache)) { g_ImageDictionary.Add(daykey, dayimageCache); }
                 if (!string.IsNullOrEmpty(nightimagecache)) { g_ImageDictionary.Add(nightKey, nightimagecache); }
             }

@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using WeatherDesktop.Interface;
-
+using WeatherDesktop.Shared;
 
 namespace InternalService
 {
@@ -30,18 +30,18 @@ namespace InternalService
         {
             Dictionary<string, string> DebugValues = new Dictionary<string, string>();
             DebugValues.Add("status", _status);
-            return Shared.CompileDebug("Yahoo Weather", DebugValues);
+            return SharedObjects.CompileDebug("Yahoo Weather", DebugValues);
         }
 
         int UpdateInterval
         {
             get
             {
-                return (_UpdateInterval == 0 && !int.TryParse(Shared.ReadSetting(this.GetType().Name + ".UpdateInterval"), out _UpdateInterval)) ? _HardWiredUpdateInterval : _UpdateInterval;
+                return (_UpdateInterval == 0 && !int.TryParse(SharedObjects.AppSettings.ReadSetting(this.GetType().Name + ".UpdateInterval"), out _UpdateInterval)) ? _HardWiredUpdateInterval : _UpdateInterval;
             }
             set
             {
-                Shared.AddUpdateAppSettings(this.GetType().Name + ".UpdateInterval", value.ToString());
+                SharedObjects.AppSettings.AddUpdateAppSettings(this.GetType().Name + ".UpdateInterval", value.ToString());
             }
         }
 
@@ -72,12 +72,12 @@ namespace InternalService
             YahooWeatherObject Response = new YahooWeatherObject();
             try
             {
-                if (Shared.Cache.Exists(this.GetType().Name)) return (YahooWeatherObject)Shared.Cache.Value(this.GetType().Name);
+                if (SharedObjects.Cache.Exists(this.GetType().Name)) return (YahooWeatherObject)SharedObjects.Cache.Value(this.GetType().Name);
                 URL = string.Format(Properties.Resources.Yahoo_Weather_Url, _zip);
-                results = Shared.CompressedCallSite(URL);
+                results = SharedObjects.CompressedCallSite(URL);
                 JavaScriptSerializer jsSerialization = new JavaScriptSerializer();
                 Response = jsSerialization.Deserialize<YahooWeatherObject>(results);
-                Shared.Cache.Set(this.GetType().Name, Response, _HardWiredUpdateInterval);
+                SharedObjects.Cache.Set(this.GetType().Name, Response, _HardWiredUpdateInterval);
 
             }
             catch (Exception x)
@@ -97,7 +97,7 @@ namespace InternalService
         public MenuItem[] SettingsItems()
         {
             List<MenuItem> Items = new List<MenuItem>();
-            Items.Add(Shared.ZipMenuItem);
+            Items.Add(SharedObjects.ZipObjects.ZipMenuItem);
             return Items.ToArray();
 
         }
@@ -110,11 +110,11 @@ namespace InternalService
         public void Load()
         {
             if (UpdateInterval > 0 && _UpdateInterval == 0) { EnterInterval(); }
-            if (string.IsNullOrWhiteSpace(_zip)) { _zip = Shared.tryGetZip(); }
+            if (string.IsNullOrWhiteSpace(_zip)) { _zip = SharedObjects.ZipObjects.tryGetZip(); }
             Invoke();
         }
 
-        Shared.WeatherTypes GetWeatherType(int code)
+        SharedObjects.WeatherTypes GetWeatherType(int code)
         {
             switch (code)
             {
@@ -122,25 +122,25 @@ namespace InternalService
                 case 32:
                 case 33:
                 case 34:
-                    return Shared.WeatherTypes.Clear;
+                    return SharedObjects.WeatherTypes.Clear;
                 case 26:
                 case 27:
                 case 28:
-                    return Shared.WeatherTypes.Cloudy;
+                    return SharedObjects.WeatherTypes.Cloudy;
                 case 19:
-                    return Shared.WeatherTypes.Dust;
+                    return SharedObjects.WeatherTypes.Dust;
                 case 20:
-                    return Shared.WeatherTypes.Fog;
+                    return SharedObjects.WeatherTypes.Fog;
                 case 25:
-                    return Shared.WeatherTypes.Frigid;
+                    return SharedObjects.WeatherTypes.Frigid;
                 case 21:
-                    return Shared.WeatherTypes.Haze;
+                    return SharedObjects.WeatherTypes.Haze;
                 case 36:
-                    return Shared.WeatherTypes.Hot;
+                    return SharedObjects.WeatherTypes.Hot;
                 case 29:
                 case 30:
                 case 44:
-                    return Shared.WeatherTypes.PartlyCloudy;
+                    return SharedObjects.WeatherTypes.PartlyCloudy;
                 case 5:
                 case 6:
                 case 8:
@@ -152,9 +152,9 @@ namespace InternalService
                 case 18:
                 case 35:
                 case 40:
-                    return Shared.WeatherTypes.Rain;
+                    return SharedObjects.WeatherTypes.Rain;
                 case 22:
-                    return Shared.WeatherTypes.Smoke;
+                    return SharedObjects.WeatherTypes.Smoke;
                 case 7:
                 case 13:
                 case 14:
@@ -164,10 +164,10 @@ namespace InternalService
                 case 42:
                 case 43:
                 case 46:
-                    return Shared.WeatherTypes.Snow;
+                    return SharedObjects.WeatherTypes.Snow;
                 case 23:
                 case 24:
-                    return Shared.WeatherTypes.Windy;
+                    return SharedObjects.WeatherTypes.Windy;
                 case 3:
                 case 4:
                 case 37:
@@ -176,7 +176,7 @@ namespace InternalService
                 case 45:
                 case 47:
                 default:
-                    return Shared.WeatherTypes.ThunderStorm;
+                    return SharedObjects.WeatherTypes.ThunderStorm;
             }
 
         }

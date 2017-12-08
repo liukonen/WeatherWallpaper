@@ -6,7 +6,7 @@ using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using System.Xml;
 using WeatherDesktop.Interface;
-
+using WeatherDesktop.Shared;
 
 
 namespace InternalService
@@ -37,12 +37,12 @@ namespace InternalService
 
         public void Load()
         {
-            _apikey = Shared.ReadSettingEncrypted(c_ClassName + c_apiKeyName);
+            _apikey = SharedObjects.AppSettings.ReadSettingEncrypted(c_ClassName + c_apiKeyName);
             if (string.IsNullOrWhiteSpace(_apikey))
             {
                 EnterAPIKey();
             }
-            _zip = Shared.tryGetZip();
+            _zip = SharedObjects.ZipObjects.tryGetZip();
         }
 
         /// <summary>
@@ -56,20 +56,20 @@ namespace InternalService
 
         public void Call()
         {
-            bool exists = Shared.Cache.Exists(c_ClassName);
-            if (Cache.Count == 0 && exists) { Cache = (Dictionary<SharedType, ISharedResponse>)Shared.Cache.Value(c_ClassName); }
+            bool exists = SharedObjects.Cache.Exists(c_ClassName);
+            if (Cache.Count == 0 && exists) { Cache = (Dictionary<SharedType, ISharedResponse>)SharedObjects.Cache.Value(c_ClassName); }
             if (!exists)
             {
                 try
                 {
-                    string response = Shared.CompressedCallSite(string.Format(Properties.Resources.wunderground_Url, _zip, _apikey));
+                    string response = SharedObjects.CompressedCallSite(string.Format(Properties.Resources.wunderground_Url, _zip, _apikey));
                     transformXML(response);
                     Cache = new Dictionary<SharedType, ISharedResponse>();
                     Cache.Add(SharedType.Weather, Weather);
                     Cache.Add(SharedType.LatLong, LatLong);
                     Cache.Add(SharedType.SRS, SRS);
                     _lastudated = DateTime.Now;
-                    Shared.Cache.Set(c_ClassName, Cache, 60);
+                    SharedObjects.Cache.Set(c_ClassName, Cache, 60);
                 }
                 catch (Exception x)
                 {
@@ -88,7 +88,7 @@ namespace InternalService
 
         public MenuItem[] SettingsItems()
         {
-            return new MenuItem[] { Shared.ZipMenuItem, new MenuItem("Change API Key", ChangeAPI) };
+            return new MenuItem[] { SharedObjects.ZipObjects.ZipMenuItem, new MenuItem("Change API Key", ChangeAPI) };
         }
 
         private void ChangeAPI(object sender, EventArgs e)
@@ -99,7 +99,7 @@ namespace InternalService
         private void EnterAPIKey()
         {
             _apikey = WeatherDesktop.Shared.SharedObjects.InputBox("Please enter your wunderground api key.");
-            if (!string.IsNullOrWhiteSpace(_apikey)) Shared.AddupdateAppSettingsEncrypted(c_ClassName + c_apiKeyName, _apikey);
+            if (!string.IsNullOrWhiteSpace(_apikey)) SharedObjects.AppSettings.AddupdateAppSettingsEncrypted(c_ClassName + c_apiKeyName, _apikey);
         }
 
 
@@ -168,7 +168,7 @@ namespace InternalService
             SRS.SunSet = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, SunsetHour, SunsetMinute, 0);
         }
 
-        private static Shared.WeatherTypes ConvertImageToType(string url)
+        private static SharedObjects.WeatherTypes ConvertImageToType(string url)
         {
             string parsed = url.Substring(url.LastIndexOf("/") + 1).Replace(".gif", string.Empty).Replace("nt_", string.Empty);
             switch (parsed)
@@ -179,28 +179,28 @@ namespace InternalService
                 case "sleet":
                 case "snow":
                 case "flurries":
-                    return Shared.WeatherTypes.Snow;
+                    return SharedObjects.WeatherTypes.Snow;
                 case "chancerain":
                 case "rain":
-                    return Shared.WeatherTypes.Rain;
+                    return SharedObjects.WeatherTypes.Rain;
                 case "chancetstorms":
                 case "tstorm":
-                    return Shared.WeatherTypes.ThunderStorm;
+                    return SharedObjects.WeatherTypes.ThunderStorm;
                 case "cloudy":
                 case "mostlycloudy":
-                    return Shared.WeatherTypes.Cloudy;
+                    return SharedObjects.WeatherTypes.Cloudy;
                 case "partlycloudy":
                 case "partlysunny":
-                    return Shared.WeatherTypes.PartlyCloudy;
+                    return SharedObjects.WeatherTypes.PartlyCloudy;
                 case "fog":
-                    return Shared.WeatherTypes.Fog;
+                    return SharedObjects.WeatherTypes.Fog;
                 case "hazy":
-                    return Shared.WeatherTypes.Haze;
+                    return SharedObjects.WeatherTypes.Haze;
                 case "clear":
                 case "mostlysunny":
-                    return Shared.WeatherTypes.Clear;
+                    return SharedObjects.WeatherTypes.Clear;
                 default:
-                    return Shared.WeatherTypes.Windy;
+                    return SharedObjects.WeatherTypes.Windy;
             }
 
         }

@@ -47,7 +47,7 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Newtonsoft.
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\SharpRaven.pdb
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\SharpRaven.xml
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.csprojResolveAssemblyReference.cache
-C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.NotificationIcon.resources
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.MainApp.resources
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.Properties.Resources.resources
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.csproj.GenerateResource.Cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.csproj.CoreCompileInputs.cache

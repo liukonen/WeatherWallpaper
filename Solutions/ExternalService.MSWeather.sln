@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalService.MSWeather", "..\ExternalService.MSWeather\ExternalService.MSWeather.csproj", "{6A64825B-B3E1-4187-A1BD-8EBC54167C1A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalService.MSWeather", "..\Plugins\ExternalService.MSWeather\ExternalService.MSWeather.csproj", "{6A64825B-B3E1-4187-A1BD-8EBC54167C1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

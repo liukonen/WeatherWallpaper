@@ -2,7 +2,7 @@
 {
 	public class WeatherResponse : ISharedResponse
     {
-		public Shared.SharedObjects.WeatherTypes WType;
+		public Share.SharedObjects.WeatherTypes WType;
         public int Temp;
         public string ForcastDescription;	
 	}

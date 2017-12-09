@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using WeatherDesktop.Interface;
 using System.ComponentModel.Composition;
-using WeatherDesktop.Shared;
+using WeatherDesktop.Share;
 
 namespace InternalService
 {
@@ -22,7 +22,8 @@ namespace InternalService
 
         SunRiseSetResponse _cache = new SunRiseSetResponse();
 
-        DateTime SunRise {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        DateTime SunRiseDateTime {
             get
             {
                 if (_cache != null && _cache.SunRise != null) { return _cache.SunRise; }
@@ -36,7 +37,8 @@ namespace InternalService
                 SharedObjects.AppSettings.AddUpdateAppSettings(ClassName + ".SunRise", value.TimeOfDay.ToString());
             }
         }
-        DateTime SunSet
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        DateTime SunSetDateTime
         {
             get
             {
@@ -54,26 +56,19 @@ namespace InternalService
         }
 
 
-        private DateTime TimeSpanToDateTime(TimeSpan Request)
+        private static DateTime TimeSpanToDateTime(TimeSpan Request)
         {
-            DateTime Now = DateTime.Now;            
-            return new DateTime(Now.Year, Now.Month, Now.Day, Request.Hours, Request.Minutes, Request.Seconds);
+            return new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, Request.Hours, Request.Minutes, Request.Seconds);
         }
 
         public MenuItem[] SettingsItems()
         {
-            List<MenuItem> returnValue = new List<MenuItem>();
-            returnValue.Add(new MenuItem("Update SunRise", ChangehourToUpdate));
-            returnValue.Add(new MenuItem("Update SunSet", ChangehourToUpdate));
-            return returnValue.ToArray();
+            return new MenuItem[] { new MenuItem("Update SunRise", ChangehourToUpdate), new MenuItem("Update SunSet", ChangehourToUpdate) };
         }
 
         public Mock_SunRiseSet()
         {
-            _cache = new SunRiseSetResponse();
-            _cache.SunSet = SunSet;
-            _cache.SunRise = SunRise;
-            
+            _cache = new SunRiseSetResponse() { SunSet = SunSetDateTime, SunRise = SunRiseDateTime };            
         }
         public ISharedResponse Invoke()
         {
@@ -92,8 +87,8 @@ namespace InternalService
                 DateTime Now = DateTime.Now;
                 DateTime Parsed = new DateTime(Now.Year, Now.Month, Now.Day, extract.Hours, extract.Minutes, extract.Seconds);
                 if (Title.EndsWith("SunSet"))
-                { _cache.SunSet = Parsed; SunSet = Parsed; }
-                else { _cache.SunRise = Parsed; SunRise = Parsed; ; }
+                { _cache.SunSet = Parsed; SunSetDateTime = Parsed; }
+                else { _cache.SunRise = Parsed; SunRiseDateTime = Parsed; ; }
             }
             
 
@@ -101,9 +96,11 @@ namespace InternalService
 
         public string Debug()
         {
-            Dictionary<string, string> DebugValues = new Dictionary<string, string>();
-            DebugValues.Add("SunRise", _cache.SunRise.ToString());
-            DebugValues.Add("SunSet", _cache.SunSet.ToString());
+            Dictionary<string, string> DebugValues = new Dictionary<string, string>
+            {
+                {"SunRise", _cache.SunRise.ToString()},
+                {"SunSet", _cache.SunSet.ToString() }
+            };
             return SharedObjects.CompileDebug(DebugValues);
         }
     }

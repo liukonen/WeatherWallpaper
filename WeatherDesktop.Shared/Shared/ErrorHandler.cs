@@ -6,7 +6,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Diagnostics.Eventing;
 
-namespace WeatherDesktop.Shared
+namespace WeatherDesktop.Share
 {
    static class ErrorHandler
     {

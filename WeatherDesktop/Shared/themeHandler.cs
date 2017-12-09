@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using WeatherDesktop.Interface;
 using System.IO.Compression;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
-namespace WeatherDesktop.Shared
+namespace WeatherDesktop.Share
 {
-    class themeHandler
+    class ThemeHandler
     {
         const string ThemeFileName = "theme.xml";
         const string Filter = "Zip file (*.zip)|*.zip";
 
-        string currentDir = Environment.CurrentDirectory;
         string themesDir = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "themes";
         bool _RefreshMenu = false;
 
@@ -23,11 +20,7 @@ namespace WeatherDesktop.Shared
         {
             get
             {
-                if (_RefreshMenu)
-                {
-                    _RefreshMenu = false;
-                    return true;
-                }
+                if (_RefreshMenu) { _RefreshMenu = false; return true; }
                 return false;
             }
         }
@@ -49,7 +42,7 @@ namespace WeatherDesktop.Shared
             //copy files to theme dir
             foreach (string NightDay in cSRS)
             {
-foreach (string item in Enum.GetNames(typeof(SharedObjects.WeatherTypes)))
+                foreach (string item in Enum.GetNames(typeof(SharedObjects.WeatherTypes)))
                 {
                     string key = NightDay + item;
                     if (ThemeItems.ContainsKey(key))
@@ -60,7 +53,6 @@ foreach (string item in Enum.GetNames(typeof(SharedObjects.WeatherTypes)))
                     {
                         SharedObjects.AppSettings.RemoveAppSetting(key);
                     }
-
                 }
             }
         }
@@ -69,57 +61,60 @@ foreach (string item in Enum.GetNames(typeof(SharedObjects.WeatherTypes)))
         {
             Dictionary<string, string> Theme = new Dictionary<string, string>();
 
-            SaveFileDialog Dia = new SaveFileDialog();
-            Dia.AddExtension = true;
-            Dia.Filter = Filter;
-           if (Dia.ShowDialog() == DialogResult.OK)
+            SaveFileDialog Dia = new SaveFileDialog
+            {
+                AddExtension = true,
+                Filter = Filter
+            };
+            if (Dia.ShowDialog() == DialogResult.OK)
             {
                 string FileName = Dia.FileName;
                 string CurrentThemeDir = themesDir + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName);
-                // create theme dir
-
                 if (Directory.Exists(CurrentThemeDir)) { MessageBox.Show("Theme already exists, please try another name"); }
-                else { 
-                Directory.CreateDirectory(CurrentThemeDir);
-
-                string[] cSRS = new string[] { "day-", "night-" };
-
-
-                //copy files to theme dir
-                foreach (string NightDay in cSRS)
+                else
                 {
+                    Directory.CreateDirectory(CurrentThemeDir);
+
+                    string[] cSRS = new string[] { "day-", "night-" };
 
 
-                    foreach (string item in Enum.GetNames(typeof(SharedObjects.WeatherTypes)))
+                    //copy files to theme dir
+                    foreach (string NightDay in cSRS)
                     {
-                        string key = NightDay + item;
-                        string imagelocation = SharedObjects.AppSettings.ReadSetting(key);
-                        if (!string.IsNullOrWhiteSpace(imagelocation))
+
+
+                        foreach (string item in Enum.GetNames(typeof(SharedObjects.WeatherTypes)))
                         {
-                            string newLocation = CurrentThemeDir + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(imagelocation);
-                            System.IO.File.Copy(imagelocation, newLocation);
-                            Theme.Add(key, System.IO.Path.GetFileName(imagelocation));
+                            string key = NightDay + item;
+                            string imagelocation = SharedObjects.AppSettings.ReadSetting(key);
+                            if (!string.IsNullOrWhiteSpace(imagelocation))
+                            {
+                                string newLocation = CurrentThemeDir + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(imagelocation);
+                                System.IO.File.Copy(imagelocation, newLocation);
+                                Theme.Add(key, System.IO.Path.GetFileName(imagelocation));
+                            }
+
                         }
-
                     }
-                }
-                //create theme index
+                    //create theme index
 
-              var Items =  from KeyValuePair<string, string> X in Theme select new System.Xml.Linq.XElement(X.Key, X.Value);
-                System.Xml.Linq.XElement element = new System.Xml.Linq.XElement("root", Items);
-                element.Save(CurrentThemeDir + Path.DirectorySeparatorChar + ThemeFileName);
+                    var Items = from KeyValuePair<string, string> X in Theme select new System.Xml.Linq.XElement(X.Key, X.Value);
+                    System.Xml.Linq.XElement element = new System.Xml.Linq.XElement("root", Items);
+                    element.Save(CurrentThemeDir + Path.DirectorySeparatorChar + ThemeFileName);
 
-                //compress theme to filename zip file
-                ZipFile.CreateFromDirectory(CurrentThemeDir, FileName);
+                    //compress theme to filename zip file
+                    ZipFile.CreateFromDirectory(CurrentThemeDir, FileName);
                     _RefreshMenu = true;
-            }
+                }
             }
         }
 
         private void ImportTheme(object sender, EventArgs e)
         {
-            OpenFileDialog Dia = new OpenFileDialog();
-            Dia.Filter = Filter;
+            OpenFileDialog Dia = new OpenFileDialog
+            {
+                Filter = Filter
+            };
             if (Dia.ShowDialog() == DialogResult.OK)
             {
                 string FileName = Dia.FileName;
@@ -130,31 +125,22 @@ foreach (string item in Enum.GetNames(typeof(SharedObjects.WeatherTypes)))
                     test.ExtractToDirectory(themesDir + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName));
                     _RefreshMenu = true;
                 }
-
             }
-
-
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private MenuItem[] ThemeArray()
         {
             List<MenuItem> items = new List<MenuItem>();
-            try {
-                
-                if (!System.IO.Directory.Exists(themesDir)) { System.IO.Directory.CreateDirectory(themesDir); }
-                return (from string item in System.IO.Directory.EnumerateDirectories(themesDir) select new MenuItem(item.Substring(item.LastIndexOf(Path.DirectorySeparatorChar) + 1), LoadTheme)).ToArray();
+            try
+            {
+
+                if (!System.IO.Directory.Exists(themesDir)) { Directory.CreateDirectory(themesDir); }
+                return (from string item in Directory.EnumerateDirectories(themesDir) select new MenuItem(item.Substring(item.LastIndexOf(Path.DirectorySeparatorChar) + 1), LoadTheme)).ToArray();
             }
-            catch { //themes not supported because of access issues
-            }
+            catch (Exception x) { ErrorHandler.Send(x); }
             return items.ToArray();
 
-        }
-
-
-        public string Debug()
-        {
-
-            throw new NotImplementedException();
         }
 
         public MenuItem[] SettingsItems()
@@ -164,13 +150,5 @@ foreach (string item in Enum.GetNames(typeof(SharedObjects.WeatherTypes)))
             MenuItem Import = new MenuItem("Import Theme", ImportTheme);
             return new MenuItem[] { Save, Load, Import };
         }
-
-
-
-        #region Compression Decompression, taken from MSDN
-       
-        #endregion
-
-
     }
 }

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Security.Cryptography;
 
-namespace WeatherDesktop.Shared
+namespace WeatherDesktop.Share
 {
     public static class SharedObjects
     {
@@ -42,8 +42,7 @@ namespace WeatherDesktop.Shared
                 object locker = new object();
                 lock (locker)
                 {
-                    int zipparse;
-                    while (!int.TryParse(zip, out zipparse))
+                    while (!int.TryParse(zip, out int zipparse))
                     {
                         zip = Microsoft.VisualBasic.Interaction.InputBox("Please enter your zip code.", "Zip Code", Rawzip);
                         if (string.IsNullOrWhiteSpace(zip))
@@ -71,7 +70,7 @@ namespace WeatherDesktop.Shared
                 }
             }
 
-            public static string tryGetZip()
+            public static string TryGetZip()
             {
                 if (string.IsNullOrWhiteSpace(Rawzip)) return GetZip();
                 return Rawzip;
@@ -137,7 +136,7 @@ namespace WeatherDesktop.Shared
                     AddUpdateAppSettings(key, Convert.ToBase64String(Encrypted));
                 }
                 catch (Exception x)
-                { MessageBox.Show(x.Message, "error writing to Config file"); WeatherDesktop.Shared.ErrorHandler.LogException(x); }
+                { MessageBox.Show(x.Message, "error writing to Config file"); WeatherDesktop.Share.ErrorHandler.LogException(x); }
             }
 
             public static string ReadSettingEncrypted(string key)
@@ -206,29 +205,29 @@ namespace WeatherDesktop.Shared
         {
             //public bool HasValue { return false; }
             const string csvEncryptedLatLongName = "LatLong";
-            public static double lat
+            public static double Lat
             {
                 get
                 {
-                    string value = WeatherDesktop.Shared.SharedObjects.AppSettings.ReadSettingEncrypted(csvEncryptedLatLongName);
+                    string value = WeatherDesktop.Share.SharedObjects.AppSettings.ReadSettingEncrypted(csvEncryptedLatLongName);
                     if (value != null) return double.Parse(value.Split(',')[0].Replace(",", string.Empty));
                     return 0;
                 }
             }
-            public static double lng
+            public static double Lng
             {
                 get
                 {
-                    string value = WeatherDesktop.Shared.SharedObjects.AppSettings.ReadSettingEncrypted(csvEncryptedLatLongName);
+                    string value = WeatherDesktop.Share.SharedObjects.AppSettings.ReadSettingEncrypted(csvEncryptedLatLongName);
                     if (value != null) return double.Parse(value.Split(',')[1].Replace(",", string.Empty));
                     return 0;
                 }
             }
 
-            public static bool HasRecord() { return (!string.IsNullOrWhiteSpace(WeatherDesktop.Shared.SharedObjects.AppSettings.ReadSettingEncrypted(csvEncryptedLatLongName))); }
-            public static void set(double dLat, double dLng)
+            public static bool HasRecord() { return (!string.IsNullOrWhiteSpace(WeatherDesktop.Share.SharedObjects.AppSettings.ReadSettingEncrypted(csvEncryptedLatLongName))); }
+            public static void Set(double dLat, double dLng)
             {
-                WeatherDesktop.Shared.SharedObjects.AppSettings.AddupdateAppSettingsEncrypted(csvEncryptedLatLongName, string.Join(",", dLat, dLng));
+                WeatherDesktop.Share.SharedObjects.AppSettings.AddupdateAppSettingsEncrypted(csvEncryptedLatLongName, string.Join(",", dLat, dLng));
             }
 
         }

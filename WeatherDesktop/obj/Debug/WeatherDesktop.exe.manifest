@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Martz90-Hex-Weather-2.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="WeatherDesktop" version="2017.12.7.42539" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="WeatherDesktop" version="2017.12.7.43018" language="neutral" processorArchitecture="msil" />
     <commandLine file="WeatherDesktop.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -67,14 +67,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.exe" size="361416">
-      <assemblyIdentity name="WeatherDesktop" version="2017.12.7.42539" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.exe" size="365512">
+      <assemblyIdentity name="WeatherDesktop" version="2017.12.7.43018" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>GC5WE1mwyT9osvISEwoGLSnVhVlwzYOm6UikiuRtNPY=</dsig:DigestValue>
+        <dsig:DigestValue>mhkswi7UgK/bi/pwPXCaDRZESrQLTbWiS9QymCC1Mxk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -86,7 +86,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5pOve7Sg4KiKCqNngLWIF1scLsOLyJticMEMOYAMzuM=</dsig:DigestValue>
+        <dsig:DigestValue>0RKEe+gdPnhy8tYBiPrhmGkKWLCguh6uHnbhfUUq1sg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

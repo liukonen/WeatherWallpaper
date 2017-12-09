@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalService.Yahoo", "..\ExternalService.Yahoo\ExternalService.Yahoo.csproj", "{8E3EBE5B-4021-4786-872D-3D74913E8865}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalService.Yahoo", "..\Plugins\ExternalService.Yahoo\ExternalService.Yahoo.csproj", "{8E3EBE5B-4021-4786-872D-3D74913E8865}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

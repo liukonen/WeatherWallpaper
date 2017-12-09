@@ -1,13 +1,8 @@
-﻿/*
-// original taken from https://stackoverflow.com/questions/1061678/change-desktop-wallpaper-using-code-in-net
-original credit: Neil N and Eran
-modified
- */
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using Microsoft.Win32;
 using WeatherDesktop.Properties;
 
-namespace WeatherDesktop.Shared
+namespace WeatherDesktop.Share
 {
     public sealed class Wallpaper
     {
@@ -17,9 +12,7 @@ namespace WeatherDesktop.Shared
         const int SPIF_UPDATEINIFILE = 0x01;
         const int SPIF_SENDWININICHANGE = 0x02;
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
-
+        
         public enum Style : int { Tiled = 0, Centered = 1, Stretched = 2 }
 
         public static void Set(string path, Style style)
@@ -30,16 +23,16 @@ namespace WeatherDesktop.Shared
             if (style == Style.Tiled) { sStyle = 1.ToString(); Tile = 1.ToString(); }
             key.SetValue(@"WallpaperStyle", sStyle);
             key.SetValue(@"TileWallpaper", Tile);
-            SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
+           NativeMethods.SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
         }
 
-        public static System.Drawing.Icon GetWeatherIcon(WeatherDesktop.Shared.SharedObjects.WeatherTypes WeatherType, bool IsDaytime)
+        public static System.Drawing.Icon GetWeatherIcon(SharedObjects.WeatherTypes weather, bool isDaytime)
         {
-            switch (WeatherType)
+            switch (weather)
             {
                 case SharedObjects.WeatherTypes.Clear:
-                if (IsDaytime) {return Resources.Clear_day; }
-                else { return Resources.Clear_night; }
+                    if (isDaytime) { return Resources.Clear_day; }
+                    else { return Resources.Clear_night; }
                 case SharedObjects.WeatherTypes.Cloudy:
                     return Resources.cloudy;
                 case SharedObjects.WeatherTypes.Fog:
@@ -49,7 +42,7 @@ namespace WeatherDesktop.Shared
                 case SharedObjects.WeatherTypes.Hot:
                     return Resources.hot;
                 case SharedObjects.WeatherTypes.PartlyCloudy:
-                    if (IsDaytime) { return Resources.PartlyCloudy_day; }
+                    if (isDaytime) { return Resources.PartlyCloudy_day; }
                     else { return Resources.PartlyCloudy_night; }
                 case SharedObjects.WeatherTypes.Rain:
                     return Resources.raindrop;
@@ -59,11 +52,22 @@ namespace WeatherDesktop.Shared
                     return Resources.Thunderstorm;
                 case SharedObjects.WeatherTypes.Windy:
                     return Resources.wind;
+                case SharedObjects.WeatherTypes.Dust:
+                case SharedObjects.WeatherTypes.Haze:
+                case SharedObjects.WeatherTypes.Smoke:
                 default:
                     return Resources.windsock;
             }
 
         }
+    }
+
+    internal static class NativeMethods
+    {
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.I4)]
+       
+        internal static extern int SystemParametersInfo(int uAction, int uParam, string lpvParam, int fuWinIni);
     }
 }
 

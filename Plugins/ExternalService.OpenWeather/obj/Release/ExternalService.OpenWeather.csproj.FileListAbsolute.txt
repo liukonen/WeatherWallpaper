@@ -1,0 +1,9 @@
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.OpenWeather\bin\Release\ExternalService.OpenWeather.dll.config
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.OpenWeather\bin\Release\ExternalService.OpenWeather.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.OpenWeather\bin\Release\ExternalService.OpenWeather.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.OpenWeather\obj\Release\ExternalService.OpenWeather.csprojResolveAssemblyReference.cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.OpenWeather\obj\Release\ExternalService.Properties.Resources.resources
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.OpenWeather\obj\Release\ExternalService.OpenWeather.csproj.GenerateResource.Cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.OpenWeather\obj\Release\ExternalService.OpenWeather.csproj.CoreCompileInputs.cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.OpenWeather\obj\Release\ExternalService.OpenWeather.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.OpenWeather\obj\Release\ExternalService.OpenWeather.pdb

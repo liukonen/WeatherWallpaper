@@ -1,0 +1,8 @@
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.MSWeather\bin\Release\ExternalService.MSWeather.dll.config
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.MSWeather\bin\Release\ExternalService.MSWeather.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.MSWeather\bin\Release\ExternalService.MSWeather.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.MSWeather\obj\Release\ExternalService.Properties.Resources.resources
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.MSWeather\obj\Release\ExternalService.MSWeather.csproj.GenerateResource.Cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.MSWeather\obj\Release\ExternalService.MSWeather.csproj.CoreCompileInputs.cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.MSWeather\obj\Release\ExternalService.MSWeather.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.MSWeather\obj\Release\ExternalService.MSWeather.pdb

@@ -23,7 +23,7 @@
     <SourceAnalysisOverrideSettingsFile>C:\Users\mfanz\AppData\Roaming\ICSharpCode\SharpDevelop5\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>d:\Users\Luke\Desktop\</PublishUrl>
+    <PublishUrl>d:\Users\Luke\Desktop\wsInstaller\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -99,6 +99,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <Prefer32Bit>false</Prefer32Bit>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>4C8D9647CA3DFAD270B07141432996624595781D</ManifestCertificateThumbprint>
@@ -179,6 +180,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Martz90-Hex-Weather-2.ico" />
+    <Content Include="Plugins\InternalService.SystemLatLong\InternalService.SystemLatLong.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Plugins\SunRiseSet\ExternalService.SunRiseSet.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Plugins\Weather.Gov\ExternalService.Weather.Gov.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\windsock.ico" />
     <None Include="Resources\wind.ico" />
     <None Include="Resources\Thunderstorm.ico" />

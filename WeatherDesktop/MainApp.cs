@@ -59,6 +59,7 @@ namespace WeatherDesktop
             ComponentResourceManager resources = new ComponentResourceManager(typeof(MainApp));
             notifyIcon.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             notifyIcon.ContextMenu = notificationMenu;
+            CreateTimer();
         }
 
         private MenuItem[] InitializeMenu()
@@ -200,7 +201,8 @@ namespace WeatherDesktop
             {
                 Filter = "jpeg (*.jpg)|*.jpg|Portable Network Graphics (*.png)|*.png",
                 FilterIndex = 1,
-                RestoreDirectory = true
+                RestoreDirectory = true,
+                Title = Name
             };
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -386,6 +388,7 @@ namespace WeatherDesktop
                 //try get latlong if you can
                 if (!SharedObjects.LatLong.HasRecord())
                 {
+                    if (LatLongObjects != null) { 
                     var i = LatLongObjects.GetEnumerator();
                     while (i.MoveNext())
                     {
@@ -400,6 +403,7 @@ namespace WeatherDesktop
                         }
                         catch { }
 
+                    }
                     }
                 }
 
@@ -430,7 +434,7 @@ namespace WeatherDesktop
 
             UpdateImageCache();
             UpdateBlackLists();
-            CreateTimer();
+
         }
 
         #region Support functions to reduce complexity
@@ -474,7 +478,7 @@ namespace WeatherDesktop
             var catalog = new AggregateCatalog();
             //Adds all the parts found in the same assembly as the Program class
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(WeatherDesktop.MainApp).Assembly));
-
+            catalog.Catalogs.Add(new DirectoryCatalog(Environment.CurrentDirectory));
 
             if (System.IO.Directory.Exists(PluginPaths)) {
                 catalog.Catalogs.Add(new DirectoryCatalog(PluginPaths));

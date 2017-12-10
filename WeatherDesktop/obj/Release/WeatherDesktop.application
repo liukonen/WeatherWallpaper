@@ -7,14 +7,14 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="WeatherDesktop.exe.manifest" size="6445">
+    <dependentAssembly dependencyType="install" codebase="WeatherDesktop.exe.manifest" size="8406">
       <assemblyIdentity name="WeatherDesktop.exe" version="2017.11.30.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>PAaaOjQpT4uqJUj4hyWUBAW+Qu6/wcN8Apl89A1cVa8=</dsig:DigestValue>
+        <dsig:DigestValue>nBtp3C16XTrKQ1llxJzc6c2il7S12ZXtefKyTlc/Et8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

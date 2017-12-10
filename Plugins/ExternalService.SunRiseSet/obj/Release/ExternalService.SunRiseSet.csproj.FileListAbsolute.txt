@@ -1,0 +1,12 @@
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.SunRiseSet\bin\Release\ExternalService.SunRiseSet.dll.config
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.SunRiseSet\bin\Release\ExternalService.SunRiseSet.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.SunRiseSet\bin\Release\ExternalService.SunRiseSet.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.SunRiseSet\obj\Release\ExternalService.SunRiseSet.csprojResolveAssemblyReference.cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.SunRiseSet\obj\Release\ExternalService.Properties.Resources.resources
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.SunRiseSet\obj\Release\ExternalService.SunRiseSet.csproj.GenerateResource.Cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.SunRiseSet\obj\Release\ExternalService.SunRiseSet.csproj.CoreCompileInputs.cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.SunRiseSet\obj\Release\ExternalService.SunRiseSet.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.SunRiseSet\obj\Release\ExternalService.SunRiseSet.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Release\Plugins\SunRiseSet\ExternalService.SunRiseSet.dll.config
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Release\Plugins\SunRiseSet\ExternalService.SunRiseSet.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Release\Plugins\SunRiseSet\ExternalService.SunRiseSet.pdb

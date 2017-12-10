@@ -1,0 +1,7 @@
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Yahoo\bin\Release\ExternalService.Yahoo.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Yahoo\bin\Release\ExternalService.Yahoo.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Yahoo\obj\Release\ExternalService.Properties.Resources.resources
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Yahoo\obj\Release\ExternalService.Yahoo.csproj.GenerateResource.Cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Yahoo\obj\Release\ExternalService.Yahoo.csproj.CoreCompileInputs.cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Yahoo\obj\Release\ExternalService.Yahoo.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Yahoo\obj\Release\ExternalService.Yahoo.pdb

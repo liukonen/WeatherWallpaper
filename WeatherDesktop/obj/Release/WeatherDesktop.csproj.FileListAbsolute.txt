@@ -20,7 +20,6 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Release\Newtonsof
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Release\SharpRaven.pdb
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Release\SharpRaven.xml
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.csprojResolveAssemblyReference.cache
-C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.NotificationIcon.resources
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.Properties.Resources.resources
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.csproj.GenerateResource.Cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.csproj.CoreCompileInputs.cache
@@ -30,3 +29,9 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Release\WeatherDe
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.TrustInfo.xml
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.exe.manifest
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.application
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Release\WeatherDesktop.Shared.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Release\WeatherDesktop.Shared.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Release\WeatherDesktop.MainApp.resources
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Release\Plugins\Weather.Gov\ExternalService.Weather.Gov.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Release\Plugins\InternalService.SystemLatLong\InternalService.SystemLatLong.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Release\Plugins\SunRiseSet\ExternalService.SunRiseSet.dll

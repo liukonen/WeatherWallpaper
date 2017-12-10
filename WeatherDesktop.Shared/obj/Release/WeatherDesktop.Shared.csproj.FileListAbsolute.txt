@@ -1,0 +1,7 @@
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\bin\Release\WeatherDesktop.Shared.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\bin\Release\WeatherDesktop.Shared.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Release\WeatherDesktop.Properties.Resources.resources
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Release\WeatherDesktop.Shared.csproj.GenerateResource.Cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Release\WeatherDesktop.Shared.csproj.CoreCompileInputs.cache
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Release\WeatherDesktop.Shared.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Release\WeatherDesktop.Shared.pdb

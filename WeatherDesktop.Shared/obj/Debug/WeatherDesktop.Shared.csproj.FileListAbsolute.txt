@@ -7,4 +7,3 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\Weat
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.csproj.CoreCompileInputs.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.pdb
-C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.csprojResolveAssemblyReference.cache

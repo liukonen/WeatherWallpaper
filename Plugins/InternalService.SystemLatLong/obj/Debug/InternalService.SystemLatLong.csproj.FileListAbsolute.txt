@@ -10,7 +10,7 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\WeatherDesktop\bin\Debug\Plu
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\WeatherDesktop\bin\Debug\Plugins\InternalService.SystemLatLong\InternalService.SystemLatLong.pdb
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\InternalService.SystemLatLong\InternalService.SystemLatLong.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\InternalService.SystemLatLong\InternalService.SystemLatLong.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\InternalService.SystemLatLong\obj\Debug\InternalService.SystemLatLong.csprojResolveAssemblyReference.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\InternalService.SystemLatLong\obj\Debug\InternalService.SystemLatLong.csproj.CoreCompileInputs.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\InternalService.SystemLatLong\obj\Debug\InternalService.SystemLatLong.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\InternalService.SystemLatLong\obj\Debug\InternalService.SystemLatLong.pdb
-C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\InternalService.SystemLatLong\obj\Debug\InternalService.SystemLatLong.csprojResolveAssemblyReference.cache

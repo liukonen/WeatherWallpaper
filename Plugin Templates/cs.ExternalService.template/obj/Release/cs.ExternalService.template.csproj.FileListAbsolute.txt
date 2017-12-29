@@ -3,3 +3,4 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.template\obj\Release\cs.ExternalService.template.csproj.CoreCompileInputs.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.template\obj\Release\ExternalService.template.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.template\obj\Release\ExternalService.template.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.template\obj\Release\cs.ExternalService.template.csprojResolveAssemblyReference.cache

@@ -10,8 +10,8 @@
 
 namespace WeatherDesktop.Properties {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -19,7 +19,6 @@ namespace WeatherDesktop.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -46,13 +45,11 @@ namespace WeatherDesktop.Properties {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
             get {
@@ -93,8 +90,23 @@ namespace WeatherDesktop.Properties {
             }
         }
         
-
-
+        /// <summary>
+        ///   Looks up a localized string similar to WeatherDesktop.
+        /// </summary>
+        internal static string const_AppName {
+            get {
+                return ResourceManager.GetString("const_AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LatLong.
+        /// </summary>
+        internal static string const_csvEncryptedLatLongName {
+            get {
+                return ResourceManager.GetString("const_csvEncryptedLatLongName", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
@@ -175,7 +187,185 @@ namespace WeatherDesktop.Properties {
             }
         }
         
-
+        /// <summary>
+        ///   Looks up a localized string similar to https://api.sunrise-sunset.org/json?lat={0}&amp;lng={1}&amp;date=today&amp;formatted=0.
+        /// </summary>
+        internal static string SRS_Url {
+            get {
+                return ResourceManager.GetString("SRS_Url", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string tAbout {
+            get {
+                return ResourceManager.GetString("tAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BlackList.
+        /// </summary>
+        internal static string tBlackList {
+            get {
+                return ResourceManager.GetString("tBlackList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BlackList Days.
+        /// </summary>
+        internal static string tBlackListDays {
+            get {
+                return ResourceManager.GetString("tBlackListDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Blacklisted Days.
+        /// </summary>
+        internal static string tBlackListDaysHeader {
+            get {
+                return ResourceManager.GetString("tBlackListDaysHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter days in comma seperated values, with Sunday = 0 and Saturday = 6, example &apos;0,1,2&apos; = Sunday Monday Tuesday.
+        /// </summary>
+        internal static string tBlacklistDaysInputMessage {
+            get {
+                return ResourceManager.GetString("tBlacklistDaysInputMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BlackList Hours.
+        /// </summary>
+        internal static string tBlackListHours {
+            get {
+                return ResourceManager.GetString("tBlackListHours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Blacklisted Hours.
+        /// </summary>
+        internal static string tBlackListHoursHeader {
+            get {
+                return ResourceManager.GetString("tBlackListHoursHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter hours in comma seperated values, in 24 hour format. Example, 1pm = 13.
+        /// </summary>
+        internal static string tBlacklistHoursInputMessage {
+            get {
+                return ResourceManager.GetString("tBlacklistHoursInputMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright.
+        /// </summary>
+        internal static string tCopyright {
+            get {
+                return ResourceManager.GetString("tCopyright", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Day.
+        /// </summary>
+        internal static string tDay {
+            get {
+                return ResourceManager.GetString("tDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debug Information.
+        /// </summary>
+        internal static string tDebugInfo {
+            get {
+                return ResourceManager.GetString("tDebugInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string tError {
+            get {
+                return ResourceManager.GetString("tError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        internal static string tExit {
+            get {
+                return ResourceManager.GetString("tExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App appears to be running. if not, you may have to restart your machine to get it to work..
+        /// </summary>
+        internal static string tGenericError {
+            get {
+                return ResourceManager.GetString("tGenericError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global.
+        /// </summary>
+        internal static string tGlobal {
+            get {
+                return ResourceManager.GetString("tGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import Theme.
+        /// </summary>
+        internal static string ThemeImportTheme {
+            get {
+                return ResourceManager.GetString("ThemeImportTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load Theme.
+        /// </summary>
+        internal static string ThemeLoadTheme {
+            get {
+                return ResourceManager.GetString("ThemeLoadTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Current Settings as Theme.
+        /// </summary>
+        internal static string ThemeSaveTheme {
+            get {
+                return ResourceManager.GetString("ThemeSaveTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme already exists, please try another name.
+        /// </summary>
+        internal static string ThemeWarning {
+            get {
+                return ResourceManager.GetString("ThemeWarning", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
@@ -187,9 +377,104 @@ namespace WeatherDesktop.Properties {
             }
         }
         
-
+        /// <summary>
+        ///   Looks up a localized string similar to Images.
+        /// </summary>
+        internal static string tImages {
+            get {
+                return ResourceManager.GetString("tImages", resourceCulture);
+            }
+        }
         
-
+        /// <summary>
+        ///   Looks up a localized string similar to Languages.
+        /// </summary>
+        internal static string tLanguages {
+            get {
+                return ResourceManager.GetString("tLanguages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Night.
+        /// </summary>
+        internal static string tNight {
+            get {
+                return ResourceManager.GetString("tNight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plugin Folder.
+        /// </summary>
+        internal static string tPluginFolder {
+            get {
+                return ResourceManager.GetString("tPluginFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string tSettings {
+            get {
+                return ResourceManager.GetString("tSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SunRise SunSet.
+        /// </summary>
+        internal static string tSunRiseSet {
+            get {
+                return ResourceManager.GetString("tSunRiseSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Themes.
+        /// </summary>
+        internal static string tThemes {
+            get {
+                return ResourceManager.GetString("tThemes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        internal static string tVersion {
+            get {
+                return ResourceManager.GetString("tVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weather.
+        /// </summary>
+        internal static string tWeather {
+            get {
+                return ResourceManager.GetString("tWeather", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to error getting Lat Long:.
+        /// </summary>
+        internal static string warning_cant_find_latlong {
+            get {
+                return ResourceManager.GetString("warning_cant_find_latlong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zip not found.
+        /// </summary>
+        internal static string warning_Zip_Not_Found {
+            get {
+                return ResourceManager.GetString("warning_Zip_Not_Found", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).

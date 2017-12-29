@@ -1,7 +1,6 @@
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\bin\Release\ExternalService.Weather.Gov.dll.config
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\bin\Release\ExternalService.Weather.Gov.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\bin\Release\ExternalService.Weather.Gov.pdb
-C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Release\ExternalService.Weather.Gov.csprojResolveAssemblyReference.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Release\ExternalService.Properties.Resources.resources
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Release\ExternalService.Weather.Gov.csproj.GenerateResource.Cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Release\ExternalService.Weather.Gov.csproj.CoreCompileInputs.cache

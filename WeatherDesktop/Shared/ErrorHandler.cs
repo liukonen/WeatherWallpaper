@@ -1,4 +1,5 @@
-﻿using SharpRaven;
+﻿#define DEBUG
+using SharpRaven;
 using System;
 using System.Diagnostics;
 using System.Text;
@@ -6,16 +7,26 @@ using System.Text;
 
 namespace WeatherDesktop.Share
 {
+
     static class ErrorHandler
     {
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public static void Send(Exception x)
         {
             try
             {
+
+#if (DEBUG)
+                System.Windows.Forms.MessageBox.Show(x.ToString());
+#endif
+#if (!Debug)
                 var ravenClient = new RavenClient(Properties.Resources.Sentry_ErrorHandler_Url);
-                ravenClient.Capture(new SharpRaven.Data.SentryEvent(x));
-            }
+                ravenClient.Capture(new SharpRaven.Data.SentryEvent(x))
+#endif
+;
+      }
             catch (Exception xx) //In the event of an error from RavenClient. Log the Error AND log the Raven Error
             {
                 string sSource;

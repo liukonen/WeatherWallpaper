@@ -175,4 +175,88 @@
   <data name="windsock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\windsock.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="tAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="tBlackList" xml:space="preserve">
+    <value>BlackList</value>
+  </data>
+  <data name="tBlackListDays" xml:space="preserve">
+    <value>BlackList Days</value>
+  </data>
+  <data name="tBlackListDaysHeader" xml:space="preserve">
+    <value>Enter Blacklisted Days</value>
+  </data>
+  <data name="tBlacklistDaysInputMessage" xml:space="preserve">
+    <value>Enter days in comma seperated values, with Sunday = 0 and Saturday = 6, example '0,1,2' = Sunday Monday Tuesday</value>
+  </data>
+  <data name="tBlackListHours" xml:space="preserve">
+    <value>BlackList Hours</value>
+  </data>
+  <data name="tBlackListHoursHeader" xml:space="preserve">
+    <value>Enter Blacklisted Hours</value>
+  </data>
+  <data name="tBlacklistHoursInputMessage" xml:space="preserve">
+    <value>Enter hours in comma seperated values, in 24 hour format. Example, 1pm = 13</value>
+  </data>
+  <data name="tCopyright" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
+  <data name="tDebugInfo" xml:space="preserve">
+    <value>Debug Information</value>
+  </data>
+  <data name="tError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="tExit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="tGenericError" xml:space="preserve">
+    <value>App appears to be running. if not, you may have to restart your machine to get it to work.</value>
+  </data>
+  <data name="tGlobal" xml:space="preserve">
+    <value>Global</value>
+  </data>
+  <data name="tImages" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="tLanguages" xml:space="preserve">
+    <value>Languages</value>
+  </data>
+  <data name="tPluginFolder" xml:space="preserve">
+    <value>Plugin Folder</value>
+  </data>
+  <data name="tSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="tSunRiseSet" xml:space="preserve">
+    <value>SunRise SunSet</value>
+  </data>
+  <data name="tThemes" xml:space="preserve">
+    <value>Themes</value>
+  </data>
+  <data name="tVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="tWeather" xml:space="preserve">
+    <value>Weather</value>
+  </data>
+  <data name="tDay" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="tNight" xml:space="preserve">
+    <value>Night</value>
+  </data>
+  <data name="ThemeImportTheme" xml:space="preserve">
+    <value>Import Theme</value>
+  </data>
+  <data name="ThemeLoadTheme" xml:space="preserve">
+    <value>Load Theme</value>
+  </data>
+  <data name="ThemeSaveTheme" xml:space="preserve">
+    <value>Save Current Settings as Theme</value>
+  </data>
+  <data name="ThemeWarning" xml:space="preserve">
+    <value>Theme already exists, please try another name</value>
+  </data>
 </root>

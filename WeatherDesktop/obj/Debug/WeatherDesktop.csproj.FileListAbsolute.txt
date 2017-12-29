@@ -32,6 +32,9 @@ C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\SharpRaven
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\SharpRaven.xml
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.CodeAnalysisLog.xml
 C:\Users\mfanz\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.lastcodeanalysissucceeded
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\InternalService.SystemLatLong\InternalService.SystemLatLong.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\SunRiseSet\ExternalService.SunRiseSet.dll
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\Weather.Gov\ExternalService.Weather.Gov.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.config
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.manifest
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.application
@@ -56,6 +59,3 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesk
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.application
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.exe
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\obj\Debug\WeatherDesktop.pdb
-C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\InternalService.SystemLatLong\InternalService.SystemLatLong.dll
-C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\SunRiseSet\ExternalService.SunRiseSet.dll
-C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\Weather.Gov\ExternalService.Weather.Gov.dll

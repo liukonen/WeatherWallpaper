@@ -5,3 +5,4 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Release\We
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Release\WeatherDesktop.Shared.csproj.CoreCompileInputs.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Release\WeatherDesktop.Shared.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Release\WeatherDesktop.Shared.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Release\WeatherDesktop.Shared.csprojResolveAssemblyReference.cache

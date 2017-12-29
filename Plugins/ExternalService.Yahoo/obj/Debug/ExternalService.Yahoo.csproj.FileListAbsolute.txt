@@ -17,4 +17,3 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Yahoo\obj\De
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Yahoo\obj\Debug\ExternalService.Yahoo.csproj.CoreCompileInputs.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Yahoo\obj\Debug\ExternalService.Yahoo.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Yahoo\obj\Debug\ExternalService.Yahoo.pdb
-C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Yahoo\obj\Debug\ExternalService.Yahoo.csprojResolveAssemblyReference.cache

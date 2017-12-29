@@ -5,3 +5,4 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.WeatherUnder
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.WeatherUnderground\obj\Release\ExternalService.WeatherUnderground.csproj.CoreCompileInputs.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.WeatherUnderground\obj\Release\ExternalService.WeatherUnderground.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.WeatherUnderground\obj\Release\ExternalService.WeatherUnderground.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.WeatherUnderground\obj\Release\ExternalService.WeatherUnderground.csprojResolveAssemblyReference.cache

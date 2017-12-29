@@ -24,7 +24,7 @@ namespace WeatherDesktop.Share
         {
             public static MenuItem ZipMenuItem
             {
-                get { return new MenuItem("Change Zip Code", ChangeZipClick); }
+                get { return new MenuItem(QuickTranslation.Translate(Properties.Resources.tChangeZipMenu), ChangeZipClick); }
             }
 
             public static void ChangeZipClick(object sender, EventArgs e)
@@ -44,10 +44,11 @@ namespace WeatherDesktop.Share
                 {
                     while (!int.TryParse(zip, out int zipparse))
                     {
-                        zip = Microsoft.VisualBasic.Interaction.InputBox("Please enter your zip code.", "Zip Code", Rawzip);
+                        
+                        zip = Microsoft.VisualBasic.Interaction.InputBox(QuickTranslation.Translate(Properties.Resources.tPEZ), QuickTranslation.Translate(Properties.Resources.tZip), Rawzip);
                         if (string.IsNullOrWhiteSpace(zip))
                         {
-                            if (MessageBox.Show("Application needs your zip code. try again, or close", "error", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Cancel)
+                            if (MessageBox.Show(QuickTranslation.Translate(Properties.Resources.tValidateZip), QuickTranslation.Translate(Properties.Resources.tError), MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Cancel)
                             {
                                 Application.Exit();
                             }

@@ -59,5 +59,50 @@ namespace WeatherDesktop.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Zip Code.
+        /// </summary>
+        internal static string tChangeZipMenu {
+            get {
+                return ResourceManager.GetString("tChangeZipMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string tError {
+            get {
+                return ResourceManager.GetString("tError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter your zip code.
+        /// </summary>
+        internal static string tPEZ {
+            get {
+                return ResourceManager.GetString("tPEZ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application needs your zip code. try again or close.
+        /// </summary>
+        internal static string tValidateZip {
+            get {
+                return ResourceManager.GetString("tValidateZip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zip Code.
+        /// </summary>
+        internal static string tZip {
+            get {
+                return ResourceManager.GetString("tZip", resourceCulture);
+            }
+        }
     }
 }

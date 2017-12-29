@@ -6,3 +6,4 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.MSWeather\ob
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.MSWeather\obj\Release\ExternalService.MSWeather.csproj.CoreCompileInputs.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.MSWeather\obj\Release\ExternalService.MSWeather.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.MSWeather\obj\Release\ExternalService.MSWeather.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.MSWeather\obj\Release\ExternalService.MSWeather.csprojResolveAssemblyReference.cache

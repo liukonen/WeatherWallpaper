@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Martz90-Hex-Weather-2.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="WeatherDesktop" version="2017.12.7.38069" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="WeatherDesktop" version="2017.12.7.37968" language="neutral" processorArchitecture="msil" />
     <commandLine file="WeatherDesktop.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -67,29 +67,38 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.exe" size="365512">
-      <assemblyIdentity name="WeatherDesktop" version="2017.12.7.38069" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.exe" size="373704">
+      <assemblyIdentity name="WeatherDesktop" version="2017.12.7.37968" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>QjJoj8es3Ni3sZgfTyTYXw3BJuNCh4ZBNQwV3aE+yfE=</dsig:DigestValue>
+        <dsig:DigestValue>1F+HhuuGxhfejXlg/xub4ykpm/5UnULdDM9cvtqKC0A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.Shared.dll" size="13824">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.Shared.dll" size="26624">
       <assemblyIdentity name="WeatherDesktop.Shared" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Uvp9QZqKtKxE4Jfy09C/8yINu5c3DYnsz7oROc9t/pc=</dsig:DigestValue>
+        <dsig:DigestValue>Xk7JJwDrI96T8xF+T5ouQiC98YnlLFiBLOPYrFZXuW4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
+  <file name="Languages.xml" size="45" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>y0/qSVb8ZZDx3VO/7K5NafADxvau0UlF51D4wJZf+QI=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="Martz90-Hex-Weather-2.ico" size="174404">
     <hash>
       <dsig:Transforms>

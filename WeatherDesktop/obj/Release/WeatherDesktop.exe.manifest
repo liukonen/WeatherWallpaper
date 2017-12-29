@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Martz90-Hex-Weather-2.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="WeatherDesktop" version="2017.12.7.37710" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="WeatherDesktop" version="2017.12.7.43009" language="neutral" processorArchitecture="x86" />
     <commandLine file="WeatherDesktop.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -67,14 +67,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.exe" size="361416">
-      <assemblyIdentity name="WeatherDesktop" version="2017.12.7.37710" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.exe" size="373704">
+      <assemblyIdentity name="WeatherDesktop" version="2017.12.7.43009" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>C0BW729Q2xlxYhCmj45Xas9R0DaGHpKUBhAfDtmGCDo=</dsig:DigestValue>
+        <dsig:DigestValue>tkWKkjw+zuxkXDBLCZ0FrnDJwwaJFdfV17OZwGUGlmM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -86,10 +86,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>L394P4qzjIIZfuk/qRMWHzls/jCRxmfjR5sy74+HpBM=</dsig:DigestValue>
+        <dsig:DigestValue>3q8nOOfGzWEX2bU2uEAGf9QM2CtwGyis1F+hjrHk60I=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
+  <file name="Languages.xml" size="45" writeableType="applicationData">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>y0/qSVb8ZZDx3VO/7K5NafADxvau0UlF51D4wJZf+QI=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="Martz90-Hex-Weather-2.ico" size="174404">
     <hash>
       <dsig:Transforms>

@@ -7,3 +7,4 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugin Templates\vb.ExternalService.
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\obj\Release\vb.ExternalService.Template.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\obj\Release\vb.ExternalService.Template.xml
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\obj\Release\vb.ExternalService.Template.pdb
+C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\obj\Release\vb.ExternalService.Template.vbprojResolveAssemblyReference.cache

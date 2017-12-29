@@ -117,4 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="tChangeZipMenu" xml:space="preserve">
+    <value>Change Zip Code</value>
+  </data>
+  <data name="tError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="tPEZ" xml:space="preserve">
+    <value>Please enter your zip code</value>
+  </data>
+  <data name="tValidateZip" xml:space="preserve">
+    <value>Application needs your zip code. try again or close</value>
+  </data>
+  <data name="tZip" xml:space="preserve">
+    <value>Zip Code</value>
+  </data>
 </root>

@@ -1,0 +1,9 @@
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\SunRiseSet\ExternalService.SunRiseSet.dll.config
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\SunRiseSet\ExternalService.SunRiseSet.dll
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\SunRiseSet\ExternalService.SunRiseSet.pdb
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\InternalService.SunRiseSet\obj\Debug\InternalService.SunRiseSet.csprojAssemblyReference.cache
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\InternalService.SunRiseSet\obj\Debug\ExternalService.Properties.Resources.resources
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\InternalService.SunRiseSet\obj\Debug\InternalService.SunRiseSet.csproj.GenerateResource.cache
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\InternalService.SunRiseSet\obj\Debug\InternalService.SunRiseSet.csproj.CoreCompileInputs.cache
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\InternalService.SunRiseSet\obj\Debug\ExternalService.SunRiseSet.dll
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\InternalService.SunRiseSet\obj\Debug\ExternalService.SunRiseSet.pdb

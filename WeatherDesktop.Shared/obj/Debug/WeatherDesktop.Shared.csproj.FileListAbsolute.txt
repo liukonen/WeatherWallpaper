@@ -7,3 +7,13 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\Weat
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.csproj.CoreCompileInputs.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.pdb
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\bin\Debug\WeatherDesktop.Shared.dll
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\bin\Debug\WeatherDesktop.Shared.pdb
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\bin\Debug\WeatherDesktop.Shared.dll.CodeAnalysisLog.xml
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\bin\Debug\WeatherDesktop.Shared.dll.lastcodeanalysissucceeded
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.csprojAssemblyReference.cache
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Properties.Resources.resources
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.csproj.GenerateResource.cache
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.csproj.CoreCompileInputs.cache
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.dll
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.pdb

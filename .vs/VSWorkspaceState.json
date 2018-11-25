@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Plugins",
+    "\\Plugins\\InternalService.SystemLatLong",
+    "\\Solutions"
   ],
-  "SelectedNode": "\\Solutions",
+  "SelectedNode": "\\Plugins\\InternalService.SystemLatLong\\SystemLatLong.cs",
   "PreviewInSolutionExplorer": false
 }

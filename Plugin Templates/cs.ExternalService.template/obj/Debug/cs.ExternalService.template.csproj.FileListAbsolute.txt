@@ -11,3 +11,9 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.template\obj\Debug\ExternalService.template.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.template\obj\Debug\ExternalService.template.pdb
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.template\obj\Debug\cs.ExternalService.template.csprojResolveAssemblyReference.cache
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.template\bin\Debug\ExternalService.template.dll
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.template\bin\Debug\ExternalService.template.pdb
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.template\obj\Debug\cs.ExternalService.template.csprojAssemblyReference.cache
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.template\obj\Debug\cs.ExternalService.template.csproj.CoreCompileInputs.cache
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.template\obj\Debug\ExternalService.template.dll
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugin Templates\cs.ExternalService.template\obj\Debug\ExternalService.template.pdb

@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternalService.SystemLatLo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalService.Weather.Gov", "Plugins\ExternalService.Weather.Gov\ExternalService.Weather.Gov.csproj", "{57EFC8F3-3D1F-40F9-8593-76AA5D08A75E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalService.SunRiseSet", "Plugins\ExternalService.SunRiseSet\ExternalService.SunRiseSet.csproj", "{ED3FF19D-32DC-446D-AFF5-80C144E742E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternalService.SunRiseSet", "Plugins\InternalService.SunRiseSet\InternalService.SunRiseSet.csproj", "{ED3FF19D-32DC-446D-AFF5-80C144E742E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

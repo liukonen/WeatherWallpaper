@@ -21,3 +21,12 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.csproj.CoreCompileInputs.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.pdb
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\Weather.Gov\ExternalService.Weather.Gov.dll.config
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\Weather.Gov\ExternalService.Weather.Gov.dll
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\Weather.Gov\ExternalService.Weather.Gov.pdb
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.csprojAssemblyReference.cache
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Properties.Resources.resources
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.csproj.GenerateResource.cache
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.csproj.CoreCompileInputs.cache
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.dll
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.pdb

@@ -14,3 +14,9 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\InternalService.SystemLatLon
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\InternalService.SystemLatLong\obj\Debug\InternalService.SystemLatLong.csproj.CoreCompileInputs.cache
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\InternalService.SystemLatLong\obj\Debug\InternalService.SystemLatLong.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\Plugins\InternalService.SystemLatLong\obj\Debug\InternalService.SystemLatLong.pdb
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\InternalService.SystemLatLong\InternalService.SystemLatLong.dll
+C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\InternalService.SystemLatLong\InternalService.SystemLatLong.pdb
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\InternalService.SystemLatLong\obj\Debug\InternalService.SystemLatLong.csprojAssemblyReference.cache
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\InternalService.SystemLatLong\obj\Debug\InternalService.SystemLatLong.csproj.CoreCompileInputs.cache
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\InternalService.SystemLatLong\obj\Debug\InternalService.SystemLatLong.dll
+C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\InternalService.SystemLatLong\obj\Debug\InternalService.SystemLatLong.pdb

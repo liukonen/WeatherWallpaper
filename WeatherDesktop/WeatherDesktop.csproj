@@ -39,7 +39,7 @@
     <PublisherName>Luke Liukonen</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>2017.11.30.0</ApplicationVersion>
+    <ApplicationVersion>2018.11.25.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -180,10 +180,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Martz90-Hex-Weather-2.ico" />
+    <Content Include="Plugins\InternalService.SunRiseSet\InternalService.SunRiseSet.dll" />
     <Content Include="Plugins\InternalService.SystemLatLong\InternalService.SystemLatLong.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Plugins\SunRiseSet\ExternalService.SunRiseSet.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Plugins\Weather.Gov\ExternalService.Weather.Gov.dll">

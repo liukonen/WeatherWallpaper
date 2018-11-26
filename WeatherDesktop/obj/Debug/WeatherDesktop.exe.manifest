@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="WeatherDesktop.exe" version="2017.11.30.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="WeatherDesktop.exe" version="2018.11.25.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="Martz90-Hex-Weather-2.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="WeatherDesktop" version="2017.12.7.42320" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="WeatherDesktop" version="2017.12.7.32882" language="neutral" processorArchitecture="msil" />
     <commandLine file="WeatherDesktop.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -68,13 +68,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.exe" size="365512">
-      <assemblyIdentity name="WeatherDesktop" version="2017.12.7.42320" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="WeatherDesktop" version="2017.12.7.32882" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>J38hv2FSAgIwo9tT3LdY40r6HMEStrixXOW2MnVj3dE=</dsig:DigestValue>
+        <dsig:DigestValue>B7gwHRi9HXNFHJtYPEy2Qy7+HLJUV0CWhpq+eS+XCpM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -86,7 +86,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>droilckGw00hE83DgvXkdLxgpz2hpUeuM34LVVCVsws=</dsig:DigestValue>
+        <dsig:DigestValue>YLoLp2CzjigLbr79AZlfZ8NFtN94n/7C1eYI8ptB2PI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -99,6 +99,15 @@
       <dsig:DigestValue>2R8u0py2tHh3h0M5MtP5T33K5wwZ2toK6w+8v+tC8xo=</dsig:DigestValue>
     </hash>
   </file>
+  <file name="Plugins\InternalService.SunRiseSet\InternalService.SunRiseSet.dll" size="13312">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>95TZ+NJyUkUV8mxtDTHlBoKIePnUAAALYVpT3v/2FcE=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="Plugins\InternalService.SystemLatLong\InternalService.SystemLatLong.dll" size="6144">
     <hash>
       <dsig:Transforms>
@@ -106,15 +115,6 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>PmtTcWdhgquDf8eyyFXxEdh8m/YFToEWhyNelaQV04k=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Plugins\SunRiseSet\ExternalService.SunRiseSet.dll" size="11264">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>vPPH2bvkJxJkj1w1/kCUnBqg8Di8+Q3QIuuMh08L23I=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Plugins\Weather.Gov\ExternalService.Weather.Gov.dll" size="13824">

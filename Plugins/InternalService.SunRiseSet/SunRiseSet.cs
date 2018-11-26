@@ -112,10 +112,10 @@ namespace ExternalService
                 response.SolarNoon = DateTime.Now.Date.Add(SolarNoon);
                 if (response.SolarNoon < DateTime.Now) { response.SolarNoon = response.SolarNoon.AddDays(1); }
                 response.SunRise = DateTime.Now.Date.Add(SunriseTime);
-                if (response.SunRise < DateTime.Now) { response.SunRise = response.SolarNoon.AddDays(1); }
+                if (response.SunRise < DateTime.Now) { response.SunRise = response.SunRise.AddDays(1); }
 
                 response.SunSet = DateTime.Now.Date.Add(SunsetTime);
-                if (response.SunSet < DateTime.Now) { response.SunSet = response.SolarNoon.AddDays(1); }
+                if (response.SunSet < DateTime.Now) { response.SunSet = response.SunSet.AddDays(1); }
 
             }
             catch (Exception x) { response.Status = x.ToString(); _ThrownException = x; }

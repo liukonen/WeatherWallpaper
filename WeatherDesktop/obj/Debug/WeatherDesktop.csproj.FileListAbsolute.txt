@@ -60,7 +60,6 @@ C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\Int
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\SunRiseSet\ExternalService.SunRiseSet.dll
 C:\Users\Luke\Source\Repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\Weather.Gov\ExternalService.Weather.Gov.dll
 C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\InternalService.SystemLatLong\InternalService.SystemLatLong.dll
-C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\SunRiseSet\ExternalService.SunRiseSet.dll
 C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\Weather.Gov\ExternalService.Weather.Gov.dll
 C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.config
 C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe.manifest

@@ -7,8 +7,8 @@
     <ProjectGuid>{ED3FF19D-32DC-446D-AFF5-80C144E742E9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ExternalService</RootNamespace>
-    <AssemblyName>ExternalService.SunRiseSet</AssemblyName>
+    <RootNamespace>InternalService</RootNamespace>
+    <AssemblyName>InternalService.SunRiseSet</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\WeatherDesktop\bin\Debug\Plugins\SunRiseSet\</OutputPath>
+    <OutputPath>..\..\WeatherDesktop\Plugins\InternalService.SunRiseSet\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

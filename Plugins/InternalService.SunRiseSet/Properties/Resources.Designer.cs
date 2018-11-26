@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ExternalService.Properties {
+namespace InternalService.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ExternalService.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ExternalService.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("InternalService.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,15 +57,6 @@ namespace ExternalService.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://api.sunrise-sunset.org/json?lat={0}&amp;lng={1}&amp;date=today&amp;formatted=0.
-        /// </summary>
-        internal static string SRS_Url {
-            get {
-                return ResourceManager.GetString("SRS_Url", resourceCulture);
             }
         }
     }

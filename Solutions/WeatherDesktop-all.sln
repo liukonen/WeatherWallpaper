@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherDesktop", "..\WeatherDesktop\WeatherDesktop.csproj", "{756B2286-9911-48FB-90DA-7CD244DBE726}"
 EndProject
@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherDesktop.Shared", "..
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{602EDA7C-67FA-4BE2-A953-FE70DE8D1111}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalService.Weather.Gov", "..\Plugins\ExternalService.Weather.Gov\ExternalService.Weather.Gov.csproj", "{57EFC8F3-3D1F-40F9-8593-76AA5D08A75E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternalService.SystemLatLong", "..\Plugins\InternalService.SystemLatLong\InternalService.SystemLatLong.csproj", "{6CF1E692-5A40-4069-925F-F226C8A2298E}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "vb.ExternalService.Template", "..\Plugin Templates\vb.ExternalService.Template\vb.ExternalService.Template.vbproj", "{89F6E411-1D4B-4CA1-8553-511F3918FB67}"
@@ -20,6 +18,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs.ExternalService.template", "..\Plugin Templates\cs.ExternalService.template\cs.ExternalService.template.csproj", "{5F599B16-412A-4202-8AAC-ED8434EAF69E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternalService.SunRiseSet", "..\Plugins\InternalService.SunRiseSet\InternalService.SunRiseSet.csproj", "{ED3FF19D-32DC-446D-AFF5-80C144E742E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalService.Weather.Gov3", "..\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3.csproj", "{835620C5-0214-4538-BED0-D896EF6ADFE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternalService.LatLongFlatLookup", "..\Plugins\InternalService.LatLongFlatLookup\InternalService.LatLongFlatLookup\InternalService.LatLongFlatLookup.csproj", "{4D3101D7-57EA-4F29-A9BE-D4A41EC0DC10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +37,6 @@ Global
 		{AD39A03F-E078-4172-A97D-3EFD54E1ED81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD39A03F-E078-4172-A97D-3EFD54E1ED81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD39A03F-E078-4172-A97D-3EFD54E1ED81}.Release|Any CPU.Build.0 = Release|Any CPU
-		{57EFC8F3-3D1F-40F9-8593-76AA5D08A75E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57EFC8F3-3D1F-40F9-8593-76AA5D08A75E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57EFC8F3-3D1F-40F9-8593-76AA5D08A75E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{57EFC8F3-3D1F-40F9-8593-76AA5D08A75E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6CF1E692-5A40-4069-925F-F226C8A2298E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6CF1E692-5A40-4069-925F-F226C8A2298E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CF1E692-5A40-4069-925F-F226C8A2298E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,16 +53,25 @@ Global
 		{ED3FF19D-32DC-446D-AFF5-80C144E742E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED3FF19D-32DC-446D-AFF5-80C144E742E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED3FF19D-32DC-446D-AFF5-80C144E742E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{835620C5-0214-4538-BED0-D896EF6ADFE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{835620C5-0214-4538-BED0-D896EF6ADFE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{835620C5-0214-4538-BED0-D896EF6ADFE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{835620C5-0214-4538-BED0-D896EF6ADFE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D3101D7-57EA-4F29-A9BE-D4A41EC0DC10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D3101D7-57EA-4F29-A9BE-D4A41EC0DC10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D3101D7-57EA-4F29-A9BE-D4A41EC0DC10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D3101D7-57EA-4F29-A9BE-D4A41EC0DC10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{57EFC8F3-3D1F-40F9-8593-76AA5D08A75E} = {602EDA7C-67FA-4BE2-A953-FE70DE8D1111}
 		{6CF1E692-5A40-4069-925F-F226C8A2298E} = {602EDA7C-67FA-4BE2-A953-FE70DE8D1111}
 		{89F6E411-1D4B-4CA1-8553-511F3918FB67} = {4588D0A3-A78E-4150-8E9D-A9650DECA163}
 		{5F599B16-412A-4202-8AAC-ED8434EAF69E} = {4588D0A3-A78E-4150-8E9D-A9650DECA163}
 		{ED3FF19D-32DC-446D-AFF5-80C144E742E9} = {602EDA7C-67FA-4BE2-A953-FE70DE8D1111}
+		{835620C5-0214-4538-BED0-D896EF6ADFE2} = {602EDA7C-67FA-4BE2-A953-FE70DE8D1111}
+		{4D3101D7-57EA-4F29-A9BE-D4A41EC0DC10} = {602EDA7C-67FA-4BE2-A953-FE70DE8D1111}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A61898C-A354-4737-B8B8-84E489CDAC7A}

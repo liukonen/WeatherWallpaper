@@ -365,7 +365,32 @@ namespace WeatherDesktop
         {
             try
             {
-               //get weather type
+
+                //try get latlong if you can
+                if (!SharedObjects.LatLong.HasRecord())
+                {
+                    if (LatLongObjects != null)
+                    {
+                        var i = LatLongObjects.GetEnumerator();
+                        while (i.MoveNext())
+                        {
+                            try
+                            {
+                                var lat = i.Current.Value;
+                                if (lat.worked())
+                                {
+                                    SharedObjects.LatLong.Set(lat.Latitude(), lat.Longitude());
+                                    break;
+                                }
+                            }
+                            catch { }
+
+                        }
+                    }
+                }
+
+
+                //get weather type
                 string weatherType = SharedObjects.AppSettings.ReadSetting(cWeather);
                 if (!string.IsNullOrWhiteSpace(weatherType)) { GetWeatherByName(weatherType); }
                 if (g_Weather == null)
@@ -384,28 +409,6 @@ namespace WeatherDesktop
                 }
                 if (g_Weather == null) { g_Weather = GetWeatherByName("Mock_Weather"); }
                 g_Weather.Load();
-
-                //try get latlong if you can
-                if (!SharedObjects.LatLong.HasRecord())
-                {
-                    if (LatLongObjects != null) { 
-                    var i = LatLongObjects.GetEnumerator();
-                    while (i.MoveNext())
-                    {
-                        try
-                        {
-                            var lat = i.Current.Value;
-                            if (lat.worked())
-                            {
-                                SharedObjects.LatLong.Set(lat.Latitude(), lat.Longitude());
-                                break;
-                            }
-                        }
-                        catch { }
-
-                    }
-                    }
-                }
 
                 //get SRS
                 string srs = SharedObjects.AppSettings.ReadSetting(cSRS);

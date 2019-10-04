@@ -13,6 +13,5 @@ C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\bin\Debug\Wea
 C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\bin\Debug\WeatherDesktop.Shared.dll.lastcodeanalysissucceeded
 C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Properties.Resources.resources
 C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.csproj.GenerateResource.cache
-C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.csproj.CoreCompileInputs.cache
 C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.dll
 C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop.Shared\obj\Debug\WeatherDesktop.Shared.pdb

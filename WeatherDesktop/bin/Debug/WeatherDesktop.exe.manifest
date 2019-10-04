@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Martz90-Hex-Weather-2.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="WeatherDesktop" version="2017.12.7.32882" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="WeatherDesktop" version="2017.12.7.37165" language="neutral" processorArchitecture="msil" />
     <commandLine file="WeatherDesktop.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,38 +43,50 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="653824">
-      <assemblyIdentity name="Newtonsoft.Json" version="10.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="675752">
+      <assemblyIdentity name="Newtonsoft.Json" version="12.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>lz/XDOSOWsQzoQG0KHFoDFHi/roq7sPUAN6kEVrzong=</dsig:DigestValue>
+        <dsig:DigestValue>NZjMytW1Nf6m+TZiEHpBg7/WFnvx0PgCYENgk+3C468=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SharpRaven.dll" size="64000">
-      <assemblyIdentity name="SharpRaven" version="2.2.0.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SharpRaven.dll" size="92672">
+      <assemblyIdentity name="SharpRaven" version="2.4.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>VlKt2HJyXmtdgtsgrPvJD6IYI/m9ZmRjOR+91uNr7aI=</dsig:DigestValue>
+        <dsig:DigestValue>+b2lS2n0C7fLUijzqzFjGPfBRLBY8DFMhQz1VM++ZqY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.exe" size="365512">
-      <assemblyIdentity name="WeatherDesktop" version="2017.12.7.32882" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.Runtime.InteropServices.RuntimeInformation.dll" size="33256">
+      <assemblyIdentity name="System.Runtime.InteropServices.RuntimeInformation" version="4.0.1.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>B7gwHRi9HXNFHJtYPEy2Qy7+HLJUV0CWhpq+eS+XCpM=</dsig:DigestValue>
+        <dsig:DigestValue>LxQbcqKvBFiZPidVk5XYqM2wt1LXmxcDVBph5yi1Ujc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WeatherDesktop.exe" size="364544">
+      <assemblyIdentity name="WeatherDesktop" version="2017.12.7.37165" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>cYs7/HHUKiZGEPqJ6/0ei5k3zIDZH5+PXLwcyGOaakU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -86,7 +98,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>YLoLp2CzjigLbr79AZlfZ8NFtN94n/7C1eYI8ptB2PI=</dsig:DigestValue>
+        <dsig:DigestValue>T25UXWQC9K6SmAPAlah0irSkvsFPAo3JCcaxgAQIHJs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -99,40 +111,13 @@
       <dsig:DigestValue>2R8u0py2tHh3h0M5MtP5T33K5wwZ2toK6w+8v+tC8xo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Plugins\InternalService.SunRiseSet\InternalService.SunRiseSet.dll" size="13312">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>95TZ+NJyUkUV8mxtDTHlBoKIePnUAAALYVpT3v/2FcE=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Plugins\InternalService.SystemLatLong\InternalService.SystemLatLong.dll" size="6144">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>PmtTcWdhgquDf8eyyFXxEdh8m/YFToEWhyNelaQV04k=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Plugins\Weather.Gov\ExternalService.Weather.Gov.dll" size="13824">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>RFkxwcP07iwHsktXZdM4pa+YXzyVIBLwKH9p9Q21X8Q=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="WeatherDesktop.exe.config" size="570">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>kZwlkxfH3nymQ8I3e5ZEWK86dd42EXyEs3B/8F2SrIM=</dsig:DigestValue>
+      <dsig:DigestValue>FemWkWiPSvLgPLJdfr4rTB8xyYMSYbsXtHtoibd/67Y=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

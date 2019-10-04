@@ -27,6 +27,5 @@ C:\Users\liuko\source\repos\WeatherWallpaper\WeatherDesktop\bin\Debug\Plugins\We
 C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.csprojAssemblyReference.cache
 C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Properties.Resources.resources
 C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.csproj.GenerateResource.cache
-C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.csproj.CoreCompileInputs.cache
 C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.dll
 C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\ExternalService.Weather.Gov\obj\Debug\ExternalService.Weather.Gov.pdb

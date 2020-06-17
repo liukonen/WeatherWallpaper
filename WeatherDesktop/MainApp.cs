@@ -42,8 +42,8 @@ namespace WeatherDesktop
         private string g_CurrentWeatherType;
         private CompositionContainer _container;
 
-        System.Collections.BitArray BlackListHours = new System.Collections.BitArray(24);
-        System.Collections.BitArray BlackListDays = new System.Collections.BitArray(7);
+        System.Collections.BitArray DenyedHours = new System.Collections.BitArray(24);
+        System.Collections.BitArray DenyedDays = new System.Collections.BitArray(7);
         string PluginPaths = Environment.CurrentDirectory + System.IO.Path.DirectorySeparatorChar + "Plugins";
 
         #endregion
@@ -91,8 +91,8 @@ namespace WeatherDesktop
         private MenuItem[] GlobalMenuSettings()
         {
             List<MenuItem> Items = new List<MenuItem>{new MenuItem("Plugin Folder", PluginFolder_Event)};
-            List<MenuItem> BlackLists = new List<MenuItem> {new MenuItem("BlackList Hours", BlackListHours_Event), new MenuItem("BlackList Days", BlackListDays_event)};
-            Items.Add(new MenuItem("BlackListing", BlackLists.ToArray()));
+            List<MenuItem> DenyedList = new List<MenuItem> {new MenuItem("Denyed Hours", DenyedtHours_Event), new MenuItem("Denyed Days", DenyedDays_event)};
+            Items.Add(new MenuItem("DenyedListing", DenyedList.ToArray()));
             
             List<MenuItem> WeatherItems = new List<MenuItem>();
             List<MenuItem> SunRiseSetItems = new List<MenuItem>();
@@ -245,29 +245,29 @@ namespace WeatherDesktop
 
         private void OnTimedEvent(object sender, EventArgs e) { UpdateScreen(false); }
 
-        private void BlackListHours_Event(object sender, EventArgs e)
+        private void DenyedtHours_Event(object sender, EventArgs e)
         {
             List<int> values = new List<int>();
             for (int i = 0; i < 24; i++)
             {
-                if (BlackListHours[i]) { values.Add(i); }
+                if (DenyedHours[i]) { values.Add(i); }
             }
 
 
-            string ValuesCSV = Microsoft.VisualBasic.Interaction.InputBox("Enter days in comma seperated values, Military time", "Enter Blacklisted Hours", string.Join(",", values.ToArray()));
+            string ValuesCSV = Microsoft.VisualBasic.Interaction.InputBox("Enter days in comma seperated values, Military time", "Enter Denyed Hours", string.Join(",", values.ToArray()));
             values = new List<int>();
             foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
-            for (int i = 0; i < 24; i++) { BlackListHours[i] = values.Contains(i); }
-            SharedObjects.AppSettings.AddUpdateAppSettings("BlackListHours", SharedObjects.ConvertBitarrayToInt(BlackListHours).ToString());
+            for (int i = 0; i < 24; i++) { DenyedHours[i] = values.Contains(i); }
+            SharedObjects.AppSettings.AddUpdateAppSettings("DenyedHours", SharedObjects.ConvertBitarrayToInt(DenyedHours).ToString());
         }
 
-        private void BlackListDays_event(object sender, EventArgs e)
+        private void DenyedDays_event(object sender, EventArgs e)
         {
-            string ValuesCSV = Microsoft.VisualBasic.Interaction.InputBox("Enter days in comma seperated values, with Sunday = 0 and Saturday = 6, example '0,1,2' = Sunday Monday Tuesday", "Enter Blacklisted Days");
+            string ValuesCSV = Microsoft.VisualBasic.Interaction.InputBox("Enter days in comma seperated values, with Sunday = 0 and Saturday = 6, example '0,1,2' = Sunday Monday Tuesday", "Enter Denyed Days");
             List<int> values = new List<int>();
             foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
-            for (int i = 0; i < 7; i++) { BlackListDays[i] = values.Contains(i); }
-            SharedObjects.AppSettings.AddUpdateAppSettings("BlackListDays", SharedObjects.ConvertBitarrayToInt(BlackListDays).ToString());
+            for (int i = 0; i < 7; i++) { DenyedDays[i] = values.Contains(i); }
+            SharedObjects.AppSettings.AddUpdateAppSettings("DenyedDays", SharedObjects.ConvertBitarrayToInt(DenyedDays).ToString());
         }
 
         private void UpdateGlobalObjecttype(object sender, EventArgs e)
@@ -329,7 +329,7 @@ namespace WeatherDesktop
 
         private void UpdateScreen(Boolean overrideImage)
         {
-            if (!(BlackListDays[(int)DateTime.Now.DayOfWeek] || BlackListHours[DateTime.Now.Hour]))
+            if (!(DenyedDays[(int)DateTime.Now.DayOfWeek] || DenyedHours[DateTime.Now.Hour]))
             {
                 var weather = (Interface.WeatherResponse)g_Weather.Invoke();
                 var sunriseSet = g_SunRiseSet.Invoke();
@@ -436,18 +436,18 @@ namespace WeatherDesktop
             }
 
             UpdateImageCache();
-            UpdateBlackLists();
+            UpdateDenyedList();
 
         }
 
         #region Support functions to reduce complexity
 
-         private void UpdateBlackLists()
+         private void UpdateDenyedList()
         {
-            int.TryParse(SharedObjects.AppSettings.ReadSetting("BlackListHours"), out int intblackListHours);
-            int.TryParse(SharedObjects.AppSettings.ReadSetting("BlackListDays"), out int intBlackListdays);
-            BlackListHours = SharedObjects.ConverTIntToBitArray(intblackListHours);
-            BlackListDays = SharedObjects.ConverTIntToBitArray(intBlackListdays);
+            int.TryParse(SharedObjects.AppSettings.ReadSetting("DenyedHours"), out int intDenyedHours);
+            int.TryParse(SharedObjects.AppSettings.ReadSetting("DenyedDays"), out int intDenyedDays);
+            DenyedHours = SharedObjects.ConverTIntToBitArray(intDenyedHours);
+            DenyedDays = SharedObjects.ConverTIntToBitArray(intDenyedDays);
 
         }
 

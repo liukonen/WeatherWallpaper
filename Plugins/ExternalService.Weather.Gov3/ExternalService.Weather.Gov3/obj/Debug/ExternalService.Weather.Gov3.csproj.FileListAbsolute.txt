@@ -20,3 +20,17 @@ C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\WeatherDesktop\bin\Debug\Pl
 C:\bin\debug\ExternalService.Weather.Gov3.dll.config
 C:\bin\debug\ExternalService.Weather.Gov3.dll
 C:\bin\debug\ExternalService.Weather.Gov3.pdb
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\bin\debug\ExternalService.Weather.Gov3.dll.config
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\bin\debug\ExternalService.Weather.Gov3.dll
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\bin\debug\ExternalService.Weather.Gov3.pdb
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\bin\debug\Newtonsoft.Json.dll
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\bin\debug\WeatherDesktop.Shared.dll
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\bin\debug\WeatherDesktop.Shared.pdb
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\bin\debug\Newtonsoft.Json.xml
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\obj\Debug\ExternalService.Weather.Gov3.csproj.AssemblyReference.cache
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\obj\Debug\ExternalService.Weather.Gov3.Properties.Resources.resources
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\obj\Debug\ExternalService.Weather.Gov3.csproj.GenerateResource.cache
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\obj\Debug\ExternalService.Weather.Gov3.csproj.CoreCompileInputs.cache
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\obj\Debug\ExternalService.Weather.Gov3.csproj.CopyComplete
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\obj\Debug\ExternalService.Weather.Gov3.dll
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\ExternalService.Weather.Gov3\ExternalService.Weather.Gov3\obj\Debug\ExternalService.Weather.Gov3.pdb

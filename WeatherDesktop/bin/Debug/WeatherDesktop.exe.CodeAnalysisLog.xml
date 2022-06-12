@@ -1,6 +1,139 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft visual studio\2019\community\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
-<FxCopReport Version="16.0">
+<?xml-stylesheet type="text/xsl" href="c:\program files\microsoft visual studio\2022\community\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
+<FxCopReport Version="17.0">
+ <Targets>
+  <Target Name="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop\bin\Debug\WeatherDesktop.exe">
+   <Modules>
+    <Module Name="weatherdesktop.exe">
+     <Namespaces>
+      <Namespace Name="WeatherDesktop.Properties">
+       <Types>
+        <Type Name="Resources" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
+         <Messages>
+          <Message TypeName="AvoidUninstantiatedInternalClasses" Category="Microsoft.Performance" CheckId="CA1812" Status="Active" Created="2022-06-12 00:26:57Z" FixCategory="NonBreaking">
+           <Issue Certainty="75" Level="Warning">'Resources' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.</Issue>
+          </Message>
+         </Messages>
+         <Members>
+          <Member Name="#const_AppName" Kind="Property" Static="True" Accessibility="Assembly" ExternallyVisible="False">
+           <Accessors>
+            <Accessor Name="#get_const_AppName()" Kind="Method" Static="True" Accessibility="Assembly" ExternallyVisible="False">
+             <Messages>
+              <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Active" Created="2022-06-12 00:26:57Z" FixCategory="NonBreaking">
+               <Issue Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop\Properties" File="Resources.Designer.cs" Line="97">'Resources.const_AppName.get()' appears to have no upstream public or protected callers.</Issue>
+              </Message>
+             </Messages>
+            </Accessor>
+           </Accessors>
+          </Member>
+          <Member Name="#const_csvEncryptedLatLongName" Kind="Property" Static="True" Accessibility="Assembly" ExternallyVisible="False">
+           <Accessors>
+            <Accessor Name="#get_const_csvEncryptedLatLongName()" Kind="Method" Static="True" Accessibility="Assembly" ExternallyVisible="False">
+             <Messages>
+              <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Active" Created="2022-06-12 00:26:57Z" FixCategory="NonBreaking">
+               <Issue Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop\Properties" File="Resources.Designer.cs" Line="106">'Resources.const_csvEncryptedLatLongName.get()' appears to have no upstream public or protected callers.</Issue>
+              </Message>
+             </Messages>
+            </Accessor>
+           </Accessors>
+          </Member>
+          <Member Name="#Culture" Kind="Property" Static="True" Accessibility="Assembly" ExternallyVisible="False">
+           <Accessors>
+            <Accessor Name="#get_Culture()" Kind="Method" Static="True" Accessibility="Assembly" ExternallyVisible="False">
+             <Messages>
+              <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Active" Created="2022-06-12 00:26:57Z" FixCategory="NonBreaking">
+               <Issue Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop\Properties" File="Resources.Designer.cs" Line="55">'Resources.Culture.get()' appears to have no upstream public or protected callers.</Issue>
+              </Message>
+             </Messages>
+            </Accessor>
+            <Accessor Name="#set_Culture(System.Globalization.CultureInfo)" Kind="Method" Static="True" Accessibility="Assembly" ExternallyVisible="False">
+             <Messages>
+              <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Active" Created="2022-06-12 00:26:57Z" FixCategory="NonBreaking">
+               <Issue Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop\Properties" File="Resources.Designer.cs" Line="58">'Resources.Culture.set(CultureInfo)' appears to have no upstream public or protected callers.</Issue>
+              </Message>
+             </Messages>
+            </Accessor>
+           </Accessors>
+          </Member>
+          <Member Name="#SRS_Url" Kind="Property" Static="True" Accessibility="Assembly" ExternallyVisible="False">
+           <Accessors>
+            <Accessor Name="#get_SRS_Url()" Kind="Method" Static="True" Accessibility="Assembly" ExternallyVisible="False">
+             <Messages>
+              <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Active" Created="2022-06-12 00:26:57Z" FixCategory="NonBreaking">
+               <Issue Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop\Properties" File="Resources.Designer.cs" Line="194">'Resources.SRS_Url.get()' appears to have no upstream public or protected callers.</Issue>
+              </Message>
+             </Messages>
+            </Accessor>
+           </Accessors>
+          </Member>
+          <Member Name="#warning_cant_find_latlong" Kind="Property" Static="True" Accessibility="Assembly" ExternallyVisible="False">
+           <Accessors>
+            <Accessor Name="#get_warning_cant_find_latlong()" Kind="Method" Static="True" Accessibility="Assembly" ExternallyVisible="False">
+             <Messages>
+              <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Active" Created="2022-06-12 00:26:57Z" FixCategory="NonBreaking">
+               <Issue Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop\Properties" File="Resources.Designer.cs" Line="213">'Resources.warning_cant_find_latlong.get()' appears to have no upstream public or protected callers.</Issue>
+              </Message>
+             </Messages>
+            </Accessor>
+           </Accessors>
+          </Member>
+          <Member Name="#warning_Zip_Not_Found" Kind="Property" Static="True" Accessibility="Assembly" ExternallyVisible="False">
+           <Accessors>
+            <Accessor Name="#get_warning_Zip_Not_Found()" Kind="Method" Static="True" Accessibility="Assembly" ExternallyVisible="False">
+             <Messages>
+              <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Active" Created="2022-06-12 00:26:57Z" FixCategory="NonBreaking">
+               <Issue Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop\Properties" File="Resources.Designer.cs" Line="222">'Resources.warning_Zip_Not_Found.get()' appears to have no upstream public or protected callers.</Issue>
+              </Message>
+             </Messages>
+            </Accessor>
+           </Accessors>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="Settings" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
+         <Members>
+          <Member Name="#Default" Kind="Property" Static="True" Accessibility="Public" ExternallyVisible="False">
+           <Accessors>
+            <Accessor Name="#get_Default()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="False">
+             <Messages>
+              <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Active" Created="2022-06-12 00:26:57Z" FixCategory="NonBreaking">
+               <Issue Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop\Properties" File="Settings.Designer.cs" Line="21">'Settings.Default.get()' appears to have no upstream public or protected callers.</Issue>
+              </Message>
+             </Messages>
+            </Accessor>
+           </Accessors>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+     </Namespaces>
+    </Module>
+   </Modules>
+  </Target>
+ </Targets>
+ <Rules>
+  <Rule TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811">
+   <Name>Avoid uncalled private code</Name>
+   <Description>There is uncalled code that is not externally visible and is not a known runtime entry point. If this violation fires in error, please send a problem report to the Visual Studio Code Analysis team.</Description>
+   <Resolution Name="Default">{0} appears to have no upstream public or protected callers.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182264.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="performancerules.dll" Version="17.0.0.0" />
+  </Rule>
+  <Rule TypeName="AvoidUninstantiatedInternalClasses" Category="Microsoft.Performance" CheckId="CA1812">
+   <Name>Avoid uninstantiated internal classes</Name>
+   <Description>An internal class was detected that is apparently never instantiated. This rule does not attempt to detect late-bound creation and will generate false positives if instances of a type are only created in this way (for example, by means of Activator.CreateInstance or by passing the type as an argument to a TypeConverter constructor).</Description>
+   <Resolution Name="Default">{0} is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182265.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="performancerules.dll" Version="17.0.0.0" />
+  </Rule>
+ </Rules>
  <Localized>
   <String Key="Category">Category</String>
   <String Key="Certainty">Certainty</String>

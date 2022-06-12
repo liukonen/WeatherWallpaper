@@ -4,17 +4,17 @@
   <description asmv2:publisher="Luke Liukonen" asmv2:product="WeatherDesktop" asmv2:supportUrl="https://github.com/liukonen/WeatherWallpaper" co.v1:errorReportUrl="https://github.com/liukonen/WeatherWallpaper/issues" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" co.v1:createDesktopShortcut="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.8" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="WeatherDesktop.exe.manifest" size="7852">
+    <dependentAssembly dependencyType="install" codebase="WeatherDesktop.exe.manifest" size="7102">
       <assemblyIdentity name="WeatherDesktop.exe" version="2018.11.25.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>6YSeq1NgG97h6Bopv4GjFLBTtCuA6ZFMO6qAEpkCWlk=</dsig:DigestValue>
+        <dsig:DigestValue>7M4Dw+VtGKvOzT1REWZlf/u90Ct+aHvzsofYm4LYyB0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

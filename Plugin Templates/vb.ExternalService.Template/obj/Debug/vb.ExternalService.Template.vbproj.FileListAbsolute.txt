@@ -27,3 +27,13 @@ C:\Users\liuko\source\repos\WeatherWallpaper\Plugin Templates\vb.ExternalService
 C:\Users\liuko\source\repos\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\obj\Debug\vb.ExternalService.Template.dll
 C:\Users\liuko\source\repos\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\obj\Debug\vb.ExternalService.Template.xml
 C:\Users\liuko\source\repos\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\obj\Debug\vb.ExternalService.Template.pdb
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\bin\Debug\vb.ExternalService.Template.dll
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\bin\Debug\vb.ExternalService.Template.pdb
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\bin\Debug\vb.ExternalService.Template.xml
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\obj\Debug\vb.ExternalService.Template.vbproj.AssemblyReference.cache
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\obj\Debug\vb.ExternalService.Template.Resources.resources
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\obj\Debug\vb.ExternalService.Template.vbproj.GenerateResource.cache
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\obj\Debug\vb.ExternalService.Template.vbproj.CoreCompileInputs.cache
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\obj\Debug\vb.ExternalService.Template.dll
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\obj\Debug\vb.ExternalService.Template.xml
+C:\Users\liuko\projects\git\WeatherWallpaper\Plugin Templates\vb.ExternalService.Template\obj\Debug\vb.ExternalService.Template.pdb

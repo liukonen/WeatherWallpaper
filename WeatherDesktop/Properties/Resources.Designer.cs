@@ -10,8 +10,8 @@
 
 namespace WeatherDesktop.Properties {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -19,8 +19,7 @@ namespace WeatherDesktop.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -46,13 +45,11 @@ namespace WeatherDesktop.Properties {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
             get {
@@ -93,8 +90,23 @@ namespace WeatherDesktop.Properties {
             }
         }
         
-
-
+        /// <summary>
+        ///   Looks up a localized string similar to WeatherDesktop.
+        /// </summary>
+        internal static string const_AppName {
+            get {
+                return ResourceManager.GetString("const_AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LatLong.
+        /// </summary>
+        internal static string const_csvEncryptedLatLongName {
+            get {
+                return ResourceManager.GetString("const_csvEncryptedLatLongName", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
@@ -175,7 +187,14 @@ namespace WeatherDesktop.Properties {
             }
         }
         
-
+        /// <summary>
+        ///   Looks up a localized string similar to https://api.sunrise-sunset.org/json?lat={0}&amp;lng={1}&amp;date=today&amp;formatted=0.
+        /// </summary>
+        internal static string SRS_Url {
+            get {
+                return ResourceManager.GetString("SRS_Url", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
@@ -187,9 +206,23 @@ namespace WeatherDesktop.Properties {
             }
         }
         
-
+        /// <summary>
+        ///   Looks up a localized string similar to error getting Lat Long:.
+        /// </summary>
+        internal static string warning_cant_find_latlong {
+            get {
+                return ResourceManager.GetString("warning_cant_find_latlong", resourceCulture);
+            }
+        }
         
-
+        /// <summary>
+        ///   Looks up a localized string similar to Zip not found.
+        /// </summary>
+        internal static string warning_Zip_Not_Found {
+            get {
+                return ResourceManager.GetString("warning_Zip_Not_Found", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).

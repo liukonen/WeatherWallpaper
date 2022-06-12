@@ -2,36 +2,28 @@
 using System.Xml;
 using WeatherDesktop.Share;
 using System.Windows.Forms;
-using System.Xml.Serialization;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using WeatherDesktop.Interface;
 
 namespace ExternalService
 {
-    [Export(typeof(WeatherDesktop.Interface.ILatLongInterface))]
+    [Export(typeof(ILatLongInterface))]
     [ExportMetadata("ClassName", "GovWeatherLatLong")]
     class GovWeatherLatLong: ILatLongInterface
     {
 
-        private bool _worked;
-        private string Cache;
-        public double Latitude()
-        {
-            string[] LatLong = Cache.Split(',');
-            return double.Parse(LatLong[0].Replace(",", string.Empty));
-        }
-
+        private readonly bool _worked;
+        private readonly string Cache;
 
         public GovWeatherLatLong()
         {
             try
             {
-                string Zip = SharedObjects.ZipObjects.Rawzip;
+                var Zip = SharedObjects.ZipObjects.Rawzip;
                 if (string.IsNullOrEmpty(Zip)) { Zip = SharedObjects.ZipObjects.GetZip(); }
-                string url = string.Format(Properties.Resources.Gov_LatLong_Url, Zip);
-                string results = SharedObjects.CompressedCallSite(url, Properties.Resources.Gov_User);
-                XmlReader reader = XmlReader.Create(new System.IO.StringReader(results));
+                var url = string.Format(Properties.Resources.Gov_LatLong_Url, Zip);
+                var results = SharedObjects.CompressedCallSite(url, Properties.Resources.Gov_User);
+                var reader = XmlReader.Create(new System.IO.StringReader(results));
                 while (reader.Read())
                 {
                     if ((reader.NodeType == XmlNodeType.Element))
@@ -47,17 +39,11 @@ namespace ExternalService
             catch (Exception x) { _worked = false; MessageBox.Show(x.Message); }
         }
 
-        public double Longitude()
-        {
-            string[] LatLong = Cache.Split(',');
-            return double.Parse(LatLong[1].Replace(",", string.Empty));
+        public double Latitude() => double.Parse(Cache.Split(',')[0].Replace(",", string.Empty));
 
-        }
+        public double Longitude() => double.Parse(Cache.Split(',')[1].Replace(",", string.Empty));
 
-        public bool worked()
-        {
-            return _worked;
-        }
+        public bool worked() => _worked;
 
 
     }

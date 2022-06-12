@@ -59,5 +59,50 @@ namespace InternalService.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not update, please try again.
+        /// </summary>
+        internal static string CouldNotUpdate {
+            get {
+                return ResourceManager.GetString("CouldNotUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hour update.
+        /// </summary>
+        internal static string HourUpdateHeader {
+            get {
+                return ResourceManager.GetString("HourUpdateHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the hour you want to update the call to get sun rise, set info..
+        /// </summary>
+        internal static string HourUpdateMessage {
+            get {
+                return ResourceManager.GetString("HourUpdateMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lat Long not set.
+        /// </summary>
+        internal static string LatLongSetHeader {
+            get {
+                return ResourceManager.GetString("LatLongSetHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lat and Long not yet available, Manual enter (yes), or pick a supplier in sunriseset settings (no).
+        /// </summary>
+        internal static string LatLongSetMessage {
+            get {
+                return ResourceManager.GetString("LatLongSetMessage", resourceCulture);
+            }
+        }
     }
 }

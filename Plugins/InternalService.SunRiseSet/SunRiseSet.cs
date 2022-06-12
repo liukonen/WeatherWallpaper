@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Runtime.Serialization;
-using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using WeatherDesktop.Interface;
 using WeatherDesktop.Share;
+using InternalService;
 
 namespace ExternalService
 {
@@ -25,6 +24,7 @@ namespace ExternalService
         #region Constants
         const char dqoute = '"';
         const string ClassName = "InternalSunRiseSet";
+        const string AppProperty = "HourUpdate";
         #endregion
 
         #region Globals
@@ -36,6 +36,7 @@ namespace ExternalService
         SunRiseSetResponse _cache;
         Boolean _firstCall = true;
         Exception _ThrownException = null;
+
         #endregion
 
         #region Settings
@@ -79,7 +80,7 @@ namespace ExternalService
             _lat = latlong.Key;
             _long = latlong.Value;
 
-            string HTU = SharedObjects.AppSettings.ReadSetting("HourUpdate");
+            string HTU = SharedObjects.AppSettings.ReadSetting(AppProperty);
             if (string.IsNullOrWhiteSpace(HTU)) { HTU = "6"; }
             _HourToUpdate = int.Parse(HTU);
             _LastUpdate = DateTime.Now;
@@ -113,7 +114,6 @@ namespace ExternalService
                 if (response.SolarNoon < DateTime.Now) { response.SolarNoon = response.SolarNoon.AddDays(1); }
                 response.SunRise = DateTime.Now.Date.Add(SunriseTime);
                 if (response.SunRise < DateTime.Now) { response.SunRise = response.SunRise.AddDays(1); }
-
                 response.SunSet = DateTime.Now.Date.Add(SunsetTime);
                 if (response.SunSet < DateTime.Now) { response.SunSet = response.SunSet.AddDays(1); }
 
@@ -127,40 +127,45 @@ namespace ExternalService
 
         static bool IntialgetLatLong()
         {
-            bool worked = false;
-            if (MessageBox.Show("Lat and Long not yet available, Manual enter (yes), or pick a supplier in sunriseset settings (no)", "Lat Long not set", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            var worked = false;
+            if (MessageBox.Show(
+                InternalService.Properties.Resources.LatLongSetMessage,
+                InternalService.Properties.Resources.LatLongSetHeader,
+                MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                double lat = double.Parse(WeatherDesktop.Share.SharedObjects.InputBox("Please Enter your Latitude", "Latitude"));
-                double lon = double.Parse(WeatherDesktop.Share.SharedObjects.InputBox("Please Enter your Longitude", "Longitude"));
+                var lat = GetDoubleWithMessage("Latitude");
+                var lon = GetDoubleWithMessage("Longitude");
                 SharedObjects.LatLong.Set(lat, lon);
                 worked = true;
             }
             return worked;
         }
 
+        static double GetDoubleWithMessage(string ObjectName) => double.Parse(SharedObjects.InputBox($"Please Enter your {ObjectName}", ObjectName));
+
 
         static void UpdateHour()
         {
 
             int current;
-            try { current = int.Parse(SharedObjects.AppSettings.ReadSetting("HourUpdate")); }
+            try { current = int.Parse(SharedObjects.AppSettings.ReadSetting(AppProperty)); }
             catch { current = 6; }
 
             try
             {
                 string attempt;
-                attempt = WeatherDesktop.Share.SharedObjects.InputBox("Enter the hour you want to update the call to get sun rise, set info", "Hour update", current.ToString());
-                SharedObjects.AppSettings.AddUpdateAppSettings("Hourupdate", int.Parse(attempt).ToString());
+                attempt = SharedObjects.InputBox(InternalService.Properties.Resources.HourUpdateMessage, 
+                    InternalService.Properties.Resources.HourUpdateHeader, current.ToString());
+                SharedObjects.AppSettings.AddUpdateAppSettings(AppProperty, int.Parse(attempt).ToString());
             }
-            catch { MessageBox.Show("Could not update, please try again"); }
+            catch { MessageBox.Show(InternalService.Properties.Resources.CouldNotUpdate); }
         }
 
-        static KeyValuePair<double, double> GetLocationProperty()
-        {
-            if (SharedObjects.LatLong.HasRecord() || IntialgetLatLong())
-            { return new KeyValuePair<double, double>(SharedObjects.LatLong.Lat, SharedObjects.LatLong.Lng); }
-            return new KeyValuePair<double, double>(0, 0);
-        }
+        static KeyValuePair<double, double> GetLocationProperty() => 
+            (SharedObjects.LatLong.HasRecord() || IntialgetLatLong()) ?
+                new KeyValuePair<double, double>(SharedObjects.LatLong.Lat, SharedObjects.LatLong.Lng) :
+                new KeyValuePair<double, double>(0, 0);
+        
 
 
         #endregion
@@ -210,14 +215,12 @@ namespace ExternalService
 
         private double DEGREES(double radians) { return radians * (180 / Math.PI); }
 
-        private double FIF(bool condition, double out1, double out2) { if (condition) { return out1; } return out2; }
-        private double POWER(double A, double b) { return Math.Pow(A, b); }
         #endregion
 
         #region Debug values
         public string Debug()
         {
-            Dictionary<string, string> DebugValues = new Dictionary<string, string>
+            var DebugValues = new Dictionary<string, string>
             {
                 {"Houre to update", _HourToUpdate.ToString()},
                 {"Last update", _LastUpdate.ToString()},

@@ -22,7 +22,6 @@ namespace ExternalService
 
 
         #region Constants
-        const char dqoute = '"';
         const string ClassName = "InternalSunRiseSet";
         const string AppProperty = "HourUpdate";
         #endregion
@@ -67,7 +66,7 @@ namespace ExternalService
         #endregion
 
         #region Events
-        private void ChangehourToUpdate(object sender, EventArgs e) { UpdateHour(); }
+        private void ChangehourToUpdate(object sender, EventArgs e) => UpdateHour(); 
         #endregion
 
         #region New

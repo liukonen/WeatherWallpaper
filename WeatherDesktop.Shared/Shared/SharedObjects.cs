@@ -2,9 +2,11 @@
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Collections;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Security.Cryptography;
+using WeatherDesktop.Shared.Internal;
 
 namespace WeatherDesktop.Share
 {
@@ -167,37 +169,29 @@ namespace WeatherDesktop.Share
         public static class Cache
         {
 
-            private static string TransformKey(string key)
-            { return System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + "_" + key; }
+            public static T GetValue<T>(string key) => MemCache.Instance.Exists(key) ? MemCache.Instance.GetItem<T>(key) : default;
 
+            public static bool Exists(string key) => MemCache.Instance.Exists(key);
+
+            public static void SetValue<T>(string key, T o, int timeout) => MemCache.Instance.SetItem<T>(key, o, timeout);
+
+            public static void SetValue<T>(string key, T o) => MemCache.Instance.SetItem<T>(key, o);
+
+
+            [Obsolete("Please use generic GetValue.")]
             public static object Value(string key)
             {
-                string NewKey = TransformKey(key);
-                System.Runtime.Caching.MemoryCache cache = System.Runtime.Caching.MemoryCache.Default;
-                if (cache.Contains(NewKey)) return cache[NewKey];
+                if (MemCache.Instance.Exists(key)) return MemCache.Instance.GetItem<object>(key);
                 return string.Empty;
             }
+            [Obsolete("Please use Generic GetValue.")]
+            public static string StringValue(string key)=> MemCache.Instance.GetItem<string>(key);
 
-            public static string StringValue(string key)
-            {
-                return (string)Value(key);
-            }
+            [Obsolete("Please use Generic SetValue.")]
+            public static void Set(string key, object o, int timeout) => MemCache.Instance.SetItem<object>(key, o, timeout);
 
-            public static bool Exists(string key)
-            {
-                System.Runtime.Caching.MemoryCache cache = System.Runtime.Caching.MemoryCache.Default;
-                return cache.Contains(TransformKey(key));
-            }
-
-            public static void Set(string key, object o, int timeout)
-            {
-                System.Runtime.Caching.MemoryCache cache = System.Runtime.Caching.MemoryCache.Default;
-                cache.Add(TransformKey(key), o, DateTime.Now.AddMinutes(timeout));
-            }
-            public static void Set(string key, object o)
-            {
-                Set(key, o, 15);
-            }
+            [Obsolete("Please use Generic SetValue.")]
+            public static void Set(string key, object o) => MemCache.Instance.SetItem<object>(key, o);
 
         }
 
@@ -233,26 +227,11 @@ namespace WeatherDesktop.Share
         }
 
         #region Web Request
-        public static string CompressedCallSite(string Url)
-        {
-            return CompressedCallSite(Url, string.Empty);
+        public static string CompressedCallSite(string Url) => WebHandler.Instance.CallSite(Url);
 
-        }
-        public static string CompressedCallSite(string Url, string UserAgent)
-        {
-            HttpWebRequest request = (System.Net.HttpWebRequest)HttpWebRequest.Create(Url);
-            if (!string.IsNullOrWhiteSpace(UserAgent)) { request.UserAgent = UserAgent; }
-            request.Headers.Add("Accept-Encoding", "gzip,deflate");
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            request.AllowAutoRedirect = true;
-
-            using (System.Net.WebResponse response = request.GetResponse())
-            {
-                StreamReader Reader = new System.IO.StreamReader(response.GetResponseStream());
-                return Reader.ReadToEnd();
-            }
-
-        }
+        public static string CompressedCallSite(string Url, string UserAgent) => WebHandler.Instance.CallSite(Url, UserAgent);
+  
+    
 
         #endregion
 
@@ -282,10 +261,8 @@ namespace WeatherDesktop.Share
             return array[0];
         }
 
-        public static System.Collections.BitArray ConverTIntToBitArray(int item)
-        {
-            return new System.Collections.BitArray(new int[] { item });
-        }
+        public static BitArray ConverTIntToBitArray(int item) => new BitArray(new int[] { item });
+        
 
     }
 }

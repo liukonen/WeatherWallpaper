@@ -35,6 +35,7 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
@@ -55,7 +56,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Shared\AppSetrtings.cs" />
     <Compile Include="Shared\ErrorHandler.cs" />
+    <Compile Include="Shared\Internal\MemCache.cs" />
+    <Compile Include="Shared\Internal\WebHandler.cs" />
     <Compile Include="Shared\SharedObjects.cs" />
   </ItemGroup>
   <ItemGroup />

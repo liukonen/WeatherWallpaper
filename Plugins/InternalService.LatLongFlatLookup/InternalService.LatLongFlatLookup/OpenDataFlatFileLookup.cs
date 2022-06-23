@@ -17,8 +17,8 @@ namespace ExternalService
     [ExportMetadata("ClassName", "OpenDataFlatFileLookup")]
     public class OpenDataFlatFileLookup : ILatLongInterface
     {
-        private bool _worked;
-        private string Cache;
+        private readonly bool _worked;
+        private readonly string Cache;
 
         public double Latitude()
         {
@@ -62,12 +62,12 @@ namespace ExternalService
 
         private static string decompress(string fileName)
         {
-            using (var gZipBuffer = new System.IO.FileStream(fileName, FileMode.Open, FileAccess.Read))
+            using (var gZipBuffer = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             {
                 byte[] Bytes;
                 using (var gZipStream = new GZipStream(gZipBuffer, CompressionMode.Decompress))
                 {
-                    using (var Mem = new System.IO.MemoryStream())
+                    using (var Mem = new MemoryStream())
                     {
                         gZipStream.CopyTo(Mem);
                         Bytes = Mem.ToArray();

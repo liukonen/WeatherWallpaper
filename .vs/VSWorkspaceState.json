@@ -1,10 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Plugins",
-    "\\Plugins\\InternalService.SystemLatLong",
-    "\\Solutions"
+    ""
   ],
-  "SelectedNode": "\\Plugins\\InternalService.SystemLatLong\\SystemLatLong.cs",
+  "SelectedNode": "\\ExternalService.Weather.Gov.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -4,14 +4,14 @@
  <Namespaces>
   <Namespace Name="WeatherDesktop.Interface">
    <Messages>
-    <Message Id="Interface" TypeName="IdentifiersShouldNotMatchKeywords" Category="Microsoft.Naming" CheckId="CA1716" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+    <Message Id="Interface" TypeName="IdentifiersShouldNotMatchKeywords" Category="Microsoft.Naming" CheckId="CA1716" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
      <Issue Name="Namespace" Certainty="95" Level="Error">Rename namespace WeatherDesktop.Interface so that it no longer conflicts with the reserved language keyword 'Interface'. Using a reserved keyword as the name of a namespace makes it harder for consumers in other languages to use the namespace.</Issue>
     </Message>
    </Messages>
   </Namespace>
   <Namespace Name="WeatherDesktop.Share">
    <Messages>
-    <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+    <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
      <Issue Certainty="50" Level="Warning">Consider merging the types defined in 'WeatherDesktop.Share' with another namespace.</Issue>
     </Message>
    </Messages>
@@ -22,10 +22,10 @@
    <Modules>
     <Module Name="weatherdesktop.shared.dll">
      <Messages>
-      <Message TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="NonBreaking">
+      <Message TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
        <Issue Name="NoStrongName" Certainty="95" Level="CriticalError">Sign 'WeatherDesktop.Shared.dll' with a strong name key.</Issue>
       </Message>
-      <Message TypeName="MarkAssembliesWithNeutralResourcesLanguage" Category="Microsoft.Performance" CheckId="CA1824" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="NonBreaking">
+      <Message TypeName="MarkAssembliesWithNeutralResourcesLanguage" Category="Microsoft.Performance" CheckId="CA1824" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
        <Issue Certainty="95" Level="Warning">Because assembly 'WeatherDesktop.Shared.dll' contains a ResX-based resource file, mark it with the NeutralResourcesLanguage attribute, specifying the language of the resources within the assembly. This could improve lookup performance the first time a resource is retrieved.</Issue>
       </Message>
      </Messages>
@@ -34,14 +34,14 @@
        <Types>
         <Type Name="ILatLongInterface" Kind="Interface" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message Id="Lat" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message Id="Lat" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Name="Type" Certainty="75" Level="CriticalWarning">Correct the spelling of 'Lat' in type name 'ILatLongInterface'.</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#worked()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="worked" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+            <Message Id="worked" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
              <Issue Name="Member" Certainty="85" Level="Error">Correct the casing of 'worked' in member name 'ILatLongInterface.worked()' by changing it to 'Worked'.</Issue>
             </Message>
            </Messages>
@@ -50,74 +50,74 @@
         </Type>
         <Type Name="ISharedResponse" Kind="Interface" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="AvoidEmptyInterfaces" Category="Microsoft.Design" CheckId="CA1040" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message TypeName="AvoidEmptyInterfaces" Category="Microsoft.Design" CheckId="CA1040" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Certainty="90" Level="Warning">Define a custom attribute to replace 'ISharedResponse'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="IsharedSunRiseSetInterface" Kind="Interface" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="AvoidEmptyInterfaces" Category="Microsoft.Design" CheckId="CA1040" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message TypeName="AvoidEmptyInterfaces" Category="Microsoft.Design" CheckId="CA1040" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Certainty="90" Level="Warning">Define a custom attribute to replace 'IsharedSunRiseSetInterface'.</Issue>
           </Message>
-          <Message Id="SunRise" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message Id="SunRise" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Name="TypeShouldBeDiscreteTerm" Certainty="80" Level="Error">The compound word 'SunRise' in type name 'IsharedSunRiseSetInterface' exists as a discrete term. If your usage is intended to be single word, case it as 'Sunrise'.</Issue>
           </Message>
-          <Message Id="Ishared" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message Id="Ishared" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Name="Type" Certainty="75" Level="CriticalWarning">Correct the spelling of 'Ishared' in type name 'IsharedSunRiseSetInterface'.</Issue>
           </Message>
-          <Message Id="I" TypeName="IdentifiersShouldHaveCorrectPrefix" Category="Microsoft.Naming" CheckId="CA1715" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message Id="I" TypeName="IdentifiersShouldHaveCorrectPrefix" Category="Microsoft.Naming" CheckId="CA1715" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Name="Interface" Certainty="95" Level="Error">Prefix interface name 'IsharedSunRiseSetInterface' with 'I'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="ISharedWeatherinterface" Kind="Interface" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="AvoidEmptyInterfaces" Category="Microsoft.Design" CheckId="CA1040" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message TypeName="AvoidEmptyInterfaces" Category="Microsoft.Design" CheckId="CA1040" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Certainty="90" Level="Warning">Define a custom attribute to replace 'ISharedWeatherinterface'.</Issue>
           </Message>
-          <Message Id="Weatherinterface" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message Id="Weatherinterface" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Name="Type" Certainty="75" Level="CriticalWarning">Correct the spelling of 'Weatherinterface' in type name 'ISharedWeatherinterface'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="SunRiseSetResponse" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message Id="SunRise" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message Id="SunRise" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Name="TypeShouldBeDiscreteTerm" Certainty="80" Level="Error">The compound word 'SunRise' in type name 'SunRiseSetResponse' exists as a discrete term. If your usage is intended to be single word, case it as 'Sunrise'.</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#SolarNoon" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
              <Issue Certainty="90" Level="Error">Because field 'SunRiseSetResponse.SolarNoon' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Status" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
              <Issue Certainty="90" Level="Error">Because field 'SunRiseSetResponse.Status' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#SunRise" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="SunRise" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+            <Message Id="SunRise" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
              <Issue Name="MemberShouldBeDiscreteTerm" Certainty="80" Level="Error">The compound word 'SunRise' in member name 'SunRiseSetResponse.SunRise' exists as a discrete term. If your usage is intended to be single word, case it as 'Sunrise' or strip the first token entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
-            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
              <Issue Certainty="90" Level="Error">Because field 'SunRiseSetResponse.SunRise' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#SunSet" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="SunSet" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+            <Message Id="SunSet" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
              <Issue Name="MemberShouldBeDiscreteTerm" Certainty="80" Level="Error">The compound word 'SunSet' in member name 'SunRiseSetResponse.SunSet' exists as a discrete term. If your usage is intended to be single word, case it as 'Sunset' or strip the first token entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
-            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
              <Issue Certainty="90" Level="Error">Because field 'SunRiseSetResponse.SunSet' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Issue>
             </Message>
            </Messages>
@@ -128,24 +128,24 @@
          <Members>
           <Member Name="#ForcastDescription" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
              <Issue Certainty="90" Level="Error">Because field 'WeatherResponse.ForcastDescription' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Issue>
             </Message>
-            <Message Id="Forcast" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+            <Message Id="Forcast" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
              <Issue Name="Member" Certainty="75" Level="CriticalWarning">Correct the spelling of 'Forcast' in member name 'WeatherResponse.ForcastDescription' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Temp" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
              <Issue Certainty="90" Level="Error">Because field 'WeatherResponse.Temp' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#WType" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+            <Message TypeName="DoNotDeclareVisibleInstanceFields" Category="Microsoft.Design" CheckId="CA1051" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
              <Issue Certainty="90" Level="Error">Because field 'WeatherResponse.WType' is visible outside of its declaring type, change its accessibility to private and add a property, with the same accessibility as the field has currently, to provide access to it.</Issue>
             </Message>
            </Messages>
@@ -160,17 +160,17 @@
          <Members>
           <Member Name="#AbsouluteException(System.Exception)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="NonBreaking">
+            <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
              <Issue Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="ErrorHandler.cs" Line="15">'ErrorHandler.AbsouluteException(Exception)' appears to have no upstream public or protected callers.</Issue>
             </Message>
-            <Message Id="sEvent" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="NonBreaking">
+            <Message Id="sEvent" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
              <Issue Certainty="95" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="ErrorHandler.cs" Line="22">'ErrorHandler.AbsouluteException(Exception)' declares a variable, 'sEvent', of type 'string', which is never used or is only assigned to. Use this variable or remove it.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#LogException(System.Exception)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="False">
            <Messages>
-            <Message Id="sEvent" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="NonBreaking">
+            <Message Id="sEvent" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
              <Issue Certainty="95" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="ErrorHandler.cs" Line="41">'ErrorHandler.LogException(Exception)' declares a variable, 'sEvent', of type 'string', which is never used or is only assigned to. Use this variable or remove it.</Issue>
             </Message>
            </Messages>
@@ -181,109 +181,106 @@
          <Members>
           <Member Name="#BetweenTimespans(System.TimeSpan,System.TimeSpan,System.TimeSpan)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="Highervalue" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="259">In member 'SharedObjects.BetweenTimespans(TimeSpan, TimeSpan, TimeSpan)', correct the casing of 'Highervalue' in parameter name 'Highervalue' by changing it to 'highervalue'.</Issue>
+            <Message Id="Highervalue" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="238">In member 'SharedObjects.BetweenTimespans(TimeSpan, TimeSpan, TimeSpan)', correct the casing of 'Highervalue' in parameter name 'Highervalue' by changing it to 'highervalue'.</Issue>
             </Message>
-            <Message Id="Lower" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="259">In member 'SharedObjects.BetweenTimespans(TimeSpan, TimeSpan, TimeSpan)', correct the casing of 'Lower' in parameter name 'LowerValue' by changing it to 'lower'.</Issue>
+            <Message Id="Lower" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="238">In member 'SharedObjects.BetweenTimespans(TimeSpan, TimeSpan, TimeSpan)', correct the casing of 'Lower' in parameter name 'LowerValue' by changing it to 'lower'.</Issue>
             </Message>
-            <Message Id="Highervalue" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="259">In method 'SharedObjects.BetweenTimespans(TimeSpan, TimeSpan, TimeSpan)', correct the spelling of 'Highervalue' in parameter name 'Highervalue' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
+            <Message Id="Highervalue" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="238">In method 'SharedObjects.BetweenTimespans(TimeSpan, TimeSpan, TimeSpan)', correct the spelling of 'Highervalue' in parameter name 'Highervalue' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#CompileDebug(System.Collections.Generic.Dictionary`2&lt;System.String,System.String&gt;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="Items" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="262">In member 'SharedObjects.CompileDebug(Dictionary&lt;string, string&gt;)', correct the casing of 'Items' in parameter name 'ItemsTodisplay' by changing it to 'items'.</Issue>
+            <Message Id="Items" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="241">In member 'SharedObjects.CompileDebug(Dictionary&lt;string, string&gt;)', correct the casing of 'Items' in parameter name 'ItemsTodisplay' by changing it to 'items'.</Issue>
             </Message>
-            <Message Id="Todisplay" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="262">In method 'SharedObjects.CompileDebug(Dictionary&lt;string, string&gt;)', correct the spelling of 'Todisplay' in parameter name 'ItemsTodisplay' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
+            <Message Id="Todisplay" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="241">In method 'SharedObjects.CompileDebug(Dictionary&lt;string, string&gt;)', correct the spelling of 'Todisplay' in parameter name 'ItemsTodisplay' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
-            <Message Id="0" TypeName="Validate arguments of public methods" Category="Microsoft.Design" CheckId="CA1062" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="DependsOnFix">
-             <Issue Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="265">In externally visible method 'SharedObjects.CompileDebug(Dictionary&lt;string, string&gt;)', validate parameter 'ItemsTodisplay' before using it.</Issue>
+            <Message Id="0" TypeName="Validate arguments of public methods" Category="Microsoft.Design" CheckId="CA1062" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="244">In externally visible method 'SharedObjects.CompileDebug(Dictionary&lt;string, string&gt;)', validate parameter 'ItemsTodisplay' before using it.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#CompressedCallSite(System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="Url" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="237">In member 'SharedObjects.CompressedCallSite(string)', correct the casing of 'Url' in parameter name 'Url' by changing it to 'url'.</Issue>
+            <Message Id="Url" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="230">In member 'SharedObjects.CompressedCallSite(string)', correct the casing of 'Url' in parameter name 'Url' by changing it to 'url'.</Issue>
             </Message>
-            <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Certainty="60" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="237">Change the type of parameter 'Url' of method 'SharedObjects.CompressedCallSite(string)' from string to System.Uri, or provide an overload of 'SharedObjects.CompressedCallSite(string)', that allows 'Url' to be passed as a System.Uri object.</Issue>
+            <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Certainty="60" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="230">Change the type of parameter 'Url' of method 'SharedObjects.CompressedCallSite(string)' from string to System.Uri, or provide an overload of 'SharedObjects.CompressedCallSite(string)', that allows 'Url' to be passed as a System.Uri object.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#CompressedCallSite(System.String,System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="Url" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="242">In member 'SharedObjects.CompressedCallSite(string, string)', correct the casing of 'Url' in parameter name 'Url' by changing it to 'url'.</Issue>
+            <Message Id="Url" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="232">In member 'SharedObjects.CompressedCallSite(string, string)', correct the casing of 'Url' in parameter name 'Url' by changing it to 'url'.</Issue>
             </Message>
-            <Message Id="User" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="242">In member 'SharedObjects.CompressedCallSite(string, string)', correct the casing of 'User' in parameter name 'UserAgent' by changing it to 'user'.</Issue>
+            <Message Id="User" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="232">In member 'SharedObjects.CompressedCallSite(string, string)', correct the casing of 'User' in parameter name 'UserAgent' by changing it to 'user'.</Issue>
             </Message>
-            <Message TypeName="PassSystemUriObjectsInsteadOfStrings" Category="Microsoft.Usage" CheckId="CA2234" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="NonBreaking">
-             <Issue Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="242">Modify 'SharedObjects.CompressedCallSite(string, string)' to call 'WebRequest.Create(Uri)' instead of 'WebRequest.Create(string)'.</Issue>
-            </Message>
-            <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Certainty="60" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="242">Change the type of parameter 'Url' of method 'SharedObjects.CompressedCallSite(string, string)' from string to System.Uri, or provide an overload of 'SharedObjects.CompressedCallSite(string, string)', that allows 'Url' to be passed as a System.Uri object.</Issue>
+            <Message Id="0#" TypeName="UriParametersShouldNotBeStrings" Category="Microsoft.Design" CheckId="CA1054" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Certainty="60" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="232">Change the type of parameter 'Url' of method 'SharedObjects.CompressedCallSite(string, string)' from string to System.Uri, or provide an overload of 'SharedObjects.CompressedCallSite(string, string)', that allows 'Url' to be passed as a System.Uri object.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#ConvertBitarrayToInt(System.Collections.BitArray)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="Array" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="279">In member 'SharedObjects.ConvertBitarrayToInt(BitArray)', correct the casing of 'Array' in parameter name 'Array' by changing it to 'array'.</Issue>
+            <Message Id="Array" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="258">In member 'SharedObjects.ConvertBitarrayToInt(BitArray)', correct the casing of 'Array' in parameter name 'Array' by changing it to 'array'.</Issue>
             </Message>
-            <Message Id="Bitarray" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="Member" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="279">Correct the spelling of 'Bitarray' in member name 'SharedObjects.ConvertBitarrayToInt(BitArray)' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
+            <Message Id="Bitarray" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="Member" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="258">Correct the spelling of 'Bitarray' in member name 'SharedObjects.ConvertBitarrayToInt(BitArray)' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
-            <Message Id="int" TypeName="IdentifiersShouldNotContainTypeNames" Category="Microsoft.Naming" CheckId="CA1720" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="LanguageSpecificMember" Certainty="75" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="279">Consider replacing the language-specific data type identifier 'Int' in member name 'SharedObjects.ConvertBitarrayToInt(BitArray)' with either a language-independent equivalent or a more generic term, such as 'value'.</Issue>
+            <Message Id="int" TypeName="IdentifiersShouldNotContainTypeNames" Category="Microsoft.Naming" CheckId="CA1720" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="LanguageSpecificMember" Certainty="75" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="258">Consider replacing the language-specific data type identifier 'Int' in member name 'SharedObjects.ConvertBitarrayToInt(BitArray)' with either a language-independent equivalent or a more generic term, such as 'value'.</Issue>
             </Message>
-            <Message Id="0" TypeName="Validate arguments of public methods" Category="Microsoft.Design" CheckId="CA1062" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="DependsOnFix">
-             <Issue Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="281">In externally visible method 'SharedObjects.ConvertBitarrayToInt(BitArray)', validate parameter 'Array' before using it.</Issue>
+            <Message Id="0" TypeName="Validate arguments of public methods" Category="Microsoft.Design" CheckId="CA1062" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="260">In externally visible method 'SharedObjects.ConvertBitarrayToInt(BitArray)', validate parameter 'Array' before using it.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#ConverTIntToBitArray(System.Int32)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="TInt" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberShouldBeDiscreteTerm" Certainty="80" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="286">The compound word 'TInt' in member name 'SharedObjects.ConverTIntToBitArray(int)' exists as a discrete term. If your usage is intended to be single word, case it as 'Tint' or strip the first token entirely if it represents any sort of Hungarian notation.</Issue>
+            <Message Id="TInt" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberShouldBeDiscreteTerm" Certainty="80" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="264">The compound word 'TInt' in member name 'SharedObjects.ConverTIntToBitArray(int)' exists as a discrete term. If your usage is intended to be single word, case it as 'Tint' or strip the first token entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
-            <Message Id="Conver" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="Member" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="286">Correct the spelling of 'Conver' in member name 'SharedObjects.ConverTIntToBitArray(int)' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
+            <Message Id="Conver" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="Member" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="264">Correct the spelling of 'Conver' in member name 'SharedObjects.ConverTIntToBitArray(int)' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#InputBox(System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="Prompt" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="17">In member 'SharedObjects.InputBox(string)', correct the casing of 'Prompt' in parameter name 'Prompt' by changing it to 'prompt'.</Issue>
+            <Message Id="Prompt" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="19">In member 'SharedObjects.InputBox(string)', correct the casing of 'Prompt' in parameter name 'Prompt' by changing it to 'prompt'.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#InputBox(System.String,System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="Prompt" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="18">In member 'SharedObjects.InputBox(string, string)', correct the casing of 'Prompt' in parameter name 'Prompt' by changing it to 'prompt'.</Issue>
+            <Message Id="Prompt" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="20">In member 'SharedObjects.InputBox(string, string)', correct the casing of 'Prompt' in parameter name 'Prompt' by changing it to 'prompt'.</Issue>
             </Message>
-            <Message Id="Title" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="18">In member 'SharedObjects.InputBox(string, string)', correct the casing of 'Title' in parameter name 'Title' by changing it to 'title'.</Issue>
+            <Message Id="Title" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="20">In member 'SharedObjects.InputBox(string, string)', correct the casing of 'Title' in parameter name 'Title' by changing it to 'title'.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#InputBox(System.String,System.String,System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="Default" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="19">In member 'SharedObjects.InputBox(string, string, string)', correct the casing of 'Default' in parameter name 'DefaultResponse' by changing it to 'default'.</Issue>
+            <Message Id="Default" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="21">In member 'SharedObjects.InputBox(string, string, string)', correct the casing of 'Default' in parameter name 'DefaultResponse' by changing it to 'default'.</Issue>
             </Message>
-            <Message Id="Prompt" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="19">In member 'SharedObjects.InputBox(string, string, string)', correct the casing of 'Prompt' in parameter name 'Prompt' by changing it to 'prompt'.</Issue>
+            <Message Id="Prompt" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="21">In member 'SharedObjects.InputBox(string, string, string)', correct the casing of 'Prompt' in parameter name 'Prompt' by changing it to 'prompt'.</Issue>
             </Message>
-            <Message Id="Title" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="19">In member 'SharedObjects.InputBox(string, string, string)', correct the casing of 'Title' in parameter name 'Title' by changing it to 'title'.</Issue>
+            <Message Id="Title" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="85" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="21">In member 'SharedObjects.InputBox(string, string, string)', correct the casing of 'Title' in parameter name 'Title' by changing it to 'title'.</Issue>
             </Message>
            </Messages>
           </Member>
@@ -291,49 +288,49 @@
         </Type>
         <Type Name="SharedObjects+AppSettings" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Certainty="90" Level="Error">Do not nest type 'SharedObjects.AppSettings'. Alternatively, change its accessibility so that it is not externally visible.</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#AddUpdateAppSettings(System.String,System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="System.Windows.Forms.MessageBox.Show(System.String,System.String,System.Windows.Forms.MessageBoxButtons,System.Windows.Forms.MessageBoxIcon)" TypeName="Do not pass literals as localized parameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="DependsOnFix">
-             <Issue Name="KnownValue" Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="98">Method 'SharedObjects.AppSettings.AddUpdateAppSettings(string, string)' passes a literal string as parameter 'caption' of a call to 'MessageBox.Show(string, string, MessageBoxButtons, MessageBoxIcon)'. Retrieve the following string(s) from a resource table instead: "Error Editing Config".</Issue>
-             <Issue Name="KnownValue" Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="98">Method 'SharedObjects.AppSettings.AddUpdateAppSettings(string, string)' passes a literal string as parameter 'text' of a call to 'MessageBox.Show(string, string, MessageBoxButtons, MessageBoxIcon)'. Retrieve the following string(s) from a resource table instead: "Error writing app settings".</Issue>
+            <Message Id="System.Windows.Forms.MessageBox.Show(System.String,System.String,System.Windows.Forms.MessageBoxButtons,System.Windows.Forms.MessageBoxIcon)" TypeName="Do not pass literals as localized parameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="DependsOnFix">
+             <Issue Name="KnownValue" Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="100">Method 'SharedObjects.AppSettings.AddUpdateAppSettings(string, string)' passes a literal string as parameter 'caption' of a call to 'MessageBox.Show(string, string, MessageBoxButtons, MessageBoxIcon)'. Retrieve the following string(s) from a resource table instead: "Error Editing Config".</Issue>
+             <Issue Name="KnownValue" Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="100">Method 'SharedObjects.AppSettings.AddUpdateAppSettings(string, string)' passes a literal string as parameter 'text' of a call to 'MessageBox.Show(string, string, MessageBoxButtons, MessageBoxIcon)'. Retrieve the following string(s) from a resource table instead: "Error writing app settings".</Issue>
             </Message>
-            <Message TypeName="SpecifyMessageBoxOptions" Category="Microsoft.Globalization" CheckId="CA1300" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="98">Change 'SharedObjects.AppSettings.AddUpdateAppSettings(string, string)' to call the MessageBox.Show overload that specifies MessageBoxOptions, and make sure to set MessageBoxOptions.RightAlign and MessageBoxOptions.RtlReading if RightToLeft is set to RightToLeft.Yes on the parent control.</Issue>
+            <Message TypeName="SpecifyMessageBoxOptions" Category="Microsoft.Globalization" CheckId="CA1300" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="100">Change 'SharedObjects.AppSettings.AddUpdateAppSettings(string, string)' to call the MessageBox.Show overload that specifies MessageBoxOptions, and make sure to set MessageBoxOptions.RightAlign and MessageBoxOptions.RtlReading if RightToLeft is set to RightToLeft.Yes on the parent control.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#AddupdateAppSettingsEncrypted(System.String,System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="System.Windows.Forms.MessageBox.Show(System.String,System.String)" TypeName="Do not pass literals as localized parameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="DependsOnFix">
-             <Issue Name="KnownValue" Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="139">Method 'SharedObjects.AppSettings.AddupdateAppSettingsEncrypted(string, string)' passes a literal string as parameter 'caption' of a call to 'MessageBox.Show(string, string)'. Retrieve the following string(s) from a resource table instead: "error writing to Config file".</Issue>
+            <Message Id="System.Windows.Forms.MessageBox.Show(System.String,System.String)" TypeName="Do not pass literals as localized parameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="DependsOnFix">
+             <Issue Name="KnownValue" Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="141">Method 'SharedObjects.AppSettings.AddupdateAppSettingsEncrypted(string, string)' passes a literal string as parameter 'caption' of a call to 'MessageBox.Show(string, string)'. Retrieve the following string(s) from a resource table instead: "error writing to Config file".</Issue>
             </Message>
-            <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="CriticalError" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="138">Modify 'SharedObjects.AppSettings.AddupdateAppSettingsEncrypted(string, string)' to catch a more specific exception than 'Exception' or rethrow the exception.</Issue>
+            <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalError" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="140">Modify 'SharedObjects.AppSettings.AddupdateAppSettingsEncrypted(string, string)' to catch a more specific exception than 'Exception' or rethrow the exception.</Issue>
             </Message>
-            <Message Id="Addupdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="Member" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="131">Correct the spelling of 'Addupdate' in member name 'SharedObjects.AppSettings.AddupdateAppSettingsEncrypted(string, string)' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
+            <Message Id="Addupdate" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="Member" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="133">Correct the spelling of 'Addupdate' in member name 'SharedObjects.AppSettings.AddupdateAppSettingsEncrypted(string, string)' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
-            <Message TypeName="SpecifyMessageBoxOptions" Category="Microsoft.Globalization" CheckId="CA1300" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="139">Change 'SharedObjects.AppSettings.AddupdateAppSettingsEncrypted(string, string)' to call the MessageBox.Show overload that specifies MessageBoxOptions, and make sure to set MessageBoxOptions.RightAlign and MessageBoxOptions.RtlReading if RightToLeft is set to RightToLeft.Yes on the parent control.</Issue>
+            <Message TypeName="SpecifyMessageBoxOptions" Category="Microsoft.Globalization" CheckId="CA1300" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="141">Change 'SharedObjects.AppSettings.AddupdateAppSettingsEncrypted(string, string)' to call the MessageBox.Show overload that specifies MessageBoxOptions, and make sure to set MessageBoxOptions.RightAlign and MessageBoxOptions.RtlReading if RightToLeft is set to RightToLeft.Yes on the parent control.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#ReadSetting(System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="SpecifyMessageBoxOptions" Category="Microsoft.Globalization" CheckId="CA1300" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="122">Change 'SharedObjects.AppSettings.ReadSetting(string)' to call the MessageBox.Show overload that specifies MessageBoxOptions, and make sure to set MessageBoxOptions.RightAlign and MessageBoxOptions.RtlReading if RightToLeft is set to RightToLeft.Yes on the parent control.</Issue>
+            <Message TypeName="SpecifyMessageBoxOptions" Category="Microsoft.Globalization" CheckId="CA1300" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="124">Change 'SharedObjects.AppSettings.ReadSetting(string)' to call the MessageBox.Show overload that specifies MessageBoxOptions, and make sure to set MessageBoxOptions.RightAlign and MessageBoxOptions.RtlReading if RightToLeft is set to RightToLeft.Yes on the parent control.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#ReadSettingEncrypted(System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="CriticalError" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="153">Modify 'SharedObjects.AppSettings.ReadSettingEncrypted(string)' to catch a more specific exception than 'object' or rethrow the exception.</Issue>
+            <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalError" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="155">Modify 'SharedObjects.AppSettings.ReadSettingEncrypted(string)' to catch a more specific exception than 'object' or rethrow the exception.</Issue>
             </Message>
            </Messages>
           </Member>
@@ -341,25 +338,25 @@
         </Type>
         <Type Name="SharedObjects+Cache" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Certainty="90" Level="Error">Do not nest type 'SharedObjects.Cache'. Alternatively, change its accessibility so that it is not externally visible.</Issue>
           </Message>
-          <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Name="System" Certainty="95" Level="Error">The type name 'SharedObjects.Cache' conflicts in whole or in part with the namespace name 'System.Net.Cache' defined in the .NET Framework. Rename the type to eliminate the conflict.</Issue>
           </Message>
          </Messages>
          <Members>
-          <Member Name="#Set(System.String,System.Object)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+          <Member Name="#SetValue`1(System.String,!!0)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="o" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameterMoreMeaningfulName" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="198">In method 'SharedObjects.Cache.Set(string, object)', consider providing a more meaningful name than parameter name 'o'.</Issue>
+            <Message Id="o" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameterMoreMeaningfulName" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="178">In method 'SharedObjects.Cache.SetValue&lt;T&gt;(string, T)', consider providing a more meaningful name than parameter name 'o'.</Issue>
             </Message>
            </Messages>
           </Member>
-          <Member Name="#Set(System.String,System.Object,System.Int32)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+          <Member Name="#SetValue`1(System.String,!!0,System.Int32)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="o" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameterMoreMeaningfulName" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="193">In method 'SharedObjects.Cache.Set(string, object, int)', consider providing a more meaningful name than parameter name 'o'.</Issue>
+            <Message Id="o" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameterMoreMeaningfulName" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="176">In method 'SharedObjects.Cache.SetValue&lt;T&gt;(string, T, int)', consider providing a more meaningful name than parameter name 'o'.</Issue>
             </Message>
            </Messages>
           </Member>
@@ -367,28 +364,28 @@
         </Type>
         <Type Name="SharedObjects+LatLong" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message Id="Lat" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message Id="Lat" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Name="Type" Certainty="75" Level="CriticalWarning">Correct the spelling of 'Lat' in type name 'SharedObjects.LatLong'.</Issue>
           </Message>
-          <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Certainty="90" Level="Error">Do not nest type 'SharedObjects.LatLong'. Alternatively, change its accessibility so that it is not externally visible.</Issue>
           </Message>
-          <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message TypeName="StaticHolderTypesShouldNotHaveConstructors" Category="Microsoft.Design" CheckId="CA1053" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Name="CSharp2_0" Certainty="90" Level="Error">Because type 'SharedObjects.LatLong' contains only 'static' members, mark it as 'static' to prevent the compiler from adding a default public constructor.</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#Lat" Kind="Property" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="Lat" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="Member" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="211">Correct the spelling of 'Lat' in member name 'SharedObjects.LatLong.Lat' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
+            <Message Id="Lat" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="Member" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="205">Correct the spelling of 'Lat' in member name 'SharedObjects.LatLong.Lat' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
            </Messages>
            <Accessors>
             <Accessor Name="#get_Lat()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
              <Messages>
-              <Message Id="System.Double.Parse(System.String)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="NonBreaking">
-               <Issue Name="IFormatProviderAlternate" Certainty="95" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="213">Because the behavior of 'double.Parse(string)' could vary based on the current user's locale settings, replace this call in 'SharedObjects.LatLong.Lat.get()' with a call to 'double.Parse(string, IFormatProvider)'. If the result of 'double.Parse(string, IFormatProvider)' will be based on input from the user, specify 'CultureInfo.CurrentCulture' as the 'IFormatProvider' parameter. Otherwise, if the result will based on input stored and accessed by software, such as when it is loaded from disk or from a database, specify 'CultureInfo.InvariantCulture'.</Issue>
+              <Message Id="System.Double.Parse(System.String)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
+               <Issue Name="IFormatProviderAlternate" Certainty="95" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="207">Because the behavior of 'double.Parse(string)' could vary based on the current user's locale settings, replace this call in 'SharedObjects.LatLong.Lat.get()' with a call to 'double.Parse(string, IFormatProvider)'. If the result of 'double.Parse(string, IFormatProvider)' will be based on input from the user, specify 'CultureInfo.CurrentCulture' as the 'IFormatProvider' parameter. Otherwise, if the result will based on input stored and accessed by software, such as when it is loaded from disk or from a database, specify 'CultureInfo.InvariantCulture'.</Issue>
               </Message>
              </Messages>
             </Accessor>
@@ -396,15 +393,15 @@
           </Member>
           <Member Name="#Lng" Kind="Property" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="Lng" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="Member" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="220">Correct the spelling of 'Lng' in member name 'SharedObjects.LatLong.Lng' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
+            <Message Id="Lng" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="Member" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="214">Correct the spelling of 'Lng' in member name 'SharedObjects.LatLong.Lng' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
            </Messages>
            <Accessors>
             <Accessor Name="#get_Lng()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
              <Messages>
-              <Message Id="System.Double.Parse(System.String)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="NonBreaking">
-               <Issue Name="IFormatProviderAlternate" Certainty="95" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="222">Because the behavior of 'double.Parse(string)' could vary based on the current user's locale settings, replace this call in 'SharedObjects.LatLong.Lng.get()' with a call to 'double.Parse(string, IFormatProvider)'. If the result of 'double.Parse(string, IFormatProvider)' will be based on input from the user, specify 'CultureInfo.CurrentCulture' as the 'IFormatProvider' parameter. Otherwise, if the result will based on input stored and accessed by software, such as when it is loaded from disk or from a database, specify 'CultureInfo.InvariantCulture'.</Issue>
+              <Message Id="System.Double.Parse(System.String)" TypeName="SpecifyIFormatProvider" Category="Microsoft.Globalization" CheckId="CA1305" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
+               <Issue Name="IFormatProviderAlternate" Certainty="95" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="216">Because the behavior of 'double.Parse(string)' could vary based on the current user's locale settings, replace this call in 'SharedObjects.LatLong.Lng.get()' with a call to 'double.Parse(string, IFormatProvider)'. If the result of 'double.Parse(string, IFormatProvider)' will be based on input from the user, specify 'CultureInfo.CurrentCulture' as the 'IFormatProvider' parameter. Otherwise, if the result will based on input stored and accessed by software, such as when it is loaded from disk or from a database, specify 'CultureInfo.InvariantCulture'.</Issue>
               </Message>
              </Messages>
             </Accessor>
@@ -412,15 +409,15 @@
           </Member>
           <Member Name="#Set(System.Double,System.Double)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="Lat" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="229">In method 'SharedObjects.LatLong.Set(double, double)', correct the spelling of 'Lat' in parameter name 'dLat' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
+            <Message Id="Lat" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="223">In method 'SharedObjects.LatLong.Set(double, double)', correct the spelling of 'Lat' in parameter name 'dLat' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
-            <Message Id="Lng" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="229">In method 'SharedObjects.LatLong.Set(double, double)', correct the spelling of 'Lng' in parameter name 'dLng' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
+            <Message Id="Lng" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="223">In method 'SharedObjects.LatLong.Set(double, double)', correct the spelling of 'Lng' in parameter name 'dLng' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
-            <Message Id="d" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="MemberParameter" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="229">In method 'SharedObjects.LatLong.Set(double, double)', correct the spelling of 'd' in parameter name 'dLat' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
-             <Issue Name="MemberParameter" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="229">In method 'SharedObjects.LatLong.Set(double, double)', correct the spelling of 'd' in parameter name 'dLng' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
+            <Message Id="d" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="MemberParameter" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="223">In method 'SharedObjects.LatLong.Set(double, double)', correct the spelling of 'd' in parameter name 'dLat' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
+             <Issue Name="MemberParameter" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="223">In method 'SharedObjects.LatLong.Set(double, double)', correct the spelling of 'd' in parameter name 'dLng' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
            </Messages>
           </Member>
@@ -428,14 +425,14 @@
         </Type>
         <Type Name="SharedObjects+WeatherTypes" Kind="Enum" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="OnlyFlagsEnumsShouldHavePluralNames" Category="Microsoft.Naming" CheckId="CA1717" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message TypeName="OnlyFlagsEnumsShouldHavePluralNames" Category="Microsoft.Naming" CheckId="CA1717" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Certainty="75" Level="Error">If the name 'SharedObjects.WeatherTypes' is plural, change it to its singular form.</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#ThunderStorm" Kind="Field" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="ThunderStorm" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+            <Message Id="ThunderStorm" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
              <Issue Name="MemberShouldBeDiscreteTerm" Certainty="80" Level="Error">The compound word 'ThunderStorm' in member name 'SharedObjects.WeatherTypes.ThunderStorm' exists as a discrete term. If your usage is intended to be single word, case it as 'Thunderstorm' or strip the first token entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
            </Messages>
@@ -444,29 +441,29 @@
         </Type>
         <Type Name="SharedObjects+ZipObjects" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
+          <Message TypeName="NestedTypesShouldNotBeVisible" Category="Microsoft.Design" CheckId="CA1034" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
            <Issue Certainty="90" Level="Error">Do not nest type 'SharedObjects.ZipObjects'. Alternatively, change its accessibility so that it is not externally visible.</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#GetZip()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="System.Windows.Forms.MessageBox.Show(System.String,System.String,System.Windows.Forms.MessageBoxButtons,System.Windows.Forms.MessageBoxIcon)" TypeName="Do not pass literals as localized parameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="DependsOnFix">
-             <Issue Name="KnownValue" Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="50">Method 'SharedObjects.ZipObjects.GetZip()' passes a literal string as parameter 'caption' of a call to 'MessageBox.Show(string, string, MessageBoxButtons, MessageBoxIcon)'. Retrieve the following string(s) from a resource table instead: "error".</Issue>
-             <Issue Name="KnownValue" Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="50">Method 'SharedObjects.ZipObjects.GetZip()' passes a literal string as parameter 'text' of a call to 'MessageBox.Show(string, string, MessageBoxButtons, MessageBoxIcon)'. Retrieve the following string(s) from a resource table instead: "Application needs your zip code. try again, or close".</Issue>
+            <Message Id="System.Windows.Forms.MessageBox.Show(System.String,System.String,System.Windows.Forms.MessageBoxButtons,System.Windows.Forms.MessageBoxIcon)" TypeName="Do not pass literals as localized parameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="DependsOnFix">
+             <Issue Name="KnownValue" Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="52">Method 'SharedObjects.ZipObjects.GetZip()' passes a literal string as parameter 'caption' of a call to 'MessageBox.Show(string, string, MessageBoxButtons, MessageBoxIcon)'. Retrieve the following string(s) from a resource table instead: "error".</Issue>
+             <Issue Name="KnownValue" Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="52">Method 'SharedObjects.ZipObjects.GetZip()' passes a literal string as parameter 'text' of a call to 'MessageBox.Show(string, string, MessageBoxButtons, MessageBoxIcon)'. Retrieve the following string(s) from a resource table instead: "Application needs your zip code. try again, or close".</Issue>
             </Message>
-            <Message TypeName="SpecifyMessageBoxOptions" Category="Microsoft.Globalization" CheckId="CA1300" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="50">Change 'SharedObjects.ZipObjects.GetZip()' to call the MessageBox.Show overload that specifies MessageBoxOptions, and make sure to set MessageBoxOptions.RightAlign and MessageBoxOptions.RtlReading if RightToLeft is set to RightToLeft.Yes on the parent control.</Issue>
+            <Message TypeName="SpecifyMessageBoxOptions" Category="Microsoft.Globalization" CheckId="CA1300" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="Error" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="52">Change 'SharedObjects.ZipObjects.GetZip()' to call the MessageBox.Show overload that specifies MessageBoxOptions, and make sure to set MessageBoxOptions.RightAlign and MessageBoxOptions.RtlReading if RightToLeft is set to RightToLeft.Yes on the parent control.</Issue>
             </Message>
-            <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="40">Change 'SharedObjects.ZipObjects.GetZip()' to a property if appropriate.</Issue>
+            <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Certainty="50" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="42">Change 'SharedObjects.ZipObjects.GetZip()' to a property if appropriate.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Rawzip" Kind="Property" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message Id="Rawzip" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="Breaking">
-             <Issue Name="Member" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="64">Correct the spelling of 'Rawzip' in member name 'SharedObjects.ZipObjects.Rawzip' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
+            <Message Id="Rawzip" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="Breaking">
+             <Issue Name="Member" Certainty="75" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="66">Correct the spelling of 'Rawzip' in member name 'SharedObjects.ZipObjects.Rawzip' or remove it entirely if it represents any sort of Hungarian notation.</Issue>
             </Message>
            </Messages>
           </Member>
@@ -474,12 +471,56 @@
            <Accessors>
             <Accessor Name="#get_ZipMenuItem()" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
              <Messages>
-              <Message Id="System.Windows.Forms.MenuItem.#ctor(System.String,System.EventHandler)" TypeName="Do not pass literals as localized parameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Active" Created="2022-06-12 00:26:55Z" FixCategory="DependsOnFix">
-               <Issue Name="KnownValue" Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="27">Method 'SharedObjects.ZipObjects.ZipMenuItem.get()' passes a literal string as parameter 'text' of a call to 'MenuItem.MenuItem(string, EventHandler)'. Retrieve the following string(s) from a resource table instead: "Change Zip Code".</Issue>
+              <Message Id="System.Windows.Forms.MenuItem.#ctor(System.String,System.EventHandler)" TypeName="Do not pass literals as localized parameters" Category="Microsoft.Globalization" CheckId="CA1303" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="DependsOnFix">
+               <Issue Name="KnownValue" Certainty="75" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared" File="SharedObjects.cs" Line="29">Method 'SharedObjects.ZipObjects.ZipMenuItem.get()' passes a literal string as parameter 'text' of a call to 'MenuItem.MenuItem(string, EventHandler)'. Retrieve the following string(s) from a resource table instead: "Change Zip Code".</Issue>
               </Message>
              </Messages>
             </Accessor>
            </Accessors>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="WeatherDesktop.Shared">
+       <Types>
+        <Type Name="AppSetrtings" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
+         <Messages>
+          <Message TypeName="AvoidUninstantiatedInternalClasses" Category="Microsoft.Performance" CheckId="CA1812" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
+           <Issue Certainty="75" Level="Warning">'AppSetrtings' is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.</Issue>
+          </Message>
+         </Messages>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="WeatherDesktop.Shared.Internal">
+       <Types>
+        <Type Name="MemCache" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
+         <Members>
+          <Member Name="#.cctor()" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="InitializeReferenceTypeStaticFieldsInline" Category="Microsoft.Performance" CheckId="CA1810" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
+             <Issue Certainty="90" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared\Internal" File="MemCache.cs" Line="9">Initialize all static fields in 'MemCache' when those fields are declared and remove the explicit static constructor.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="WebHandler" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
+         <Members>
+          <Member Name="#.cctor()" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="InitializeReferenceTypeStaticFieldsInline" Category="Microsoft.Performance" CheckId="CA1810" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
+             <Issue Certainty="90" Level="CriticalWarning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared\Internal" File="WebHandler.cs" Line="9">Initialize all static fields in 'WebHandler' when those fields are declared and remove the explicit static constructor.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#CallSite(System.String,System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Status="Active" Created="2022-06-23 01:49:13Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="Warning" Path="C:\Users\liuko\projects\git\WeatherWallpaper\WeatherDesktop.Shared\Shared\Internal" File="WebHandler.cs" Line="21">The 'this' parameter (or 'Me' in Visual Basic) of 'WebHandler.CallSite(string, string)' is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Issue>
+            </Message>
+           </Messages>
           </Member>
          </Members>
         </Type>
@@ -527,6 +568,16 @@
    <Resolution Name="Default">{0} appears to have no upstream public or protected callers.</Resolution>
    <Owner />
    <Url>http://msdn.microsoft.com/library/ms182264.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="performancerules.dll" Version="17.0.0.0" />
+  </Rule>
+  <Rule TypeName="AvoidUninstantiatedInternalClasses" Category="Microsoft.Performance" CheckId="CA1812">
+   <Name>Avoid uninstantiated internal classes</Name>
+   <Description>An internal class was detected that is apparently never instantiated. This rule does not attempt to detect late-bound creation and will generate false positives if instances of a type are only created in this way (for example, by means of Activator.CreateInstance or by passing the type as an argument to a TypeConverter constructor).</Description>
+   <Resolution Name="Default">{0} is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static methods, consider adding a private constructor to prevent the compiler from generating a default constructor.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182265.aspx</Url>
    <Email>[none]</Email>
    <MessageLevel Certainty="75">Warning</MessageLevel>
    <File Name="performancerules.dll" Version="17.0.0.0" />
@@ -626,12 +677,32 @@
    <MessageLevel Certainty="95">Error</MessageLevel>
    <File Name="namingrules.dll" Version="17.0.0.0" />
   </Rule>
+  <Rule TypeName="InitializeReferenceTypeStaticFieldsInline" Category="Microsoft.Performance" CheckId="CA1810">
+   <Name>Initialize reference type static fields inline</Name>
+   <Description>Static fields should be initialized when declared. Initializing static data in explicit static constructors results in less performant code.</Description>
+   <Resolution Name="Default">Initialize all static fields in {0} when those fields are declared and remove the explicit static constructor.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182275.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="90">CriticalWarning</MessageLevel>
+   <File Name="performancerules.dll" Version="17.0.0.0" />
+  </Rule>
   <Rule TypeName="MarkAssembliesWithNeutralResourcesLanguage" Category="Microsoft.Performance" CheckId="CA1824">
    <Name>Mark assemblies with NeutralResourcesLanguageAttribute</Name>
    <Description>The NeutralResourcesLanguage attribute informs the ResourceManager of the language used to render the neutral culture's resources for an assembly. When looking up resources in the same culture as the neutral resources language, the ResourceManager automatically uses the resources located in the main assembly, instead of searching for a satellite assembly with the current user interface culture for the current thread. This will improve lookup performance for the first resource you load and can reduce your working set.</Description>
    <Resolution Name="Default">Because assembly {0} contains a ResX-based resource file, mark it with the NeutralResourcesLanguage attribute, specifying the language of the resources within the assembly. This could improve lookup performance the first time a resource is retrieved.</Resolution>
    <Owner />
    <Url>http://msdn.microsoft.com/library/bb385967.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="95">Warning</MessageLevel>
+   <File Name="performancerules.dll" Version="17.0.0.0" />
+  </Rule>
+  <Rule TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822">
+   <Name>Mark members as static</Name>
+   <Description>Methods which do not access instance data or call instance methods can be marked as static (Shared in Visual Basic). After doing so, the compiler will emit non-virtual call sites to these members which will prevent a check at runtime for each call that ensures the current object pointer is non-null. This can result in a measurable performance gain for performance-sensitive code. In some cases, the failure to access the current object instance represents a correctness issue.</Description>
+   <Resolution Name="Default">The 'this' parameter (or 'Me' in Visual Basic) of {0} is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms245046.aspx</Url>
    <Email>[none]</Email>
    <MessageLevel Certainty="95">Warning</MessageLevel>
    <File Name="performancerules.dll" Version="17.0.0.0" />
@@ -655,16 +726,6 @@
    <Email>[none]</Email>
    <MessageLevel Certainty="75">Error</MessageLevel>
    <File Name="namingrules.dll" Version="17.0.0.0" />
-  </Rule>
-  <Rule TypeName="PassSystemUriObjectsInsteadOfStrings" Category="Microsoft.Usage" CheckId="CA2234">
-   <Name>Pass System.Uri objects instead of strings</Name>
-   <Description>If there are two overloads one taking System.Uri and one taking System.String, library code should never call the string-based overload.</Description>
-   <Resolution Name="Default">Modify {0} to call {1} instead of {2}.</Resolution>
-   <Owner />
-   <Url>http://msdn.microsoft.com/library/ms182360.aspx</Url>
-   <Email>[none]</Email>
-   <MessageLevel Certainty="75">Warning</MessageLevel>
-   <File Name="usagerules.dll" Version="17.0.0.0" />
   </Rule>
   <Rule TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804">
    <Name>Remove unused locals</Name>

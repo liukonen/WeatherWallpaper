@@ -29,8 +29,10 @@ namespace ExternalService
 
         string ISharedInterface.Debug()
         {
-            Dictionary<string, string> debugValues = new Dictionary<string, string>();
-            debugValues.Add("Last updated", LastUpdated.ToString());
+            var debugValues = new Dictionary<string, string>
+            {
+                { "Last updated", LastUpdated.ToString() }
+            };
 
             return SharedObjects.CompileDebug(debugValues);
         }
@@ -42,8 +44,8 @@ namespace ExternalService
             try
             {
          
-                httpResponseHourly = SharedObjects.CompressedCallSite($"https://api.weather.gov/gridpoints/MKX/{Grid.Item1.ToString()},{Grid.Item2.ToString()}/forecast/hourly", Gov_User);
-                httpResponseDaily = SharedObjects.CompressedCallSite($"https://api.weather.gov/gridpoints/MKX/{Grid.Item1.ToString()},{Grid.Item2.ToString()}/forecast", Gov_User);
+                httpResponseHourly = SharedObjects.CompressedCallSite($"https://api.weather.gov/gridpoints/MKX/{Grid.Item1},{Grid.Item2}/forecast/hourly", Gov_User);
+                httpResponseDaily = SharedObjects.CompressedCallSite($"https://api.weather.gov/gridpoints/MKX/{Grid.Item1},{Grid.Item2}/forecast", Gov_User);
                 response = Transform(httpResponseDaily, httpResponseHourly);
                 SharedObjects.Cache.Set(this.GetType().Name, response, UpdateInterval);
                 LastUpdated = DateTime.Now;

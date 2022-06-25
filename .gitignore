@@ -266,3 +266,11 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/Plugins/ExternalService.Weather.Gov3/ExternalService.Weather.Gov3/bin/debug
+/Plugins/ExternalService.Weather.Gov3/ExternalService.Weather.Gov3/obj/Debug
+/Plugins/InternalService.LatLongFlatLookup/InternalService.LatLongFlatLookup/obj/Debug
+/Plugins/InternalService.SunRiseSet/obj/Debug
+/Plugins/InternalService.SystemLatLong/obj/Debug
+/Plugins/WeatherDesktop/bin/Debug/Plugins/InternalService.LatLongFlatLookup
+/Plugin Templates/vb.ExternalService.Template/obj/Debug
+/Solutions/.vs

@@ -10,11 +10,3 @@ C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\WeatherDesktop\bin\Debug\Pl
 C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\WeatherDesktop\bin\Debug\Plugins\InternalService.LatLongFlatLookup\InternalService.LatLongFlatLookup.dll
 C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\WeatherDesktop\bin\Debug\Plugins\InternalService.LatLongFlatLookup\InternalService.LatLongFlatLookup.pdb
 C:\Users\liuko\source\repos\WeatherWallpaper\Plugins\InternalService.LatLongFlatLookup\InternalService.LatLongFlatLookup\obj\Debug\InternalService.LatLongFlatLookup.csprojAssemblyReference.cache
-C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\WeatherDesktop\bin\Debug\Plugins\InternalService.LatLongFlatLookup\us-zip-code-latitude-and-longitude.csv
-C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\WeatherDesktop\bin\Debug\Plugins\InternalService.LatLongFlatLookup\InternalService.LatLongFlatLookup.dll
-C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\WeatherDesktop\bin\Debug\Plugins\InternalService.LatLongFlatLookup\InternalService.LatLongFlatLookup.pdb
-C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\InternalService.LatLongFlatLookup\InternalService.LatLongFlatLookup\obj\Debug\InternalService.LatLongFlatLookup.csproj.AssemblyReference.cache
-C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\InternalService.LatLongFlatLookup\InternalService.LatLongFlatLookup\obj\Debug\InternalService.LatLongFlatLookup.csproj.CoreCompileInputs.cache
-C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\InternalService.LatLongFlatLookup\InternalService.LatLongFlatLookup\obj\Debug\InternalService.LatLongFlatLookup.csproj.CopyComplete
-C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\InternalService.LatLongFlatLookup\InternalService.LatLongFlatLookup\obj\Debug\InternalService.LatLongFlatLookup.dll
-C:\Users\liuko\projects\git\WeatherWallpaper\Plugins\InternalService.LatLongFlatLookup\InternalService.LatLongFlatLookup\obj\Debug\InternalService.LatLongFlatLookup.pdb

@@ -274,3 +274,4 @@ __pycache__/
 /Plugins/WeatherDesktop/bin/Debug/Plugins/InternalService.LatLongFlatLookup
 /Plugin Templates/vb.ExternalService.Template/obj/Debug
 /Solutions/.vs
+/Plugin Templates/cs.ExternalService.template/obj/Debug

@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.Windows.Forms;
-using WeatherDesktop.Interface;
+using System.Device.Location;
+using System.ComponentModel.Composition;
 using WeatherDesktop.Share;
-using InternalService;
+using WeatherDesktop.Interface;
 
-namespace ExternalService
+namespace WeatherDesktop.Services.Internal
 {
-    [Export(typeof(WeatherDesktop.Interface.IsharedSunRiseSetInterface))]
+    internal class SunRiseSetCalc
+    {
+    }
+
+    [Export(typeof(IsharedSunRiseSetInterface))]
     [ExportMetadata("ClassName", "InternalSunRiseSet")]
     public class InternalSunRiseSet : IsharedSunRiseSetInterface
     {
@@ -42,7 +46,7 @@ namespace ExternalService
 
         public Exception ThrownException() { return _ThrownException; }
 
-        public MenuItem[] SettingsItems() {return new MenuItem[] { new MenuItem("Hour To Update", ChangehourToUpdate)};}
+        public MenuItem[] SettingsItems() { return new MenuItem[] { new MenuItem("Hour To Update", ChangehourToUpdate) }; }
 
 
         public void TryupdateMenuItem(object sender, EventArgs e)
@@ -60,18 +64,18 @@ namespace ExternalService
 
             }
             else { MessageBox.Show("Update did not work"); }
-            
-            
+
+
         }
         #endregion
 
         #region Events
-        private void ChangehourToUpdate(object sender, EventArgs e) => UpdateHour(); 
+        private void ChangehourToUpdate(object sender, EventArgs e) => UpdateHour();
         #endregion
 
         #region New
 
-        public InternalSunRiseSet(){}
+        public InternalSunRiseSet() { }
 
         public void Load()
         {
@@ -128,8 +132,8 @@ namespace ExternalService
         {
             var worked = false;
             if (MessageBox.Show(
-                InternalService.Properties.Resources.LatLongSetMessage,
-                InternalService.Properties.Resources.LatLongSetHeader,
+                Properties.Internal_SunRiseSet.LatLongSetMessage,
+                Properties.Internal_SunRiseSet.LatLongSetHeader,
                 MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 var lat = GetDoubleWithMessage("Latitude");
@@ -153,18 +157,18 @@ namespace ExternalService
             try
             {
                 string attempt;
-                attempt = SharedObjects.InputBox(InternalService.Properties.Resources.HourUpdateMessage, 
-                    InternalService.Properties.Resources.HourUpdateHeader, current.ToString());
+                attempt = SharedObjects.InputBox(Properties.Internal_SunRiseSet.HourUpdateMessage,
+                    Properties.Internal_SunRiseSet.HourUpdateHeader, current.ToString());
                 SharedObjects.AppSettings.AddUpdateAppSettings(AppProperty, int.Parse(attempt).ToString());
             }
-            catch { MessageBox.Show(InternalService.Properties.Resources.CouldNotUpdate); }
+            catch { MessageBox.Show(Properties.Internal_SunRiseSet.CouldNotUpdate); }
         }
 
-        static KeyValuePair<double, double> GetLocationProperty() => 
+        static KeyValuePair<double, double> GetLocationProperty() =>
             (SharedObjects.LatLong.HasRecord() || IntialgetLatLong()) ?
                 new KeyValuePair<double, double>(SharedObjects.LatLong.Lat, SharedObjects.LatLong.Lng) :
                 new KeyValuePair<double, double>(0, 0);
-        
+
 
 
         #endregion
@@ -235,7 +239,4 @@ namespace ExternalService
 
 
     }
-
-
-
 }

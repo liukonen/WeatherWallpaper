@@ -87,7 +87,8 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>WeatherDeskSig.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>Internet</TargetZone>
@@ -118,9 +119,6 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\Solutions\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SharpRaven, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Solutions\packages\SharpRaven.2.4.0\lib\net45\SharpRaven.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration">
@@ -147,10 +145,25 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InternalService\Mock_SunRiseSet.cs" />
     <Compile Include="InternalService\Mock_Weather.cs" />
+    <Compile Include="Properties\Gov2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Gov2.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Gov3.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Gov3.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Internal.SunRiseSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Internal.SunRiseSet.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -159,7 +172,14 @@
     </Compile>
     <Compile Include="MainApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\External\LatLong_Gov2.cs" />
+    <Compile Include="Services\External\Weather_Gov2.cs" />
+    <Compile Include="Services\Internal\LatLongFlatFileLookup.cs" />
+    <Compile Include="Services\Internal\SystemLatLong.cs" />
+    <Compile Include="Services\Internal\SunRiseSetCalc.cs" />
+    <Compile Include="Services\External\Weather_Gov3.cs" />
     <Compile Include="Shared\ErrorHandler.cs" />
+    <Compile Include="Shared\Extentions.cs" />
     <Compile Include="Shared\themeHandler.cs" />
     <Compile Include="Shared\WallpaperChanger.cs" />
   </ItemGroup>
@@ -167,9 +187,21 @@
     <EmbeddedResource Include="MainApp.resx">
       <DependentUpon>MainApp.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Gov2.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Gov2.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Gov3.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Gov3.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Internal.SunRiseSet.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Internal.SunRiseSet.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -180,8 +212,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="WeatherDeskSig.snk" />
-    <None Include="WeatherDesktop_TemporaryKey.pfx" />
+    <None Include="Services\resources\us-zip-code-latitude-and-longitude.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Martz90-Hex-Weather-2.ico" />
@@ -270,9 +303,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Plugins\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\WeatherDesktop.Shared\WeatherDesktop.Shared.csproj">
       <Project>{ad39a03f-e078-4172-a97d-3efd54e1ed81}</Project>

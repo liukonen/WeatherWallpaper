@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InternalService.SystemLatLong
+namespace WeatherDesktop.Shared
 {
-    public class Class1
+    static internal class Extentions
     {
     }
 }

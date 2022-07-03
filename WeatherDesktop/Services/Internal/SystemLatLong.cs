@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Device.Location;
 using System.ComponentModel.Composition;
-namespace WeatherDesktop.Interface
+using WeatherDesktop.Interface;
+
+namespace WeatherDesktop.Services.Internal
 {
-    [Export(typeof(WeatherDesktop.Interface.ILatLongInterface))]
+    [Export(typeof(ILatLongInterface))]
     [ExportMetadata("ClassName", "SystemLatLong")]
     class SystemLatLong : ILatLongInterface
     {
@@ -13,10 +14,10 @@ namespace WeatherDesktop.Interface
         KeyValuePair<double, double> _LatLong = new KeyValuePair<double, double>(0, 0);
         public SystemLatLong()
         {
-           if (_LatLong.Key == 0 && _LatLong.Value == 0)
+            if (_LatLong.Key == 0 && _LatLong.Value == 0)
             {
                 _LatLong = GetLocationProperty(out _DidItWork);
-                
+
             }
         }
 
@@ -25,7 +26,7 @@ namespace WeatherDesktop.Interface
             GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
 
             // Do not suppress prompt, and wait 1000 milliseconds to start.
-            watcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
+            watcher.TryStart(false, TimeSpan.FromMilliseconds(3000));
             GeoCoordinate coord = watcher.Position.Location;
             if (coord.IsUnknown != true)
             {
@@ -36,7 +37,7 @@ namespace WeatherDesktop.Interface
             return new KeyValuePair<double, double>();
         }
 
-   
+
 
         public bool worked()
         {
@@ -50,8 +51,4 @@ namespace WeatherDesktop.Interface
 
     }
 
-
-
-
 }
-

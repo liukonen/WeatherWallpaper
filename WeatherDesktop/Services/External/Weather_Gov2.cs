@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Xml;
+using WeatherDesktop.Share;
 using System.Windows.Forms;
 using System.ComponentModel.Composition;
-using System.Xml;
 using WeatherDesktop.Interface;
-using WeatherDesktop.Share;
+using System.Collections.Generic;
 
-namespace ExternalService
+namespace WeatherDesktop.Services.External
 {
-    [Export(typeof(WeatherDesktop.Interface.ISharedWeatherinterface))]
-    [ExportMetadata("ClassName", "GovWeather")]
+    [Export(typeof(ISharedWeatherinterface))]
+    [ExportMetadata("ClassName", "GovWeather2")]
     class GovWeather : ISharedWeatherinterface
     {
         const int UpdateInterval = 60;
@@ -45,11 +45,11 @@ namespace ExternalService
 
         public ISharedResponse Invoke()
         {
-            if (SharedObjects.Cache.Exists(this.GetType().Name)) { return SharedObjects.Cache.GetValue< WeatherResponse>(this.GetType().Name); }
+            if (SharedObjects.Cache.Exists(this.GetType().Name)) { return SharedObjects.Cache.GetValue<WeatherResponse>(this.GetType().Name); }
             var response = new WeatherResponse();
             try
             {
-                httpResponse = SharedObjects.CompressedCallSite(string.Format(Properties.Resources.Gov_Weather_Url, _zip), Properties.Resources.Gov_User);
+                httpResponse = SharedObjects.CompressedCallSite(string.Format(Properties.Gov2.Gov_Weather_Url, _zip), Properties.Gov2.Gov_User);
                 response = Transform(httpResponse);
                 SharedObjects.Cache.SetValue(this.GetType().Name, response, UpdateInterval);
                 LastUpdated = DateTime.Now;
@@ -86,7 +86,7 @@ namespace ExternalService
                         case "point":
                             if (!SharedObjects.LatLong.HasRecord())
                             {
-                                if (double.TryParse(reader.GetAttribute("latitude"), out double lat) 
+                                if (double.TryParse(reader.GetAttribute("latitude"), out double lat)
                                     && double.TryParse(reader.GetAttribute("longitude"), out double lng))
                                 { SharedObjects.LatLong.Set(lat, lng); }
                             }
@@ -119,11 +119,11 @@ namespace ExternalService
                                     ForcastType = reader.GetAttribute("weather-type");
 
                                     value.ForcastDescription = string.Concat(
-                                        coverage, 
-                                        " ", 
-                                        additive, 
-                                        (string.IsNullOrWhiteSpace(additive) ? " " : ""), 
-                                        ForcastType, 
+                                        coverage,
+                                        " ",
+                                        additive,
+                                        (string.IsNullOrWhiteSpace(additive) ? " " : ""),
+                                        ForcastType,
                                         ((intensity == "none") ? string.Empty : " (" + intensity + ")")
                                         );
                                 }

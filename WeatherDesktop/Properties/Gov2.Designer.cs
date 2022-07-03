@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InternalService.Properties {
+namespace WeatherDesktop.Properties {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace InternalService.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class Gov2 {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Gov2() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace InternalService.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("InternalService.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WeatherDesktop.Properties.Gov2", typeof(Gov2).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,29 @@ namespace InternalService.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not update, please try again.
+        ///   Looks up a localized string similar to https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?listZipCodeList={0}.
         /// </summary>
-        internal static string CouldNotUpdate {
+        internal static string Gov_LatLong_Url {
             get {
-                return ResourceManager.GetString("CouldNotUpdate", resourceCulture);
+                return ResourceManager.GetString("Gov_LatLong_Url", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hour update.
+        ///   Looks up a localized string similar to WeatherWallpaper/v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com).
         /// </summary>
-        internal static string HourUpdateHeader {
+        internal static string Gov_User {
             get {
-                return ResourceManager.GetString("HourUpdateHeader", resourceCulture);
+                return ResourceManager.GetString("Gov_User", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the hour you want to update the call to get sun rise, set info..
+        ///   Looks up a localized string similar to https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?zipCodeList={0}&amp;maxt=maxt&amp;mint=mint&amp;wx=wx&amp;icons=icons.
         /// </summary>
-        internal static string HourUpdateMessage {
+        internal static string Gov_Weather_Url {
             get {
-                return ResourceManager.GetString("HourUpdateMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lat Long not set.
-        /// </summary>
-        internal static string LatLongSetHeader {
-            get {
-                return ResourceManager.GetString("LatLongSetHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lat and Long not yet available, Manual enter (yes), or pick a supplier in sunriseset settings (no).
-        /// </summary>
-        internal static string LatLongSetMessage {
-            get {
-                return ResourceManager.GetString("LatLongSetMessage", resourceCulture);
+                return ResourceManager.GetString("Gov_Weather_Url", resourceCulture);
             }
         }
     }

@@ -6,7 +6,8 @@ using System.Collections;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Security.Cryptography;
-using WeatherDesktop.Shared.Internal;
+using WeatherDesktop.Shared.Handlers;
+using WeatherDesktop.Shared.Extentions;
 
 namespace WeatherDesktop.Share
 {
@@ -83,115 +84,48 @@ namespace WeatherDesktop.Share
         {
             #region App Config (No Encryption)
 
-            //taken from MSDN https://msdn.microsoft.com/en-us/library/system.configuration.configurationmanager.aspx
             public static void AddUpdateAppSettings(string key, string value)
-            {
-                try
-                {
-                    var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                    var settings = configFile.AppSettings.Settings;
-                    if (settings[key] == null) { settings.Add(key, value); }
-                    else { settings[key].Value = value; }
-                    configFile.Save(ConfigurationSaveMode.Modified);
-                    ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
-                }
-                catch (ConfigurationErrorsException)
-                {
-                    MessageBox.Show("Error writing app settings", "Error Editing Config", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+                => AppSetttingsHandler.Write(key, value);
 
             public static void RemoveAppSetting(string key)
-            {
-                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                var settings = configFile.AppSettings.Settings;
-                if (settings[key] != null)
-                {
-                    settings.Remove(key);
+                => AppSetttingsHandler.Remove(key);
 
-                    configFile.Save(ConfigurationSaveMode.Modified);
-                    ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
-                }
-            }
             public static string ReadSetting(string key)
-            {
-                try
-                {
-                    return ConfigurationManager.AppSettings[key];
-                }
-                catch (ConfigurationErrorsException)
-                {
-                    MessageBox.Show("Error reading app settings"); return string.Empty;
-                }
-            }
+                => AppSetttingsHandler.Read(key);
 
             #endregion
 
             #region App Config (Encrypted)
 
             public static void AddupdateAppSettingsEncrypted(string key, string value)
-            {
-                try
-                {
-                    byte[] entropy = System.Text.Encoding.Unicode.GetBytes(key);// entropy only adds additional complexity. could use null
-                    var Encrypted = ProtectedData.Protect(System.Text.Encoding.Unicode.GetBytes(value), entropy, DataProtectionScope.LocalMachine);
-                    AddUpdateAppSettings(key, Convert.ToBase64String(Encrypted));
-                }
-                catch (Exception x)
-                { MessageBox.Show(x.Message, "error writing to Config file"); WeatherDesktop.Share.ErrorHandler.LogException(x); }
-            }
+                => EncryptedAppSettingsHandler.Write(key, value);
 
-            public static string ReadSettingEncrypted(string key)
-            {
-                byte[] entropy = new byte[0]; byte[] decryptedData = new byte[0];
+            public static string ReadSettingEncrypted(string key) 
+                => EncryptedAppSettingsHandler.Read(key);
 
-                try
-                {
-                    entropy = System.Text.Encoding.Unicode.GetBytes(key);// entropy only adds additional complexity. could use null
-                    string EncryptedString = ReadSetting(key);
-                    decryptedData = ProtectedData.Unprotect(Convert.FromBase64String(EncryptedString), entropy, DataProtectionScope.LocalMachine);
-                    return System.Text.Encoding.Unicode.GetString(decryptedData);
-                }
-                catch { return string.Empty; }
-                finally
-                {
-                    Array.Clear(entropy, 0, entropy.Length);
-                    Array.Clear(decryptedData, 0, decryptedData.Length);
-                    entropy = new byte[0];
-                    decryptedData = new byte[0];
-                }
-
-            }
 
             #endregion
         }
 
         public static class Cache
         {
-
-            public static T GetValue<T>(string key) => MemCache.Instance.Exists(key) ? MemCache.Instance.GetItem<T>(key) : default;
-
-            public static bool Exists(string key) => MemCache.Instance.Exists(key);
-
-            public static void SetValue<T>(string key, T o, int timeout) => MemCache.Instance.SetItem<T>(key, o, timeout);
-
-            public static void SetValue<T>(string key, T o) => MemCache.Instance.SetItem<T>(key, o);
-
-
-            [Obsolete("Please use generic GetValue.")]
+          
+            public static bool Exists(string key) => MemCacheHandler.Instance.Exists(key);
+          
+            //[Obsolete("Please use generic GetValue.")]
             public static object Value(string key)
             {
-                if (MemCache.Instance.Exists(key)) return MemCache.Instance.GetItem<object>(key);
+                if (MemCacheHandler.Instance.Exists(key)) return MemCacheHandler.Instance.GetItem<object>(key);
                 return string.Empty;
             }
-            [Obsolete("Please use Generic GetValue.")]
-            public static string StringValue(string key)=> MemCache.Instance.GetItem<string>(key);
+            //[Obsolete("Please use Generic GetValue.")]
+            public static string StringValue(string key)=> MemCacheHandler.Instance.GetItem<string>(key);
 
-            [Obsolete("Please use Generic SetValue.")]
-            public static void Set(string key, object o, int timeout) => MemCache.Instance.SetItem<object>(key, o, timeout);
+            //[Obsolete("Please use Generic SetValue.")]
+            public static void Set(string key, object o, int timeout) => MemCacheHandler.Instance.SetItem<object>(key, o, timeout);
 
-            [Obsolete("Please use Generic SetValue.")]
-            public static void Set(string key, object o) => MemCache.Instance.SetItem<object>(key, o);
+            //[Obsolete("Please use Generic SetValue.")]
+            public static void Set(string key, object o) => MemCacheHandler.Instance.SetItem<object>(key, o);
 
         }
 
@@ -203,7 +137,7 @@ namespace WeatherDesktop.Share
             {
                 get
                 {
-                    string value = WeatherDesktop.Share.SharedObjects.AppSettings.ReadSettingEncrypted(csvEncryptedLatLongName);
+                    string value = SharedObjects.AppSettings.ReadSettingEncrypted(csvEncryptedLatLongName);
                     if (value != null) return double.Parse(value.Split(',')[0].Replace(",", string.Empty));
                     return 0;
                 }
@@ -212,7 +146,7 @@ namespace WeatherDesktop.Share
             {
                 get
                 {
-                    string value = WeatherDesktop.Share.SharedObjects.AppSettings.ReadSettingEncrypted(csvEncryptedLatLongName);
+                    string value = SharedObjects.AppSettings.ReadSettingEncrypted(csvEncryptedLatLongName);
                     if (value != null) return double.Parse(value.Split(',')[1].Replace(",", string.Empty));
                     return 0;
                 }
@@ -230,38 +164,21 @@ namespace WeatherDesktop.Share
         public static string CompressedCallSite(string Url) => WebHandler.Instance.CallSite(Url);
 
         public static string CompressedCallSite(string Url, string UserAgent) => WebHandler.Instance.CallSite(Url, UserAgent);
-  
-    
 
         #endregion
 
-        public static bool BetweenTimespans(TimeSpan test, TimeSpan LowerValue, TimeSpan Highervalue) { return (LowerValue < test && test < Highervalue); }
+        public static bool BetweenTimespans(TimeSpan test, TimeSpan LowerValue, TimeSpan Highervalue) => test.Between(LowerValue, Highervalue);
 
-        public static string CompileDebug(System.Collections.Generic.Dictionary<string, string> ItemsTodisplay)
-        {
-            StringBuilder SB = new StringBuilder();
-            SB.Append(Environment.NewLine);
-            foreach (var item in ItemsTodisplay)
-            {
-                SB.Append(item.Key).Append(": ").Append(item.Value).Append(Environment.NewLine);
-            }
-            SB.Append(Environment.NewLine);
-            return SB.ToString();
-        }
+        public static string CompileDebug(System.Collections.Generic.Dictionary<string, string> ItemsTodisplay) => ItemsTodisplay.CompileDebug();
 
         /// <summary>
         /// Bitarray should be under 32 bits
         /// </summary>
         /// <param name="Array"></param>
         /// <returns></returns>
-        public static int ConvertBitarrayToInt(System.Collections.BitArray Array)
-        {
-            int[] array = new int[1];
-            Array.CopyTo(array, 0);
-            return array[0];
-        }
+        public static int ConvertBitarrayToInt(BitArray Array) => Array.ToInt();
 
-        public static BitArray ConverTIntToBitArray(int item) => new BitArray(new int[] { item });
+        public static BitArray ConverTIntToBitArray(int item) => item.ToBitArray();
         
 
     }

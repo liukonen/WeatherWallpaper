@@ -45,13 +45,13 @@ namespace ExternalService
 
         public ISharedResponse Invoke()
         {
-            if (SharedObjects.Cache.Exists(this.GetType().Name)) { return (WeatherResponse)SharedObjects.Cache.Value(this.GetType().Name); }
+            if (SharedObjects.Cache.Exists(this.GetType().Name)) { return SharedObjects.Cache.GetValue< WeatherResponse>(this.GetType().Name); }
             var response = new WeatherResponse();
             try
             {
                 httpResponse = SharedObjects.CompressedCallSite(string.Format(Properties.Resources.Gov_Weather_Url, _zip), Properties.Resources.Gov_User);
                 response = Transform(httpResponse);
-                SharedObjects.Cache.Set(this.GetType().Name, response, UpdateInterval);
+                SharedObjects.Cache.SetValue(this.GetType().Name, response, UpdateInterval);
                 LastUpdated = DateTime.Now;
                 _ThrownException = null;
             }

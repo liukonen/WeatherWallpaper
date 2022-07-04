@@ -22,7 +22,6 @@ namespace InternalService
 
         SunRiseSetResponse _cache = new SunRiseSetResponse();
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         DateTime SunRiseDateTime {
             get
             {
@@ -37,7 +36,7 @@ namespace InternalService
                 SharedObjects.AppSettings.AddUpdateAppSettings(ClassName + ".SunRise", value.TimeOfDay.ToString());
             }
         }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+
         DateTime SunSetDateTime
         {
             get

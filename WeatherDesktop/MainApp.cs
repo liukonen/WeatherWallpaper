@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using WeatherDesktop.Share;
+using System.Linq;
 
 namespace WeatherDesktop
 {
@@ -37,7 +38,7 @@ namespace WeatherDesktop
         private ContextMenu notificationMenu;
         private Interface.ISharedWeatherinterface g_Weather;
         private Interface.IsharedSunRiseSetInterface g_SunRiseSet;
-        private Share.ThemeHandler Themes = new Share.ThemeHandler();
+        private ThemeHandler Themes = new ThemeHandler();
         private Dictionary<string, string> g_ImageDictionary = new Dictionary<string, string>();
         private string g_CurrentWeatherType;
         private CompositionContainer _container;
@@ -67,7 +68,7 @@ namespace WeatherDesktop
 
 
             MenuItem[] menu = new MenuItem[] {
-                new MenuItem("Settings", GetSettings()),
+                new MenuItem("Settings", GetSettings().ToArray()),
                 new MenuItem("About", MenuAboutClick),
                 new MenuItem("Exit", MenuExitClick)
             };
@@ -75,17 +76,13 @@ namespace WeatherDesktop
             return menu;
         }
 
-        private MenuItem[] GetSettings()
+        private IEnumerable<MenuItem> GetSettings()
         {
-            List<MenuItem> Items = new List<MenuItem>
-            {
-                new MenuItem("Global", GlobalMenuSettings()),
-                new MenuItem("images", GetWeatherMenuItems()),
-                new MenuItem(g_SunRiseSet.GetType().Name, g_SunRiseSet.SettingsItems()),
-                new MenuItem(g_Weather.GetType().Name, g_Weather.SettingsItems()),
-                new MenuItem("Themes", Themes.SettingsItems())
-            };
-            return Items.ToArray();
+            yield return new MenuItem("Global", GlobalMenuSettings());
+            yield return new MenuItem("images", GetWeatherMenuItems().ToArray());
+            yield return new MenuItem(g_SunRiseSet.GetType().Name, g_SunRiseSet.SettingsItems());
+            yield return new MenuItem(g_Weather.GetType().Name, g_Weather.SettingsItems());
+            yield return new MenuItem("Themes", Themes.SettingsItems());
         }
 
         private MenuItem[] GlobalMenuSettings()
@@ -119,26 +116,24 @@ namespace WeatherDesktop
             return Items.ToArray();
 
         }
-        private MenuItem[] GetWeatherMenuItems()
+        private IEnumerable<MenuItem> GetWeatherMenuItems()
         {
-            System.Collections.Generic.List<MenuItem> items = new System.Collections.Generic.List<MenuItem>();
-            foreach (var element in System.Enum.GetValues(typeof(SharedObjects.WeatherTypes)))
+            foreach (var element in Enum.GetValues(typeof(SharedObjects.WeatherTypes)))
             {
                 string ElementName = Enum.GetName(typeof(SharedObjects.WeatherTypes), element);
+                
                 string DayName = cDay + ElementName;
+                yield return new MenuItem(DayName, MenuItemClick)
+                { 
+                Checked = g_ImageDictionary.ContainsKey(DayName)
+                };
+
                 string NightName = cNight + ElementName;
-
-                MenuItem dayItem = new MenuItem(DayName, MenuItemClick);
-                MenuItem Nightitem = new MenuItem(NightName, MenuItemClick);
-
-                dayItem.Checked = (g_ImageDictionary.ContainsKey(DayName));
-                Nightitem.Checked = (g_ImageDictionary.ContainsKey(NightName));
-                items.Add(dayItem);
-                items.Add(Nightitem);
-
+                yield return new MenuItem(NightName, MenuItemClick)
+                {
+                    Checked = (g_ImageDictionary.ContainsKey(NightName))
+                };
             }
-            return items.ToArray();
-
         }
 
         #endregion
@@ -154,10 +149,9 @@ namespace WeatherDesktop
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            bool isFirstInstance = false;
             // Please use a unique name for the mutex to prevent conflicts with other programs
 
-            using (Mutex mtx = new Mutex(true, "WeatherDesktop", out isFirstInstance))
+            using (Mutex mtx = new Mutex(true, "WeatherDesktop", out bool isFirstInstance))
             {
                 if (isFirstInstance)
                 {
@@ -169,8 +163,9 @@ namespace WeatherDesktop
                         Application.Run();
                         notificationIcon.notifyIcon.Dispose();
                     }
-                    catch(Exception x)
-                    { MessageBox.Show("Error: " + x.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    catch (Exception x)
+                    {
+                        MessageBox.Show("Error: " + x.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         WeatherDesktop.Share.ErrorHandler.Send(x);
                     }
                     mtx.ReleaseMutex();
@@ -277,37 +272,25 @@ namespace WeatherDesktop
             if (((MenuItem)Current.Parent).Text == "Weather")
             {
                 SharedObjects.AppSettings.AddUpdateAppSettings(cWeather, Name);
-                g_Weather = GetWeatherByName(Name);
+                g_Weather = GetByName(WeatherObjects, Name);
                 g_Weather.Load();
             }
             else if (((MenuItem)Current.Parent).Text == "SunRiseSet")
             {
                 SharedObjects.AppSettings.AddUpdateAppSettings(cSRS, Name);
                 
-                g_SunRiseSet = GetSRSByName(Name);
+                g_SunRiseSet = GetByName(SRSObjects, Name);
                 g_SunRiseSet.Load();
             }
             notificationMenu = new ContextMenu(InitializeMenu());
             notifyIcon.ContextMenu = notificationMenu;
         }
 
-        private Interface.IsharedSunRiseSetInterface GetSRSByName(string name)
-        {
-            foreach (var item in SRSObjects)
-            {
-                if (item.Metadata.ClassName == name) { return item.Value; }
-          }
-            return null;
-        }
-        private Interface.ISharedWeatherinterface GetWeatherByName(string name)
-        {
-            
-            foreach (var item in WeatherObjects)
-            {
-                if (item.Metadata.ClassName == name) { return item.Value; }
-            }
-            return null;
-        }
+        private static T GetByName<T>(IEnumerable<Lazy<T, Interface.IClassName>> collection, string name) 
+            => collection.Where(x => x.Metadata.ClassName == name).Select(x => x.Value).FirstOrDefault();
+        
+
+
 
         #endregion
 
@@ -371,64 +354,52 @@ namespace WeatherDesktop
                 {
                     if (LatLongObjects != null)
                     {
-                        var i = LatLongObjects.GetEnumerator();
-                        while (i.MoveNext())
+
+                        var ordered = LatLongObjects.OrderBy(d => {
+                            return (d.Metadata.ClassName == "OpenDataFlatFileLookup") ? 1 : 2;
+                        });
+                        foreach (var obj in ordered)
                         {
                             try
                             {
-                                var lat = i.Current.Value;
+                                var lat = obj.Value;
                                 if (lat.worked())
                                 {
-                                    SharedObjects.LatLong.Set(lat.Latitude(), lat.Longitude());
-                                    break;
+                                    SharedObjects.LatLong.Set(lat.Latitude(), lat.Longitude()); break;
                                 }
                             }
                             catch { }
-
                         }
                     }
                 }
-
 
                 //get weather type
                 string weatherType = SharedObjects.AppSettings.ReadSetting(cWeather);
-                if (!string.IsNullOrWhiteSpace(weatherType)) { GetWeatherByName(weatherType); }
-                if (g_Weather == null)
-                {
-                    var I = WeatherObjects.GetEnumerator();
-                    while (I.MoveNext())
-                    {
-                        var current = I.Current;
-                        if (!current.Metadata.ClassName.StartsWith("Mock"))
-                        {
-                            g_Weather = current.Value;
-                            break;
-                        }
 
+                foreach (var item in PullByPrefered(WeatherObjects, weatherType, "GovWeather3"))
+                {
+                    try
+                    {
+                        g_Weather = item;
+                        g_Weather.Load();
+                        break;
                     }
+                    catch { }
                 }
-                if (g_Weather == null) { g_Weather = GetWeatherByName("Mock_Weather"); }
-                g_Weather.Load();
+
 
                 //get SRS
                 string srs = SharedObjects.AppSettings.ReadSetting(cSRS);
-
-
-                if (!string.IsNullOrWhiteSpace(srs)) { g_SunRiseSet = GetSRSByName(srs); }
-                if (g_SunRiseSet == null)
+                foreach (var item in PullByPrefered(SRSObjects, srs, "InternalSunRiseSet"))
                 {
-                    var i = SRSObjects.GetEnumerator();
-                    while (i.MoveNext())
+                    try
                     {
-                        var current = i.Current;
-                        if (!current.Metadata.ClassName.StartsWith("Mock"))
-                        {
-                            g_SunRiseSet = current.Value; break;
-                        }
+                        g_SunRiseSet = item;
+                        g_SunRiseSet.Load();
+                        break;
                     }
+                    catch { }
                 }
-                if (g_SunRiseSet == null) { GetSRSByName("Mock_SunRiseSet"); }
-                g_SunRiseSet.Load();
             }
             catch (Exception x)
             {
@@ -437,12 +408,34 @@ namespace WeatherDesktop
 
             UpdateImageCache();
             UpdateDenyedList();
-
         }
+
+        private IEnumerable<T> PullByPrefered<T>(IEnumerable<Lazy<T, Interface.IClassName>> collection, string prefered,string secondary)
+        { 
+            T response = GetByName(collection, prefered);
+            if (response == null)
+            {
+
+                var fixedOrder = new List<string> { secondary };
+
+                var ordered = collection.OrderBy(d => {
+                    var index = fixedOrder.IndexOf(d.Metadata.ClassName);
+                    if (d.Metadata.ClassName.StartsWith("Mock")) return int.MaxValue;
+                    return (index == -1) ? int.MaxValue - 1: index;
+                });
+                var TT = ordered.ToArray();
+                foreach (var item in ordered)
+                {
+                    yield return item.Value;
+                    
+                }           
+            }
+        }
+
 
         #region Support functions to reduce complexity
 
-         private void UpdateDenyedList()
+        private void UpdateDenyedList()
         {
             int.TryParse(SharedObjects.AppSettings.ReadSetting("DenyedHours"), out int intDenyedHours);
             int.TryParse(SharedObjects.AppSettings.ReadSetting("DenyedDays"), out int intDenyedDays);
@@ -455,7 +448,7 @@ namespace WeatherDesktop
         {
             System.Windows.Forms.Timer t = new System.Windows.Forms.Timer
             {
-                Interval = 1000 // specify interval time as you want
+                Interval = 30000 // specify interval time as you want
             };
             t.Tick += new EventHandler(OnTimedEvent);
             t.Start();
@@ -465,11 +458,11 @@ namespace WeatherDesktop
         {
             foreach (var element in System.Enum.GetValues(typeof(SharedObjects.WeatherTypes)))
             {
-                string ElementName = Enum.GetName(typeof(SharedObjects.WeatherTypes), element);
-                string daykey = cDay + ElementName;
-                string nightKey = cNight + ElementName;
-                string dayimageCache = SharedObjects.AppSettings.ReadSetting(cDay + ElementName);
-                string nightimagecache = SharedObjects.AppSettings.ReadSetting(cNight + ElementName);
+                var ElementName = Enum.GetName(typeof(SharedObjects.WeatherTypes), element);
+                var daykey = cDay + ElementName;
+                var nightKey = cNight + ElementName;
+                var dayimageCache = SharedObjects.AppSettings.ReadSetting(cDay + ElementName);
+                var nightimagecache = SharedObjects.AppSettings.ReadSetting(cNight + ElementName);
                 if (!string.IsNullOrEmpty(dayimageCache)) { g_ImageDictionary.Add(daykey, dayimageCache); }
                 if (!string.IsNullOrEmpty(nightimagecache)) { g_ImageDictionary.Add(nightKey, nightimagecache); }
             }
@@ -513,16 +506,11 @@ namespace WeatherDesktop
             if (!disposedValue)
             {
                 if (disposing){notifyIcon.Dispose(); notificationMenu.Dispose(); _container.Dispose();}
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-
                 disposedValue = true;
             }
         }
 
-        // This code added to correctly implement the disposable pattern.
-        void IDisposable.Dispose(){Dispose(true);}
+        void IDisposable.Dispose() => Dispose(true);
         #endregion
 
         #endregion

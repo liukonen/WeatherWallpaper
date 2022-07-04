@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration ("")]
 [assembly: AssemblyCompany ("")]
 [assembly: AssemblyProduct ("WeatherDesktop")]
-[assembly: AssemblyCopyright("Copyright 2017 Luke Liukonen")]
+[assembly: AssemblyCopyright("Copyright 2017-2022 Luke Liukonen")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
 // This sets the default COM visibility of types in the assembly to invisible.
@@ -26,6 +26,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can use the default the Revision and 
 // Build Numbers by using the '*' as shown below:
-[assembly: AssemblyVersion("2017.12.7.*")]
+[assembly: AssemblyVersion("2020.7.4.*")]
 [assembly: NeutralResourcesLanguage("en-US")]
 

@@ -13,7 +13,8 @@ namespace WeatherDesktop.Services.External
     {
 
         private readonly bool _worked;
-        private readonly string Cache;
+        //private readonly string Cache;
+        private Geography geography;
 
         public GovWeatherLatLong()
         {
@@ -30,7 +31,7 @@ namespace WeatherDesktop.Services.External
                         switch (reader.Name)
                         {
                             case "latLonList":
-                                Cache = reader.ReadInnerXml();
+                                geography = ReadGeo(reader.ReadInnerXml());
                                 break;
                         }
                 }
@@ -39,9 +40,14 @@ namespace WeatherDesktop.Services.External
             catch (Exception x) { _worked = false; MessageBox.Show(x.Message); }
         }
 
-        public double Latitude() => double.Parse(Cache.Split(',')[0].Replace(",", string.Empty));
+        private Geography ReadGeo(string item) 
+            => new Geography(
+                double.Parse(item.Split(',')[0]), 
+                double.Parse(item.Split(',')[1]));
 
-        public double Longitude() => double.Parse(Cache.Split(',')[1].Replace(",", string.Empty));
+        public double Latitude() => geography.Latitude;
+
+        public double Longitude() => geography.Longitude;
 
         public bool worked() => _worked;
     }

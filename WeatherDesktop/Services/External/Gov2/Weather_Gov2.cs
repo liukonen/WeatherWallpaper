@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.ComponentModel.Composition;
 using WeatherDesktop.Interface;
 using System.Collections.Generic;
+using WeatherDesktop.Shared.Handlers;
 
 namespace WeatherDesktop.Services.External
 {
@@ -15,7 +16,7 @@ namespace WeatherDesktop.Services.External
         const int UpdateInterval = 60;
         private string httpResponse;
         private string iconUrl;
-        private string _errors;
+        //private string _errors;
         private DateTime LastUpdated = DateTime.MinValue;
         private string _zip;
         private Exception _ThrownException = null;
@@ -45,17 +46,17 @@ namespace WeatherDesktop.Services.External
 
         public ISharedResponse Invoke()
         {
-            if (SharedObjects.Cache.Exists(this.GetType().Name)) { return SharedObjects.Cache.GetValue<WeatherResponse>(this.GetType().Name); }
+            if (SharedObjects.Cache.Exists(this.GetType().Name)) { return MemCacheHandler.Instance.GetItem<WeatherResponse>(this.GetType().Name); }
             var response = new WeatherResponse();
             try
             {
                 httpResponse = SharedObjects.CompressedCallSite(string.Format(Properties.Gov2.Gov_Weather_Url, _zip), Properties.Gov2.Gov_User);
                 response = Transform(httpResponse);
-                SharedObjects.Cache.SetValue(this.GetType().Name, response, UpdateInterval);
+                MemCacheHandler.Instance.SetItem(this.GetType().Name, response, UpdateInterval);
                 LastUpdated = DateTime.Now;
                 _ThrownException = null;
             }
-            catch (Exception x) { _ThrownException = x; _errors = x.ToString(); }
+            catch (Exception x) { _ThrownException = x; } //_errors = x.ToString(); }
             return response;
         }
 
@@ -141,13 +142,13 @@ namespace WeatherDesktop.Services.External
                     }
             }
             value.ForcastDescription += string.Concat("(", Max.ToString(), "-", Min.ToString(), ")");
-            value.WType = extractWeatherType(ForcastType, iconUrl);
+            value.WType = ExtractWeatherType(ForcastType, iconUrl);
             return value;
         }
 
 
 
-        static SharedObjects.WeatherTypes extractWeatherType(string currentType, string Urlbackup)
+        static SharedObjects.WeatherTypes ExtractWeatherType(string currentType, string Urlbackup)
         {
 
             if (itemlookup.ContainsKey(currentType)) return itemlookup[currentType];
@@ -174,7 +175,7 @@ namespace WeatherDesktop.Services.External
 
 
         #region itemTables
-        private static Dictionary<string, SharedObjects.WeatherTypes> IconLookup = new Dictionary<string, SharedObjects.WeatherTypes>()
+        private readonly static Dictionary<string, SharedObjects.WeatherTypes> IconLookup = new Dictionary<string, SharedObjects.WeatherTypes>()
         {
             { "nfg", SharedObjects.WeatherTypes.Fog },
             { "fg", SharedObjects.WeatherTypes.Fog },
@@ -194,7 +195,7 @@ namespace WeatherDesktop.Services.External
             { "hot", SharedObjects.WeatherTypes.Hot },
         };
 
-        private static Dictionary<string, SharedObjects.WeatherTypes> itemlookup = new Dictionary<string, SharedObjects.WeatherTypes>()
+        private readonly static Dictionary<string, SharedObjects.WeatherTypes> itemlookup = new Dictionary<string, SharedObjects.WeatherTypes>()
         {
 
             { "thunderstorms", SharedObjects.WeatherTypes.ThunderStorm },

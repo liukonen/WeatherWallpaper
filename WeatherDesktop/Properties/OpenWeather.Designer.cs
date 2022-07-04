@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WeatherDesktop.Shared.Properties {
+namespace WeatherDesktop.Properties {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace WeatherDesktop.Shared.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class OpenWeather {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal OpenWeather() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace WeatherDesktop.Shared.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WeatherDesktop.Shared.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WeatherDesktop.Properties.OpenWeather", typeof(OpenWeather).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,69 @@ namespace WeatherDesktop.Shared.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the API key provided by openweathermap.org.
+        /// </summary>
+        internal static string EnterAPIKeyMessage {
+            get {
+                return ResourceManager.GetString("EnterAPIKeyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter API.
+        /// </summary>
+        internal static string EnterAPIKeyTitle {
+            get {
+                return ResourceManager.GetString("EnterAPIKeyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter New interval between 10 and 120.
+        /// </summary>
+        internal static string EnterIntervalMessage {
+            get {
+                return ResourceManager.GetString("EnterIntervalMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Interval Minutes.
+        /// </summary>
+        internal static string EnterIntervalTitle {
+            get {
+                return ResourceManager.GetString("EnterIntervalTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to API key.
+        /// </summary>
+        internal static string MenuAPIKey {
+            get {
+                return ResourceManager.GetString("MenuAPIKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Interval.
+        /// </summary>
+        internal static string MenuUpdate {
+            get {
+                return ResourceManager.GetString("MenuUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a number between 10 and 120.
+        /// </summary>
+        internal static string UpdateIntervalMessage {
+            get {
+                return ResourceManager.GetString("UpdateIntervalMessage", resourceCulture);
             }
         }
     }

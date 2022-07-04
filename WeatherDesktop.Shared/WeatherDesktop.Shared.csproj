@@ -7,7 +7,7 @@
     <ProjectGuid>{AD39A03F-E078-4172-A97D-3EFD54E1ED81}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WeatherDesktop</RootNamespace>
+    <RootNamespace>WeatherDesktop.Shared</RootNamespace>
     <AssemblyName>WeatherDesktop.Shared</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -42,6 +42,9 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extentions.cs" />
+    <Compile Include="Handlers\AppSetttingsHandler.cs" />
+    <Compile Include="Handlers\EncryptedAppSettingsHandler.cs" />
     <Compile Include="Interfaces\ILatLongInterface.cs" />
     <Compile Include="Interfaces\IClassName.cs" />
     <Compile Include="Interfaces\IsharedSunRiseSetInterface.cs" />
@@ -58,7 +61,7 @@
     </Compile>
     <Compile Include="Shared\AppSetrtings.cs" />
     <Compile Include="Shared\ErrorHandler.cs" />
-    <Compile Include="Shared\Internal\MemCache.cs" />
+    <Compile Include="Handlers\MemCache.cs" />
     <Compile Include="Shared\Internal\WebHandler.cs" />
     <Compile Include="Shared\SharedObjects.cs" />
   </ItemGroup>

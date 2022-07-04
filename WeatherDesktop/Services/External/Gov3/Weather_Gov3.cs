@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using WeatherDesktop.Shared.Handlers;
 using System.Windows.Forms;
 using System.ComponentModel.Composition;
 using System.Xml;
 using WeatherDesktop.Interface;
 using WeatherDesktop.Share;
 using Newtonsoft.Json.Linq;
+using WeatherDesktop.Shared.Extentions;
 
 namespace WeatherDesktop.Services.External
 {
@@ -17,11 +18,12 @@ namespace WeatherDesktop.Services.External
     [ExportMetadata("ClassName", "GovWeather3")]
     class GovWeather3 : ISharedWeatherinterface
     {
-        const string Gov_User = "WeatherWallpaper / v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com)";
+        
+        private readonly string Gov_User = Properties.Gov3.User;
         const int UpdateInterval = 60;
         private string httpResponseHourly;
         private string httpResponseDaily;
-        private string _errors;
+        //private string _errors;
         private DateTime LastUpdated = DateTime.MinValue;
         Tuple<double, double> LatLong;
         private Exception _ThrownException = null;
@@ -30,17 +32,15 @@ namespace WeatherDesktop.Services.External
 
         string ISharedInterface.Debug()
         {
-            var debugValues = new Dictionary<string, string>
+            return new Dictionary<string, string>
             {
                 { "Last updated", LastUpdated.ToString() }
-            };
-
-            return SharedObjects.CompileDebug(debugValues);
+            }.CompileDebug();
         }
 
         ISharedResponse ISharedInterface.Invoke()
         {
-            if (SharedObjects.Cache.Exists(this.GetType().Name))  return (WeatherResponse)SharedObjects.Cache.GetValue<WeatherResponse>(this.GetType().Name); 
+            if (MemCacheHandler.Instance.Exists(this.GetType().Name))  return MemCacheHandler.Instance.GetItem<WeatherResponse>(this.GetType().Name); 
             WeatherResponse response = new WeatherResponse();
             try
             {
@@ -49,14 +49,11 @@ namespace WeatherDesktop.Services.External
                 httpResponseDaily = SharedObjects.CompressedCallSite($"https://api.weather.gov/gridpoints/MKX/{Grid.Item1},{Grid.Item2}/forecast", Gov_User);
                 response = Transform(httpResponseDaily, httpResponseHourly);
 
-
-                SharedObjects.Cache.SetValue(this.GetType().Name,response, UpdateInterval);
-
-                //SharedObjects.Cache.Set(this.GetType().Name, response, UpdateInterval);
+                MemCacheHandler.Instance.SetItem(this.GetType().Name,response, UpdateInterval);
                 LastUpdated = DateTime.Now;
                 _ThrownException = null;
             }
-            catch (Exception x) { _ThrownException = x; _errors = x.ToString(); }
+            catch (Exception x) { _ThrownException = x;}
             return response;
         }
 
@@ -81,7 +78,7 @@ namespace WeatherDesktop.Services.External
             shortDescription = X.Value<string>("shortForecast");
             response.Temp = X.Value<int>("temperature");
             response.ForcastDescription = DetailedForcast(Daily);
-            response.WType = convert(shortDescription);
+            response.WType = Convert(shortDescription);
             return response;
         }
         private static string DetailedForcast(string DailyForcast)
@@ -91,7 +88,7 @@ namespace WeatherDesktop.Services.External
             return X.Value<string>("detailedForecast");
         }
 
-        private static SharedObjects.WeatherTypes convert(string description)
+        private static SharedObjects.WeatherTypes Convert(string description)
         {
             if (description.ToLower().Contains("thunderstorm")) { return SharedObjects.WeatherTypes.ThunderStorm; }
             if (description.ToLower().Contains("partly cloudy")) { return SharedObjects.WeatherTypes.PartlyCloudy; }
@@ -118,10 +115,10 @@ namespace WeatherDesktop.Services.External
         static bool IntialgetLatLong()
         {
             bool worked = false;
-            if (MessageBox.Show("Lat and Long not yet available, Manual enter (yes), or pick a supplier in sunriseset settings (no)", "Lat Long not set", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(Properties.Gov3.LatLongLookupMessage, Properties.Gov3.LatLongLookupTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                double lat = double.Parse(SharedObjects.InputBox("Please Enter your Latitude", "Latitude"));
-                double lon = double.Parse(SharedObjects.InputBox("Please Enter your Longitude", "Longitude"));
+                double lat = Prompt("Latitude");
+                double lon = Prompt("Longitude");
                 SharedObjects.LatLong.Set(lat, lon);
                 worked = true;
             }

@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Device.Location;
 using System.ComponentModel.Composition;
 using WeatherDesktop.Share;
 using WeatherDesktop.Interface;
+using WeatherDesktop.Shared.Extentions;
+using WeatherDesktop.Shared.Handlers;
 
 namespace WeatherDesktop.Services.Internal
 {
-    internal class SunRiseSetCalc
-    {
-    }
 
     [Export(typeof(IsharedSunRiseSetInterface))]
     [ExportMetadata("ClassName", "InternalSunRiseSet")]
@@ -26,25 +24,26 @@ namespace WeatherDesktop.Services.Internal
 
 
         #region Constants
-        const string ClassName = "InternalSunRiseSet";
+        //const string ClassName = "InternalSunRiseSet";
         const string AppProperty = "HourUpdate";
         #endregion
 
         #region Globals
-        double _lat;
-        double _long;
+
+        Geography geography;
+
         DateTime _LastUpdate;
         int _HourToUpdate;
         Boolean HasUpdatedToday = false;
         SunRiseSetResponse _cache;
         Boolean _firstCall = true;
-        Exception _ThrownException = null;
+        readonly Exception _ThrownException = null;
 
         #endregion
 
         #region Settings
 
-        public Exception ThrownException() { return _ThrownException; }
+        public Exception ThrownException() => _ThrownException; 
 
         public MenuItem[] SettingsItems() { return new MenuItem[] { new MenuItem("Hour To Update", ChangehourToUpdate) }; }
 
@@ -57,11 +56,9 @@ namespace WeatherDesktop.Services.Internal
             ILatLongInterface Item = (ILatLongInterface)Activator.CreateInstance(S);
             if (Item.worked())
             {
-                _lat = Item.Latitude();
-                _long = Item.Longitude();
-                SharedObjects.LatLong.Set(_lat, _long);
+                geography = new Geography(Item.Latitude(), Item.Longitude());
+                SharedObjects.LatLong.Set(geography.Latitude, geography.Longitude);
                 MessageBox.Show("Update complete");
-
             }
             else { MessageBox.Show("Update did not work"); }
 
@@ -79,13 +76,8 @@ namespace WeatherDesktop.Services.Internal
 
         public void Load()
         {
-            KeyValuePair<double, double> latlong = GetLocationProperty();
-            _lat = latlong.Key;
-            _long = latlong.Value;
-
-            string HTU = SharedObjects.AppSettings.ReadSetting(AppProperty);
-            if (string.IsNullOrWhiteSpace(HTU)) { HTU = "6"; }
-            _HourToUpdate = int.Parse(HTU);
+            geography = GetLocationProperty();
+            _HourToUpdate = int.Parse(AppSetttingsHandler.Read(AppProperty) ?? "6");
             _LastUpdate = DateTime.Now;
             Invoke();
         }
@@ -96,33 +88,29 @@ namespace WeatherDesktop.Services.Internal
 
         public ISharedResponse Invoke()
         {
-            if (_firstCall) { _firstCall = false; _cache = LiveCall(_lat, _long); HasUpdatedToday = true; }
 
-            if (_LastUpdate.Day != DateTime.Today.Day) { HasUpdatedToday = false; }
-            if (!HasUpdatedToday && DateTime.Now.Hour == _HourToUpdate)
+            if (_firstCall || (!HasUpdatedToday && DateTime.Now.Hour == _HourToUpdate))
             {
-                _cache = LiveCall(_lat, _long); HasUpdatedToday = true;
+                _firstCall = false;
+                HasUpdatedToday = true;
+                _cache = LiveCall();
             }
+            if (_LastUpdate.Day != DateTime.Today.Day) { HasUpdatedToday = false; }
             return _cache;
         }
+
+
         #endregion
 
         #region Live API call
-        private SunRiseSetResponse LiveCall(double Latitude, double Longitude)
+        private SunRiseSetResponse LiveCall()
         {
-            SunRiseSetResponse response = new SunRiseSetResponse();
-            try
+            return new SunRiseSetResponse()
             {
-                response.SolarNoon = DateTime.Now.Date.Add(SolarNoon);
-                if (response.SolarNoon < DateTime.Now) { response.SolarNoon = response.SolarNoon.AddDays(1); }
-                response.SunRise = DateTime.Now.Date.Add(SunriseTime);
-                if (response.SunRise < DateTime.Now) { response.SunRise = response.SunRise.AddDays(1); }
-                response.SunSet = DateTime.Now.Date.Add(SunsetTime);
-                if (response.SunSet < DateTime.Now) { response.SunSet = response.SunSet.AddDays(1); }
-
-            }
-            catch (Exception x) { response.Status = x.ToString(); _ThrownException = x; }
-            return response;
+                SolarNoon = SolarNoon.NextEvent(),
+                SunRise = SunsetTime.NextEvent(),
+                SunSet = SunsetTime.NextEvent()
+            };
         }
         #endregion
 
@@ -144,37 +132,31 @@ namespace WeatherDesktop.Services.Internal
             return worked;
         }
 
-        static double GetDoubleWithMessage(string ObjectName) => double.Parse(SharedObjects.InputBox($"Please Enter your {ObjectName}", ObjectName));
-
-
+        static double GetDoubleWithMessage(string ObjectName) 
+            => double.Parse(SharedObjects.InputBox($"Please Enter your {ObjectName}", ObjectName));
+        
         static void UpdateHour()
         {
-
-            int current;
-            try { current = int.Parse(SharedObjects.AppSettings.ReadSetting(AppProperty)); }
-            catch { current = 6; }
-
+            var current = int.TryParse(
+                AppSetttingsHandler.Read(AppProperty), out int value) ? value : 6;
             try
             {
-                string attempt;
-                attempt = SharedObjects.InputBox(Properties.Internal_SunRiseSet.HourUpdateMessage,
+               var attempt = SharedObjects.InputBox(Properties.Internal_SunRiseSet.HourUpdateMessage,
                     Properties.Internal_SunRiseSet.HourUpdateHeader, current.ToString());
-                SharedObjects.AppSettings.AddUpdateAppSettings(AppProperty, int.Parse(attempt).ToString());
+                AppSetttingsHandler.Write(AppProperty, int.Parse(attempt).ToString());
             }
             catch { MessageBox.Show(Properties.Internal_SunRiseSet.CouldNotUpdate); }
         }
 
-        static KeyValuePair<double, double> GetLocationProperty() =>
+        static Geography GetLocationProperty() =>
             (SharedObjects.LatLong.HasRecord() || IntialgetLatLong()) ?
-                new KeyValuePair<double, double>(SharedObjects.LatLong.Lat, SharedObjects.LatLong.Lng) :
-                new KeyValuePair<double, double>(0, 0);
-
-
+                new Geography(SharedObjects.LatLong.Lat, SharedObjects.LatLong.Lng) :
+                new Geography(0, 0);
 
         #endregion
 
         #region "Heavy Math"
-        public int TimeZoneOffset = TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now).Hours;
+        private readonly int TimeZoneOffset = TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now).Hours;
 
         private double JulieanDay => DateTime.Now.Date.ToOADate() + 2415018.5 + 0 - TimeZoneOffset / 24;
 
@@ -202,9 +184,9 @@ namespace WeatherDesktop.Services.Internal
 
         private double EqofTime => 4 * DEGREES(Y * Math.Sin(2 * RADIANS(GeomMeanLongSun)) - 2 * EccentEarthOrbit * Math.Sin(RADIANS(GeomMeanAnomSun)) + 4 * EccentEarthOrbit * Y * Math.Sin(RADIANS(GeomMeanAnomSun)) * Math.Cos(2 * RADIANS(GeomMeanLongSun)) - 0.5 * Y * Y * Math.Sin(4 * RADIANS(GeomMeanLongSun)) - 1.25 * EccentEarthOrbit * EccentEarthOrbit * Math.Sin(2 * RADIANS(GeomMeanAnomSun)));
 
-        private double HASunrise => DEGREES(Math.Acos(Math.Cos(RADIANS(90.833)) / (Math.Cos(RADIANS(_lat)) * Math.Cos(RADIANS(SunDeclin))) - Math.Tan(RADIANS(_lat)) * Math.Tan(RADIANS(SunDeclin))));
+        private double HASunrise => DEGREES(Math.Acos(Math.Cos(RADIANS(90.833)) / (Math.Cos(RADIANS(geography.Latitude)) * Math.Cos(RADIANS(SunDeclin))) - Math.Tan(RADIANS(geography.Latitude)) * Math.Tan(RADIANS(SunDeclin))));
 
-        private double PSolarNoon => (720 - 4 * _long - EqofTime + TimeZoneOffset * 60) / 1440;
+        private double PSolarNoon => (720 - 4 * geography.Longitude - EqofTime + TimeZoneOffset * 60) / 1440;
 
         public TimeSpan SolarNoon => DateTime.FromOADate(PSolarNoon).TimeOfDay;
 
@@ -212,28 +194,27 @@ namespace WeatherDesktop.Services.Internal
 
         public TimeSpan SunsetTime => DateTime.FromOADate(PSolarNoon + HASunrise * 4 / 1440).TimeOfDay;
 
-        private double MOD1(double Number, double Divider) { return Number % Divider; }
+        private static double MOD1(double Number, double Divider) => Number % Divider; 
 
-        private double RADIANS(double angle) { return (Math.PI / 180) * angle; }
+        private static double RADIANS(double angle) => (Math.PI / 180) * angle; 
 
-        private double DEGREES(double radians) { return radians * (180 / Math.PI); }
+        private static double DEGREES(double radians) => radians * (180 / Math.PI); 
 
         #endregion
 
         #region Debug values
         public string Debug()
         {
-            var DebugValues = new Dictionary<string, string>
+            return new Dictionary<string, string>
             {
                 {"Houre to update", _HourToUpdate.ToString()},
                 {"Last update", _LastUpdate.ToString()},
-                {"Latitude", _lat.ToString() },
-                {"Longitude", _long.ToString() },
+                {"Latitude", geography.Latitude.ToString() },
+                {"Longitude", geography.Longitude.ToString() },
                 {"SunRise", _cache.SunRise.ToString() },
                 {"SunSet", _cache.SunSet.ToString() },
                 {"Status", _cache.Status }
-            };
-            return SharedObjects.CompileDebug(DebugValues);
+            }.CompileDebug();
         }
         #endregion
 

@@ -15,10 +15,7 @@ namespace WeatherDesktop.Services.Internal
         public SystemLatLong()
         {
             if (_LatLong.Key == 0 && _LatLong.Value == 0)
-            {
                 _LatLong = GetLocationProperty(out _DidItWork);
-
-            }
         }
 
         static KeyValuePair<double, double> GetLocationProperty(out bool worked)
@@ -28,26 +25,14 @@ namespace WeatherDesktop.Services.Internal
             // Do not suppress prompt, and wait 1000 milliseconds to start.
             watcher.TryStart(false, TimeSpan.FromMilliseconds(3000));
             GeoCoordinate coord = watcher.Position.Location;
-            if (coord.IsUnknown != true)
-            {
-                worked = true;
-                return new KeyValuePair<double, double>(coord.Latitude, coord.Longitude);
-            }
-            worked = false;
-            return new KeyValuePair<double, double>();
+            worked = !coord.IsUnknown;
+            return (worked) ?
+                new KeyValuePair<double, double>(coord.Latitude, coord.Longitude)
+                : new KeyValuePair<double, double>();
         }
-
-
-
-        public bool worked()
-        {
-            return _DidItWork;
-        }
-        public double Latitude() { return _LatLong.Key; }
-
-
-
-        public double Longitude() { return _LatLong.Value; }
+        public bool worked() => _DidItWork;
+        public double Latitude() => _LatLong.Key; 
+        public double Longitude() => _LatLong.Value; 
 
     }
 

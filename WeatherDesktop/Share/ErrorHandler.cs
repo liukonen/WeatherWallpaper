@@ -7,7 +7,6 @@ namespace WeatherDesktop.Share
 {
     static class ErrorHandler
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         public static void Send(Exception x)
         {
 

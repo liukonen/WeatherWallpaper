@@ -13,8 +13,6 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "vb.ExternalService.Template
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs.ExternalService.template", "..\Plugin Templates\cs.ExternalService.template\cs.ExternalService.template.csproj", "{5F599B16-412A-4202-8AAC-ED8434EAF69E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherShared", "WeatherShared\WeatherShared.csproj", "{093BD411-E9B7-456F-B5F2-08917F4B8F2E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,10 +35,6 @@ Global
 		{5F599B16-412A-4202-8AAC-ED8434EAF69E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F599B16-412A-4202-8AAC-ED8434EAF69E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F599B16-412A-4202-8AAC-ED8434EAF69E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{093BD411-E9B7-456F-B5F2-08917F4B8F2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{093BD411-E9B7-456F-B5F2-08917F4B8F2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{093BD411-E9B7-456F-B5F2-08917F4B8F2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{093BD411-E9B7-456F-B5F2-08917F4B8F2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

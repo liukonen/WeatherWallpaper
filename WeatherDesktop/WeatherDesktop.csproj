@@ -5,7 +5,7 @@
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>WeatherDesktop</RootNamespace>
     <AssemblyName>WeatherDesktop</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
@@ -137,6 +137,7 @@
       <HintPath>..\Solutions\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -145,6 +146,11 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InternalService\Mock_SunRiseSet.cs" />
     <Compile Include="InternalService\Mock_Weather.cs" />
+    <Compile Include="Properties\OpenWeather.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OpenWeather.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Gov2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -172,20 +178,40 @@
     </Compile>
     <Compile Include="MainApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\External\LatLong_Gov2.cs" />
-    <Compile Include="Services\External\Weather_Gov2.cs" />
-    <Compile Include="Services\Internal\LatLongFlatFileLookup.cs" />
+    <Compile Include="Services\External\Gov2\LatLong_Gov2.cs" />
+    <Compile Include="Services\External\MSWeather\MSWeather.cs" />
+    <Compile Include="Services\External\OpenWeather\Objects\Clouds.cs" />
+    <Compile Include="Services\External\OpenWeather\Objects\Coord.cs" />
+    <Compile Include="Services\External\OpenWeather\Objects\Main.cs" />
+    <Compile Include="Services\External\OpenWeather\Objects\OpenWeatherMapObject.cs" />
+    <Compile Include="Services\External\OpenWeather\Objects\Sys.cs" />
+    <Compile Include="Services\External\OpenWeather\Objects\Weather.cs" />
+    <Compile Include="Services\External\OpenWeather\Objects\Wind.cs" />
+    <Compile Include="Services\External\OpenWeather\OpenWEatherAPIBase.cs" />
+    <Compile Include="Services\External\OpenWeather\OpenWeatherAPISRS.cs" />
+    <Compile Include="Services\External\OpenWeather\OpenWeatherLatLong.cs" />
+    <Compile Include="Services\External\OpenWeather\OpenWeatherMap.cs" />
+    <Compile Include="Services\External\SunRiseSet\Results.cs" />
+    <Compile Include="Services\External\SunRiseSet\SunRiseSet.cs" />
+    <Compile Include="Services\External\SunRiseSet\SunRiseSetObject.cs" />
+    <Compile Include="Services\External\Gov2\Weather_Gov2.cs" />
+    <Compile Include="Services\Internal\LatLongFlatFile\LatLongFlatFileLookup.cs" />
+    <Compile Include="Services\Internal\LatLongFlatFile\ZipRowItem.cs" />
     <Compile Include="Services\Internal\SystemLatLong.cs" />
     <Compile Include="Services\Internal\SunRiseSetCalc.cs" />
-    <Compile Include="Services\External\Weather_Gov3.cs" />
-    <Compile Include="Shared\ErrorHandler.cs" />
-    <Compile Include="Shared\Extentions.cs" />
-    <Compile Include="Shared\themeHandler.cs" />
-    <Compile Include="Shared\WallpaperChanger.cs" />
+    <Compile Include="Services\External\Gov3\Weather_Gov3.cs" />
+    <Compile Include="Share\ErrorHandler.cs" />
+    <Compile Include="Share\Geography.cs" />
+    <Compile Include="Share\themeHandler.cs" />
+    <Compile Include="Share\WallpaperChanger.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainApp.resx">
       <DependentUpon>MainApp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\OpenWeather.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OpenWeather.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Gov2.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -303,7 +329,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\WeatherDesktop.Shared\WeatherDesktop.Shared.csproj">
       <Project>{ad39a03f-e078-4172-a97d-3efd54e1ed81}</Project>

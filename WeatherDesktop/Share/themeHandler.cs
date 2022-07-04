@@ -128,7 +128,6 @@ namespace WeatherDesktop.Share
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
         private MenuItem[] ThemeArray()
         {
             List<MenuItem> items = new List<MenuItem>();

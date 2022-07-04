@@ -13,16 +13,9 @@ namespace WeatherDesktop.Share
 
         public static void AbsouluteException(Exception x)
         {
-            string sSource;
-            string sLog;
-            string sEvent;
-
-            sSource = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-            sLog = "Application";
-            sEvent = x.ToString();
-
+            var sSource = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
             if (!EventLog.SourceExists(sSource))
-                EventLog.CreateEventSource(sSource, sLog);
+                EventLog.CreateEventSource(sSource, "Application");
             var raw = Encoding.ASCII.GetBytes(x.ToString());
             EventLog.WriteEntry(sSource, x.Message, EventLogEntryType.Error, 1, 1, raw);
         }
@@ -32,16 +25,9 @@ namespace WeatherDesktop.Share
 
         public static void LogException(Exception x)
         {
-               string sSource;
-                string sLog;
-                string sEvent;
-
-                sSource = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-                sLog = "Application";
-                sEvent = x.ToString();
-
+                var sSource = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
                 if (!EventLog.SourceExists(sSource))
-                    EventLog.CreateEventSource(sSource, sLog);
+                    EventLog.CreateEventSource(sSource, "Application");
                 var raw = Encoding.ASCII.GetBytes(x.ToString());
                 EventLog.WriteEntry(sSource, x.Message, EventLogEntryType.Warning, 1, 1, raw);           
         }

@@ -2,7 +2,7 @@
 using System.Net;
 
 
-namespace WeatherDesktop.Shared.Internal
+namespace WeatherDesktop.Shared.Handlers
 {
     internal class WebHandler
     {

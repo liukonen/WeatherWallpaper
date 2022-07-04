@@ -277,12 +277,17 @@ __pycache__/
 /Plugin Templates/cs.ExternalService.template/obj/Debug
 /Plugin Templates/vb.ExternalService.Template/bin/Debug
 /Plugin Templates/cs.ExternalService.template/bin/Debug
-<<<<<<< HEAD
+/.vs/Default/FileContentIndex
 /.vs/Default/FileContentIndex/read.lock
 /.vs/Default/FileContentIndex/c79ed2b5-3d1f-4f79-9570-0e29fbbf09dc.vsidx
 /.vs/Default/FileContentIndex/9f8c1a07-3b2f-4747-b8ad-bbe27145a053.vsidx
 /.vs/Default/FileContentIndex/5d131c62-007a-451f-826a-ee14dd8998fc.vsidx
 /.vs/Default/FileContentIndex/302368bc-f4c5-42db-9055-8f0330b781fd.vsidx
-=======
-/.vs/Default/FileContentIndex
->>>>>>> d7ea80c589767ee9e7f0233e1e54125207a480b2
+/Plugin Templates/vb.ExternalService.Template/obj/Release/TempPE/My Project.Resources.Designer.vb.dll
+/Plugin Templates/vb.ExternalService.Template/obj/Release/TempPE/My Project.Application.Designer.vb.dll
+/Plugin Templates/vb.ExternalService.Template/obj/Release/vb.ExternalService.Template.vbproj.FileListAbsolute.txt
+/Plugin Templates/vb.ExternalService.Template/obj/Release/.NETFramework,Version=v4.8.AssemblyAttributes.vb
+/Plugin Templates/vb.ExternalService.Template/obj/Release
+/Plugin Templates/cs.ExternalService.template/obj/Release/cs.ExternalService.template.csproj.FileListAbsolute.txt
+/Plugin Templates/cs.ExternalService.template/obj/Release/.NETFramework,Version=v4.8.AssemblyAttributes.cs
+/Plugin Templates/cs.ExternalService.template/obj/Release

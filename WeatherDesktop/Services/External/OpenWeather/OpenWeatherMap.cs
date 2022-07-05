@@ -43,7 +43,7 @@ namespace WeatherDesktop.Services.External.OpenWeather
         #endregion
 
         #region Helpers
-        private SharedObjects.WeatherTypes GetWeatherType(int ParseItem)
+        private static SharedObjects.WeatherTypes GetWeatherType(int ParseItem)
         {
             double value = ParseItem / 100;
 
@@ -105,7 +105,7 @@ namespace WeatherDesktop.Services.External.OpenWeather
             //list of items directly not covered: 771 squalls, 781 tornado, 900 tornado, 901 tropical storm, 902 hurricane, 906 hail, 959 severe gale, 962 hurrican
         }
 
-        private string GenerateForcast(Main Mainweather, Weather WeatherObject)
+        private static string GenerateForcast(Main Mainweather, Weather WeatherObject)
         {
             var builder = new StringBuilder();
             return builder.AppendLine($"{Mainweather.Temp}, {WeatherObject.Description}")

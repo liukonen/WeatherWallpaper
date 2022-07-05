@@ -128,24 +128,27 @@ namespace WeatherDesktop.Share
             }
         }
 
-        private MenuItem[] ThemeArray()
+        private IEnumerable<MenuItem> ThemeArray()
         {
-            List<MenuItem> items = new List<MenuItem>();
             try
             {
+                if (!Directory.Exists(themesDir)) { Directory.CreateDirectory(themesDir); }
 
-                if (!System.IO.Directory.Exists(themesDir)) { Directory.CreateDirectory(themesDir); }
-                return (from string item in Directory.EnumerateDirectories(themesDir) select new MenuItem(item.Substring(item.LastIndexOf(Path.DirectorySeparatorChar) + 1), LoadTheme)).ToArray();
+                return Directory.EnumerateDirectories(themesDir)
+                    .Select(x => 
+                    new MenuItem(
+                        x.Substring(x.LastIndexOf(Path.DirectorySeparatorChar) + 1), 
+                        LoadTheme));
             }
             catch (Exception x) { ErrorHandler.Send(x); }
-            return items.ToArray();
+            return new List<MenuItem>();
 
         }
 
         public MenuItem[] SettingsItems()
         {
             MenuItem Save = new MenuItem("Save Current Settings as Theme.", SaveTheme);
-            MenuItem Load = new MenuItem("Load Theme", ThemeArray());
+            MenuItem Load = new MenuItem("Load Theme", ThemeArray().ToArray());
             MenuItem Import = new MenuItem("Import Theme", ImportTheme);
             return new MenuItem[] { Save, Load, Import };
         }

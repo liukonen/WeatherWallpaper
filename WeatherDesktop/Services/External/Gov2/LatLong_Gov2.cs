@@ -40,8 +40,7 @@ namespace WeatherDesktop.Services.External
             catch (Exception x) { _worked = false; MessageBox.Show(x.Message); }
         }
 
-        private Geography ReadGeo(string item) 
-            => new Geography(
+        private static Geography ReadGeo(string item) => new Geography(
                 double.Parse(item.Split(',')[0]), 
                 double.Parse(item.Split(',')[1]));
 

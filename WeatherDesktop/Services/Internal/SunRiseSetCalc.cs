@@ -108,7 +108,7 @@ namespace WeatherDesktop.Services.Internal
             return new SunRiseSetResponse()
             {
                 SolarNoon = SolarNoon.NextEvent(),
-                SunRise = SunsetTime.NextEvent(),
+                SunRise = SunriseTime.NextEvent(),
                 SunSet = SunsetTime.NextEvent()
             };
         }
@@ -207,7 +207,7 @@ namespace WeatherDesktop.Services.Internal
         {
             return new Dictionary<string, string>
             {
-                {"Houre to update", _HourToUpdate.ToString()},
+                {"Hour to update", _HourToUpdate.ToString()},
                 {"Last update", _LastUpdate.ToString()},
                 {"Latitude", geography.Latitude.ToString() },
                 {"Longitude", geography.Longitude.ToString() },

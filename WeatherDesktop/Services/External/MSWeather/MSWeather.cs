@@ -144,7 +144,7 @@ namespace WeatherDesktop.Services.External.MSWeather
             return response;
         }
 
-        private Geography TransformerLatLong(string webresponse)
+        private static Geography TransformerLatLong(string webresponse)
         {
             XmlReader reader = XmlReader.Create(new System.IO.StringReader(webresponse));
             while (reader.Read())
@@ -167,28 +167,42 @@ namespace WeatherDesktop.Services.External.MSWeather
         #region Helpers
         private static SharedObjects.WeatherTypes ConvertType(string SkyText)
         {
-            if (SkyText.IndexOf("thunderstorm", StringComparison.OrdinalIgnoreCase) != -1) { return SharedObjects.WeatherTypes.ThunderStorm; }
-            else if (SkyText.IndexOf("rain", StringComparison.OrdinalIgnoreCase) != -1) { return SharedObjects.WeatherTypes.Rain; }
-            else if (SkyText.IndexOf("snow", StringComparison.OrdinalIgnoreCase) != -1) { return SharedObjects.WeatherTypes.Snow; }
-            else if (SkyText.IndexOf("partly", StringComparison.OrdinalIgnoreCase) != -1) { return SharedObjects.WeatherTypes.PartlyCloudy; }
-            else
+
+            if (TryFind(SkyText.ToLower(), out SharedObjects.WeatherTypes weather)) return weather;
+            switch (SkyText.ToLower())
             {
-                switch (SkyText.ToLower())
-                {
-                    case "cloudy": return SharedObjects.WeatherTypes.Cloudy;
-                    case "dust": return SharedObjects.WeatherTypes.Dust;
-                    case "fog": return SharedObjects.WeatherTypes.Fog;
-                    case "showers": return SharedObjects.WeatherTypes.Rain;
-                    case "haze": return SharedObjects.WeatherTypes.Haze;
-                    case "smoke": return SharedObjects.WeatherTypes.Smoke;
-                    case "windy": return SharedObjects.WeatherTypes.Windy;
-                    case "Frigid": return SharedObjects.WeatherTypes.Frigid;
-                    case "Hot": return SharedObjects.WeatherTypes.Hot;
-                    default: return SharedObjects.WeatherTypes.Clear;
-                }
+                case "cloudy": return SharedObjects.WeatherTypes.Cloudy;
+                case "dust": return SharedObjects.WeatherTypes.Dust;
+                case "fog": return SharedObjects.WeatherTypes.Fog;
+                case "showers": return SharedObjects.WeatherTypes.Rain;
+                case "haze": return SharedObjects.WeatherTypes.Haze;
+                case "smoke": return SharedObjects.WeatherTypes.Smoke;
+                case "windy": return SharedObjects.WeatherTypes.Windy;
+                case "frigid": return SharedObjects.WeatherTypes.Frigid;
+                case "hot": return SharedObjects.WeatherTypes.Hot;
+                default: return SharedObjects.WeatherTypes.Clear;
             }
 
         }
+
+        private static bool TryFind(string test, out SharedObjects.WeatherTypes weatherTypes)
+        {
+            Dictionary<string, SharedObjects.WeatherTypes> LookupSearch = new Dictionary<string, SharedObjects.WeatherTypes>
+        {
+            { "rain", SharedObjects.WeatherTypes.Rain},
+            { "snow", SharedObjects.WeatherTypes.Snow },
+            { "partly", SharedObjects.WeatherTypes.PartlyCloudy }
+        };
+            foreach (var item in LookupSearch)
+            {
+                if (test.Contains(item.Key)) { weatherTypes = item.Value; return true; }
+            }
+            weatherTypes = SharedObjects.WeatherTypes.Windy; return false;
+        }
+
+
+
+
 
         //found to be not that reliable
         //private static SharedObjects.WeatherTypes ConvertType(int skycode)

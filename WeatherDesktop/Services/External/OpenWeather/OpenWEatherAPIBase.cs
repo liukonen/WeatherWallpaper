@@ -123,9 +123,7 @@ namespace WeatherDesktop.Services.External.OpenWeather
                 if (string.IsNullOrEmpty(_zip))  _zip = SharedObjects.ZipObjects.TryGetZip(); 
                 return _zip;
             }
-
-            set => _zip = value;
-            
+           // set => _zip = value;
         }
 
         public int UpdateInterval
@@ -155,8 +153,8 @@ namespace WeatherDesktop.Services.External.OpenWeather
         #endregion
 
         #region Events
-        private void ChangeZipClick(object sender, EventArgs e) 
-            => SharedObjects.ZipObjects.GetZip();
+        //private void ChangeZipClick(object sender, EventArgs e) 
+        //    => SharedObjects.ZipObjects.GetZip();
         
 
         private void ChangeAPI(object sender, EventArgs e) => EnterAPIKey();

@@ -8,6 +8,7 @@ using System.Threading;
 using System.Windows.Forms;
 using WeatherDesktop.Share;
 using System.Linq;
+using WeatherDesktop.Shared.Extentions;
 
 namespace WeatherDesktop
 {
@@ -57,9 +58,10 @@ namespace WeatherDesktop
             notifyIcon = new NotifyIcon();
             notificationMenu = new ContextMenu(InitializeMenu());
             notifyIcon.DoubleClick += IconDoubleClick;
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(MainApp));
+            //ComponentResourceManager resources = new ComponentResourceManager(typeof(MainApp));
             notifyIcon.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             notifyIcon.ContextMenu = notificationMenu;
+            UpdateScreen(false);
             CreateTimer();
         }
 
@@ -296,7 +298,7 @@ namespace WeatherDesktop
 
         #region Private Functions
 
-        private string ExtractInfo(WeatherDesktop.Interface.ISharedInterface Item)
+        private string ExtractInfo(Interface.ISharedInterface Item)
         {
             string Name = Item.GetType().Assembly.GetName().Name + " " + Item.ToString();
             var CustomInfoCopyrightCall = g_Weather.GetType().Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyCopyrightAttribute), false);
@@ -315,11 +317,11 @@ namespace WeatherDesktop
             if (!(DenyedDays[(int)DateTime.Now.DayOfWeek] || DenyedHours[DateTime.Now.Hour]))
             {
                 var weather = (Interface.WeatherResponse)g_Weather.Invoke();
-                var sunriseSet = g_SunRiseSet.Invoke();
+                var sunriseSet = (Interface.SunRiseSetResponse)g_SunRiseSet.Invoke();
                 string currentTime;
 
-                if (SharedObjects.BetweenTimespans(DateTime.Now.TimeOfDay, ((Interface.SunRiseSetResponse)sunriseSet).SunRise.TimeOfDay, ((Interface.SunRiseSetResponse)sunriseSet).SunSet.TimeOfDay)) { currentTime = cDay; } else { currentTime = cNight; }
-
+                currentTime = DateTime.Now.TimeOfDay.Between(sunriseSet.SunRise.TimeOfDay, sunriseSet.SunSet.TimeOfDay) ? cDay : cNight;
+                
 
                 string weatherType = Enum.GetName(typeof(SharedObjects.WeatherTypes), weather.WType);
                 notifyIcon.Text = weatherType + " " + weather.Temp.ToString();
@@ -368,7 +370,7 @@ namespace WeatherDesktop
                                     SharedObjects.LatLong.Set(lat.Latitude(), lat.Longitude()); break;
                                 }
                             }
-                            catch { }
+                            catch (Exception x){ ErrorHandler.Send(x); }
                         }
                     }
                 }
@@ -384,7 +386,7 @@ namespace WeatherDesktop
                         g_Weather.Load();
                         break;
                     }
-                    catch { }
+                    catch (Exception x){ ErrorHandler.Send(x); }
                 }
 
 
@@ -403,7 +405,7 @@ namespace WeatherDesktop
             }
             catch (Exception x)
             {
-                Share.ErrorHandler.Send(x);
+                ErrorHandler.Send(x);
             }
 
             UpdateImageCache();

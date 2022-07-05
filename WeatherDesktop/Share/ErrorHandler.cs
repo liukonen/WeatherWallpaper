@@ -9,7 +9,8 @@ namespace WeatherDesktop.Share
     {
         public static void Send(Exception x)
         {
-
+            try
+            {
                 string sSource;
                 string sLog;
                 string sEvent;
@@ -21,6 +22,12 @@ namespace WeatherDesktop.Share
                 if (!EventLog.SourceExists(sSource)) { EventLog.CreateEventSource(sSource, sLog); }
                 var raw = Encoding.ASCII.GetBytes(sEvent);
                 EventLog.WriteEntry(sSource, x.Message, EventLogEntryType.Warning, 1, 1, raw);
+            }
+            catch (Exception ex) 
+            {
+                System.IO.File.AppendAllText("loggerException.log", ex.ToString() + Environment.NewLine);
+                System.IO.File.AppendAllText("Log.log", x.ToString() + Environment.NewLine);
+            }
         }
     }
 }

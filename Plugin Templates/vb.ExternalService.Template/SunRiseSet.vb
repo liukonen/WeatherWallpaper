@@ -1,9 +1,6 @@
-﻿
-Imports System
-Imports System.Windows.Forms
+﻿Imports System.Windows.Forms
 Imports WeatherDesktop.[Interface]
 Imports System.ComponentModel.Composition
-Imports WeatherDesktop.Share
 
 Namespace ExternalService.template
 

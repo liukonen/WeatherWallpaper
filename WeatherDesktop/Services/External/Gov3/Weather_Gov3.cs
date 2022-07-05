@@ -69,7 +69,7 @@ namespace WeatherDesktop.Services.External
 
 
 
-        private WeatherResponse Transform(string Daily, string Hourly)
+        private static WeatherResponse Transform(string Daily, string Hourly)
         {
             WeatherResponse response = new WeatherResponse();
             string shortDescription;

@@ -136,11 +136,7 @@ namespace WeatherDesktop.Services.External.SunRiseSet
 
         static void UpdateHour()
         {
-
-            int current;
-            try { current = int.Parse(SharedObjects.AppSettings.ReadSetting("HourUpdate")); }
-            catch { current = 6; }
-
+            var current = int.TryParse(AppSetttingsHandler.Read("HourUpdate"), out int response) ? response : 6;
             try
             {
                 string attempt;

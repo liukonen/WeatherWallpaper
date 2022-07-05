@@ -291,3 +291,5 @@ __pycache__/
 /Plugin Templates/cs.ExternalService.template/obj/Release/cs.ExternalService.template.csproj.FileListAbsolute.txt
 /Plugin Templates/cs.ExternalService.template/obj/Release/.NETFramework,Version=v4.8.AssemblyAttributes.cs
 /Plugin Templates/cs.ExternalService.template/obj/Release
+/Plugin Templates/cs.ExternalService.template/bin/Release
+/Plugin Templates/vb.ExternalService.Template/bin/Release

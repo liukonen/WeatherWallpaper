@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using WeatherDesktop.Share;
 using System.Linq;
 using WeatherDesktop.Shared.Extentions;
+using WeatherDesktop.Shared.Handlers;
 
 namespace WeatherDesktop
 {
@@ -30,8 +31,6 @@ namespace WeatherDesktop
         #region constants
         const string cDay = "day-";
         const string cNight = "night-";
-        const string cWeather = "gWeatherapp";
-        const string cSRS = "gsunRiseSet";
         #endregion
 
         #region global Objects
@@ -70,9 +69,9 @@ namespace WeatherDesktop
 
 
             MenuItem[] menu = new MenuItem[] {
-                new MenuItem("Settings", GetSettings().ToArray()),
-                new MenuItem("About", MenuAboutClick),
-                new MenuItem("Exit", MenuExitClick)
+                new MenuItem(Properties.Menu.Settings, GetSettings().ToArray()),
+                new MenuItem(Properties.Menu.About, MenuAboutClick),
+                new MenuItem(Properties.Menu.Exit, MenuExitClick)
             };
 
             return menu;
@@ -80,57 +79,51 @@ namespace WeatherDesktop
 
         private IEnumerable<MenuItem> GetSettings()
         {
-            yield return new MenuItem("Global", GlobalMenuSettings());
-            yield return new MenuItem("images", GetWeatherMenuItems().ToArray());
+            yield return new MenuItem(Properties.Menu.Global, GlobalMenuSettings());
+            yield return new MenuItem(Properties.Menu.Images, GetWeatherMenuItems().ToArray());
             yield return new MenuItem(g_SunRiseSet.GetType().Name, g_SunRiseSet.SettingsItems());
             yield return new MenuItem(g_Weather.GetType().Name, g_Weather.SettingsItems());
-            yield return new MenuItem("Themes", Themes.SettingsItems());
+            yield return new MenuItem(Properties.Menu.Themes, Themes.SettingsItems());
         }
 
         private MenuItem[] GlobalMenuSettings()
         {
-            List<MenuItem> Items = new List<MenuItem>{new MenuItem("Plugin Folder", PluginFolder_Event)};
-            List<MenuItem> DenyedList = new List<MenuItem> {new MenuItem("Denyed Hours", DenyedtHours_Event), new MenuItem("Denyed Days", DenyedDays_event)};
-            Items.Add(new MenuItem("DenyedListing", DenyedList.ToArray()));
-            
-            List<MenuItem> WeatherItems = new List<MenuItem>();
-            List<MenuItem> SunRiseSetItems = new List<MenuItem>();
-            string SelectedItem = SharedObjects.AppSettings.ReadSetting(cWeather);
-            string SelectedSRS = SharedObjects.AppSettings.ReadSetting(cSRS);
+            var SelectedItem = AppSetttingsHandler.Weather;
+            var SelectedSRS = AppSetttingsHandler.SunRiseSet;
 
-
-
-            foreach (var item in WeatherObjects)
+            return new List<MenuItem>
             {
-                MenuItem ItemToAdd = new MenuItem(item.Metadata.ClassName, UpdateGlobalObjecttype);
-                if (item.Metadata.ClassName == SelectedItem) { ItemToAdd.Checked = true; }
-                WeatherItems.Add(ItemToAdd);
-            }
-            foreach (var item in SRSObjects)
-            {
-                MenuItem ItemToAdd = new MenuItem(item.Metadata.ClassName, UpdateGlobalObjecttype);
-                if (item.Metadata.ClassName == SelectedSRS) { ItemToAdd.Checked = true; }
-                SunRiseSetItems.Add(ItemToAdd);
-            }
-            Items.Add(new MenuItem("Weather", WeatherItems.ToArray()));
-            Items.Add(new MenuItem("SunRiseSet", SunRiseSetItems.ToArray()));
-
-            return Items.ToArray();
-
+                new MenuItem(Properties.Menu.PluginFolder, PluginFolder_Event),
+                new MenuItem(Properties.Menu.DeniedItems,new MenuItem[]
+                {
+                    new MenuItem(Properties.Menu.DeniedHours, DenyedtHours_Event),
+                    new MenuItem(Properties.Menu.DeniedDays, DenyedDays_event)
+                } 
+                ),
+                new MenuItem(Properties.Menu.Weather, 
+                WeatherObjects.Select(x => 
+                new MenuItem(x.Metadata.ClassName, UpdateGlobalObjecttype)
+                {Checked = x.Metadata.ClassName == SelectedItem}
+                ).ToArray()),
+                new MenuItem(Properties.Menu.SunRiseSet,
+                SRSObjects.Select(x => 
+                new MenuItem(x.Metadata.ClassName, UpdateGlobalObjecttype)
+                { Checked = x.Metadata.ClassName == SelectedSRS}).ToArray())
+            }.ToArray();
         }
         private IEnumerable<MenuItem> GetWeatherMenuItems()
         {
             foreach (var element in Enum.GetValues(typeof(SharedObjects.WeatherTypes)))
             {
-                string ElementName = Enum.GetName(typeof(SharedObjects.WeatherTypes), element);
+                var ElementName = Enum.GetName(typeof(SharedObjects.WeatherTypes), element);
                 
-                string DayName = cDay + ElementName;
+                var DayName = cDay + ElementName;
                 yield return new MenuItem(DayName, MenuItemClick)
                 { 
                 Checked = g_ImageDictionary.ContainsKey(DayName)
                 };
 
-                string NightName = cNight + ElementName;
+                var NightName = cNight + ElementName;
                 yield return new MenuItem(NightName, MenuItemClick)
                 {
                     Checked = (g_ImageDictionary.ContainsKey(NightName))
@@ -159,7 +152,7 @@ namespace WeatherDesktop
                 {
                     try
                     {
-                        MainApp notificationIcon = new MainApp();
+                        var notificationIcon = new MainApp();
                         notificationIcon.notifyIcon.Visible = true;
                         GC.Collect();
                         Application.Run();
@@ -168,14 +161,14 @@ namespace WeatherDesktop
                     catch (Exception x)
                     {
                         MessageBox.Show("Error: " + x.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        WeatherDesktop.Share.ErrorHandler.Send(x);
+                        ErrorHandler.Send(x);
                     }
                     mtx.ReleaseMutex();
                 }
                 else
                 {
                     GC.Collect();
-                    MessageBox.Show("App appears to be running. if not, you may have to restart your machine to get it to work.");
+                    MessageBox.Show(Properties.Warnings.AppAlreadyRunning);
                 }
             }
 
@@ -193,8 +186,8 @@ namespace WeatherDesktop
         private void MenuItemClick(object sender, EventArgs e)
         {
 
-            string Name = ((MenuItem)sender).Text;//.Replace("*", string.Empty);
-            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            var Name = ((MenuItem)sender).Text;//.Replace("*", string.Empty);
+            var openFileDialog1 = new OpenFileDialog
             {
                 Filter = "jpeg (*.jpg)|*.jpg|Portable Network Graphics (*.png)|*.png",
                 FilterIndex = 1,
@@ -204,7 +197,7 @@ namespace WeatherDesktop
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                SharedObjects.AppSettings.AddUpdateAppSettings(Name, openFileDialog1.FileName);
+                AppSetttingsHandler.Write(Name, openFileDialog1.FileName);
                 if (g_ImageDictionary.ContainsKey(Name)) { g_ImageDictionary[Name] = openFileDialog1.FileName; }
                 else { g_ImageDictionary.Add(Name, openFileDialog1.FileName); }
                 UpdateScreen(true);
@@ -215,9 +208,9 @@ namespace WeatherDesktop
 
         private void MenuAboutClick(object sender, EventArgs e)
         {
-            string Name = this.GetType().Assembly.GetName().Name;
+            var Name = this.GetType().Assembly.GetName().Name;
 
-            System.Text.StringBuilder message = new System.Text.StringBuilder();
+            var message = new System.Text.StringBuilder();
             //Description
             //
             //Version: XXXX
@@ -244,42 +237,42 @@ namespace WeatherDesktop
 
         private void DenyedtHours_Event(object sender, EventArgs e)
         {
-            List<int> values = new List<int>();
+            var values = new List<int>();
             for (int i = 0; i < 24; i++)
             {
                 if (DenyedHours[i]) { values.Add(i); }
             }
 
 
-            string ValuesCSV = Microsoft.VisualBasic.Interaction.InputBox("Enter days in comma seperated values, Military time", "Enter Denyed Hours", string.Join(",", values.ToArray()));
+            var ValuesCSV = InputHandler.InputBox(Properties.Prompts.CSVForHours, Properties.Titles.EnterHours, string.Join(",", values.ToArray()));
             values = new List<int>();
             foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
             for (int i = 0; i < 24; i++) { DenyedHours[i] = values.Contains(i); }
-            SharedObjects.AppSettings.AddUpdateAppSettings("DenyedHours", SharedObjects.ConvertBitarrayToInt(DenyedHours).ToString());
+            AppSetttingsHandler.DeniedHours = DenyedHours.ToInt().ToString();
         }
 
         private void DenyedDays_event(object sender, EventArgs e)
         {
-            string ValuesCSV = Microsoft.VisualBasic.Interaction.InputBox("Enter days in comma seperated values, with Sunday = 0 and Saturday = 6, example '0,1,2' = Sunday Monday Tuesday", "Enter Denyed Days");
-            List<int> values = new List<int>();
+            var ValuesCSV = InputHandler.InputBox(Properties.Prompts.CSVForDays, Properties.Titles.EnterDays);
+            var values = new List<int>();
             foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
             for (int i = 0; i < 7; i++) { DenyedDays[i] = values.Contains(i); }
-            SharedObjects.AppSettings.AddUpdateAppSettings("DenyedDays", SharedObjects.ConvertBitarrayToInt(DenyedDays).ToString());
+            AppSetttingsHandler.DeniedDays = DenyedDays.ToInt().ToString();
         }
 
         private void UpdateGlobalObjecttype(object sender, EventArgs e)
         {
-            MenuItem Current = (MenuItem)sender;
-            string Name = Current.Text;
+            var Current = (MenuItem)sender;
+            var Name = Current.Text;
             if (((MenuItem)Current.Parent).Text == "Weather")
             {
-                SharedObjects.AppSettings.AddUpdateAppSettings(cWeather, Name);
+                AppSetttingsHandler.Weather = Name;
                 g_Weather = GetByName(WeatherObjects, Name);
                 g_Weather.Load();
             }
             else if (((MenuItem)Current.Parent).Text == "SunRiseSet")
             {
-                SharedObjects.AppSettings.AddUpdateAppSettings(cSRS, Name);
+                AppSetttingsHandler.SunRiseSet = Name;
                 
                 g_SunRiseSet = GetByName(SRSObjects, Name);
                 g_SunRiseSet.Load();
@@ -300,10 +293,9 @@ namespace WeatherDesktop
 
         private string ExtractInfo(Interface.ISharedInterface Item)
         {
-            string Name = Item.GetType().Assembly.GetName().Name + " " + Item.ToString();
+            var Name = Item.GetType().Assembly.GetName().Name + " " + Item.ToString();
             var CustomInfoCopyrightCall = g_Weather.GetType().Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyCopyrightAttribute), false);
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
+            var sb = new System.Text.StringBuilder();
             sb.Append(Name).Append(Environment.NewLine);
             sb.Append('_',Name.Length).Append(Environment.NewLine);
             if (CustomInfoCopyrightCall.Length > 0) { sb.Append("Copyright: ").Append(((System.Reflection.AssemblyCopyrightAttribute)CustomInfoCopyrightCall[0]).Copyright).Append(Environment.NewLine);}
@@ -318,21 +310,20 @@ namespace WeatherDesktop
             {
                 var weather = (Interface.WeatherResponse)g_Weather.Invoke();
                 var sunriseSet = (Interface.SunRiseSetResponse)g_SunRiseSet.Invoke();
-                string currentTime;
-
-                currentTime = DateTime.Now.TimeOfDay.Between(sunriseSet.SunRise.TimeOfDay, sunriseSet.SunSet.TimeOfDay) ? cDay : cNight;
+                
+                var currentTime = DateTime.Now.TimeOfDay.Between(sunriseSet.SunRise.TimeOfDay, sunriseSet.SunSet.TimeOfDay) ? cDay : cNight;
                 
 
-                string weatherType = Enum.GetName(typeof(SharedObjects.WeatherTypes), weather.WType);
+                var weatherType = Enum.GetName(typeof(SharedObjects.WeatherTypes), weather.WType);
                 notifyIcon.Text = weatherType + " " + weather.Temp.ToString();
-                string currentWeatherType = currentTime + weatherType;
+                var currentWeatherType = currentTime + weatherType;
                 if (string.IsNullOrWhiteSpace(g_CurrentWeatherType) || currentWeatherType != g_CurrentWeatherType || overrideImage)
                 {
                     g_CurrentWeatherType = currentWeatherType;
                     notifyIcon.Icon = Share.Wallpaper.GetWeatherIcon(weather.WType, (currentTime == cDay));
                     if (g_ImageDictionary.ContainsKey(currentWeatherType))
                     {
-                        try { Share.Wallpaper.Set(g_ImageDictionary[currentWeatherType], Share.Wallpaper.Style.Stretched);
+                        try { Wallpaper.Set(g_ImageDictionary[currentWeatherType], Wallpaper.Style.Stretched);
 
                         }
                         catch (Exception x) { MessageBox.Show(x.ToString()); }
@@ -352,7 +343,7 @@ namespace WeatherDesktop
             {
 
                 //try get latlong if you can
-                if (!SharedObjects.LatLong.HasRecord())
+                if (!LatLongHandler.HasRecord())
                 {
                     if (LatLongObjects != null)
                     {
@@ -367,7 +358,7 @@ namespace WeatherDesktop
                                 var lat = obj.Value;
                                 if (lat.worked())
                                 {
-                                    SharedObjects.LatLong.Set(lat.Latitude(), lat.Longitude()); break;
+                                    LatLongHandler.Set(lat.Latitude(), lat.Longitude()); break;
                                 }
                             }
                             catch (Exception x){ ErrorHandler.Send(x); }
@@ -376,7 +367,7 @@ namespace WeatherDesktop
                 }
 
                 //get weather type
-                string weatherType = SharedObjects.AppSettings.ReadSetting(cWeather);
+                var weatherType = AppSetttingsHandler.Weather;
 
                 foreach (var item in PullByPrefered(WeatherObjects, weatherType, "GovWeather3"))
                 {
@@ -391,7 +382,7 @@ namespace WeatherDesktop
 
 
                 //get SRS
-                string srs = SharedObjects.AppSettings.ReadSetting(cSRS);
+                var srs = AppSetttingsHandler.SunRiseSet;
                 foreach (var item in PullByPrefered(SRSObjects, srs, "InternalSunRiseSet"))
                 {
                     try
@@ -439,18 +430,18 @@ namespace WeatherDesktop
 
         private void UpdateDenyedList()
         {
-            int.TryParse(SharedObjects.AppSettings.ReadSetting("DenyedHours"), out int intDenyedHours);
-            int.TryParse(SharedObjects.AppSettings.ReadSetting("DenyedDays"), out int intDenyedDays);
-            DenyedHours = SharedObjects.ConverTIntToBitArray(intDenyedHours);
-            DenyedDays = SharedObjects.ConverTIntToBitArray(intDenyedDays);
+            int.TryParse(AppSetttingsHandler.DeniedHours, out int intDenyedHours);
+            int.TryParse(AppSetttingsHandler.DeniedDays, out int intDenyedDays);
+            DenyedHours = intDenyedHours.ToBitArray();
+            DenyedDays = intDenyedDays.ToBitArray();
 
         }
 
         private void CreateTimer()
         {
-            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer
+            var t = new System.Windows.Forms.Timer
             {
-                Interval = 30000 // specify interval time as you want
+                Interval = 3000 // specify interval time as you want
             };
             t.Tick += new EventHandler(OnTimedEvent);
             t.Start();
@@ -458,13 +449,13 @@ namespace WeatherDesktop
 
         private void UpdateImageCache()
         {
-            foreach (var element in System.Enum.GetValues(typeof(SharedObjects.WeatherTypes)))
+            foreach (var element in Enum.GetValues(typeof(SharedObjects.WeatherTypes)))
             {
                 var ElementName = Enum.GetName(typeof(SharedObjects.WeatherTypes), element);
                 var daykey = cDay + ElementName;
                 var nightKey = cNight + ElementName;
-                var dayimageCache = SharedObjects.AppSettings.ReadSetting(cDay + ElementName);
-                var nightimagecache = SharedObjects.AppSettings.ReadSetting(cNight + ElementName);
+                var dayimageCache = AppSetttingsHandler.Read(cDay + ElementName);
+                var nightimagecache = AppSetttingsHandler.Read(cNight + ElementName);
                 if (!string.IsNullOrEmpty(dayimageCache)) { g_ImageDictionary.Add(daykey, dayimageCache); }
                 if (!string.IsNullOrEmpty(nightimagecache)) { g_ImageDictionary.Add(nightKey, nightimagecache); }
             }
@@ -495,8 +486,7 @@ namespace WeatherDesktop
             }
             catch (CompositionException compositionException)
             {
-                Share.ErrorHandler.Send(compositionException);
-                // Console.WriteLine(compositionException.ToString());
+                ErrorHandler.Send(compositionException);
             }
         }
 

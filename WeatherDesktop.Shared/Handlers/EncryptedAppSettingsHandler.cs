@@ -9,14 +9,17 @@ namespace WeatherDesktop.Shared.Handlers
     {
         public static string Read(string Key) 
         {
-            byte[] entropy = new byte[0]; byte[] decryptedData = new byte[0];
+            var entropy = new byte[0];
+            var decryptedData = new byte[0];
 
             try
             {
                 entropy = Encoding.Unicode.GetBytes(Key);
-                string EncryptedString = AppSetttingsHandler.Read(Key);
+                var EncryptedString = AppSetttingsHandler.Read(Key);
                 decryptedData = ProtectedData.Unprotect(
-                    Convert.FromBase64String(EncryptedString), entropy, DataProtectionScope.LocalMachine);
+                    Convert.FromBase64String(EncryptedString), 
+                    entropy, 
+                    DataProtectionScope.LocalMachine);
                 return Encoding.Unicode.GetString(decryptedData);
             }
             catch { return string.Empty; }
@@ -31,16 +34,33 @@ namespace WeatherDesktop.Shared.Handlers
         {
             try
             {
-                byte[] entropy = Encoding.Unicode.GetBytes(Key);
-                var Encrypted = ProtectedData.Protect(Encoding.Unicode.GetBytes(Value), entropy, DataProtectionScope.LocalMachine);
+                var entropy = Encoding.Unicode.GetBytes(Key);
+                var Encrypted = ProtectedData.Protect(
+                    Encoding.Unicode.GetBytes(Value), 
+                    entropy, 
+                    DataProtectionScope.LocalMachine);
                 AppSetttingsHandler.Write(Key, Convert.ToBase64String(Encrypted));
             }
             catch (Exception x)
-            { MessageBox.Show(x.Message, "error writing to Config file"); Share.ErrorHandler.LogException(x); }
+            { 
+                MessageBox.Show(x.Message, Properties.Resources.EncrpytedErrorMessage); 
+                Share.ErrorHandler.LogException(x); 
+            }
         }
 
         public static void Remove(string Key) => AppSetttingsHandler.Remove(Key);
 
+        public static string LatLong 
+        {
+            get => Read("LatLong");
+            set => Write("LatLong", value);
+        }
+
+        public static string zipcode
+        {
+            get => Read("zipcode");
+            set => Write("zipcode", value);
+        }
 
     }
 }

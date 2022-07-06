@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WeatherDesktop.Shared.Handlers;
 using System.Windows.Forms;
 using System.ComponentModel.Composition;
-using System.Xml;
 using WeatherDesktop.Interface;
 using WeatherDesktop.Share;
 using Newtonsoft.Json.Linq;
@@ -19,7 +15,7 @@ namespace WeatherDesktop.Services.External
     class GovWeather3 : ISharedWeatherinterface
     {
         
-        private readonly string Gov_User = Properties.Gov3.User;
+        private readonly string Gov_User = Properties.Resources.Gov3User;
         const int UpdateInterval = 60;
         private string httpResponseHourly;
         private string httpResponseDaily;
@@ -41,12 +37,11 @@ namespace WeatherDesktop.Services.External
         ISharedResponse ISharedInterface.Invoke()
         {
             if (MemCacheHandler.Instance.Exists(this.GetType().Name))  return MemCacheHandler.Instance.GetItem<WeatherResponse>(this.GetType().Name); 
-            WeatherResponse response = new WeatherResponse();
+            var response = new WeatherResponse();
             try
             {
-
-                httpResponseHourly = SharedObjects.CompressedCallSite($"https://api.weather.gov/gridpoints/MKX/{Grid.Item1},{Grid.Item2}/forecast/hourly", Gov_User);
-                httpResponseDaily = SharedObjects.CompressedCallSite($"https://api.weather.gov/gridpoints/MKX/{Grid.Item1},{Grid.Item2}/forecast", Gov_User);
+                httpResponseHourly = WebHandler.Instance.CallSite($"https://api.weather.gov/gridpoints/MKX/{Grid.Item1},{Grid.Item2}/forecast/hourly", Gov_User);
+                httpResponseDaily = WebHandler.Instance.CallSite($"https://api.weather.gov/gridpoints/MKX/{Grid.Item1},{Grid.Item2}/forecast", Gov_User);
                 response = Transform(httpResponseDaily, httpResponseHourly);
 
                 MemCacheHandler.Instance.SetItem(this.GetType().Name,response, UpdateInterval);
@@ -63,7 +58,7 @@ namespace WeatherDesktop.Services.External
             Grid = LookUpPoints(LatLong);
         }
 
-        public MenuItem[] SettingsItems() { return new MenuItem[] { SharedObjects.ZipObjects.ZipMenuItem }; }
+        public MenuItem[] SettingsItems() { return new MenuItem[] { ZipcodeHandler.ZipMenuItem }; }
 
         Exception ISharedInterface.ThrownException() { return _ThrownException; }
 
@@ -71,11 +66,10 @@ namespace WeatherDesktop.Services.External
 
         private static WeatherResponse Transform(string Daily, string Hourly)
         {
-            WeatherResponse response = new WeatherResponse();
-            string shortDescription;
-            JObject item = JObject.Parse(Hourly);
+            var response = new WeatherResponse();
+            var item = JObject.Parse(Hourly);
             var X = item["properties"]["periods"][0];
-            shortDescription = X.Value<string>("shortForecast");
+            var shortDescription = X.Value<string>("shortForecast");
             response.Temp = X.Value<int>("temperature");
             response.ForcastDescription = DetailedForcast(Daily);
             response.WType = Convert(shortDescription);
@@ -83,7 +77,7 @@ namespace WeatherDesktop.Services.External
         }
         private static string DetailedForcast(string DailyForcast)
         {
-            JObject item = JObject.Parse(DailyForcast);
+            var item = JObject.Parse(DailyForcast);
             var X = item["properties"]["periods"][0];
             return X.Value<string>("detailedForecast");
         }
@@ -107,43 +101,44 @@ namespace WeatherDesktop.Services.External
 
         static Tuple<double, double> GetLocationProperty()
         {
-            if (SharedObjects.LatLong.HasRecord() || IntialgetLatLong())
-            { return new Tuple<double, double>(SharedObjects.LatLong.Lat, SharedObjects.LatLong.Lng); }
+            if (LatLongHandler.HasRecord() || IntialgetLatLong())
+            { return new Tuple<double, double>(LatLongHandler.Lat, LatLongHandler.Lng); }
             return new Tuple<double, double>(0, 0);
         }
 
         static bool IntialgetLatLong()
         {
-            bool worked = false;
-            if (MessageBox.Show(Properties.Gov3.LatLongLookupMessage, Properties.Gov3.LatLongLookupTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            var worked = false;
+            if (MessageBox.Show(Properties.Messages.LatLongLookupMessageYesNo,
+                Properties.Titles.LatLongNotSet, MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                double lat = Prompt("Latitude");
-                double lon = Prompt("Longitude");
-                SharedObjects.LatLong.Set(lat, lon);
+                var lat = Prompt("Latitude");
+                var lon = Prompt("Longitude");
+                LatLongHandler.Set(lat, lon);
                 worked = true;
             }
             return worked;
         }
 
-        private static double Prompt(string type) => double.Parse(SharedObjects.InputBox(string.Format(Properties.Gov3.LatLongInput, type), type));
+        private static double Prompt(string type)
+            => double.Parse(InputHandler.InputBox(string.Format(Properties.Prompts.PleaseEnterYour_, type), type));
 
         private Tuple<double, double> LookUpPoints(Tuple<double, double> LatLong)
         {
-            string Lookup = String.Join(",", "GovWeather3Points", LatLong.Item1.ToString(), LatLong.Item2.ToString());
-            string Item = SharedObjects.AppSettings.ReadSetting(Lookup);
+            var Lookup = "GovWeather3Points";
+            var Item = AppSetttingsHandler.Read(Lookup);
             if (string.IsNullOrWhiteSpace(Item))
             {
-                string ponstResponse = SharedObjects.CompressedCallSite($"https://api.weather.gov/points/{LatLong.Item1},{LatLong.Item2}", Gov_User);
-
-                JObject item = JObject.Parse(ponstResponse);
+                var ponstResponse = WebHandler.Instance.CallSite($"https://api.weather.gov/points/{LatLong.Item1},{LatLong.Item2}", Gov_User);
+                var item = JObject.Parse(ponstResponse);
                 var X = item["properties"];
-                Tuple<double, double> response = new Tuple<double, double>(X.Value<double>("gridX"), X.Value<double>("gridY"));
-                SharedObjects.AppSettings.AddUpdateAppSettings(Lookup, String.Join(",", response.Item1.ToString(), response.Item2.ToString()));
+                var response = new Tuple<double, double>(X.Value<double>("gridX"), X.Value<double>("gridY"));
+                AppSetttingsHandler.Write(Lookup, String.Join(",", response.Item1.ToString(), response.Item2.ToString()));
                 return response;
             }
             else
             {
-                string[] SS = Item.Split(',');
+                var SS = Item.Split(',');
                 return new Tuple<double, double>(Double.Parse(SS[0]), double.Parse(SS[1]));
             }
 

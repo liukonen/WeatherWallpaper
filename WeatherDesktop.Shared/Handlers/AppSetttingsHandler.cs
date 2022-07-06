@@ -13,7 +13,8 @@ namespace WeatherDesktop.Shared.Handlers
             }
             catch (ConfigurationErrorsException)
             {
-                MessageBox.Show("Error reading app settings"); return string.Empty;
+                MessageBox.Show(Properties.Resources.AppSettingsReadErrorMessage);
+                return string.Empty;
             }
         }
         public static void Write(string key, string value) 
@@ -29,7 +30,9 @@ namespace WeatherDesktop.Shared.Handlers
             }
             catch (ConfigurationErrorsException)
             {
-                MessageBox.Show("Error writing app settings", "Error Editing Config", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.AppSettingsWriteErrorMessage
+                    , Properties.Resources.AppSettingsWriteErrorTitle
+                    , MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -46,6 +49,34 @@ namespace WeatherDesktop.Shared.Handlers
             }
         }
 
+        public static string Weather 
+        {
+            get => Read("Weatherapp");
+            set => Write("Weatherapp", value);         
+        }
 
+        public static string SunRiseSet
+        {
+            get => Read("SunRiseSet");
+            set => Write("SunRiseSet", value);
+        }
+
+        public static string DeniedDays
+        {
+            get => Read("DeniedDays");
+            set => Write("DeniedDays", value);
+        }
+
+        public static string DeniedHours
+        {
+            get => Read("DeniedHours");
+            set => Write("DeniedHours", value);
+        }
+
+        public static string HourUpdate
+        {
+            get => Read("HourUpdate");
+            set => Write("HourUpdate", value);
+        }
     }
 }

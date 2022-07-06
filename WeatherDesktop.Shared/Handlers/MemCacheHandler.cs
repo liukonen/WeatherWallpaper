@@ -11,7 +11,6 @@ namespace WeatherDesktop.Shared.Handlers
         private readonly string GetName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
 
         MemoryCache cache = MemoryCache.Default;
-
         private string TransformKey(string key) => $"{GetName}_{key}";
 
         public T GetItem<T>(string key) => (T)cache.Get(TransformKey(key));
@@ -22,16 +21,13 @@ namespace WeatherDesktop.Shared.Handlers
 
         public Boolean Exists(string key) => cache.Contains(TransformKey(key));
 
-
         static MemCacheHandler()
         {
         }
 
         private MemCacheHandler()
         {
-
         }
-
         public static MemCacheHandler Instance
         {
             get => instance;

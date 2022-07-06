@@ -59,5 +59,86 @@ namespace WeatherDesktop.Shared.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error reading app settings.
+        /// </summary>
+        internal static string AppSettingsReadErrorMessage {
+            get {
+                return ResourceManager.GetString("AppSettingsReadErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error writing app settings.
+        /// </summary>
+        internal static string AppSettingsWriteErrorMessage {
+            get {
+                return ResourceManager.GetString("AppSettingsWriteErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Editing Config.
+        /// </summary>
+        internal static string AppSettingsWriteErrorTitle {
+            get {
+                return ResourceManager.GetString("AppSettingsWriteErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to error writing to Config file.
+        /// </summary>
+        internal static string EncrpytedErrorMessage {
+            get {
+                return ResourceManager.GetString("EncrpytedErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application needs your zip code. try again, or close.
+        /// </summary>
+        internal static string ZipCodeErrorMessage {
+            get {
+                return ResourceManager.GetString("ZipCodeErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to error.
+        /// </summary>
+        internal static string ZipCodeErrorTitle {
+            get {
+                return ResourceManager.GetString("ZipCodeErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter your zip code..
+        /// </summary>
+        internal static string ZipCodeHandlerMessage {
+            get {
+                return ResourceManager.GetString("ZipCodeHandlerMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zip Code.
+        /// </summary>
+        internal static string ZipCodeHandlerTitle {
+            get {
+                return ResourceManager.GetString("ZipCodeHandlerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Zip Code.
+        /// </summary>
+        internal static string ZipCodeMenuItem {
+            get {
+                return ResourceManager.GetString("ZipCodeMenuItem", resourceCulture);
+            }
+        }
     }
 }

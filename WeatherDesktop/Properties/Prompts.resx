@@ -117,31 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppSettingsReadErrorMessage" xml:space="preserve">
-    <value>Error reading app settings</value>
+  <data name="CSVForDays" xml:space="preserve">
+    <value>Enter days in comma seperated values, with Sunday = 0 and Saturday = 6, example '0,1,2' = Sunday Monday Tuesday</value>
   </data>
-  <data name="AppSettingsWriteErrorMessage" xml:space="preserve">
-    <value>Error writing app settings</value>
+  <data name="CSVForHours" xml:space="preserve">
+    <value>Enter days in comma seperated values, Military time</value>
   </data>
-  <data name="AppSettingsWriteErrorTitle" xml:space="preserve">
-    <value>Error Editing Config</value>
+  <data name="EnterAPIKeyFromOpenWeather" xml:space="preserve">
+    <value>Please enter the API key provided by openweathermap.org</value>
   </data>
-  <data name="EncrpytedErrorMessage" xml:space="preserve">
-    <value>error writing to Config file</value>
+  <data name="EnterHourToUpdate" xml:space="preserve">
+    <value>Enter the hour you want to update.</value>
   </data>
-  <data name="ZipCodeErrorMessage" xml:space="preserve">
-    <value>Application needs your zip code. try again, or close</value>
+  <data name="IntervalBetween10and120" xml:space="preserve">
+    <value>Enter New interval between 10 and 120</value>
   </data>
-  <data name="ZipCodeErrorTitle" xml:space="preserve">
-    <value>error</value>
-  </data>
-  <data name="ZipCodeHandlerMessage" xml:space="preserve">
-    <value>Please enter your zip code.</value>
-  </data>
-  <data name="ZipCodeHandlerTitle" xml:space="preserve">
-    <value>Zip Code</value>
-  </data>
-  <data name="ZipCodeMenuItem" xml:space="preserve">
-    <value>Change Zip Code</value>
+  <data name="PleaseEnterYour_" xml:space="preserve">
+    <value>Please Enter your {0}</value>
   </data>
 </root>

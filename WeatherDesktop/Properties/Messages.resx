@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Gov_LatLong_Url" xml:space="preserve">
-    <value>https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?listZipCodeList={0}</value>
+  <data name="LatLongLookupMessageYesNo" xml:space="preserve">
+    <value>Lat and Long not yet available, Manual enter (yes), or pick a supplier in sunriseset settings (no)</value>
   </data>
-  <data name="Gov_User" xml:space="preserve">
-    <value>WeatherWallpaper/v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com)</value>
+  <data name="Title-LatLongNotSet" xml:space="preserve">
+    <value>Latitude / Longitude not set</value>
   </data>
-  <data name="Gov_Weather_Url" xml:space="preserve">
-    <value>https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?zipCodeList={0}&amp;maxt=maxt&amp;mint=mint&amp;wx=wx&amp;icons=icons</value>
+  <data name="UpdateComplete" xml:space="preserve">
+    <value>Update complete</value>
   </data>
 </root>

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using WeatherDesktop.Interface;
 using WeatherDesktop.Share;
 using WeatherDesktop.Services.External.OpenWeather.Objects;
+using WeatherDesktop.Shared.Extentions;
+using WeatherDesktop.Shared.Handlers;
 
 namespace WeatherDesktop.Services.External.OpenWeather
 {
@@ -21,7 +21,7 @@ namespace WeatherDesktop.Services.External.OpenWeather
         public new void Load()
         {
             if (string.IsNullOrWhiteSpace(APIKey)) { EnterAPIKey(); }
-            if (string.IsNullOrWhiteSpace(ZipCode)) { SharedObjects.ZipObjects.TryGetZip(); }
+            if (string.IsNullOrWhiteSpace(ZipCode)) { ZipcodeHandler.TryGetZip(); }
             Invoke();
         }
 
@@ -31,13 +31,12 @@ namespace WeatherDesktop.Services.External.OpenWeather
         public override ISharedResponse Invoke()
         {
             base.Invoke();
-            WeatherResponse wresposne = new WeatherResponse
+            return new WeatherResponse
             {
                 Temp = (int)Response.Main.Temp,
                 ForcastDescription = GenerateForcast(Response.Main, Response.Weather[0]),
                 WType = GetWeatherType(Response.Weather[0].Id)
             };
-            return wresposne;
         }
 
         #endregion
@@ -113,20 +112,14 @@ namespace WeatherDesktop.Services.External.OpenWeather
                 .ToString();
         }
 
-        public override string Debug()
-        {
-            var debugValues = new Dictionary<string, string>
+        public override string Debug() => new Dictionary<string, string>
             {
                 { "Temp", Response.Main.Temp.ToString() },
                 { "min Temp", Response.Main.Temp_min.ToString() },
                 { "max Temp", Response.Main.Temp_max.ToString() },
                 { "Debug", base.Debug() }
-            };
-            return SharedObjects.CompileDebug(debugValues);
-        }
-
-
-
+            }.CompileDebug();
+    
         #endregion
 
 

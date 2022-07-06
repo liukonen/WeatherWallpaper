@@ -17,9 +17,9 @@ namespace WeatherDesktop.Share
 
         public static void Set(string path, Style style)
         {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
-            string sStyle = ((int)style).ToString();
-            string Tile = 0.ToString();
+            var key = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
+            var sStyle = ((int)style).ToString();
+            var Tile = 0.ToString();
             if (style == Style.Tiled) { sStyle = 1.ToString(); Tile = 1.ToString(); }
             key.SetValue(@"WallpaperStyle", sStyle);
             key.SetValue(@"TileWallpaper", Tile);

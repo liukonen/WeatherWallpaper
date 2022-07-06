@@ -22,14 +22,14 @@ namespace WeatherDesktop.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Gov3 {
+    internal class Titles {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Gov3() {
+        internal Titles() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace WeatherDesktop.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WeatherDesktop.Properties.Gov3", typeof(Gov3).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WeatherDesktop.Properties.Titles", typeof(Titles).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,56 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please Enter your {0}.
+        ///   Looks up a localized string similar to Enter API.
         /// </summary>
-        internal static string LatLongInput {
+        internal static string EnterAPI {
             get {
-                return ResourceManager.GetString("LatLongInput", resourceCulture);
+                return ResourceManager.GetString("EnterAPI", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lat and Long not yet available, Manual enter (yes), or pick a supplier in sunriseset settings (no).
+        ///   Looks up a localized string similar to Enter Days.
         /// </summary>
-        internal static string LatLongLookupMessage {
+        internal static string EnterDays {
             get {
-                return ResourceManager.GetString("LatLongLookupMessage", resourceCulture);
+                return ResourceManager.GetString("EnterDays", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lat Long not set.
+        ///   Looks up a localized string similar to Enter Hours.
         /// </summary>
-        internal static string LatLongLookupTitle {
+        internal static string EnterHours {
             get {
-                return ResourceManager.GetString("LatLongLookupTitle", resourceCulture);
+                return ResourceManager.GetString("EnterHours", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WeatherWallpaper / v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com.
+        ///   Looks up a localized string similar to Hour Update.
         /// </summary>
-        internal static string User {
+        internal static string HourUpdate {
             get {
-                return ResourceManager.GetString("User", resourceCulture);
+                return ResourceManager.GetString("HourUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latitude / Longitude not set.
+        /// </summary>
+        internal static string LatLongNotSet {
+            get {
+                return ResourceManager.GetString("LatLongNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Interval.
+        /// </summary>
+        internal static string UpdateInterval {
+            get {
+                return ResourceManager.GetString("UpdateInterval", resourceCulture);
             }
         }
     }

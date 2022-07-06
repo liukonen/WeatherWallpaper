@@ -31,20 +31,20 @@ namespace WeatherDesktop.Services.External.OpenWeather
         public Exception ThrownException() { return _ThrownException; }
 
         public OpenWeatherMapObject Response
-        { get { return _Cache; } }
+        { get =>_Cache; } 
 
         public string Status
-        { get { return _Status; } }
+        { get => _Status;  }
 
 
         private string GetValue
         {
             get
             {
-                if (SharedObjects.Cache.Exists(ClassName)) return SharedObjects.Cache.StringValue(ClassName);
-                string url = string.Format(c_URL, ZipCode, APIKey);
-                string value = SharedObjects.CompressedCallSite(url);
-                SharedObjects.Cache.Set(ClassName, value, 60);
+                if (MemCacheHandler.Instance.Exists(ClassName)) return MemCacheHandler.Instance.GetItem<string>(ClassName);
+                var url = string.Format(c_URL, ZipCode, APIKey);
+                var value = WebHandler.Instance.CallSite(url);
+                MemCacheHandler.Instance.SetItem(ClassName, value, 60);
                 return value;
             }
         }
@@ -70,28 +70,26 @@ namespace WeatherDesktop.Services.External.OpenWeather
         {
             try
             {
-                string value = GetValue;
+                var value = GetValue;
                 var weatherObject = JsonConvert.DeserializeObject< OpenWeatherMapObject>(value);
                 _Cache = weatherObject;
-                if (!SharedObjects.LatLong.HasRecord()) { SharedObjects.LatLong.Set(_Cache.Coord.Lat, _Cache.Coord.Lon); }
+                if (!LatLongHandler.HasRecord()) { LatLongHandler.Set(_Cache.Coord.Lat, _Cache.Coord.Lon); }
             }
             catch (Exception x) { _Status = x.Message; _ThrownException = x; }
         }
 
 
 
-        public virtual string Debug()
-        {
-            return _Status;
-        }
+        public virtual string Debug() => _Status;
+        
 
         public MenuItem[] SettingsItems()
         {
             return new List<MenuItem>
             {
-                new MenuItem(Properties.OpenWeather.MenuAPIKey, ChangeAPI),
-                SharedObjects.ZipObjects.ZipMenuItem,
-                new MenuItem(Properties.OpenWeather.MenuUpdate, Enterinterval)
+                new MenuItem(Properties.Menu.APIKey, ChangeAPI),
+                ZipcodeHandler.ZipMenuItem,
+                new MenuItem(Properties.Menu.UpdateInterval, Enterinterval)
             }.ToArray();
 
         }
@@ -120,7 +118,7 @@ namespace WeatherDesktop.Services.External.OpenWeather
         {
             get 
             {
-                if (string.IsNullOrEmpty(_zip))  _zip = SharedObjects.ZipObjects.TryGetZip(); 
+                if (string.IsNullOrEmpty(_zip))  _zip = ZipcodeHandler.TryGetZip(); 
                 return _zip;
             }
            // set => _zip = value;
@@ -130,8 +128,8 @@ namespace WeatherDesktop.Services.External.OpenWeather
         {
             get
             { 
-                if (_updateInt == 0) { int.TryParse(AppSetttingsHandler.Read(UpdateIntervalName), out _updateInt); }
-                if (_updateInt < 10) { _updateInt = 10; }
+                if (_updateInt == 0) int.TryParse(AppSetttingsHandler.Read(UpdateIntervalName), out _updateInt); 
+                if (_updateInt < 10) _updateInt = 10; 
                 return _updateInt;
             }
             set
@@ -141,14 +139,14 @@ namespace WeatherDesktop.Services.External.OpenWeather
                     _updateInt = value;
                     AppSetttingsHandler.Write(UpdateIntervalName, _updateInt.ToString());
                 }
-                else { MessageBox.Show(Properties.OpenWeather.UpdateIntervalMessage); }
+                else { MessageBox.Show(Properties.Prompts.IntervalBetween10and120); }
             }
         }
 
 
         public void EnterAPIKey()
         {
-            APIKey = SharedObjects.InputBox(Properties.OpenWeather.EnterAPIKeyMessage, Properties.OpenWeather.EnterAPIKeyTitle);
+            APIKey = InputHandler.InputBox(Properties.Prompts.EnterAPIKeyFromOpenWeather, Properties.Titles.EnterAPI);
         }
         #endregion
 
@@ -162,9 +160,9 @@ namespace WeatherDesktop.Services.External.OpenWeather
 
         private void Enterinterval(object sender, EventArgs e)
         {
-            if (int.TryParse(SharedObjects.InputBox(
-                Properties.OpenWeather.EnterIntervalMessage,
-                Properties.OpenWeather.EnterIntervalTitle,
+            if (int.TryParse(InputHandler.InputBox(
+                Properties.Prompts.IntervalBetween10and120,
+                Properties.Titles.UpdateInterval,
                 UpdateInterval.ToString()), out int DumbyValue))
             {
                 UpdateInterval = DumbyValue;

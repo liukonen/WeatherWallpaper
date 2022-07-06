@@ -3,7 +3,7 @@ using System.ComponentModel.Composition;
 using WeatherDesktop.Interface;
 using System.Linq;
 using System.IO;
-using System.Collections.Generic;
+using WeatherDesktop.Shared.Handlers;
 
 namespace WeatherDesktop.Services
 {
@@ -25,8 +25,8 @@ namespace WeatherDesktop.Services
         {
             if (File.Exists(FileLocation))
             {
-                string Zip = SharedObjects.ZipObjects.Rawzip;
-                if (string.IsNullOrEmpty(Zip)) { Zip = SharedObjects.ZipObjects.GetZip(); }
+                string Zip = ZipcodeHandler.Rawzip;
+                if (string.IsNullOrEmpty(Zip)) { Zip = ZipcodeHandler.GetZip(); }
 
                 Geography = (from string item
                          in File.ReadLines(FileLocation)

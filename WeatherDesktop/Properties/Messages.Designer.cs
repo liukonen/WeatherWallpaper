@@ -22,14 +22,14 @@ namespace WeatherDesktop.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class OpenWeather {
+    internal class Messages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal OpenWeather() {
+        internal Messages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace WeatherDesktop.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WeatherDesktop.Properties.OpenWeather", typeof(OpenWeather).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WeatherDesktop.Properties.Messages", typeof(Messages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,65 +61,29 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter the API key provided by openweathermap.org.
+        ///   Looks up a localized string similar to Lat and Long not yet available, Manual enter (yes), or pick a supplier in sunriseset settings (no).
         /// </summary>
-        internal static string EnterAPIKeyMessage {
+        internal static string LatLongLookupMessageYesNo {
             get {
-                return ResourceManager.GetString("EnterAPIKeyMessage", resourceCulture);
+                return ResourceManager.GetString("LatLongLookupMessageYesNo", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter API.
+        ///   Looks up a localized string similar to Latitude / Longitude not set.
         /// </summary>
-        internal static string EnterAPIKeyTitle {
+        internal static string Title_LatLongNotSet {
             get {
-                return ResourceManager.GetString("EnterAPIKeyTitle", resourceCulture);
+                return ResourceManager.GetString("Title-LatLongNotSet", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter New interval between 10 and 120.
+        ///   Looks up a localized string similar to Update complete.
         /// </summary>
-        internal static string EnterIntervalMessage {
+        internal static string UpdateComplete {
             get {
-                return ResourceManager.GetString("EnterIntervalMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update Interval Minutes.
-        /// </summary>
-        internal static string EnterIntervalTitle {
-            get {
-                return ResourceManager.GetString("EnterIntervalTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to API key.
-        /// </summary>
-        internal static string MenuAPIKey {
-            get {
-                return ResourceManager.GetString("MenuAPIKey", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update Interval.
-        /// </summary>
-        internal static string MenuUpdate {
-            get {
-                return ResourceManager.GetString("MenuUpdate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please enter a number between 10 and 120.
-        /// </summary>
-        internal static string UpdateIntervalMessage {
-            get {
-                return ResourceManager.GetString("UpdateIntervalMessage", resourceCulture);
+                return ResourceManager.GetString("UpdateComplete", resourceCulture);
             }
         }
     }

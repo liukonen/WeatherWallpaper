@@ -117,21 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="const_AppName" xml:space="preserve">
-    <value>WeatherDesktop</value>
-  </data>
-  <data name="const_csvEncryptedLatLongName" xml:space="preserve">
-    <value>LatLong</value>
-  </data>
-  <data name="SRS_Url" xml:space="preserve">
-    <value>https://api.sunrise-sunset.org/json?lat={0}&amp;lng={1}&amp;date=today&amp;formatted=0</value>
-  </data>
-  <data name="warning_cant_find_latlong" xml:space="preserve">
-    <value>error getting Lat Long:</value>
-  </data>
-  <data name="warning_Zip_Not_Found" xml:space="preserve">
-    <value>Zip not found</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Clear_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Clear_day.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,9 +145,6 @@
   <data name="raindrop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\raindrop.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Sentry_ErrorHandler_Url" xml:space="preserve">
-    <value>https://254bf0f25fa342cc8556a2ad3c3c6935:a32848ffc96549f48540cf94586d0690@sentry.io/246570</value>
-  </data>
   <data name="snowflake" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\snowflake.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -174,5 +156,11 @@
   </data>
   <data name="windsock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\windsock.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Gov2User" xml:space="preserve">
+    <value>WeatherWallpaper/v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com)</value>
+  </data>
+  <data name="Gov3User" xml:space="preserve">
+    <value>WeatherWallpaper / v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com</value>
   </data>
 </root>

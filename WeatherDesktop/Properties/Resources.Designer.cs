@@ -91,24 +91,6 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WeatherDesktop.
-        /// </summary>
-        internal static string const_AppName {
-            get {
-                return ResourceManager.GetString("const_AppName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to LatLong.
-        /// </summary>
-        internal static string const_csvEncryptedLatLongName {
-            get {
-                return ResourceManager.GetString("const_csvEncryptedLatLongName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon fog {
@@ -125,6 +107,24 @@ namespace WeatherDesktop.Properties {
             get {
                 object obj = ResourceManager.GetObject("Frigid", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WeatherWallpaper/v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com).
+        /// </summary>
+        internal static string Gov2User {
+            get {
+                return ResourceManager.GetString("Gov2User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WeatherWallpaper / v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com.
+        /// </summary>
+        internal static string Gov3User {
+            get {
+                return ResourceManager.GetString("Gov3User", resourceCulture);
             }
         }
         
@@ -169,15 +169,6 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://254bf0f25fa342cc8556a2ad3c3c6935:a32848ffc96549f48540cf94586d0690@sentry.io/246570.
-        /// </summary>
-        internal static string Sentry_ErrorHandler_Url {
-            get {
-                return ResourceManager.GetString("Sentry_ErrorHandler_Url", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon snowflake {
@@ -188,39 +179,12 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://api.sunrise-sunset.org/json?lat={0}&amp;lng={1}&amp;date=today&amp;formatted=0.
-        /// </summary>
-        internal static string SRS_Url {
-            get {
-                return ResourceManager.GetString("SRS_Url", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon Thunderstorm {
             get {
                 object obj = ResourceManager.GetObject("Thunderstorm", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to error getting Lat Long:.
-        /// </summary>
-        internal static string warning_cant_find_latlong {
-            get {
-                return ResourceManager.GetString("warning_cant_find_latlong", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zip not found.
-        /// </summary>
-        internal static string warning_Zip_Not_Found {
-            get {
-                return ResourceManager.GetString("warning_Zip_Not_Found", resourceCulture);
             }
         }
         

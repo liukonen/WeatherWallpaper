@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Drawing;
@@ -403,25 +402,24 @@ namespace WeatherDesktop
             UpdateDenyedList();
         }
 
-        private IEnumerable<T> PullByPrefered<T>(IEnumerable<Lazy<T, Interface.IClassName>> collection, string prefered,string secondary)
-        { 
+        private IEnumerable<T> PullByPrefered<T>(IEnumerable<Lazy<T, Interface.IClassName>> collection, string prefered, string secondary)
+        {
             T response = GetByName(collection, prefered);
-            if (response == null)
+            if (response != null) yield return response;
+
+            var fixedOrder = new List<string> { secondary };
+
+            var ordered = collection.OrderBy(d =>
             {
+                var index = fixedOrder.IndexOf(d.Metadata.ClassName);
+                if (d.Metadata.ClassName.StartsWith("Mock")) return int.MaxValue;
+                return (index == -1) ? int.MaxValue - 1 : index;
+            });
+            var TT = ordered.ToArray();
+            foreach (var item in ordered)
+            {
+                yield return item.Value;
 
-                var fixedOrder = new List<string> { secondary };
-
-                var ordered = collection.OrderBy(d => {
-                    var index = fixedOrder.IndexOf(d.Metadata.ClassName);
-                    if (d.Metadata.ClassName.StartsWith("Mock")) return int.MaxValue;
-                    return (index == -1) ? int.MaxValue - 1: index;
-                });
-                var TT = ordered.ToArray();
-                foreach (var item in ordered)
-                {
-                    yield return item.Value;
-                    
-                }           
             }
         }
 

@@ -13,6 +13,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "vb.ExternalService.Template
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cs.ExternalService.template", "..\Plugin Templates\cs.ExternalService.template\cs.ExternalService.template.csproj", "{5F599B16-412A-4202-8AAC-ED8434EAF69E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internal.flatfile", "..\Plugins\Internal.flatfile\Internal.flatfile.csproj", "{FC877F00-D9C9-406C-A603-2EBFE0DE13C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{5F599B16-412A-4202-8AAC-ED8434EAF69E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F599B16-412A-4202-8AAC-ED8434EAF69E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F599B16-412A-4202-8AAC-ED8434EAF69E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC877F00-D9C9-406C-A603-2EBFE0DE13C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC877F00-D9C9-406C-A603-2EBFE0DE13C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC877F00-D9C9-406C-A603-2EBFE0DE13C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC877F00-D9C9-406C-A603-2EBFE0DE13C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

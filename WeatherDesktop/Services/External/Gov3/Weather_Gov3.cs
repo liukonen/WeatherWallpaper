@@ -15,7 +15,7 @@ namespace WeatherDesktop.Services.External
     class GovWeather3 : ISharedWeatherinterface
     {
         
-        private readonly string Gov_User = Properties.Gov3.User;
+        private readonly string Gov_User = Properties.Resources.Gov3User;
         const int UpdateInterval = 60;
         private string httpResponseHourly;
         private string httpResponseDaily;
@@ -109,7 +109,8 @@ namespace WeatherDesktop.Services.External
         static bool IntialgetLatLong()
         {
             var worked = false;
-            if (MessageBox.Show(Properties.Gov3.LatLongLookupMessage, Properties.Gov3.LatLongLookupTitle, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(Properties.Messages.LatLongLookupMessageYesNo,
+                Properties.Titles.LatLongNotSet, MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 var lat = Prompt("Latitude");
                 var lon = Prompt("Longitude");
@@ -119,7 +120,8 @@ namespace WeatherDesktop.Services.External
             return worked;
         }
 
-        private static double Prompt(string type) => double.Parse(InputHandler.InputBox(string.Format(Properties.Gov3.LatLongInput, type), type));
+        private static double Prompt(string type)
+            => double.Parse(InputHandler.InputBox(string.Format(Properties.Prompts.PleaseEnterYour_, type), type));
 
         private Tuple<double, double> LookUpPoints(Tuple<double, double> LatLong)
         {

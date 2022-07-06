@@ -31,8 +31,6 @@ namespace WeatherDesktop
         #region constants
         const string cDay = "day-";
         const string cNight = "night-";
-        const string cWeather = "gWeatherapp";
-        const string cSRS = "gsunRiseSet";
         #endregion
 
         #region global Objects
@@ -71,9 +69,9 @@ namespace WeatherDesktop
 
 
             MenuItem[] menu = new MenuItem[] {
-                new MenuItem("Settings", GetSettings().ToArray()),
-                new MenuItem("About", MenuAboutClick),
-                new MenuItem("Exit", MenuExitClick)
+                new MenuItem(Properties.Menu.Settings, GetSettings().ToArray()),
+                new MenuItem(Properties.Menu.About, MenuAboutClick),
+                new MenuItem(Properties.Menu.Exit, MenuExitClick)
             };
 
             return menu;
@@ -81,43 +79,37 @@ namespace WeatherDesktop
 
         private IEnumerable<MenuItem> GetSettings()
         {
-            yield return new MenuItem("Global", GlobalMenuSettings());
-            yield return new MenuItem("images", GetWeatherMenuItems().ToArray());
+            yield return new MenuItem(Properties.Menu.Global, GlobalMenuSettings());
+            yield return new MenuItem(Properties.Menu.Images, GetWeatherMenuItems().ToArray());
             yield return new MenuItem(g_SunRiseSet.GetType().Name, g_SunRiseSet.SettingsItems());
             yield return new MenuItem(g_Weather.GetType().Name, g_Weather.SettingsItems());
-            yield return new MenuItem("Themes", Themes.SettingsItems());
+            yield return new MenuItem(Properties.Menu.Themes, Themes.SettingsItems());
         }
 
         private MenuItem[] GlobalMenuSettings()
         {
-            var Items = new List<MenuItem>{new MenuItem("Plugin Folder", PluginFolder_Event)};
-            var DenyedList = new List<MenuItem> {new MenuItem("Denyed Hours", DenyedtHours_Event), new MenuItem("Denyed Days", DenyedDays_event)};
-            Items.Add(new MenuItem("DenyedListing", DenyedList.ToArray()));
-            
-            var WeatherItems = new List<MenuItem>();
-            var SunRiseSetItems = new List<MenuItem>();
-            var SelectedItem = AppSetttingsHandler.Read(cWeather);
-            var SelectedSRS = AppSetttingsHandler.Read(cSRS);
+            var SelectedItem = AppSetttingsHandler.Weather;
+            var SelectedSRS = AppSetttingsHandler.SunRiseSet;
 
-
-
-            foreach (var item in WeatherObjects)
+            return new List<MenuItem>
             {
-                var ItemToAdd = new MenuItem(item.Metadata.ClassName, UpdateGlobalObjecttype);
-                if (item.Metadata.ClassName == SelectedItem) { ItemToAdd.Checked = true; }
-                WeatherItems.Add(ItemToAdd);
-            }
-            foreach (var item in SRSObjects)
-            {
-                var ItemToAdd = new MenuItem(item.Metadata.ClassName, UpdateGlobalObjecttype);
-                if (item.Metadata.ClassName == SelectedSRS) { ItemToAdd.Checked = true; }
-                SunRiseSetItems.Add(ItemToAdd);
-            }
-            Items.Add(new MenuItem("Weather", WeatherItems.ToArray()));
-            Items.Add(new MenuItem("SunRiseSet", SunRiseSetItems.ToArray()));
-
-            return Items.ToArray();
-
+                new MenuItem(Properties.Menu.PluginFolder, PluginFolder_Event),
+                new MenuItem(Properties.Menu.DeniedItems,new MenuItem[]
+                {
+                    new MenuItem(Properties.Menu.DeniedHours, DenyedtHours_Event),
+                    new MenuItem(Properties.Menu.DeniedDays, DenyedDays_event)
+                } 
+                ),
+                new MenuItem(Properties.Menu.Weather, 
+                WeatherObjects.Select(x => 
+                new MenuItem(x.Metadata.ClassName, UpdateGlobalObjecttype)
+                {Checked = x.Metadata.ClassName == SelectedItem}
+                ).ToArray()),
+                new MenuItem(Properties.Menu.SunRiseSet,
+                SRSObjects.Select(x => 
+                new MenuItem(x.Metadata.ClassName, UpdateGlobalObjecttype)
+                { Checked = x.Metadata.ClassName == SelectedSRS}).ToArray())
+            }.ToArray();
         }
         private IEnumerable<MenuItem> GetWeatherMenuItems()
         {
@@ -176,7 +168,7 @@ namespace WeatherDesktop
                 else
                 {
                     GC.Collect();
-                    MessageBox.Show("App appears to be running. if not, you may have to restart your machine to get it to work.");
+                    MessageBox.Show(Properties.Warnings.AppAlreadyRunning);
                 }
             }
 
@@ -252,20 +244,20 @@ namespace WeatherDesktop
             }
 
 
-            var ValuesCSV = InputHandler.InputBox("Enter days in comma seperated values, Military time", "Enter Denyed Hours", string.Join(",", values.ToArray()));
+            var ValuesCSV = InputHandler.InputBox(Properties.Prompts.CSVForHours, Properties.Titles.EnterHours, string.Join(",", values.ToArray()));
             values = new List<int>();
             foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
             for (int i = 0; i < 24; i++) { DenyedHours[i] = values.Contains(i); }
-            AppSetttingsHandler.Write("DenyedHours", DenyedHours.ToInt().ToString());
+            AppSetttingsHandler.DeniedHours = DenyedHours.ToInt().ToString();
         }
 
         private void DenyedDays_event(object sender, EventArgs e)
         {
-            var ValuesCSV = InputHandler.InputBox("Enter days in comma seperated values, with Sunday = 0 and Saturday = 6, example '0,1,2' = Sunday Monday Tuesday", "Enter Denied Days");
+            var ValuesCSV = InputHandler.InputBox(Properties.Prompts.CSVForDays, Properties.Titles.EnterDays);
             var values = new List<int>();
             foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
             for (int i = 0; i < 7; i++) { DenyedDays[i] = values.Contains(i); }
-            AppSetttingsHandler.Write("DenyedDays", DenyedDays.ToInt().ToString());
+            AppSetttingsHandler.DeniedDays = DenyedDays.ToInt().ToString();
         }
 
         private void UpdateGlobalObjecttype(object sender, EventArgs e)
@@ -274,13 +266,13 @@ namespace WeatherDesktop
             var Name = Current.Text;
             if (((MenuItem)Current.Parent).Text == "Weather")
             {
-                AppSetttingsHandler.Write(cWeather, Name);
+                AppSetttingsHandler.Weather = Name;
                 g_Weather = GetByName(WeatherObjects, Name);
                 g_Weather.Load();
             }
             else if (((MenuItem)Current.Parent).Text == "SunRiseSet")
             {
-                AppSetttingsHandler.Write(cSRS, Name);
+                AppSetttingsHandler.SunRiseSet = Name;
                 
                 g_SunRiseSet = GetByName(SRSObjects, Name);
                 g_SunRiseSet.Load();
@@ -375,7 +367,7 @@ namespace WeatherDesktop
                 }
 
                 //get weather type
-                var weatherType = AppSetttingsHandler.Read(cWeather);
+                var weatherType = AppSetttingsHandler.Weather;
 
                 foreach (var item in PullByPrefered(WeatherObjects, weatherType, "GovWeather3"))
                 {
@@ -390,7 +382,7 @@ namespace WeatherDesktop
 
 
                 //get SRS
-                var srs = AppSetttingsHandler.Read(cSRS);
+                var srs = AppSetttingsHandler.SunRiseSet;
                 foreach (var item in PullByPrefered(SRSObjects, srs, "InternalSunRiseSet"))
                 {
                     try
@@ -438,8 +430,8 @@ namespace WeatherDesktop
 
         private void UpdateDenyedList()
         {
-            int.TryParse(AppSetttingsHandler.Read("DenyedHours"), out int intDenyedHours);
-            int.TryParse(AppSetttingsHandler.Read("DenyedDays"), out int intDenyedDays);
+            int.TryParse(AppSetttingsHandler.DeniedHours, out int intDenyedHours);
+            int.TryParse(AppSetttingsHandler.DeniedDays, out int intDenyedDays);
             DenyedHours = intDenyedHours.ToBitArray();
             DenyedDays = intDenyedDays.ToBitArray();
 

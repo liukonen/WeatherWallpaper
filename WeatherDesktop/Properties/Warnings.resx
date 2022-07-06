@@ -117,16 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LatLongInput" xml:space="preserve">
-    <value>Please Enter your {0}</value>
+  <data name="AppAlreadyRunning" xml:space="preserve">
+    <value>App appears to be running. if not, you may have to restart your machine to get it to work.</value>
   </data>
-  <data name="LatLongLookupMessage" xml:space="preserve">
-    <value>Lat and Long not yet available, Manual enter (yes), or pick a supplier in sunriseset settings (no)</value>
+  <data name="CouldNotUpdateTryAgain" xml:space="preserve">
+    <value>Could not update, please try again</value>
   </data>
-  <data name="LatLongLookupTitle" xml:space="preserve">
-    <value>Lat Long not set</value>
+  <data name="ThemeAlreadyExists" xml:space="preserve">
+    <value>Them Already Exists, Please try another name.</value>
   </data>
-  <data name="User" xml:space="preserve">
-    <value>WeatherWallpaper / v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com</value>
+  <data name="UpdateDidNotWork" xml:space="preserve">
+    <value>Update Did Not Work</value>
   </data>
 </root>

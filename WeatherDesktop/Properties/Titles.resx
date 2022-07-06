@@ -117,25 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EnterAPIKeyMessage" xml:space="preserve">
-    <value>Please enter the API key provided by openweathermap.org</value>
-  </data>
-  <data name="EnterAPIKeyTitle" xml:space="preserve">
+  <data name="EnterAPI" xml:space="preserve">
     <value>Enter API</value>
   </data>
-  <data name="EnterIntervalMessage" xml:space="preserve">
-    <value>Enter New interval between 10 and 120</value>
+  <data name="EnterDays" xml:space="preserve">
+    <value>Enter Days</value>
   </data>
-  <data name="EnterIntervalTitle" xml:space="preserve">
-    <value>Update Interval Minutes</value>
+  <data name="EnterHours" xml:space="preserve">
+    <value>Enter Hours</value>
   </data>
-  <data name="MenuAPIKey" xml:space="preserve">
-    <value>API key</value>
+  <data name="HourUpdate" xml:space="preserve">
+    <value>Hour Update</value>
   </data>
-  <data name="MenuUpdate" xml:space="preserve">
+  <data name="LatLongNotSet" xml:space="preserve">
+    <value>Latitude / Longitude not set</value>
+  </data>
+  <data name="UpdateInterval" xml:space="preserve">
     <value>Update Interval</value>
-  </data>
-  <data name="UpdateIntervalMessage" xml:space="preserve">
-    <value>Please enter a number between 10 and 120</value>
   </data>
 </root>

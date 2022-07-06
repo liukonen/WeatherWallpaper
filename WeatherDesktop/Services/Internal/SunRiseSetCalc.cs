@@ -23,11 +23,6 @@ namespace WeatherDesktop.Services.Internal
       */
 
 
-        #region Constants
-        //const string ClassName = "InternalSunRiseSet";
-        const string AppProperty = "HourUpdate";
-        #endregion
-
         #region Globals
 
         Geography geography;
@@ -45,7 +40,7 @@ namespace WeatherDesktop.Services.Internal
 
         public Exception ThrownException() => _ThrownException; 
 
-        public MenuItem[] SettingsItems() { return new MenuItem[] { new MenuItem("Hour To Update", ChangehourToUpdate) }; }
+        public MenuItem[] SettingsItems() { return new MenuItem[] { new MenuItem(Properties.Menu.HourUpdate, ChangehourToUpdate) }; }
 
 
         public void TryupdateMenuItem(object sender, EventArgs e)
@@ -58,9 +53,9 @@ namespace WeatherDesktop.Services.Internal
             {
                 geography = new Geography(Item.Latitude(), Item.Longitude());
                 LatLongHandler.Set(geography.Latitude, geography.Longitude);
-                MessageBox.Show("Update complete");
+                MessageBox.Show(Properties.Messages.UpdateComplete);
             }
-            else { MessageBox.Show("Update did not work"); }
+            else { MessageBox.Show(Properties.Warnings.UpdateDidNotWork); }
 
 
         }
@@ -77,7 +72,7 @@ namespace WeatherDesktop.Services.Internal
         public void Load()
         {
             geography = GetLocationProperty();
-            _HourToUpdate = int.Parse(AppSetttingsHandler.Read(AppProperty) ?? "6");
+            _HourToUpdate = int.Parse(AppSetttingsHandler.HourUpdate ?? "6");
             _LastUpdate = DateTime.Now;
             Invoke();
         }
@@ -120,8 +115,8 @@ namespace WeatherDesktop.Services.Internal
         {
             var worked = false;
             if (MessageBox.Show(
-                Properties.Internal_SunRiseSet.LatLongSetMessage,
-                Properties.Internal_SunRiseSet.LatLongSetHeader,
+                Properties.Messages.LatLongLookupMessageYesNo,
+                Properties.Titles.LatLongNotSet,
                 MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 var lat = GetDoubleWithMessage("Latitude");
@@ -133,19 +128,19 @@ namespace WeatherDesktop.Services.Internal
         }
 
         static double GetDoubleWithMessage(string ObjectName) 
-            => double.Parse(InputHandler.InputBox($"Please Enter your {ObjectName}", ObjectName));
+            => double.Parse(InputHandler.InputBox(String.Format(Properties.Prompts.PleaseEnterYour_, ObjectName), ObjectName));
         
         static void UpdateHour()
         {
             var current = int.TryParse(
-                AppSetttingsHandler.Read(AppProperty), out int value) ? value : 6;
+                AppSetttingsHandler.HourUpdate, out int value) ? value : 6;
             try
             {
-               var attempt = InputHandler.InputBox(Properties.Internal_SunRiseSet.HourUpdateMessage,
-                    Properties.Internal_SunRiseSet.HourUpdateHeader, current.ToString());
-                AppSetttingsHandler.Write(AppProperty, int.Parse(attempt).ToString());
+               var attempt = InputHandler.InputBox(Properties.Prompts.EnterHourToUpdate,
+                    Properties.Titles.HourUpdate, current.ToString());
+                AppSetttingsHandler.HourUpdate = int.Parse(attempt).ToString();
             }
-            catch { MessageBox.Show(Properties.Internal_SunRiseSet.CouldNotUpdate); }
+            catch { MessageBox.Show(Properties.Warnings.CouldNotUpdateTryAgain); }
         }
 
         static Geography GetLocationProperty() =>

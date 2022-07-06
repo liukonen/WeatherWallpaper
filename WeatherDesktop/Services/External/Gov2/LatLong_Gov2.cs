@@ -12,6 +12,8 @@ namespace WeatherDesktop.Services.External
     [ExportMetadata("ClassName", "GovWeatherLatLong")]
     class GovWeatherLatLong : ILatLongInterface
     {
+        const string LatLongUrl = "https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?listZipCodeList={0}";
+
 
         private readonly bool _worked;
         //private readonly string Cache;
@@ -21,10 +23,10 @@ namespace WeatherDesktop.Services.External
         {
             try
             {
-                var Zip = ZipcodeHandler.Rawzip;
+                var Zip = EncryptedAppSettingsHandler.zipcode;
                 if (string.IsNullOrEmpty(Zip)) { Zip = ZipcodeHandler.GetZip(); }
-                var url = string.Format(Properties.Gov2.Gov_LatLong_Url, Zip);
-                var results = WebHandler.Instance.CallSite(url, Properties.Gov2.Gov_User);
+                var url = string.Format(LatLongUrl, Zip);
+                var results = WebHandler.Instance.CallSite(url, Properties.Resources.Gov2User);
                 var reader = XmlReader.Create(new System.IO.StringReader(results));
                 while (reader.Read())
                 {

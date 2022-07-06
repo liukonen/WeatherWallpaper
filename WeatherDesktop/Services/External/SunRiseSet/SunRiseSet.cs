@@ -16,6 +16,7 @@ namespace WeatherDesktop.Services.External.SunRiseSet
     {
         #region Constants
         const string ClassName = "SunRiseSet";
+        const string srs = "https://api.sunrise-sunset.org/json?lat={0}&amp;lng={1}&amp;date=today&amp;formatted=0";
         #endregion
 
         #region Globals
@@ -32,7 +33,7 @@ namespace WeatherDesktop.Services.External.SunRiseSet
 
         public Exception ThrownException() => _ThrownException; 
 
-        public MenuItem[] SettingsItems() => new MenuItem[] { new MenuItem("Hour To Update", ChangehourToUpdate) }; 
+        public MenuItem[] SettingsItems() => new MenuItem[] { new MenuItem(Properties.Menu.HourUpdate, ChangehourToUpdate) }; 
 
 
         public void TryupdateMenuItem(object sender, EventArgs e)
@@ -45,9 +46,9 @@ namespace WeatherDesktop.Services.External.SunRiseSet
             {
                 geography = new Geography(Item.Latitude(), Item.Longitude());
                 LatLongHandler.Set(geography.Latitude, geography.Longitude);
-                MessageBox.Show("Update complete");
+                MessageBox.Show(Properties.Messages.UpdateComplete);
             }
-            else { MessageBox.Show("Update did not work"); }
+            else { MessageBox.Show(Properties.Warnings.UpdateDidNotWork); }
 
 
         }
@@ -65,7 +66,7 @@ namespace WeatherDesktop.Services.External.SunRiseSet
         public void Load()
         {
             geography = GetLocationProperty();
-            _HourToUpdate = int.TryParse(AppSetttingsHandler.Read("HourUpdate"), out int value)
+            _HourToUpdate = int.TryParse(AppSetttingsHandler.HourUpdate, out int value)
                 ? value : 6;
             _LastUpdate = DateTime.Now;
             Invoke();
@@ -98,7 +99,7 @@ namespace WeatherDesktop.Services.External.SunRiseSet
                 if (MemCacheHandler.Instance.Exists(ClassName)) { value = MemCacheHandler.Instance.GetItem<string>(ClassName); }
                 else
                 {
-                    var url = string.Format(Properties.Resources.SRS_Url, geo.Latitude.ToString(), geo.Longitude.ToString());
+                    var url = string.Format(srs, geo.Latitude.ToString(), geo.Longitude.ToString());
                     value = WebHandler.Instance.CallSite(url);
                     MemCacheHandler.Instance.SetItem(ClassName, value);
                 }
@@ -124,10 +125,10 @@ namespace WeatherDesktop.Services.External.SunRiseSet
         static bool IntialgetLatLong()
         {
             var worked = false;
-            if (MessageBox.Show("Lat and Long not yet available, Manual enter (yes), or pick a supplier in sunriseset settings (no)", "Lat Long not set", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(Properties.Messages.LatLongLookupMessageYesNo, Properties.Titles.LatLongNotSet, MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                var lat = double.Parse(InputHandler.InputBox("Please Enter your Latitude", "Latitude"));
-                var lon = double.Parse(InputHandler.InputBox("Please Enter your Longitude", "Longitude"));
+                var lat = double.Parse(InputHandler.InputBox(String.Format(Properties.Prompts.PleaseEnterYour_, "Latitude"), "Latitude"));
+                var lon = double.Parse(InputHandler.InputBox(String.Format(Properties.Prompts.PleaseEnterYour_, "Longitude"), "Longitude"));
                 LatLongHandler.Set(lat, lon);
                 worked = true;
             }
@@ -137,14 +138,15 @@ namespace WeatherDesktop.Services.External.SunRiseSet
 
         static void UpdateHour()
         {
-            var current = int.TryParse(AppSetttingsHandler.Read("HourUpdate"), out int response)
+            var current = int.TryParse(AppSetttingsHandler.HourUpdate, out int response)
                 ? response : 6;
             try
             {
-                var attempt = InputHandler.InputBox("Enter the hour you want to update the call to get sun rise, set info", "Hour update", current.ToString());
-                AppSetttingsHandler.Write("Hourupdate", int.Parse(attempt).ToString());
+                var attempt = InputHandler.InputBox(Properties.Prompts.EnterHourToUpdate, 
+                    Properties.Titles.HourUpdate, current.ToString());
+                AppSetttingsHandler.HourUpdate = int.Parse(attempt).ToString();
             }
-            catch { MessageBox.Show("Could not update, please try again"); }
+            catch { MessageBox.Show(Properties.Warnings.CouldNotUpdateTryAgain); }
         }
 
         static Geography GetLocationProperty()
@@ -160,7 +162,7 @@ namespace WeatherDesktop.Services.External.SunRiseSet
 
              new Dictionary<string, string>
             {
-                {"Houre to update", _HourToUpdate.ToString()},
+                {"Hour to update", _HourToUpdate.ToString()},
                 {"Last update", _LastUpdate.ToString()},
                 {"Latitude", geography.Latitude.ToString() },
                 {"Longitude", geography.Longitude.ToString() },

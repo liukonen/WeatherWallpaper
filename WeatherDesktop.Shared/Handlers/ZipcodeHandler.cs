@@ -26,7 +26,7 @@ namespace WeatherDesktop.Shared.Handlers
                 while (!int.TryParse(zip, out int zipparse))
                 {
                     zip = InputHandler.InputBox(Properties.Resources.ZipCodeHandlerMessage, 
-                        Properties.Resources.ZipCodeHandlerTitle, Rawzip);
+                        Properties.Resources.ZipCodeHandlerTitle, EncryptedAppSettingsHandler.zipcode);
                     if (string.IsNullOrWhiteSpace(zip))
                     {
                         if (MessageBox.Show(Properties.Resources.ZipCodeErrorMessage, 
@@ -39,19 +39,17 @@ namespace WeatherDesktop.Shared.Handlers
                     }
                 }
             }
-            Rawzip = zip;
+            EncryptedAppSettingsHandler.zipcode = zip;
             return zip;
         }
 
         public static string Rawzip
         {
-            get => EncryptedAppSettingsHandler.Read("zipcode");
-            
-            set => EncryptedAppSettingsHandler.Write("zipcode", value);
-            
-        }
+            get => EncryptedAppSettingsHandler.zipcode;
+            set => EncryptedAppSettingsHandler.zipcode = value;
+        } 
 
         public static string TryGetZip()
-            => (string.IsNullOrWhiteSpace(Rawzip)) ? GetZip(): Rawzip;   
+            => (string.IsNullOrWhiteSpace(EncryptedAppSettingsHandler.zipcode)) ? GetZip(): EncryptedAppSettingsHandler.zipcode;   
     }
 }

@@ -71,7 +71,7 @@ namespace WeatherDesktop.Share
             {
                 var FileName = Dia.FileName;
                 var CurrentThemeDir = themesDir + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName);
-                if (Directory.Exists(CurrentThemeDir)) { MessageBox.Show("Theme already exists, please try another name"); }
+                if (Directory.Exists(CurrentThemeDir)) { MessageBox.Show(Properties.Warnings.ThemeAlreadyExists); }
                 else
                 {
                     Directory.CreateDirectory(CurrentThemeDir);
@@ -149,9 +149,9 @@ namespace WeatherDesktop.Share
 
         public MenuItem[] SettingsItems() => new List<MenuItem>()
             {
-               new MenuItem("Save Current Settings as Theme.", SaveTheme),
-               new MenuItem("Load Theme", ThemeArray().ToArray()),
-               new MenuItem("Import Theme", ImportTheme)
+               new MenuItem(Properties.Menu.SaveAsTheme, SaveTheme),
+               new MenuItem(Properties.Menu.LoadTheme, ThemeArray().ToArray()),
+               new MenuItem(Properties.Menu.ImportTheme, ImportTheme)
         }.ToArray();
         
     }

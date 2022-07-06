@@ -22,14 +22,14 @@ namespace WeatherDesktop.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Gov2 {
+    internal class Prompts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Gov2() {
+        internal Prompts() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace WeatherDesktop.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WeatherDesktop.Properties.Gov2", typeof(Gov2).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WeatherDesktop.Properties.Prompts", typeof(Prompts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,56 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?listZipCodeList={0}.
+        ///   Looks up a localized string similar to Enter days in comma seperated values, with Sunday = 0 and Saturday = 6, example &apos;0,1,2&apos; = Sunday Monday Tuesday.
         /// </summary>
-        internal static string Gov_LatLong_Url {
+        internal static string CSVForDays {
             get {
-                return ResourceManager.GetString("Gov_LatLong_Url", resourceCulture);
+                return ResourceManager.GetString("CSVForDays", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WeatherWallpaper/v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com).
+        ///   Looks up a localized string similar to Enter days in comma seperated values, Military time.
         /// </summary>
-        internal static string Gov_User {
+        internal static string CSVForHours {
             get {
-                return ResourceManager.GetString("Gov_User", resourceCulture);
+                return ResourceManager.GetString("CSVForHours", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?zipCodeList={0}&amp;maxt=maxt&amp;mint=mint&amp;wx=wx&amp;icons=icons.
+        ///   Looks up a localized string similar to Please enter the API key provided by openweathermap.org.
         /// </summary>
-        internal static string Gov_Weather_Url {
+        internal static string EnterAPIKeyFromOpenWeather {
             get {
-                return ResourceManager.GetString("Gov_Weather_Url", resourceCulture);
+                return ResourceManager.GetString("EnterAPIKeyFromOpenWeather", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the hour you want to update..
+        /// </summary>
+        internal static string EnterHourToUpdate {
+            get {
+                return ResourceManager.GetString("EnterHourToUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter New interval between 10 and 120.
+        /// </summary>
+        internal static string IntervalBetween10and120 {
+            get {
+                return ResourceManager.GetString("IntervalBetween10and120", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please Enter your {0}.
+        /// </summary>
+        internal static string PleaseEnterYour_ {
+            get {
+                return ResourceManager.GetString("PleaseEnterYour_", resourceCulture);
             }
         }
     }

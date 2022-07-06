@@ -50,6 +50,17 @@ namespace WeatherDesktop.Shared.Handlers
 
         public static void Remove(string Key) => AppSetttingsHandler.Remove(Key);
 
+        public static string LatLong 
+        {
+            get => Read("LatLong");
+            set => Write("LatLong", value);
+        }
+
+        public static string zipcode
+        {
+            get => Read("zipcode");
+            set => Write("zipcode", value);
+        }
 
     }
 }

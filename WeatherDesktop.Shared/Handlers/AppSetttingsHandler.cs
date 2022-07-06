@@ -49,6 +49,34 @@ namespace WeatherDesktop.Shared.Handlers
             }
         }
 
+        public static string Weather 
+        {
+            get => Read("Weatherapp");
+            set => Write("Weatherapp", value);         
+        }
 
+        public static string SunRiseSet
+        {
+            get => Read("SunRiseSet");
+            set => Write("SunRiseSet", value);
+        }
+
+        public static string DeniedDays
+        {
+            get => Read("DeniedDays");
+            set => Write("DeniedDays", value);
+        }
+
+        public static string DeniedHours
+        {
+            get => Read("DeniedHours");
+            set => Write("DeniedHours", value);
+        }
+
+        public static string HourUpdate
+        {
+            get => Read("HourUpdate");
+            set => Write("HourUpdate", value);
+        }
     }
 }

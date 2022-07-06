@@ -146,30 +146,25 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InternalService\Mock_SunRiseSet.cs" />
     <Compile Include="InternalService\Mock_Weather.cs" />
-    <Compile Include="Properties\OpenWeather.Designer.cs">
+    <Compile Include="Properties\Menu.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OpenWeather.resx</DependentUpon>
+      <DependentUpon>Menu.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Gov2.Designer.cs">
+    <Compile Include="Properties\Messages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Gov2.resx</DependentUpon>
+      <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Gov3.Designer.cs">
+    <Compile Include="Properties\Prompts.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Gov3.resx</DependentUpon>
+      <DependentUpon>Prompts.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Internal.SunRiseSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Internal.SunRiseSet.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -178,6 +173,16 @@
     </Compile>
     <Compile Include="MainApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Titles.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Titles.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Warnings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Warnings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\External\Gov2\LatLong_Gov2.cs" />
     <Compile Include="Services\External\MSWeather\MSWeather.cs" />
     <Compile Include="Services\External\OpenWeather\Objects\Clouds.cs" />
@@ -209,25 +214,30 @@
     <EmbeddedResource Include="MainApp.resx">
       <DependentUpon>MainApp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\OpenWeather.resx">
+    <EmbeddedResource Include="Properties\Menu.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>OpenWeather.Designer.cs</LastGenOutput>
+      <LastGenOutput>Menu.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Gov2.resx">
+    <EmbeddedResource Include="Properties\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Gov2.Designer.cs</LastGenOutput>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Gov3.resx">
+    <EmbeddedResource Include="Properties\Prompts.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Gov3.Designer.cs</LastGenOutput>
+      <LastGenOutput>Prompts.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Internal.SunRiseSet.resx">
+    <EmbeddedResource Include="Properties\Titles.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Internal.SunRiseSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>Titles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Warnings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Warnings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

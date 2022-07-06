@@ -22,7 +22,7 @@ namespace WeatherDesktop.Services.External
         private string _zip;
         private Exception _ThrownException = null;
 
-
+        const string WeatherUrl = "https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?zipCodeList={0}&maxt=maxt&mint=mint&wx=wx&icons=icons";
         public Exception ThrownException() => _ThrownException; 
 
         public GovWeather()
@@ -49,7 +49,7 @@ namespace WeatherDesktop.Services.External
             var response = new WeatherResponse();
             try
             {
-                httpResponse = WebHandler.Instance.CallSite(string.Format(Properties.Gov2.Gov_Weather_Url, _zip), Properties.Gov2.Gov_User);
+                httpResponse = WebHandler.Instance.CallSite(string.Format(WeatherUrl, _zip), Properties.Resources.Gov2User);
                 response = Transform(httpResponse);
                 MemCacheHandler.Instance.SetItem(this.GetType().Name, response, UpdateInterval);
                 LastUpdated = DateTime.Now;

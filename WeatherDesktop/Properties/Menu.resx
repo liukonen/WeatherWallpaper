@@ -117,19 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CouldNotUpdate" xml:space="preserve">
-    <value>Could not update, please try again</value>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
   </data>
-  <data name="HourUpdateHeader" xml:space="preserve">
-    <value>Hour update</value>
+  <data name="APIKey" xml:space="preserve">
+    <value>API Key</value>
   </data>
-  <data name="HourUpdateMessage" xml:space="preserve">
-    <value>Enter the hour you want to update the call to get sun rise, set info.</value>
+  <data name="DeniedDays" xml:space="preserve">
+    <value>Denied Days</value>
   </data>
-  <data name="LatLongSetHeader" xml:space="preserve">
-    <value>Lat Long not set</value>
+  <data name="DeniedHours" xml:space="preserve">
+    <value>Denied Hours</value>
   </data>
-  <data name="LatLongSetMessage" xml:space="preserve">
-    <value>Lat and Long not yet available, Manual enter (yes), or pick a supplier in sunriseset settings (no)</value>
+  <data name="DeniedItems" xml:space="preserve">
+    <value>Denied Listing</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Global" xml:space="preserve">
+    <value>Global</value>
+  </data>
+  <data name="HourUpdate" xml:space="preserve">
+    <value>Hour To Update</value>
+  </data>
+  <data name="Images" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="ImportTheme" xml:space="preserve">
+    <value>Import Theme</value>
+  </data>
+  <data name="LoadTheme" xml:space="preserve">
+    <value>Load Theme</value>
+  </data>
+  <data name="PluginFolder" xml:space="preserve">
+    <value>Plugin Folder</value>
+  </data>
+  <data name="SaveAsTheme" xml:space="preserve">
+    <value>Save As Theme</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SunRiseSet" xml:space="preserve">
+    <value>SunRise/Set</value>
+  </data>
+  <data name="Themes" xml:space="preserve">
+    <value>Themes</value>
+  </data>
+  <data name="UpdateInterval" xml:space="preserve">
+    <value>Update Interval</value>
+  </data>
+  <data name="UpdateZipCode" xml:space="preserve">
+    <value>Update ZipCode.</value>
+  </data>
+  <data name="Weather" xml:space="preserve">
+    <value>Weather</value>
   </data>
 </root>

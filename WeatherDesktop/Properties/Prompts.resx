@@ -117,50 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Clear_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Clear_day.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CSVForDays" xml:space="preserve">
+    <value>Enter days in comma seperated values, with Sunday = 0 and Saturday = 6, example '0,1,2' = Sunday Monday Tuesday</value>
   </data>
-  <data name="Clear_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Clear_night.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CSVForHours" xml:space="preserve">
+    <value>Enter days in comma seperated values, Military time</value>
   </data>
-  <data name="cloudy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cloudy.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="EnterAPIKeyFromOpenWeather" xml:space="preserve">
+    <value>Please enter the API key provided by openweathermap.org</value>
   </data>
-  <data name="fog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fog.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="EnterHourToUpdate" xml:space="preserve">
+    <value>Enter the hour you want to update.</value>
   </data>
-  <data name="Frigid" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Frigid.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="IntervalBetween10and120" xml:space="preserve">
+    <value>Enter New interval between 10 and 120</value>
   </data>
-  <data name="hot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hot.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PartlyCloudy_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PartlyCloudy_day.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PartlyCloudy_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PartlyCloudy_night.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="raindrop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\raindrop.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="snowflake" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\snowflake.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Thunderstorm" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Thunderstorm.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="wind" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wind.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="windsock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\windsock.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gov2User" xml:space="preserve">
-    <value>WeatherWallpaper/v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com)</value>
-  </data>
-  <data name="Gov3User" xml:space="preserve">
-    <value>WeatherWallpaper / v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com</value>
+  <data name="PleaseEnterYour_" xml:space="preserve">
+    <value>Please Enter your {0}</value>
   </data>
 </root>

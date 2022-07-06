@@ -22,14 +22,14 @@ namespace WeatherDesktop.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Internal_SunRiseSet {
+    internal class Warnings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Internal_SunRiseSet() {
+        internal Warnings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace WeatherDesktop.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WeatherDesktop.Properties.Internal.SunRiseSet", typeof(Internal_SunRiseSet).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WeatherDesktop.Properties.Warnings", typeof(Warnings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,38 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to App appears to be running. if not, you may have to restart your machine to get it to work..
+        /// </summary>
+        internal static string AppAlreadyRunning {
+            get {
+                return ResourceManager.GetString("AppAlreadyRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not update, please try again.
         /// </summary>
-        internal static string CouldNotUpdate {
+        internal static string CouldNotUpdateTryAgain {
             get {
-                return ResourceManager.GetString("CouldNotUpdate", resourceCulture);
+                return ResourceManager.GetString("CouldNotUpdateTryAgain", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hour update.
+        ///   Looks up a localized string similar to Them Already Exists, Please try another name..
         /// </summary>
-        internal static string HourUpdateHeader {
+        internal static string ThemeAlreadyExists {
             get {
-                return ResourceManager.GetString("HourUpdateHeader", resourceCulture);
+                return ResourceManager.GetString("ThemeAlreadyExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the hour you want to update the call to get sun rise, set info..
+        ///   Looks up a localized string similar to Update Did Not Work.
         /// </summary>
-        internal static string HourUpdateMessage {
+        internal static string UpdateDidNotWork {
             get {
-                return ResourceManager.GetString("HourUpdateMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lat Long not set.
-        /// </summary>
-        internal static string LatLongSetHeader {
-            get {
-                return ResourceManager.GetString("LatLongSetHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lat and Long not yet available, Manual enter (yes), or pick a supplier in sunriseset settings (no).
-        /// </summary>
-        internal static string LatLongSetMessage {
-            get {
-                return ResourceManager.GetString("LatLongSetMessage", resourceCulture);
+                return ResourceManager.GetString("UpdateDidNotWork", resourceCulture);
             }
         }
     }

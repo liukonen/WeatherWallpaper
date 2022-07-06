@@ -87,9 +87,9 @@ namespace WeatherDesktop.Services.External.OpenWeather
         {
             return new List<MenuItem>
             {
-                new MenuItem(Properties.OpenWeather.MenuAPIKey, ChangeAPI),
+                new MenuItem(Properties.Menu.APIKey, ChangeAPI),
                 ZipcodeHandler.ZipMenuItem,
-                new MenuItem(Properties.OpenWeather.MenuUpdate, Enterinterval)
+                new MenuItem(Properties.Menu.UpdateInterval, Enterinterval)
             }.ToArray();
 
         }
@@ -139,14 +139,14 @@ namespace WeatherDesktop.Services.External.OpenWeather
                     _updateInt = value;
                     AppSetttingsHandler.Write(UpdateIntervalName, _updateInt.ToString());
                 }
-                else { MessageBox.Show(Properties.OpenWeather.UpdateIntervalMessage); }
+                else { MessageBox.Show(Properties.Prompts.IntervalBetween10and120); }
             }
         }
 
 
         public void EnterAPIKey()
         {
-            APIKey = InputHandler.InputBox(Properties.OpenWeather.EnterAPIKeyMessage, Properties.OpenWeather.EnterAPIKeyTitle);
+            APIKey = InputHandler.InputBox(Properties.Prompts.EnterAPIKeyFromOpenWeather, Properties.Titles.EnterAPI);
         }
         #endregion
 
@@ -161,8 +161,8 @@ namespace WeatherDesktop.Services.External.OpenWeather
         private void Enterinterval(object sender, EventArgs e)
         {
             if (int.TryParse(InputHandler.InputBox(
-                Properties.OpenWeather.EnterIntervalMessage,
-                Properties.OpenWeather.EnterIntervalTitle,
+                Properties.Prompts.IntervalBetween10and120,
+                Properties.Titles.UpdateInterval,
                 UpdateInterval.ToString()), out int DumbyValue))
             {
                 UpdateInterval = DumbyValue;

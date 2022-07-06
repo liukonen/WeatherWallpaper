@@ -6,6 +6,7 @@ using System.ComponentModel.Composition;
 using WeatherDesktop.Interface;
 using System.Collections.Generic;
 using WeatherDesktop.Shared.Handlers;
+using WeatherDesktop.Shared.Extentions;
 
 namespace WeatherDesktop.Services.External
 {
@@ -22,7 +23,7 @@ namespace WeatherDesktop.Services.External
         private Exception _ThrownException = null;
 
 
-        public Exception ThrownException() { return _ThrownException; }
+        public Exception ThrownException() => _ThrownException; 
 
         public GovWeather()
         {
@@ -30,27 +31,25 @@ namespace WeatherDesktop.Services.External
 
         public void Load()
         {
-            _zip = SharedObjects.ZipObjects.TryGetZip();
+            _zip = ZipcodeHandler.TryGetZip();
         }
 
-        public string Debug()
-        {
-            var debugValues = new Dictionary<string, string>
+        public string Debug() =>
+            new Dictionary<string, string>
             {
                 { "Last updated", LastUpdated.ToString() },
                 { "Icon url", iconUrl },
                 { "zip", _zip }
-            };
-            return SharedObjects.CompileDebug(debugValues);
-        }
+            }.CompileDebug();
+        
 
         public ISharedResponse Invoke()
         {
-            if (SharedObjects.Cache.Exists(this.GetType().Name)) { return MemCacheHandler.Instance.GetItem<WeatherResponse>(this.GetType().Name); }
+            if (MemCacheHandler.Instance.Exists(this.GetType().Name))  return MemCacheHandler.Instance.GetItem<WeatherResponse>(this.GetType().Name); 
             var response = new WeatherResponse();
             try
             {
-                httpResponse = SharedObjects.CompressedCallSite(string.Format(Properties.Gov2.Gov_Weather_Url, _zip), Properties.Gov2.Gov_User);
+                httpResponse = WebHandler.Instance.CallSite(string.Format(Properties.Gov2.Gov_Weather_Url, _zip), Properties.Gov2.Gov_User);
                 response = Transform(httpResponse);
                 MemCacheHandler.Instance.SetItem(this.GetType().Name, response, UpdateInterval);
                 LastUpdated = DateTime.Now;
@@ -60,7 +59,7 @@ namespace WeatherDesktop.Services.External
             return response;
         }
 
-        public MenuItem[] SettingsItems() { return new MenuItem[] { SharedObjects.ZipObjects.ZipMenuItem }; }
+        public MenuItem[] SettingsItems() => new MenuItem[] { ZipcodeHandler.ZipMenuItem }; 
 
 
         #region "Helpers"
@@ -72,8 +71,8 @@ namespace WeatherDesktop.Services.External
         /// <returns></returns>
         WeatherResponse Transform(string Response)
         {
-            int Max = -180;
-            int Min = 180;
+            var Max = -180;
+            var Min = 180;
 
             var value = new WeatherResponse();
             var reader = XmlReader.Create(new System.IO.StringReader(Response));
@@ -85,11 +84,11 @@ namespace WeatherDesktop.Services.External
                     switch (reader.Name)
                     {
                         case "point":
-                            if (!SharedObjects.LatLong.HasRecord())
+                            if (!LatLongHandler.HasRecord())
                             {
                                 if (double.TryParse(reader.GetAttribute("latitude"), out double lat)
                                     && double.TryParse(reader.GetAttribute("longitude"), out double lng))
-                                { SharedObjects.LatLong.Set(lat, lng); }
+                                { LatLongHandler.Set(lat, lng); }
                             }
                             break;
                         case "temperature":

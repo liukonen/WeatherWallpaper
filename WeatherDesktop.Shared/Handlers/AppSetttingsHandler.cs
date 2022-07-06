@@ -13,7 +13,8 @@ namespace WeatherDesktop.Shared.Handlers
             }
             catch (ConfigurationErrorsException)
             {
-                MessageBox.Show("Error reading app settings"); return string.Empty;
+                MessageBox.Show(Properties.Resources.AppSettingsReadErrorMessage);
+                return string.Empty;
             }
         }
         public static void Write(string key, string value) 
@@ -29,7 +30,9 @@ namespace WeatherDesktop.Shared.Handlers
             }
             catch (ConfigurationErrorsException)
             {
-                MessageBox.Show("Error writing app settings", "Error Editing Config", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.AppSettingsWriteErrorMessage
+                    , Properties.Resources.AppSettingsWriteErrorTitle
+                    , MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

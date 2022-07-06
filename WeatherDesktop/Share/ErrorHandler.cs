@@ -11,16 +11,9 @@ namespace WeatherDesktop.Share
         {
             try
             {
-                string sSource;
-                string sLog;
-                string sEvent;
-
-                sSource = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-                sLog = "Application";
-                sEvent = x.ToString();
-
-                if (!EventLog.SourceExists(sSource)) { EventLog.CreateEventSource(sSource, sLog); }
-                var raw = Encoding.ASCII.GetBytes(sEvent);
+                var sSource = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+                if (!EventLog.SourceExists(sSource)) { EventLog.CreateEventSource(sSource, "Application"); }
+                var raw = Encoding.ASCII.GetBytes(x.ToString());
                 EventLog.WriteEntry(sSource, x.Message, EventLogEntryType.Warning, 1, 1, raw);
             }
             catch (Exception ex) 

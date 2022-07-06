@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using WeatherDesktop.Shared.Handlers;
 
 namespace WeatherDesktop.Share
 {
@@ -28,15 +29,15 @@ namespace WeatherDesktop.Share
 
         private void LoadTheme(object sender, EventArgs e)
         {
-            string themepath = themesDir + Path.DirectorySeparatorChar + ((MenuItem)sender).Text;
+            var themepath = themesDir + Path.DirectorySeparatorChar + ((MenuItem)sender).Text;
 
-            XElement rootElement = XElement.Parse(File.ReadAllText(themepath + Path.DirectorySeparatorChar + ThemeFileName));
-            Dictionary<string, string> ThemeItems = new Dictionary<string, string>();
+            var rootElement = XElement.Parse(File.ReadAllText(themepath + Path.DirectorySeparatorChar + ThemeFileName));
+            var ThemeItems = new Dictionary<string, string>();
             foreach (XElement item in rootElement.Elements())
             {
                 ThemeItems.Add(item.Name.LocalName, item.Value);
             }
-            string[] cSRS = new string[] { "day-", "night-" };
+            var cSRS = new string[] { "day-", "night-" };
 
 
             //copy files to theme dir
@@ -44,14 +45,14 @@ namespace WeatherDesktop.Share
             {
                 foreach (string item in Enum.GetNames(typeof(SharedObjects.WeatherTypes)))
                 {
-                    string key = NightDay + item;
+                    var key = NightDay + item;
                     if (ThemeItems.ContainsKey(key))
                     {
-                        SharedObjects.AppSettings.AddUpdateAppSettings(key, themepath + Path.DirectorySeparatorChar + ThemeItems[key]);
+                        AppSetttingsHandler.Write(key, themepath + Path.DirectorySeparatorChar + ThemeItems[key]);
                     }
                     else
                     {
-                        SharedObjects.AppSettings.RemoveAppSetting(key);
+                        AppSetttingsHandler.Remove(key);
                     }
                 }
             }
@@ -59,47 +60,48 @@ namespace WeatherDesktop.Share
 
         private void SaveTheme(object sender, EventArgs e)
         {
-            Dictionary<string, string> Theme = new Dictionary<string, string>();
+            var Theme = new Dictionary<string, string>();
 
-            SaveFileDialog Dia = new SaveFileDialog
+            var Dia = new SaveFileDialog
             {
                 AddExtension = true,
                 Filter = Filter
             };
             if (Dia.ShowDialog() == DialogResult.OK)
             {
-                string FileName = Dia.FileName;
-                string CurrentThemeDir = themesDir + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName);
+                var FileName = Dia.FileName;
+                var CurrentThemeDir = themesDir + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName);
                 if (Directory.Exists(CurrentThemeDir)) { MessageBox.Show("Theme already exists, please try another name"); }
                 else
                 {
                     Directory.CreateDirectory(CurrentThemeDir);
 
-                    string[] cSRS = new string[] { "day-", "night-" };
-
+                    var cSRS = new string[] { "day-", "night-" };
 
                     //copy files to theme dir
                     foreach (string NightDay in cSRS)
                     {
-
-
                         foreach (string item in Enum.GetNames(typeof(SharedObjects.WeatherTypes)))
                         {
-                            string key = NightDay + item;
-                            string imagelocation = SharedObjects.AppSettings.ReadSetting(key);
+                            var key = NightDay + item;
+                            var imagelocation = AppSetttingsHandler.Read(key);
                             if (!string.IsNullOrWhiteSpace(imagelocation))
                             {
-                                string newLocation = CurrentThemeDir + System.IO.Path.DirectorySeparatorChar + Path.GetFileName(imagelocation);
-                                System.IO.File.Copy(imagelocation, newLocation);
-                                Theme.Add(key, System.IO.Path.GetFileName(imagelocation));
+                                var newLocation = 
+                                    CurrentThemeDir + 
+                                    Path.DirectorySeparatorChar + 
+                                    Path.GetFileName(imagelocation);
+
+                                File.Copy(imagelocation, newLocation);
+                                Theme.Add(key, Path.GetFileName(imagelocation));
                             }
 
                         }
                     }
                     //create theme index
 
-                    var Items = from KeyValuePair<string, string> X in Theme select new System.Xml.Linq.XElement(X.Key, X.Value);
-                    System.Xml.Linq.XElement element = new System.Xml.Linq.XElement("root", Items);
+                    var items = Theme.Select(x => new XElement(x.Key, x.Value));
+                    var element = new XElement("root", items);
                     element.Save(CurrentThemeDir + Path.DirectorySeparatorChar + ThemeFileName);
 
                     //compress theme to filename zip file
@@ -111,15 +113,15 @@ namespace WeatherDesktop.Share
 
         private void ImportTheme(object sender, EventArgs e)
         {
-            OpenFileDialog Dia = new OpenFileDialog
+            var Dia = new OpenFileDialog
             {
                 Filter = Filter
             };
             if (Dia.ShowDialog() == DialogResult.OK)
             {
-                string FileName = Dia.FileName;
+                var FileName = Dia.FileName;
                 var test = ZipFile.OpenRead(FileName);
-                bool ValidTheme = (from ZipArchiveEntry B in test.Entries where B.Name == ThemeFileName select B).Any();
+                var ValidTheme = (from ZipArchiveEntry B in test.Entries where B.Name == ThemeFileName select B).Any();
                 if (ValidTheme)
                 {
                     test.ExtractToDirectory(themesDir + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName));
@@ -145,12 +147,12 @@ namespace WeatherDesktop.Share
 
         }
 
-        public MenuItem[] SettingsItems()
-        {
-            MenuItem Save = new MenuItem("Save Current Settings as Theme.", SaveTheme);
-            MenuItem Load = new MenuItem("Load Theme", ThemeArray().ToArray());
-            MenuItem Import = new MenuItem("Import Theme", ImportTheme);
-            return new MenuItem[] { Save, Load, Import };
-        }
+        public MenuItem[] SettingsItems() => new List<MenuItem>()
+            {
+               new MenuItem("Save Current Settings as Theme.", SaveTheme),
+               new MenuItem("Load Theme", ThemeArray().ToArray()),
+               new MenuItem("Import Theme", ImportTheme)
+        }.ToArray();
+        
     }
 }

@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using WeatherDesktop.Share;
 using System.ComponentModel.Composition;
 using WeatherDesktop.Interface;
+using WeatherDesktop.Shared.Handlers;
 using WeatherDesktop.Shared.Extentions;
 
 namespace WeatherDesktop.Services.External.MSWeather
@@ -12,8 +13,8 @@ namespace WeatherDesktop.Services.External.MSWeather
     /// <summary>
     /// Description of MSWeather.
     /// </summary>
-    [Export(typeof(WeatherDesktop.Interface.ISharedWeatherinterface))]
-    [Export(typeof(WeatherDesktop.Interface.ILatLongInterface))]
+    [Export(typeof(ISharedWeatherinterface))]
+    [Export(typeof(ILatLongInterface))]
     [ExportMetadata("ClassName", "MSWeather")]
     public class MSWeather : ISharedWeatherinterface, ILatLongInterface
     {
@@ -35,13 +36,9 @@ namespace WeatherDesktop.Services.External.MSWeather
 
         #region Settings
 
-        public MenuItem[] SettingsItems()
-        {
-            return new List<MenuItem>
-            {
-                SharedObjects.ZipObjects.ZipMenuItem
-            }.ToArray();
-        }
+        public MenuItem[] SettingsItems() => new List<MenuItem>
+            { ZipcodeHandler.ZipMenuItem}.ToArray();
+        
 
         #endregion
 
@@ -53,10 +50,11 @@ namespace WeatherDesktop.Services.External.MSWeather
         }
         public void Load()
         {
-            string zipcode = SharedObjects.ZipObjects.Rawzip;
-            if (string.IsNullOrWhiteSpace(zipcode) || !int.TryParse(zipcode, out _))
-            { SharedObjects.ZipObjects.ChangeZipClick(new object(), new EventArgs()); }
-            _zipcode = SharedObjects.ZipObjects.Rawzip;
+            var zipcode = ZipcodeHandler.Rawzip;
+            if (string.IsNullOrWhiteSpace(zipcode) 
+                || !int.TryParse(zipcode, out _)) 
+                ZipcodeHandler.ChangeZipClick(new object(), new EventArgs());
+            _zipcode = ZipcodeHandler.Rawzip;
             Invoke();
         }
 
@@ -71,7 +69,7 @@ namespace WeatherDesktop.Services.External.MSWeather
             {
                 try
                 {
-                    string response = LiveCall(_zipcode, _cacheTimeout);
+                    var response = LiveCall(_zipcode, _cacheTimeout);
                     _cacheValue = TransformWeather(response);
                     geography = TransformerLatLong(response);
                     HasBeenCalled = true;
@@ -100,18 +98,18 @@ namespace WeatherDesktop.Services.External.MSWeather
 
         public string LiveCall(string zipcode, int CacheTimeout)
         {
-            if (SharedObjects.Cache.Exists(this.GetType().Name)) { return SharedObjects.Cache.StringValue(this.GetType().Name); }
-            string webresponse = SharedObjects.CompressedCallSite(string.Format(c_URL, zipcode.ToString()));
-            SharedObjects.Cache.Set(this.GetType().Name, webresponse, CacheTimeout);
+            if (MemCacheHandler.Instance.Exists(this.GetType().Name))  return MemCacheHandler.Instance.GetItem<string>(this.GetType().Name); 
+            var webresponse =  WebHandler.Instance.CallSite(string.Format(c_URL, zipcode.ToString()));
+            MemCacheHandler.Instance.SetItem(this.GetType().Name, webresponse, CacheTimeout);
             return webresponse;
         }
 
         private WeatherResponse TransformWeather(string webresponse)
         {
-            WeatherResponse response = new WeatherResponse();
-            System.Text.StringBuilder forcast = new System.Text.StringBuilder();
+            var response = new WeatherResponse();
+            var forcast = new System.Text.StringBuilder();
 
-            XmlReader reader = XmlReader.Create(new System.IO.StringReader(webresponse));
+            var reader = XmlReader.Create(new System.IO.StringReader(webresponse));
             while (reader.Read())
             {
                 if ((reader.NodeType == XmlNodeType.Element))
@@ -120,22 +118,22 @@ namespace WeatherDesktop.Services.External.MSWeather
                         case "current":
                             response.Temp = int.Parse(reader.GetAttribute("temperature"));
                             _skycode = int.Parse(reader.GetAttribute("skycode"));
-                            string skyTxt = reader.GetAttribute("skytext");
+                            var skyTxt = reader.GetAttribute("skytext");
                             response.WType = ConvertType(skyTxt);
                             forcast.Append("Now ").Append(response.Temp).Append(" ").Append(skyTxt).Append(Environment.NewLine);
                             break;
                         case "forecast":
-                            string low = reader.GetAttribute("low");
-                            string high = reader.GetAttribute("high");
-                            string skyText = reader.GetAttribute("skytextday");
-                            DateTime forcastDay = DateTime.Parse(reader.GetAttribute("date"));
-                            string day = reader.GetAttribute("day");
-                            string percept = reader.GetAttribute("precip");
+                            var low = reader.GetAttribute("low");
+                            var high = reader.GetAttribute("high");
+                            var skyText = reader.GetAttribute("skytextday");
+                            var forcastDay = DateTime.Parse(reader.GetAttribute("date"));
+                            var day = reader.GetAttribute("day");
+                            var percept = reader.GetAttribute("precip");
                             if (string.IsNullOrWhiteSpace(percept)) { percept = "0"; }
                             if (forcastDay >= DateTime.Today) { forcast.Append(string.Format(forcastFormat, low, high, skyText, day, percept)).Append(Environment.NewLine); }
                             break;
                         case "toolbar":
-                            int Timeout = int.Parse(reader.GetAttribute("timewindow"));
+                            var Timeout = int.Parse(reader.GetAttribute("timewindow"));
                             if (Timeout > _cacheTimeout) _cacheTimeout = Timeout;
                             break;
                     }
@@ -146,7 +144,7 @@ namespace WeatherDesktop.Services.External.MSWeather
 
         private static Geography TransformerLatLong(string webresponse)
         {
-            XmlReader reader = XmlReader.Create(new System.IO.StringReader(webresponse));
+            var reader = XmlReader.Create(new System.IO.StringReader(webresponse));
             while (reader.Read())
             {
                 if ((reader.NodeType == XmlNodeType.Element))
@@ -155,7 +153,7 @@ namespace WeatherDesktop.Services.External.MSWeather
                         case "weather":
                             var lat = double.Parse(reader.GetAttribute("lat"));
                             var lng = double.Parse(reader.GetAttribute("long"));
-                            if (!SharedObjects.LatLong.HasRecord()) { SharedObjects.LatLong.Set(lat, lng); }
+                            if (!LatLongHandler.HasRecord()) { LatLongHandler.Set(lat, lng); }
                             return new Geography(lat, lng);
                     }
             }
@@ -187,7 +185,7 @@ namespace WeatherDesktop.Services.External.MSWeather
 
         private static bool TryFind(string test, out SharedObjects.WeatherTypes weatherTypes)
         {
-            Dictionary<string, SharedObjects.WeatherTypes> LookupSearch = new Dictionary<string, SharedObjects.WeatherTypes>
+            var LookupSearch = new Dictionary<string, SharedObjects.WeatherTypes>
         {
             { "rain", SharedObjects.WeatherTypes.Rain},
             { "snow", SharedObjects.WeatherTypes.Snow },

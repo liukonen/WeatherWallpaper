@@ -4,6 +4,7 @@ using WeatherDesktop.Share;
 using System.Windows.Forms;
 using System.ComponentModel.Composition;
 using WeatherDesktop.Interface;
+using WeatherDesktop.Shared.Handlers;
 
 namespace WeatherDesktop.Services.External
 {
@@ -20,10 +21,10 @@ namespace WeatherDesktop.Services.External
         {
             try
             {
-                var Zip = SharedObjects.ZipObjects.Rawzip;
-                if (string.IsNullOrEmpty(Zip)) { Zip = SharedObjects.ZipObjects.GetZip(); }
+                var Zip = ZipcodeHandler.Rawzip;
+                if (string.IsNullOrEmpty(Zip)) { Zip = ZipcodeHandler.GetZip(); }
                 var url = string.Format(Properties.Gov2.Gov_LatLong_Url, Zip);
-                var results = SharedObjects.CompressedCallSite(url, Properties.Gov2.Gov_User);
+                var results = WebHandler.Instance.CallSite(url, Properties.Gov2.Gov_User);
                 var reader = XmlReader.Create(new System.IO.StringReader(results));
                 while (reader.Read())
                 {

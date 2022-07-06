@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.ComponentModel.Composition;
 using WeatherDesktop.Interface;
 using WeatherDesktop.Share;
+using WeatherDesktop.Shared.Extentions;
 
 namespace InternalService
 {
@@ -16,7 +17,7 @@ namespace InternalService
     {
         const string ClassName  = "Mock_Weather";
 
-        WeatherDesktop.Share.SharedObjects.WeatherTypes activeWeathertype;
+        SharedObjects.WeatherTypes activeWeathertype;
         string ForcastDescription = "Mock Weather Forcast.";
         int Temp = 98;
 
@@ -62,19 +63,17 @@ namespace InternalService
 
         private void ChangeWeatherType(object sender, EventArgs e)
         {
-            SetWeatherType = (WeatherDesktop.Share.SharedObjects.WeatherTypes)System.Enum.Parse(typeof(WeatherDesktop.Share.SharedObjects.WeatherTypes), ((MenuItem)sender).Text);
+            SetWeatherType = (SharedObjects.WeatherTypes)Enum.Parse(typeof(SharedObjects.WeatherTypes), ((MenuItem)sender).Text);
         }
 
-        public string Debug()
-        {
-            Dictionary<string, string> DebugValues = new Dictionary<string, string>
+        public string Debug() =>
+            new Dictionary<string, string>
             {
-                { "ActiveWeatherType", Enum.GetName(typeof(WeatherDesktop.Share.SharedObjects.WeatherTypes), SetWeatherType) },
+                { "ActiveWeatherType", Enum.GetName(typeof(SharedObjects.WeatherTypes), SetWeatherType) },
                 { "Temp", Temp.ToString() },
                 { "Forcast", ForcastDescription.ToString() }
-            };
-            return SharedObjects.CompileDebug(DebugValues);
-        }
+            }.CompileDebug();
+        
 
     }
 }

@@ -20,9 +20,6 @@ namespace WeatherDesktop.Share
             EventLog.WriteEntry(sSource, x.Message, EventLogEntryType.Error, 1, 1, raw);
         }
 
-        
-
-
         public static void LogException(Exception x)
         {
                 var sSource = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;

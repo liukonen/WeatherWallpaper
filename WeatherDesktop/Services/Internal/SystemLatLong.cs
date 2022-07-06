@@ -20,7 +20,7 @@ namespace WeatherDesktop.Services.Internal
 
         static KeyValuePair<double, double> GetLocationProperty(out bool worked)
         {
-            GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
+            var watcher = new GeoCoordinateWatcher();
 
             // Do not suppress prompt, and wait 1000 milliseconds to start.
             watcher.TryStart(false, TimeSpan.FromMilliseconds(3000));

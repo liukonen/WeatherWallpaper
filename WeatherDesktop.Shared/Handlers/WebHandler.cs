@@ -4,7 +4,7 @@ using System.Net;
 
 namespace WeatherDesktop.Shared.Handlers
 {
-    internal class WebHandler
+    public class WebHandler
     {
         private static readonly WebHandler instance = new WebHandler();
         private WebHandler() { }
@@ -19,13 +19,13 @@ namespace WeatherDesktop.Shared.Handlers
 
         public string CallSite(string Url, string UserAgent)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
+            var request = (HttpWebRequest)WebRequest.Create(Url);
             if (!string.IsNullOrWhiteSpace(UserAgent)) { request.UserAgent = UserAgent; }
             request.Headers.Add("Accept-Encoding", "gzip,deflate");
             request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
             request.AllowAutoRedirect = true;
 
-            string ResponseString = string.Empty;
+            var ResponseString = string.Empty;
             using (WebResponse response = request.GetResponse())
                 ResponseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
 

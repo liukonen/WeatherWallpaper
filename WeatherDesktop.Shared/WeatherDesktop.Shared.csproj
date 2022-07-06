@@ -45,6 +45,9 @@
     <Compile Include="Extentions.cs" />
     <Compile Include="Handlers\AppSetttingsHandler.cs" />
     <Compile Include="Handlers\EncryptedAppSettingsHandler.cs" />
+    <Compile Include="Handlers\InputHandler.cs" />
+    <Compile Include="Handlers\LatLongHandler.cs" />
+    <Compile Include="Handlers\ZipcodeHandler.cs" />
     <Compile Include="Interfaces\ILatLongInterface.cs" />
     <Compile Include="Interfaces\IClassName.cs" />
     <Compile Include="Interfaces\IsharedSunRiseSetInterface.cs" />
@@ -59,13 +62,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Shared\AppSetrtings.cs" />
     <Compile Include="Shared\ErrorHandler.cs" />
-    <Compile Include="Handlers\MemCache.cs" />
-    <Compile Include="Shared\Internal\WebHandler.cs" />
+    <Compile Include="Handlers\MemCacheHandler.cs" />
+    <Compile Include="Handlers\WebHandler.cs" />
     <Compile Include="Shared\SharedObjects.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Shared\Internal\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

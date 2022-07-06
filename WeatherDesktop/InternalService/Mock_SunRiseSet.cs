@@ -6,12 +6,14 @@ using System.Windows.Forms;
 using WeatherDesktop.Interface;
 using System.ComponentModel.Composition;
 using WeatherDesktop.Share;
+using WeatherDesktop.Shared.Extentions;
+using WeatherDesktop.Shared.Handlers;
 
 namespace InternalService
 {
     [Export(typeof(WeatherDesktop.Interface.IsharedSunRiseSetInterface))]
     [ExportMetadata("ClassName", "Mock_SunRiseSet")]
-    class Mock_SunRiseSet :IsharedSunRiseSetInterface
+    class Mock_SunRiseSet : IsharedSunRiseSetInterface
     {
 
         const string ClassName = "Mock_SunRiseSet";
@@ -22,18 +24,19 @@ namespace InternalService
 
         SunRiseSetResponse _cache = new SunRiseSetResponse();
 
-        DateTime SunRiseDateTime {
+        DateTime SunRiseDateTime
+        {
             get
             {
                 if (_cache != null && _cache.SunRise != null) { return _cache.SunRise; }
-                string setting = SharedObjects.AppSettings.ReadSetting(ClassName + ".SunRise");
-                if (!string.IsNullOrWhiteSpace(setting)){return TimeSpanToDateTime(TimeSpan.Parse(setting));}
+                string setting = AppSetttingsHandler.Read(ClassName + ".SunRise");
+                if (!string.IsNullOrWhiteSpace(setting)) { return TimeSpanToDateTime(TimeSpan.Parse(setting)); }
                 return new DateTime();
             }
             set
             {
                 _cache.SunRise = TimeSpanToDateTime(value.TimeOfDay);
-                SharedObjects.AppSettings.AddUpdateAppSettings(ClassName + ".SunRise", value.TimeOfDay.ToString());
+                AppSetttingsHandler.Write(ClassName + ".SunRise", value.TimeOfDay.ToString());
             }
         }
 
@@ -42,7 +45,7 @@ namespace InternalService
             get
             {
                 if (_cache != null && _cache.SunSet != null) { return _cache.SunSet; }
-                string setting = SharedObjects.AppSettings.ReadSetting(ClassName + ".SunSet");
+                string setting = AppSetttingsHandler.Read(ClassName + ".SunSet");
                 if (!string.IsNullOrWhiteSpace(setting)) { return TimeSpanToDateTime(TimeSpan.Parse(setting)); }
                 return new DateTime();
             }
@@ -50,7 +53,7 @@ namespace InternalService
             {
 
                 _cache.SunSet = TimeSpanToDateTime(value.TimeOfDay);
-                SharedObjects.AppSettings.AddUpdateAppSettings(ClassName + ".SunSet", value.TimeOfDay.ToString());
+                AppSetttingsHandler.Write(ClassName + ".SunSet", value.TimeOfDay.ToString());
             }
         }
 
@@ -67,7 +70,7 @@ namespace InternalService
 
         public Mock_SunRiseSet()
         {
-            _cache = new SunRiseSetResponse() { SunSet = SunSetDateTime, SunRise = SunRiseDateTime };            
+            _cache = new SunRiseSetResponse() { SunSet = SunSetDateTime, SunRise = SunRiseDateTime };
         }
         public ISharedResponse Invoke()
         {
@@ -77,7 +80,7 @@ namespace InternalService
         private void ChangehourToUpdate(object sender, EventArgs e)
         {
             string Title = ((MenuItem)sender).Text;
-            string sTimeSpan = Microsoft.VisualBasic.Interaction.InputBox("Please Enter the Timespan (example 7:00:00", Title);
+            string sTimeSpan = InputHandler.InputBox("Please Enter the Timespan (example 7:00:00", Title);
             TimeSpan extract = new TimeSpan();
             if (!TimeSpan.TryParse(sTimeSpan, out extract))
             { MessageBox.Show("Error getting timespan, try again"); }
@@ -89,18 +92,16 @@ namespace InternalService
                 { _cache.SunSet = Parsed; SunSetDateTime = Parsed; }
                 else { _cache.SunRise = Parsed; SunRiseDateTime = Parsed; ; }
             }
-            
+
 
         }
 
-        public string Debug()
-        {
-            Dictionary<string, string> DebugValues = new Dictionary<string, string>
+        public string Debug() =>
+            new Dictionary<string, string>
             {
                 {"SunRise", _cache.SunRise.ToString()},
                 {"SunSet", _cache.SunSet.ToString() }
-            };
-            return SharedObjects.CompileDebug(DebugValues);
-        }
+            }.CompileDebug();
+
     }
 }

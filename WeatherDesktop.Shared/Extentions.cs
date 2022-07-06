@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace WeatherDesktop.Shared.Extentions
 {
@@ -11,7 +9,7 @@ namespace WeatherDesktop.Shared.Extentions
     {
         public static int ToInt(this BitArray Array)
         {
-            int[] response = new int[1];
+            var response = new int[1];
             Array.CopyTo(response, 0);
             return response[0];
         }
@@ -20,7 +18,7 @@ namespace WeatherDesktop.Shared.Extentions
 
         public static string CompileDebug(this Dictionary<string, string> ItemsTodisplay)
         {
-            StringBuilder builder = new StringBuilder(Environment.NewLine);
+            var builder = new StringBuilder(Environment.NewLine);
             foreach (var item in ItemsTodisplay)
             {
                 builder.AppendLine($"{item.Key}: {item.Value}");

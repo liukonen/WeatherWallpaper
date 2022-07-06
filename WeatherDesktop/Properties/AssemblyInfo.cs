@@ -26,6 +26,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can use the default the Revision and 
 // Build Numbers by using the '*' as shown below:
-[assembly: AssemblyVersion("2020.7.4.*")]
+[assembly: AssemblyVersion("2020.7.6.*")]
 [assembly: NeutralResourcesLanguage("en-US")]
 

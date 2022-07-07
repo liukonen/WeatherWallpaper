@@ -9,6 +9,11 @@ using WeatherDesktop.Share;
 using System.Linq;
 using WeatherDesktop.Shared.Extentions;
 using WeatherDesktop.Shared.Handlers;
+using System.IO;
+using System.Diagnostics;
+using System.Reflection;
+using System.Collections;
+using System.Text;
 
 namespace WeatherDesktop
 {
@@ -41,10 +46,10 @@ namespace WeatherDesktop
         private Dictionary<string, string> g_ImageDictionary = new Dictionary<string, string>();
         private string g_CurrentWeatherType;
         private CompositionContainer _container;
-
-        System.Collections.BitArray DenyedHours = new System.Collections.BitArray(24);
-        System.Collections.BitArray DenyedDays = new System.Collections.BitArray(7);
-        string PluginPaths = Environment.CurrentDirectory + System.IO.Path.DirectorySeparatorChar + "Plugins";
+        
+        BitArray DeniedHours = new BitArray(24);
+        BitArray DeniedDays = new BitArray(7);
+        readonly string PluginPaths = Environment.CurrentDirectory + Path.DirectorySeparatorChar + "Plugins";
 
         #endregion
 
@@ -56,34 +61,35 @@ namespace WeatherDesktop
             notifyIcon = new NotifyIcon();
             notificationMenu = new ContextMenu(InitializeMenu());
             notifyIcon.DoubleClick += IconDoubleClick;
-            //ComponentResourceManager resources = new ComponentResourceManager(typeof(MainApp));
             notifyIcon.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             notifyIcon.ContextMenu = notificationMenu;
             UpdateScreen(false);
             CreateTimer();
         }
 
-        private MenuItem[] InitializeMenu()
-        {
-
-
-            MenuItem[] menu = new MenuItem[] {
+        private MenuItem[] InitializeMenu() 
+            => new MenuItem[] {
                 new MenuItem(Properties.Menu.Settings, GetSettings().ToArray()),
                 new MenuItem(Properties.Menu.About, MenuAboutClick),
                 new MenuItem(Properties.Menu.Exit, MenuExitClick)
             };
-
-            return menu;
-        }
-
+     
         private IEnumerable<MenuItem> GetSettings()
         {
             yield return new MenuItem(Properties.Menu.Global, GlobalMenuSettings());
             yield return new MenuItem(Properties.Menu.Images, GetWeatherMenuItems().ToArray());
+            yield return new MenuItem(Properties.Menu.IconStyle, ThemeOptions()); 
             yield return new MenuItem(g_SunRiseSet.GetType().Name, g_SunRiseSet.SettingsItems());
             yield return new MenuItem(g_Weather.GetType().Name, g_Weather.SettingsItems());
             yield return new MenuItem(Properties.Menu.Themes, Themes.SettingsItems());
         }
+
+        public MenuItem[] ThemeOptions()
+            => Enum.GetNames(typeof(IconThemeStyle))
+            .Select(x => new MenuItem(x, IconEventHandler) 
+            { 
+                Checked = (IconThemeStyle)Enum.Parse(typeof(IconThemeStyle), x) == IconHandler.Style 
+            }).ToArray();
 
         private MenuItem[] GlobalMenuSettings()
         {
@@ -112,26 +118,15 @@ namespace WeatherDesktop
         }
         private IEnumerable<MenuItem> GetWeatherMenuItems()
         {
-            foreach (var element in Enum.GetValues(typeof(SharedObjects.WeatherTypes)))
-            {
-                var ElementName = Enum.GetName(typeof(SharedObjects.WeatherTypes), element);
-                
-                var DayName = cDay + ElementName;
-                yield return new MenuItem(DayName, MenuItemClick)
-                { 
-                Checked = g_ImageDictionary.ContainsKey(DayName)
-                };
-
-                var NightName = cNight + ElementName;
-                yield return new MenuItem(NightName, MenuItemClick)
-                {
-                    Checked = (g_ImageDictionary.ContainsKey(NightName))
-                };
-            }
+            var types = new List<string> { cDay, cNight };
+            return types.SelectMany(
+                x => Enum.GetNames(typeof(SharedObjects.WeatherTypes))
+                .Select(y => 
+                    new MenuItem(x + y, MenuItemClick) 
+                    { Checked = g_ImageDictionary.ContainsKey(x + y) } 
+                ));
         }
-
         #endregion
-
 
         #region Main - Program entry point
         /// <summary>Program entry point.</summary>
@@ -139,12 +134,9 @@ namespace WeatherDesktop
         [STAThread]
         public static void Main()
         {
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
             // Please use a unique name for the mutex to prevent conflicts with other programs
-
             using (Mutex mtx = new Mutex(true, "WeatherDesktop", out bool isFirstInstance))
             {
                 if (isFirstInstance)
@@ -170,22 +162,29 @@ namespace WeatherDesktop
                     MessageBox.Show(Properties.Warnings.AppAlreadyRunning);
                 }
             }
-
-
-
         }
         #endregion
 
         #region Event Handlers
 
+        private void IconEventHandler(object sender, EventArgs e)
+        {
+            Enum.TryParse<IconThemeStyle>(((MenuItem)sender).Text, out IconThemeStyle style);
+            IconHandler.Style = style;
+            UpdateScreen(true);
+        }
+
         private void PluginFolder_Event(object sender, EventArgs e)
         {
-            if (System.IO.Directory.Exists(PluginPaths)) {System.Diagnostics.Process.Start(PluginPaths); }
+            try { 
+                if (!Directory.Exists(PluginPaths)) Directory.CreateDirectory(PluginPaths); 
+            }
+            catch { }
+            if (Directory.Exists(PluginPaths)) {Process.Start(PluginPaths); }
         }
         private void MenuItemClick(object sender, EventArgs e)
         {
-
-            var Name = ((MenuItem)sender).Text;//.Replace("*", string.Empty);
+            var Name = ((MenuItem)sender).Text;
             var openFileDialog1 = new OpenFileDialog
             {
                 Filter = "jpeg (*.jpg)|*.jpg|Portable Network Graphics (*.png)|*.png",
@@ -208,7 +207,6 @@ namespace WeatherDesktop
         private void MenuAboutClick(object sender, EventArgs e)
         {
             var Name = this.GetType().Assembly.GetName().Name;
-
             var message = new System.Text.StringBuilder();
             //Description
             //
@@ -216,63 +214,51 @@ namespace WeatherDesktop
             //Copyright:XXXXX
             //
             //Others
-            var CustomDescriptionAttributes = this.GetType().Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyDescriptionAttribute), false);
-            if (CustomDescriptionAttributes.Length > 0) { message.Append(((System.Reflection.AssemblyDescriptionAttribute)CustomDescriptionAttributes[0]).Description).Append(Environment.NewLine); }
-            message.Append(Environment.NewLine);
-            message.Append("Version: ").Append(this.GetType().Assembly.GetName().Version.ToString()).Append(Environment.NewLine);
-            var CustomInfoCopyrightCall = this.GetType().Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyCopyrightAttribute), false);
-            if (CustomInfoCopyrightCall.Length > 0) { message.Append("Copyright: ").Append(((System.Reflection.AssemblyCopyrightAttribute)CustomInfoCopyrightCall[0]).Copyright).Append(Environment.NewLine); }
-            message.Append(Environment.NewLine);
-            message.Append(ExtractInfo(g_Weather));
-            message.Append(ExtractInfo(g_SunRiseSet));
+            message.AppendLine(ExtractFromAssembly<AssemblyDescriptionAttribute>(this).Description)
+                .Append(Environment.NewLine)
+                .AppendLine("Version: " + this.GetType().Assembly.GetName().Version.ToString())
+                .AppendLine("Copywrite: " + ExtractFromAssembly<AssemblyCopyrightAttribute>(this).Copyright)
+                .Append(Environment.NewLine)
+                .Append(ExtractInfo(g_Weather)).Append(ExtractInfo(g_SunRiseSet));
             MessageBox.Show(message.ToString(), Name, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void MenuExitClick(object sender, EventArgs e) { Application.Exit(); }
+        private void MenuExitClick(object sender, EventArgs e) => Application.Exit(); 
+        private void IconDoubleClick(object sender, EventArgs e) 
+            => MessageBox.Show(((Interface.WeatherResponse)(g_Weather).Invoke()).ForcastDescription); 
 
-        private void IconDoubleClick(object sender, EventArgs e) { MessageBox.Show(((Interface.WeatherResponse)(g_Weather).Invoke()).ForcastDescription); }
-
-        private void OnTimedEvent(object sender, EventArgs e) { UpdateScreen(false); }
+        private void OnTimedEvent(object sender, EventArgs e) => UpdateScreen(false);
 
         private void DenyedtHours_Event(object sender, EventArgs e)
-        {
-            var values = new List<int>();
-            for (int i = 0; i < 24; i++)
-            {
-                if (DenyedHours[i]) { values.Add(i); }
-            }
-
-
-            var ValuesCSV = InputHandler.InputBox(Properties.Prompts.CSVForHours, Properties.Titles.EnterHours, string.Join(",", values.ToArray()));
-            values = new List<int>();
-            foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
-            for (int i = 0; i < 24; i++) { DenyedHours[i] = values.Contains(i); }
-            AppSetttingsHandler.DeniedHours = DenyedHours.ToInt().ToString();
-        }
+            => PromptBitArray(24, DeniedHours, Properties.Prompts.CSVForHours, Properties.Titles.EnterHours);
+        
 
         private void DenyedDays_event(object sender, EventArgs e)
+            => PromptBitArray(7, DeniedDays, Properties.Prompts.CSVForDays, Properties.Titles.EnterDays);
+        
+
+        private BitArray PromptBitArray(int sizeOfArray, BitArray original, string message, string title)
         {
-            var ValuesCSV = InputHandler.InputBox(Properties.Prompts.CSVForDays, Properties.Titles.EnterDays);
+            var ValuesCSV = InputHandler.InputBox(message, title, string.Join(",", original.SelectedIndexs()));
             var values = new List<int>();
-            foreach (string item in ValuesCSV.Split(',')) { values.Add(int.Parse(item.Replace(",", string.Empty))); }
-            for (int i = 0; i < 7; i++) { DenyedDays[i] = values.Contains(i); }
-            AppSetttingsHandler.DeniedDays = DenyedDays.ToInt().ToString();
+            if (!string.IsNullOrEmpty(ValuesCSV)) values.AddRange(ValuesCSV.Split(',').Select(x => int.Parse(x)));
+            return new BitArray(sizeOfArray, false).SetRange(values, true);
         }
 
         private void UpdateGlobalObjecttype(object sender, EventArgs e)
         {
             var Current = (MenuItem)sender;
             var Name = Current.Text;
-            if (((MenuItem)Current.Parent).Text == "Weather")
+            var Parent = ((MenuItem)Current.Parent).Text;
+            if (Parent == "Weather")
             {
                 AppSetttingsHandler.Weather = Name;
                 g_Weather = GetByName(WeatherObjects, Name);
                 g_Weather.Load();
             }
-            else if (((MenuItem)Current.Parent).Text == "SunRiseSet")
+            else if (Parent == "SunRiseSet")
             {
                 AppSetttingsHandler.SunRiseSet = Name;
-                
                 g_SunRiseSet = GetByName(SRSObjects, Name);
                 g_SunRiseSet.Load();
             }
@@ -280,51 +266,49 @@ namespace WeatherDesktop
             notifyIcon.ContextMenu = notificationMenu;
         }
 
-        private static T GetByName<T>(IEnumerable<Lazy<T, Interface.IClassName>> collection, string name) 
-            => collection.Where(x => x.Metadata.ClassName == name).Select(x => x.Value).FirstOrDefault();
-        
-
-
-
         #endregion
 
         #region Private Functions
+        
+        private static T GetByName<T>(IEnumerable<Lazy<T, Interface.IClassName>> collection, string name)
+             => collection.Where(x => x.Metadata.ClassName == name).Select(x => x.Value).FirstOrDefault();
 
         private string ExtractInfo(Interface.ISharedInterface Item)
         {
-            var Name = Item.GetType().Assembly.GetName().Name + " " + Item.ToString();
-            var CustomInfoCopyrightCall = g_Weather.GetType().Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyCopyrightAttribute), false);
-            var sb = new System.Text.StringBuilder();
-            sb.Append(Name).Append(Environment.NewLine);
-            sb.Append('_',Name.Length).Append(Environment.NewLine);
-            if (CustomInfoCopyrightCall.Length > 0) { sb.Append("Copyright: ").Append(((System.Reflection.AssemblyCopyrightAttribute)CustomInfoCopyrightCall[0]).Copyright).Append(Environment.NewLine);}
-            sb.Append("Version: ").Append(g_Weather.GetType().Assembly.GetName().Version.ToString()).Append(Environment.NewLine);
-            sb.Append("Debug Info: ").Append(Item.Debug()).Append(Environment.NewLine).Append(Environment.NewLine);
-            return sb.ToString();
+
+            var name = $"{Item.GetType().Assembly.GetName().Name} {Item}";
+
+            var builder = new StringBuilder(name + Environment.NewLine);
+            return builder.Append('_', name.Length).Append(Environment.NewLine)
+            .AppendLine("Copyright: " + ExtractFromAssembly<AssemblyCopyrightAttribute>(g_Weather).Copyright)
+            .AppendLine($"Version: {g_Weather.GetType().Assembly.GetName().Version}")
+            .AppendLine("Debug Info: " + Item.Debug()).Append(Environment.NewLine).ToString();
         }
+
+        private T ExtractFromAssembly<T>(object From) => (T)From.GetType().Assembly.GetCustomAttributes(typeof(T), false)[0];
 
         private void UpdateScreen(Boolean overrideImage)
         {
-            if (!(DenyedDays[(int)DateTime.Now.DayOfWeek] || DenyedHours[DateTime.Now.Hour]))
+            if (!(DeniedDays[(int)DateTime.Now.DayOfWeek] || DeniedHours[DateTime.Now.Hour]))
             {
                 var weather = (Interface.WeatherResponse)g_Weather.Invoke();
                 var sunriseSet = (Interface.SunRiseSetResponse)g_SunRiseSet.Invoke();
                 
-                var currentTime = DateTime.Now.TimeOfDay.Between(sunriseSet.SunRise.TimeOfDay, sunriseSet.SunSet.TimeOfDay) ? cDay : cNight;
-                
-
+                var currentTime = DateTime.Now.TimeOfDay.Between(sunriseSet.SunRise.TimeOfDay, sunriseSet.SunSet.TimeOfDay)
+                    ? cDay : cNight;
+     
                 var weatherType = Enum.GetName(typeof(SharedObjects.WeatherTypes), weather.WType);
-                notifyIcon.Text = weatherType + " " + weather.Temp.ToString();
+                notifyIcon.Text = $"{weatherType} {weather.Temp}";
                 var currentWeatherType = currentTime + weatherType;
                 if (string.IsNullOrWhiteSpace(g_CurrentWeatherType) || currentWeatherType != g_CurrentWeatherType || overrideImage)
                 {
                     g_CurrentWeatherType = currentWeatherType;
-                    notifyIcon.Icon = Share.Wallpaper.GetWeatherIcon(weather.WType, (currentTime == cDay));
+                    var IconStyle = IconHandler.Style;
+                    var isDay = (currentTime == cDay);
+                    notifyIcon.Icon = Wallpaper.GetWeatherIcon(weather.WType, isDay, IconHandler.IsLightMode(IconStyle, !isDay));
                     if (g_ImageDictionary.ContainsKey(currentWeatherType))
                     {
-                        try { Wallpaper.Set(g_ImageDictionary[currentWeatherType], Wallpaper.Style.Stretched);
-
-                        }
+                        try { Wallpaper.Set(g_ImageDictionary[currentWeatherType], Wallpaper.Style.Stretched);}
                         catch (Exception x) { MessageBox.Show(x.ToString()); }
                     }
                 }
@@ -340,13 +324,12 @@ namespace WeatherDesktop
         {
             try
             {
-
                 //try get latlong if you can
                 if (!LatLongHandler.HasRecord())
                 {
                     if (LatLongObjects != null)
                     {
-
+                        
                         var ordered = LatLongObjects.OrderBy(d => {
                             return (d.Metadata.ClassName == "OpenDataFlatFileLookup") ? 1 : 2;
                         });
@@ -366,31 +349,14 @@ namespace WeatherDesktop
                 }
 
                 //get weather type
-                var weatherType = AppSetttingsHandler.Weather;
-
-                foreach (var item in PullByPrefered(WeatherObjects, weatherType, "GovWeather3"))
+                foreach (var item in PullByPrefered(WeatherObjects, AppSetttingsHandler.Weather, "GovWeather3"))
                 {
-                    try
-                    {
-                        g_Weather = item;
-                        g_Weather.Load();
-                        break;
-                    }
-                    catch (Exception x){ ErrorHandler.Send(x); }
+                    if (TryLoad(item)) { g_Weather = item; break; }
                 }
-
-
                 //get SRS
-                var srs = AppSetttingsHandler.SunRiseSet;
-                foreach (var item in PullByPrefered(SRSObjects, srs, "InternalSunRiseSet"))
+                foreach (var item in PullByPrefered(SRSObjects, AppSetttingsHandler.SunRiseSet, "InternalSunRiseSet"))
                 {
-                    try
-                    {
-                        g_SunRiseSet = item;
-                        g_SunRiseSet.Load();
-                        break;
-                    }
-                    catch { }
+                    if (TryLoad(item)){ g_SunRiseSet = item; break; }
                 }
             }
             catch (Exception x)
@@ -399,7 +365,12 @@ namespace WeatherDesktop
             }
 
             UpdateImageCache();
-            UpdateDenyedList();
+            UpdateDeniedList();
+        }
+
+        private static bool TryLoad(Interface.ISharedInterface item) 
+        {
+            try{item.Load(); return true;}catch (Exception x){ ErrorHandler.Send(x); return false; }
         }
 
         private IEnumerable<T> PullByPrefered<T>(IEnumerable<Lazy<T, Interface.IClassName>> collection, string prefered, string secondary)
@@ -419,44 +390,35 @@ namespace WeatherDesktop
             foreach (var item in ordered)
             {
                 yield return item.Value;
-
             }
         }
-
-
         #region Support functions to reduce complexity
 
-        private void UpdateDenyedList()
+        private void UpdateDeniedList()
         {
             int.TryParse(AppSetttingsHandler.DeniedHours, out int intDenyedHours);
             int.TryParse(AppSetttingsHandler.DeniedDays, out int intDenyedDays);
-            DenyedHours = intDenyedHours.ToBitArray();
-            DenyedDays = intDenyedDays.ToBitArray();
-
+            DeniedHours = intDenyedHours.ToBitArray();
+            DeniedDays = intDenyedDays.ToBitArray();
         }
 
         private void CreateTimer()
         {
-            var t = new System.Windows.Forms.Timer
-            {
-                Interval = 3000 // specify interval time as you want
-            };
+            var t = new System.Windows.Forms.Timer{Interval = 3000};
             t.Tick += new EventHandler(OnTimedEvent);
             t.Start();
         }
 
         private void UpdateImageCache()
         {
-            foreach (var element in Enum.GetValues(typeof(SharedObjects.WeatherTypes)))
-            {
-                var ElementName = Enum.GetName(typeof(SharedObjects.WeatherTypes), element);
-                var daykey = cDay + ElementName;
-                var nightKey = cNight + ElementName;
-                var dayimageCache = AppSetttingsHandler.Read(cDay + ElementName);
-                var nightimagecache = AppSetttingsHandler.Read(cNight + ElementName);
-                if (!string.IsNullOrEmpty(dayimageCache)) { g_ImageDictionary.Add(daykey, dayimageCache); }
-                if (!string.IsNullOrEmpty(nightimagecache)) { g_ImageDictionary.Add(nightKey, nightimagecache); }
-            }
+            var nightday = new string[] { cDay, cNight };
+            g_ImageDictionary = Enum.GetNames(typeof(SharedObjects.WeatherTypes))
+                .SelectMany(x => 
+                    nightday.Select(y => 
+                        new Tuple<string, string>(y+x, AppSetttingsHandler.Read(y+x))))
+                    .Where(x => 
+                        !string.IsNullOrEmpty(x.Item2))
+                .ToDictionary(tkey => tkey.Item1, tvalue=> tvalue.Item2);
         }
 
         private void LazyLoader()
@@ -467,16 +429,15 @@ namespace WeatherDesktop
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(WeatherDesktop.MainApp).Assembly));
             catalog.Catalogs.Add(new DirectoryCatalog(Environment.CurrentDirectory));
 
-            if (System.IO.Directory.Exists(PluginPaths)) {
-                catalog.Catalogs.Add(new DirectoryCatalog(PluginPaths));
-                foreach (var item in System.IO.Directory.EnumerateDirectories(PluginPaths))
+            if (Directory.Exists(PluginPaths)) {
+                catalog.Catalogs.Add(new DirectoryCatalog(PluginPaths));                
+                foreach (var item in Directory.EnumerateDirectories(PluginPaths))
                 {
                     catalog.Catalogs.Add(new DirectoryCatalog(item));
                 }
             }
             //Create the CompositionContainer with the parts in the catalog
             _container = new CompositionContainer(catalog);
-
             //Fill the imports of this object
             try
             {
@@ -487,7 +448,7 @@ namespace WeatherDesktop
                 ErrorHandler.Send(compositionException);
             }
         }
-
+        #endregion
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
@@ -502,10 +463,6 @@ namespace WeatherDesktop
 
         void IDisposable.Dispose() => Dispose(true);
         #endregion
-
         #endregion
-
-        #endregion
-
     }
 }

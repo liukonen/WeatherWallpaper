@@ -133,6 +133,15 @@ namespace WeatherDesktop.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Icon Style.
+        /// </summary>
+        internal static string IconStyle {
+            get {
+                return ResourceManager.GetString("IconStyle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Images.
         /// </summary>
         internal static string Images {

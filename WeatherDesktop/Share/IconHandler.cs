@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using WeatherDesktop.Shared.Handlers;
-using System.Linq;
-using System.Collections.Generic;
+
 
 namespace WeatherDesktop.Share
 {

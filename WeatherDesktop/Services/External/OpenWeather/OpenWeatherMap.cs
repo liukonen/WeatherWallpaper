@@ -119,9 +119,6 @@ namespace WeatherDesktop.Services.External.OpenWeather
                 { "max Temp", Response.Main.Temp_max.ToString() },
                 { "Debug", base.Debug() }
             }.CompileDebug();
-    
-        #endregion
-
-
+         #endregion
     }
 }

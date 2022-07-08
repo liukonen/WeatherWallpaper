@@ -21,8 +21,6 @@ namespace WeatherDesktop.Services.Internal
            +/- 72° latitude, and within 10 minutes outside of those latitudes.However, due to variations in 
            atmospheric composition, temperature, pressure and conditions, observed values may vary from calculations. 
       */
-
-
         #region Globals
 
         Geography geography;
@@ -152,49 +150,27 @@ namespace WeatherDesktop.Services.Internal
 
         #region "Heavy Math"
         private readonly int TimeZoneOffset = TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now).Hours;
-
         private double JulieanDay => DateTime.Now.Date.ToOADate() + 2415018.5 + 0 - TimeZoneOffset / 24;
-
         private double JulieanCent => (JulieanDay - 2451545) / 36525;
-
         private double GeomMeanLongSun => MOD1(280.46646 + JulieanCent * (36000.76983 + JulieanCent * 0.0003032), 360);
-
         private double GeomMeanAnomSun => 357.52911 + JulieanCent * (35999.05029 - 0.0001537 * JulieanCent);
-
         private double EccentEarthOrbit => 0.016708634 - JulieanCent * (0.000042037 + 0.0000001267 * JulieanCent);
-
         private double SunEqofCtr => Math.Sin(RADIANS(GeomMeanAnomSun)) * (1.914602 - JulieanCent * (0.004817 + 0.000014 * JulieanCent)) + Math.Sin(RADIANS(2 * GeomMeanAnomSun)) * (0.019993 - 0.000101 * JulieanCent) + Math.Sin(RADIANS(3 * GeomMeanAnomSun)) * 0.000289;
-
         private double SunTrueLong => GeomMeanLongSun + SunEqofCtr;
-
         private double SunAppLong => SunTrueLong - 0.00569 - 0.00478 * Math.Sin(RADIANS(125.04 - 1934.136 * JulieanCent));
-
         private double MeanObliqEcliptic => 23 + (26 + ((21.448 - JulieanCent * (46.815 + JulieanCent * (0.00059 - JulieanCent * 0.001813)))) / 60) / 60;
-
         private double ObliqCorr => MeanObliqEcliptic + 0.00256 * Math.Cos(RADIANS(125.04 - 1934.136 * JulieanCent));
-
         private double SunDeclin => DEGREES(Math.Asin(Math.Sin(RADIANS(ObliqCorr)) * Math.Sin(RADIANS(SunAppLong))));
-
         private double Y => Math.Tan(RADIANS(ObliqCorr / 2)) * Math.Tan(RADIANS(ObliqCorr / 2));
-
         private double EqofTime => 4 * DEGREES(Y * Math.Sin(2 * RADIANS(GeomMeanLongSun)) - 2 * EccentEarthOrbit * Math.Sin(RADIANS(GeomMeanAnomSun)) + 4 * EccentEarthOrbit * Y * Math.Sin(RADIANS(GeomMeanAnomSun)) * Math.Cos(2 * RADIANS(GeomMeanLongSun)) - 0.5 * Y * Y * Math.Sin(4 * RADIANS(GeomMeanLongSun)) - 1.25 * EccentEarthOrbit * EccentEarthOrbit * Math.Sin(2 * RADIANS(GeomMeanAnomSun)));
-
         private double HASunrise => DEGREES(Math.Acos(Math.Cos(RADIANS(90.833)) / (Math.Cos(RADIANS(geography.Latitude)) * Math.Cos(RADIANS(SunDeclin))) - Math.Tan(RADIANS(geography.Latitude)) * Math.Tan(RADIANS(SunDeclin))));
-
         private double PSolarNoon => (720 - 4 * geography.Longitude - EqofTime + TimeZoneOffset * 60) / 1440;
-
         public TimeSpan SolarNoon => DateTime.FromOADate(PSolarNoon).TimeOfDay;
-
         public TimeSpan SunriseTime => DateTime.FromOADate(PSolarNoon - HASunrise * 4 / 1440).TimeOfDay;
-
         public TimeSpan SunsetTime => DateTime.FromOADate(PSolarNoon + HASunrise * 4 / 1440).TimeOfDay;
-
         private static double MOD1(double Number, double Divider) => Number % Divider; 
-
         private static double RADIANS(double angle) => (Math.PI / 180) * angle; 
-
         private static double DEGREES(double radians) => radians * (180 / Math.PI); 
-
         #endregion
 
         #region Debug values

@@ -49,5 +49,10 @@ namespace WeatherDesktop.Shared.Extentions
             }
         }
 
+        public static void AddOrUpdate<T>(this Dictionary<string,T> item, string key, T value) 
+        {
+            if (item.ContainsKey(key)) { item[key] = value; } else { item.Add(key, value); }
+        }
+
     }
 }

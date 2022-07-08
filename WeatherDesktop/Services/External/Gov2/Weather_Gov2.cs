@@ -17,7 +17,6 @@ namespace WeatherDesktop.Services.External
         const int UpdateInterval = 60;
         private string httpResponse;
         private string iconUrl;
-        //private string _errors;
         private DateTime LastUpdated = DateTime.MinValue;
         private string _zip;
         private Exception _ThrownException = null;
@@ -64,11 +63,6 @@ namespace WeatherDesktop.Services.External
 
         #region "Helpers"
 
-        /// <summary>
-        /// Transforms the response string to a weatherResponse object.
-        /// </summary>
-        /// <param name="Response"></param>
-        /// <returns></returns>
         WeatherResponse Transform(string Response)
         {
             var Max = -180;
@@ -128,8 +122,6 @@ namespace WeatherDesktop.Services.External
                                         );
                                 }
                             }
-
-                            //type = string.Empty;
                             break;
                         case "weather-conditions":
                             type = "Weather";
@@ -151,7 +143,6 @@ namespace WeatherDesktop.Services.External
         {
 
             if (itemlookup.ContainsKey(currentType)) return itemlookup[currentType];
-            //return ExtractTypeFromIcon(Urlbackup);
             var core = Urlbackup.Substring(Urlbackup.LastIndexOf("/")).Replace(".jpg", string.Empty);
             if (core.StartsWith("ntsra") || core.StartsWith("tsra")) return SharedObjects.WeatherTypes.ThunderStorm;  //night Thunderstorm
             if (core.StartsWith("nscttsra") || core.StartsWith("scttsra")) return SharedObjects.WeatherTypes.ThunderStorm; //night sky thunderstorm
@@ -166,7 +157,6 @@ namespace WeatherDesktop.Services.External
             if (core == "blizzard") return SharedObjects.WeatherTypes.Snow;
             if (core == "du") return SharedObjects.WeatherTypes.Dust;
             if (core == "fu") return SharedObjects.WeatherTypes.Smoke; //patchy or smoke
-
             if (IconLookup.ContainsKey(core)) return IconLookup[core];
             return SharedObjects.WeatherTypes.Clear;
         }

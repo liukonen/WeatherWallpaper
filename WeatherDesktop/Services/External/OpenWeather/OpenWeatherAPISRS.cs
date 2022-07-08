@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WeatherDesktop.Interface;
 
 namespace WeatherDesktop.Services.External.OpenWeather
 {
-    [Export(typeof(WeatherDesktop.Interface.IsharedSunRiseSetInterface))]
+    [Export(typeof(IsharedSunRiseSetInterface))]
     [ExportMetadata("ClassName", "OpenWeatherAPISRS")]
     class OpenWeatherAPISRS : OpenWeatherAPIBase, IsharedSunRiseSetInterface
     {
@@ -22,9 +18,6 @@ namespace WeatherDesktop.Services.External.OpenWeather
                 Status = Status
             };
         }
-
         private static DateTime FromJsonTime(Int64 JsonTime) => new DateTime(1970, 1, 1).AddSeconds(JsonTime).ToLocalTime();
-
-
     }
 }

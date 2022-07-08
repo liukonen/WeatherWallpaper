@@ -14,12 +14,9 @@ namespace WeatherDesktop.Services.External.SunRiseSet
     [ExportMetadata("ClassName", "ExternalSunRiseSet")]
     public class SunRiseSet : IsharedSunRiseSetInterface
     {
-        #region Constants
         const string ClassName = "SunRiseSet";
         const string srs = "https://api.sunrise-sunset.org/json?lat={0}&amp;lng={1}&amp;date=today&amp;formatted=0";
-        #endregion
 
-        #region Globals
         Geography geography;
         DateTime _LastUpdate;
         int _HourToUpdate;
@@ -27,14 +24,9 @@ namespace WeatherDesktop.Services.External.SunRiseSet
         SunRiseSetResponse _cache;
         bool _firstCall = true;
         Exception _ThrownException = null;
-        #endregion
-
-        #region Settings
 
         public Exception ThrownException() => _ThrownException; 
-
         public MenuItem[] SettingsItems() => new MenuItem[] { new MenuItem(Properties.Menu.HourUpdate, ChangehourToUpdate) }; 
-
 
         public void TryupdateMenuItem(object sender, EventArgs e)
         {
@@ -49,20 +41,10 @@ namespace WeatherDesktop.Services.External.SunRiseSet
                 MessageBox.Show(Properties.Messages.UpdateComplete);
             }
             else { MessageBox.Show(Properties.Warnings.UpdateDidNotWork); }
-
-
         }
-        #endregion
-
-        #region Events
         private void ChangehourToUpdate(object sender, EventArgs e) => UpdateHour();
 
-        #endregion
-
-        #region New
-
         public SunRiseSet() { }
-
         public void Load()
         {
             geography = GetLocationProperty();
@@ -71,10 +53,6 @@ namespace WeatherDesktop.Services.External.SunRiseSet
             _LastUpdate = DateTime.Now;
             Invoke();
         }
-
-        #endregion
-
-        #region invoke
 
         public ISharedResponse Invoke()
         {
@@ -87,9 +65,7 @@ namespace WeatherDesktop.Services.External.SunRiseSet
             }
             return _cache;
         }
-        #endregion
 
-        #region Live API call
         private SunRiseSetResponse LiveCall(Geography geo)
         {
             var response = new SunRiseSetResponse();
@@ -103,10 +79,7 @@ namespace WeatherDesktop.Services.External.SunRiseSet
                     value = WebHandler.Instance.CallSite(url);
                     MemCacheHandler.Instance.SetItem(ClassName, value);
                 }
-
                 var SunRiseSetResponse = JsonConvert.DeserializeObject<SunRiseSetObject>(value);
-
-
                 response.Status = SunRiseSetResponse.Status;
                 if (response.Status.ToLower() == "ok")
                 {
@@ -118,9 +91,6 @@ namespace WeatherDesktop.Services.External.SunRiseSet
             catch (Exception x) { response.Status = x.ToString(); _ThrownException = x; }
             return response;
         }
-        #endregion
-
-        #region Helpers
 
         static bool IntialgetLatLong()
         {
@@ -155,9 +125,7 @@ namespace WeatherDesktop.Services.External.SunRiseSet
                 ? new Geography(LatLongHandler.Lat, LatLongHandler.Lng)
                 : new Geography(0, 0);
         }
-        #endregion
 
-        #region Debug values
         public string Debug() =>
 
              new Dictionary<string, string>
@@ -170,8 +138,6 @@ namespace WeatherDesktop.Services.External.SunRiseSet
                 {"SunSet", _cache.SunSet.ToString() },
                 {"Status", _cache.Status }
             }.CompileDebug();
-
-        #endregion
     }
 }
 

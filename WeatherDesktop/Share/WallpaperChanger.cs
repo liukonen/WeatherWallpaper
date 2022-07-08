@@ -1,6 +1,8 @@
 ﻿using System.Runtime.InteropServices;
 using Microsoft.Win32;
 using WeatherDesktop.Properties;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace WeatherDesktop.Share
 {
@@ -26,41 +28,57 @@ namespace WeatherDesktop.Share
            NativeMethods.SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
         }
 
-        public static System.Drawing.Icon GetWeatherIcon(SharedObjects.WeatherTypes weather, bool isDaytime)
+        public static Icon GetWeatherIcon(SharedObjects.WeatherTypes weather, bool isDaytime, bool isLightTheme) 
+            => (isLightTheme) ? LightIcons(weather, isDaytime) : DarkIcons(weather, isDaytime);            
+        
+
+        private static Icon LightIcons(SharedObjects.WeatherTypes weather, bool isDaytime) 
+        {
+            switch (weather) 
+            {
+                case SharedObjects.WeatherTypes.Clear: return (isDaytime) ? Resources.light_Clear_day : Resources.light_Clear_night;
+                case SharedObjects.WeatherTypes.Cloudy: return Resources.light_cloudy;
+                case SharedObjects.WeatherTypes.Fog: return Resources.light_fog;
+                case SharedObjects.WeatherTypes.Frigid: return Resources.light_Frigid;
+                case SharedObjects.WeatherTypes.Hot: return Resources.light_hot;
+                case SharedObjects.WeatherTypes.PartlyCloudy: return (isDaytime) ? Resources.light_PartlyCloudy_day : Resources.light_PartlyCloudy_night;
+                case SharedObjects.WeatherTypes.Rain: return Resources.light_raindrop;
+                case SharedObjects.WeatherTypes.Snow: return Resources.light_snowflake;
+                case SharedObjects.WeatherTypes.ThunderStorm: return Resources.light_Thunderstorm;
+                case SharedObjects.WeatherTypes.Windy: return Resources.light_wind;
+                //case SharedObjects.WeatherTypes.Dust:
+                //case SharedObjects.WeatherTypes.Haze:
+                //case SharedObjects.WeatherTypes.Smoke:
+                default: return Resources.light_windsock;
+            }
+        }
+
+        private static Icon DarkIcons(SharedObjects.WeatherTypes weather, bool isDaytime)
         {
             switch (weather)
             {
-                case SharedObjects.WeatherTypes.Clear:
-                    if (isDaytime) { return Resources.Clear_day; }
-                    else { return Resources.Clear_night; }
-                case SharedObjects.WeatherTypes.Cloudy:
-                    return Resources.cloudy;
-                case SharedObjects.WeatherTypes.Fog:
-                    return Resources.fog;
-                case SharedObjects.WeatherTypes.Frigid:
-                    return Resources.Frigid;
-                case SharedObjects.WeatherTypes.Hot:
-                    return Resources.hot;
-                case SharedObjects.WeatherTypes.PartlyCloudy:
-                    if (isDaytime) { return Resources.PartlyCloudy_day; }
-                    else { return Resources.PartlyCloudy_night; }
-                case SharedObjects.WeatherTypes.Rain:
-                    return Resources.raindrop;
-                case SharedObjects.WeatherTypes.Snow:
-                    return Resources.snowflake;
-                case SharedObjects.WeatherTypes.ThunderStorm:
-                    return Resources.Thunderstorm;
-                case SharedObjects.WeatherTypes.Windy:
-                    return Resources.wind;
-                case SharedObjects.WeatherTypes.Dust:
-                case SharedObjects.WeatherTypes.Haze:
-                case SharedObjects.WeatherTypes.Smoke:
-                default:
-                    return Resources.windsock;
+                case SharedObjects.WeatherTypes.Clear: return (isDaytime) ? Resources.Dark_Clear_day : Resources.Dark_Clear_night;
+                case SharedObjects.WeatherTypes.Cloudy: return Resources.Dark_cloudy;
+                case SharedObjects.WeatherTypes.Fog: return Resources.Dark_fog;
+                case SharedObjects.WeatherTypes.Frigid: return Resources.Dark_Frigid;
+                case SharedObjects.WeatherTypes.Hot: return Resources.Dark_Hot;
+                case SharedObjects.WeatherTypes.PartlyCloudy: return (isDaytime) ? Resources.Dark_PartlyCloudy_day : Resources.Dark_PartlyCloudy_night;
+                case SharedObjects.WeatherTypes.Rain: return Resources.Dark_raindrop;
+                case SharedObjects.WeatherTypes.Snow: return Resources.Dark_snowflake;
+                case SharedObjects.WeatherTypes.ThunderStorm: return Resources.Dark_Thunderstorm;
+                case SharedObjects.WeatherTypes.Windy: return Resources.Dark_wind;
+                //case SharedObjects.WeatherTypes.Dust:
+                //case SharedObjects.WeatherTypes.Haze:
+                //case SharedObjects.WeatherTypes.Smoke:
+                default: return Resources.Dark_windsock;
             }
-
         }
+
+
     }
+
+   
+
 
     internal static class NativeMethods
     {

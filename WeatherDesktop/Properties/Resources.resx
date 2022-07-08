@@ -118,49 +118,91 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Clear_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Clear_day.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dark_Clear_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark-Clear_day.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Clear_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Clear_night.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dark_Clear_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark-Clear_night.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cloudy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cloudy.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dark_cloudy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark-cloudy.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="fog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fog.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dark_fog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark-fog.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Frigid" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Frigid.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dark_Frigid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark-Frigid.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="hot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hot.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dark_Hot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark-Hot.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PartlyCloudy_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PartlyCloudy_day.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dark_PartlyCloudy_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark-PartlyCloudy_day.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PartlyCloudy_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PartlyCloudy_night.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dark_PartlyCloudy_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark-PartlyCloudy_night.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="raindrop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\raindrop.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dark_raindrop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark-raindrop.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="snowflake" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\snowflake.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dark_snowflake" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark-snowflake.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Thunderstorm" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Thunderstorm.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dark_Thunderstorm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark-Thunderstorm.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="wind" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wind.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dark_wind" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark-wind.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="windsock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\windsock.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Dark_windsock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark-windsock.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Gov2User" xml:space="preserve">
     <value>WeatherWallpaper/v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com)</value>
   </data>
   <data name="Gov3User" xml:space="preserve">
     <value>WeatherWallpaper / v1.0 (https://github.com/liukonen/WeatherWallpaper/; liukonen@gmail.com</value>
+  </data>
+  <data name="Icon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon1.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_Clear_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light-Clear_day.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_Clear_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light-Clear_night.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_cloudy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light-cloudy.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_fog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light-fog.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_Frigid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light-Frigid.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_hot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light-hot.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_PartlyCloudy_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light-PartlyCloudy_day.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_PartlyCloudy_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light-PartlyCloudy_night.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_raindrop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light-raindrop.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_snowflake" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light-snowflake.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_Thunderstorm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light-Thunderstorm.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_wind" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light-wind.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_windsock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light-windsock.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

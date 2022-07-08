@@ -141,6 +141,9 @@
   <data name="HourUpdate" xml:space="preserve">
     <value>Hour To Update</value>
   </data>
+  <data name="IconStyle" xml:space="preserve">
+    <value>Icon Style</value>
+  </data>
   <data name="Images" xml:space="preserve">
     <value>Images</value>
   </data>

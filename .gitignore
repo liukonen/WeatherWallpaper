@@ -295,3 +295,5 @@ __pycache__/
 /Plugin Templates/vb.ExternalService.Template/bin/Release
 /Plugins/Internal.flatfile/obj/Debug
 /Plugins/Internal.flatfile/bin/Debug
+
+*.vs

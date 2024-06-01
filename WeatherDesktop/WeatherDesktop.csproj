@@ -183,7 +183,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Warnings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\External\Gov2\LatLong_Gov2.cs" />
     <Compile Include="Services\External\MSWeather\MSWeather.cs" />
     <Compile Include="Services\External\OpenWeather\Objects\Clouds.cs" />
     <Compile Include="Services\External\OpenWeather\Objects\Coord.cs" />
@@ -199,7 +198,6 @@
     <Compile Include="Services\External\SunRiseSet\Results.cs" />
     <Compile Include="Services\External\SunRiseSet\SunRiseSet.cs" />
     <Compile Include="Services\External\SunRiseSet\SunRiseSetObject.cs" />
-    <Compile Include="Services\External\Gov2\Weather_Gov2.cs" />
     <Compile Include="Services\Internal\SystemLatLong.cs" />
     <Compile Include="Services\Internal\SunRiseSetCalc.cs" />
     <Compile Include="Services\External\Gov3\Weather_Gov3.cs" />

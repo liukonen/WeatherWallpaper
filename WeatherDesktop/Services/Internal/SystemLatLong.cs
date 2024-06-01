@@ -10,7 +10,7 @@ namespace WeatherDesktop.Services.Internal
     [ExportMetadata("ClassName", "SystemLatLong")]
     class SystemLatLong : ILatLongInterface
     {
-        private bool _DidItWork = false;
+        private readonly bool _DidItWork = false;
         KeyValuePair<double, double> _LatLong = new KeyValuePair<double, double>(0, 0);
         public SystemLatLong()
         {

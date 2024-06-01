@@ -22,13 +22,13 @@ namespace WeatherDesktop
         #region Lazy Load objects
 #pragma warning disable 0649
         [ImportMany]
-        IEnumerable<Lazy<Interface.ISharedWeatherinterface, Interface.IClassName>> WeatherObjects;
+        readonly IEnumerable<Lazy<Interface.ISharedWeatherinterface, Interface.IClassName>> WeatherObjects;
 
         [ImportMany]
-        IEnumerable<Lazy<Interface.IsharedSunRiseSetInterface, Interface.IClassName>> SRSObjects;
+        readonly IEnumerable<Lazy<Interface.IsharedSunRiseSetInterface, Interface.IClassName>> SRSObjects;
 
         [ImportMany]
-        IEnumerable<Lazy<Interface.ILatLongInterface, Interface.IClassName>> LatLongObjects;
+        readonly IEnumerable<Lazy<Interface.ILatLongInterface, Interface.IClassName>> LatLongObjects;
 #pragma warning restore 0649
         #endregion
 
@@ -38,10 +38,10 @@ namespace WeatherDesktop
         #endregion
 
         #region global Objects
-        private NotifyIcon notifyIcon;
+        private readonly NotifyIcon notifyIcon;
         private Interface.ISharedWeatherinterface g_Weather;
         private Interface.IsharedSunRiseSetInterface g_SunRiseSet;
-        private ThemeHandler Themes = new ThemeHandler();
+        private readonly ThemeHandler Themes = new ThemeHandler();
         private Dictionary<string, string> g_ImageDictionary = new Dictionary<string, string>();
         private string g_CurrentWeatherType;
         private CompositionContainer _container; 
